@@ -28,6 +28,7 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
+
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
@@ -146,20 +147,20 @@ set $mode_customization customization
 bindsym $mod+n mode "$mode_customization"
 mode "$mode_customization" {
 	#resize shrink
-	bindsym f resize shrink width 10 px or 10 ppt
-	bindsym d resize shrink width 4 px or 4 ppt
-	bindsym s resize shrink width 1 px or 1 ppt
-	bindsym v resize shrink height 10 px or 10 ppt
-	bindsym c resize shrink height 4 px or 4 ppt
-	bindsym x resize shrink height 1 px or 1 ppt
+	bindsym f resize shrink width 30px or 10 ppt
+	bindsym d resize shrink width 15 px or 4 ppt
+	bindsym s resize shrink width 5 px or 1 ppt
+	bindsym v resize shrink height 30 px or 10 ppt
+	bindsym c resize shrink height 15 px or 4 ppt
+	bindsym x resize shrink height 5 px or 1 ppt
 
 	#resize grow
-	bindsym j resize grow width 10 px or 10 ppt
-	bindsym k resize grow width 4 px or 4 ppt
-	bindsym l resize grow width 1 px or 1 ppt
-	bindsym m resize grow height 10 px or 10 ppt
-	bindsym comma resize grow height 4 px or 4 ppt
-	bindsym period resize grow height 1 px or 1 ppt
+	bindsym j resize grow width 30 px or 10 ppt
+	bindsym k resize grow width 15 px or 4 ppt
+	bindsym l resize grow width 5 px or 1 ppt
+	bindsym m resize grow height 30 px or 10 ppt
+	bindsym comma resize grow height 15 px or 4 ppt
+	bindsym period resize grow height 5 px or 1 ppt
 	
 	#inner gaps current plus
 	bindsym u gaps inner current plus 5
@@ -240,6 +241,9 @@ mode "unit manager"{
 
 	bindsym d exec --no-startup-id systemctl --user restart dunst.service; mode "default"
 	bindsym $mod+d exec --no-startup-id systemctl --user stop dunst.service; mode "default"
+	
+	bindsym r exec --no-startup-id systemctl --user restart lofi-radio.service; mode "default"
+	bindsym $mod+r exec --no-startup-id systemctl --user stop lofi-radio.service; mode "default"
 
 	bindsym i exec --no-startup-id systemctl --user restart i3-gaps.target; mode "default"
 
@@ -249,6 +253,10 @@ mode "unit manager"{
 }
 bindsym $mod+u mode "unit manager"
 
+#floating mpv
+for_window [class="mpv"] floating enable
+for_window [class="mpv"] resize set 400 225
+for_window [class="mpv"] move position 727 30 
 
 #drop down terminal
 bindsym $mod+z exec xfce4-terminal --hide-menubar --hide-scrollbar --drop-down -T dd-terminal
