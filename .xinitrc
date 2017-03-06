@@ -1,0 +1,2 @@
+exec i3
+exec i3 -V >> ~/.i3/i3log 2>&1

@@ -1,0 +1,11 @@
+[Unit]
+Description=Random wallpaper with feh
+After=i3-gaps.target
+PartOf=i3-gaps.target
+
+[Timer]
+OnActiveSec=0
+OnUnitActiveSec=20m
+
+[Install]
+WantedBy=i3-gaps.target

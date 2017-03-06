@@ -1,0 +1,11 @@
+#!/bin/bash
+
+DATA=$(curl -s "api.openweathermap.org/data/2.5/weather?id=546222&units=metric&APPID=f00b1dda84ede4b0b1fa6e763ec5d93f" \
+| jq -r '.main.temp, .main.pressure, .main.humidity, .wind.speed, .clouds.all')
+
+read TEMP PRESSURE HUMIDITY SPEED CLOUDS <<<$(echo $DATA)
+
+gdbus call --session --dest org.freedesktop.Notifications --object-path /org/freedesktop/Notifications --method org.freedesktop.Notifications.Notify \
+'weather' 0 0 "Погода" "Температура:\t$TEMP\nДавление:\t$PRESSURE\nВлажность:\t$HUMIDITY\nСкорость ветра:\t$SPEED\nОблачность:\t$CLOUDS" [] {} 15000 > /dev/null
+
+#echo $TEMP $PRESSURE $HUMIDITY $SPEED $CLOUDS

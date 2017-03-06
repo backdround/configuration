@@ -1,0 +1,264 @@
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
+set $mod Mod4
+
+#font pango:DejaVu Sans Mono 8
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym Mod1+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+o focus parent
+
+# focus the child container
+bindsym $mod+c focus child
+
+# switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+	i3bar_command i3bar -t
+	status_command i3blocks
+	
+	
+	font pango:DejaVu Sans Mono, Icons, FontAwesome 14
+	font pango:xos4 Terminus Semi-Condensed Bold 13
+	#font pango: digital-7 14
+	#font pango:Fantasque sans mono bold italic 14
+	
+
+	tray_output none
+	
+	height 20
+
+	colors {
+		statusline "#0099AAFF"
+		background "#00000060"
+		separator "#AAAAAAFF"
+
+		focused_workspace   #00000000 #558888FF #FFFFFF 
+		inactive_workspace  #00000000 #152222FF #88D2D2
+		urgent_workspace    #000000FF #FFFFFF99 #000000
+	}
+}
+
+#myconf
+
+#bar mod
+bindsym $mod+Shift+p bar mode toggle
+
+#font
+#font "pango:InconsolataForPowerline NF small 8"
+font pango:xos4 Terminus Semi-Condensed 8
+
+#session
+mode "session" {
+	bindsym e exec --no-startup-id i3-msg exit; exec --no-startup-id systemctl --user stop i3-gaps.target; mode "default"
+	bindsym l exec --no-startup-id ~/Scripts/i3/i3lock-blur; mode "default"
+	bindsym s exec --no-startup-id systemctl poweroff; exec --no-startup-id systemctl --user stop i3-gaps.target; mode "default"
+	bindsym r exec --no-startup-id systemctl reboot; exec --no-startup-id systemctl --user stop i3-gaps.target; mode "default"
+
+	bindsym q mode "default"
+	bindsym Escape mode "default"
+	bindsym Return mode "default"
+}
+bindsym $mod+Shift+e mode "session"
+
+set $outer 4
+set $inner 20
+
+set $mode_customization customization
+
+bindsym $mod+n mode "$mode_customization"
+mode "$mode_customization" {
+	#resize shrink
+	bindsym f resize shrink width 10 px or 10 ppt
+	bindsym d resize shrink width 4 px or 4 ppt
+	bindsym s resize shrink width 1 px or 1 ppt
+	bindsym v resize shrink height 10 px or 10 ppt
+	bindsym c resize shrink height 4 px or 4 ppt
+	bindsym x resize shrink height 1 px or 1 ppt
+
+	#resize grow
+	bindsym j resize grow width 10 px or 10 ppt
+	bindsym k resize grow width 4 px or 4 ppt
+	bindsym l resize grow width 1 px or 1 ppt
+	bindsym m resize grow height 10 px or 10 ppt
+	bindsym comma resize grow height 4 px or 4 ppt
+	bindsym period resize grow height 1 px or 1 ppt
+	
+	#inner gaps current plus
+	bindsym u gaps inner current plus 5
+	bindsym i gaps inner current plus 2
+	
+	#outer gaps current plus
+	bindsym o gaps outer current plus 5
+	bindsym p gaps outer current plus 2
+	
+	#inner gaps current minus
+	bindsym r gaps inner current minus 5
+	bindsym e gaps inner current minus 2
+	
+	#outer gaps current plus
+	bindsym w gaps outer current minus 5
+	bindsym q gaps outer current minus 2
+	
+	#set default gaps
+	bindsym 1 gaps inner current set $inner
+	bindsym 2 gaps outer current set $outer
+	
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
+#border
+new_window pixel 0
+smart_borders on
+#for_window [class="^.*"] border pixel 0
+
+bindsym $mod+b border toggle
+
+#gaps
+smart_gaps on
+gaps outer $outer
+gaps inner $inner
+
+
+#execution
+
+#translate
+#bindsym $mod+q exec --no-startup-id pkill -RTMIN+11 i3blocks
+#bindsym $mod+a exec --no-startup-id echo | xclip && pkill -RTMIN+11 i3blocks
+bindsym $mod+a exec --no-startup-id Scripts/i3/translate_ya_ru
+bindsym $mod+q exec --no-startup-id Scripts/i3/translate_trans
+
+
+#launcher
+mode "launcher" {
+	# bindsym $mod+d exec dmenu_run; mode "default"
+	bindsym d exec --no-startup-id i3-dmenu-desktop; mode "default"
+	
+	#terminal
+	bindsym Return exec i3-sensible-terminal --hide-menubar --hide-scrollbar; mode "default"
+	
+	#chromium
+	bindsym c exec --no-startup-id chromium; mode "default"
+	
+	#weather
+	bindsym t exec --no-startup-id Scripts/i3/weather; mode "default"
+	
+	
+	bindsym q mode "default"
+	bindsym Escape mode "default"
+}
+bindsym $mod+x mode "launcher"
+
+#restart or start i3
+exec_always --no-startup-id systemctl --user restart i3-gaps.target
+
+#unit manager
+mode "unit manager"{
+	bindsym w exec --no-startup-id systemctl --user start feh-wallpaper.service; mode "default"
+	bindsym $mod+w exec --no-startup-id systemctl --user stop feh-wallpaper.timer; mode "default"
+
+	bindsym c exec --no-startup-id systemctl --user restart compton.service; mode "default"
+	bindsym $mod+c exec --no-startup-id systemctl --user stop compton.service; mode "default"
+
+	bindsym d exec --no-startup-id systemctl --user restart dunst.service; mode "default"
+	bindsym $mod+d exec --no-startup-id systemctl --user stop dunst.service; mode "default"
+
+	bindsym i exec --no-startup-id systemctl --user restart i3-gaps.target; mode "default"
+
+	bindsym q mode "default"
+	bindsym Escape mode "default"
+	bindsym Return mode "default"
+}
+bindsym $mod+u mode "unit manager"
+
+
+#drop down terminal
+bindsym $mod+z exec xfce4-terminal --hide-menubar --hide-scrollbar --drop-down -T dd-terminal
+for_window [title="dd-terminal"] move position 0 0;
+
+#screenshot
+bindsym --release Print exec --no-startup-id scrot -q 100  $HOME/Pictures/screenshot-$(date +%Y-%m-%d_%H-%M-%S).jpg
+bindsym --release $mod+Print exec --no-startup-id scrot -q 100 -s $HOME/Pictures/screenshot-$(date +%Y-%m-%d_%H-%M-%S).jpg
+
+#multikeys
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle && pkill -RTMIN+10 i3blocks

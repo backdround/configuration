@@ -1,0 +1,21 @@
+#!/bin/bash
+
+case $BLOCK_BUTTON in
+  1) chromium --new-window "https://translate.google.com/#en/ru/`xclip -o | sed 's/ \{1,\}/%20/g'`" > /dev/null;;
+  3) echo ;;
+esac
+
+TEXT=$(xclip -o)
+if [[ -z "$TEXT" ]]; then
+echo
+echo
+else
+TEXT="<span font='FontAwesome italic 11' color='#FF99FF'>"$(echo $TEXT| tr -d '\n' | trans -b :ru)"</span>"
+FA_LL="<span font='FontAwesome 10' color='#00000060'>&#57520;</span>"
+FA_RR="<span font='FontAwesome 10' color='#00000060'>&#57522;</span>"
+FA_L="<span font='xos4 Terminus 10' color='#FFFFFFFF'>&#57521; </span>"
+FA_R="<span font='FontAwesome 10' color='#FFFFFFFF'> &#57523;</span>"
+
+echo $FA_LL$FA_L$TEXT$FA_R$FA_RR
+echo $FA_LL$FA_L$TEXT$FA_R$FA_RR
+fi

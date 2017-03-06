@@ -1,0 +1,55 @@
+#!/bin/bash
+
+STATUS=$(cat /sys/class/power_supply/BAT1/status)
+
+FA_TEXT=""
+TEXT=""
+COLOR=""
+case $STATUS in
+	Full)
+		FA_LIGHTNING="<span font='FontAwesome'>&#xf0e7;</span>"
+		FA_PLUG="<span font='FontAwesome'>&#xf1e6;</span>"
+		FA_TEXT=$FA_LIGHTNING
+		TEXT=$FA_PLUG
+	;;
+	Unknown)
+		FA_UNKNOWN="<span font='FontAwesome'>&#xf128;</span>"
+		FA_TEXT=$FA_UNKNOWN
+	;;
+	Discharging)
+		FA_BAT0="<span font='FontAwesome'>&#xf244;</span>"
+		FA_BAT1="<span font='FontAwesome'>&#xf243;</span>"
+		FA_BAT2="<span font='FontAwesome'>&#xf242;</span>"
+		FA_BAT3="<span font='FontAwesome'>&#xf241;</span>"
+		FA_BAT4="<span font='FontAwesome'>&#xf240;</span>"
+		CHARGE=$(echo "$(cat /sys/class/power_supply/BAT1/charge_now) * 100 / $(cat /sys/class/power_supply/BAT1/charge_full)" | bc)
+		TEXT=$CHARGE
+		if [[ $CHARGE -ge 80 ]]; then
+			FA_TEXT=$FA_BAT4
+		elif [[ $CHARGE -ge 60 ]]; then
+			FA_TEXT=$FA_BAT3
+		elif [[ $CHARGE -ge 40 ]]; then
+			FA_TEXT=$FA_BAT2
+		elif [[ $CHARGE -ge 20 ]]; then
+			FA_TEXT=$FA_BAT1
+			COLOR="#CC2222"
+		else
+			FA_TEXT=$FA_BAT0
+			COLOR="#FF0000"
+		fi
+	;;
+	Charging)
+		FA_LIGHTNING="<span font='FontAwesome'>&#xf0e7;</span>"
+		CHARGE=$(echo "$(cat /sys/class/power_supply/BAT1/charge_now) * 100 / $(cat /sys/class/power_supply/BAT1/charge_full)" | bc)
+		TEXT=$CHARGE
+		FA_TEXT=$FA_LIGHTNING
+	;;
+	*)
+		FA_NO_FOUND="<span font='FontAwesome'>&#xf00d; &#xf240;</span>"
+		FA_TEXT=$FA_NO_FOUND
+	;;
+esac
+
+echo "<span color='${BLOCK_INSTANCE}'>"$FA_TEXT"</span>"$TEXT
+echo "<span color='${BLOCK_INSTANCE}'>"$FA_TEXT"</span>"$TEXT
+echo $COLOR

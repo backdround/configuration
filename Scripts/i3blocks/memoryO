@@ -1,0 +1,20 @@
+#!/bin/bash
+
+MEM=`awk '
+ /^MemTotal:/ {total = $2}
+ /^MemFree:/ {free = $2}
+ /^Buffers:/ {free += $2}
+ /^Cached:/ {free += $2}
+ END {
+	print (1-free/total)*100
+}
+' /proc/meminfo | cut -d "." -f1`
+
+echo $MEM
+echo $MEM
+
+if [[ $MEM -ge 90 ]]; then
+    echo "#FF2222"
+elif [[ $MEM -ge 80 ]]; then
+    echo "#FF6633"
+fi

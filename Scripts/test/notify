@@ -1,0 +1,8 @@
+#!/bin/bash
+sleep 8
+notify-send -u low "<b>title</b>\n textextextextextextext1"
+sleep 3
+notify-send -u normal "<b>title</b>\n textextextextextextext2"
+sleep 3
+notify-send -u critical "<b>title</b>\n textextextextextextext3"
+sleep 3

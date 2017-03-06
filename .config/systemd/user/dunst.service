@@ -1,0 +1,13 @@
+[Unit]
+Description=Notification server(dunst)
+After=i3-gaps.target
+PartOf=i3-gaps.target
+
+[Service]
+Type=simple
+Environment="DISPLAY=:0"
+ExecStart=/bin/bash -c 'dunst'
+RemainAfterExit=no
+
+[Install]
+WantedBy=i3-gaps.target

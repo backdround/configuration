@@ -1,0 +1,20 @@
+#!/bin/bash
+
+MEM=`awk '
+ /^SwapTotal:/ {total = $2}
+ /^SwapFree:/ {free = $2}
+ END {
+	print (1-free/total)*100
+}
+' /proc/meminfo | cut -d "." -f1`
+
+
+echo $MEM
+echo $MEM
+
+if [[ $MEM -ge 80 ]]; then
+    echo "#FF2222"
+elif [[ $MEM -ge 50 ]]; then
+    echo "#FF6633"
+fi
+

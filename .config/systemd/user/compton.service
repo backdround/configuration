@@ -1,0 +1,16 @@
+[Unit]
+Description=Transperancy for wm(Compton)
+After=i3-gaps.target
+PartOf=i3-gaps.target
+
+[Service]
+Type=forking
+Environment="DISPLAY=:0"
+ExecStart=/bin/bash -c 'compton -b --config ~/.config/compton.conf'
+ExecReload=/bin/bash -c 'pkill -SIGUSR1 compton'
+KillSignal=SIGINT
+
+RemainAfterExit=no
+
+[Install]
+WantedBy=i3-gaps.target

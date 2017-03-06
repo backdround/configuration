@@ -1,0 +1,14 @@
+[Unit]
+Description=Random wallpaper with feh
+After=i3-gaps.target
+
+
+[Service]
+Type=oneshot
+Environment=DISPLAY=:0
+ExecStart=/bin/bash -c '/usr/bin/feh --bg-max "$(find /home/vlad/.wallpaper/default/|shuf|head -n 1)"'
+RemainAfterExit=no
+
+[Install]
+WantedBy=i3-gaps.target
+
