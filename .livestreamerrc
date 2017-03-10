@@ -1,0 +1,3 @@
+player=mpv --cache 8192
+player-no-close
+default-stream=720p
