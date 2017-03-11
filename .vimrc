@@ -65,8 +65,6 @@ function! ConfigureView()
     set smartindent
     " Отображение парных символов
     set showmatch
-    set lines=50
-    set columns=140
     " Навигация с учетом русских символов
     set iskeyword=@,48-57,_,192-255
     " Удаление символов бэкспэйсом в Windows
@@ -104,7 +102,6 @@ function! BindKeys()
     imap <C-b> <esc><esc>:BufExplorer<cr>
     nmap <C-\> :TagbarToggle<CR>
     cnoremap @ <c-r>=expand("%:h")<cr>/
-    inoremap <Tab> <C-R>=SuperCleverTab()<cr>
     nmap <silent> <Leader>of :FSHere<cr>
     nmap fd :Rgrep<cr>
     nmap fb :GrepBuffer<cr>

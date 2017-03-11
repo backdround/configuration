@@ -35,12 +35,6 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# split in horizontal orientation
-bindsym Mod1+h split h
-
-# split in vertical orientation
-bindsym $mod+v split v
-
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
@@ -54,12 +48,6 @@ bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
-
-# focus the parent container
-bindsym $mod+o focus parent
-
-# focus the child container
-bindsym $mod+c focus child
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -222,7 +210,15 @@ mode "launcher" {
 	#weather
 	bindsym t exec --no-startup-id Scripts/i3/weather; mode "default"
 	
-	
+	# split in horizontal orientation
+	bindsym $mod+h split h
+	# split in vertical orientation
+	bindsym $mod+v split v
+	# focus the parent container
+	bindsym $mod+o focus parent
+	# focus the child container
+	bindsym $mod+c focus child
+
 	bindsym q mode "default"
 	bindsym Escape mode "default"
 }
