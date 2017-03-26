@@ -39,8 +39,8 @@ markup=pango
 [separator1]
 full_text=<span font='xos4 Terminus 14'></span>
 color=#000000
-background=#00000060
-border=#00000060
+background=#15151590
+border=#15151590
 border_left=40
 border_right=0
 border_top=0

@@ -96,7 +96,8 @@ bar {
 
 	colors {
 		statusline "#0099AAFF"
-		background "#00000060"
+		#background "#00000060"
+		background "#15151590"
 		separator "#AAAAAAFF"
 
 		focused_workspace   #00000000 #558888FF #FFFFFF 
@@ -130,48 +131,79 @@ bindsym $mod+Shift+e mode "session"
 set $outer 4
 set $inner 20
 
-set $mode_customization customization
+set $cust1 customization 1
+set $cust2 customization 2
+set $cust3 customization 3
 
-bindsym $mod+n mode "$mode_customization"
-mode "$mode_customization" {
-	#resize shrink
-	bindsym f resize shrink width 30px or 10 ppt
-	bindsym d resize shrink width 15 px or 4 ppt
-	bindsym s resize shrink width 5 px or 1 ppt
-	bindsym v resize shrink height 30 px or 10 ppt
-	bindsym c resize shrink height 15 px or 4 ppt
-	bindsym x resize shrink height 5 px or 1 ppt
+bindsym $mod+n mode "$cust1"
+mode "$cust1" {
+	bindsym 1 mode "$cust1"
+	bindsym 2 mode "$cust2"
+	bindsym 3 mode "$cust3"
 
-	#resize grow
-	bindsym j resize grow width 30 px or 10 ppt
-	bindsym k resize grow width 15 px or 4 ppt
-	bindsym l resize grow width 5 px or 1 ppt
-	bindsym m resize grow height 30 px or 10 ppt
-	bindsym comma resize grow height 15 px or 4 ppt
-	bindsym period resize grow height 5 px or 1 ppt
-	
-	#inner gaps current plus
-	bindsym u gaps inner current plus 5
-	bindsym i gaps inner current plus 2
-	
-	#outer gaps current plus
-	bindsym o gaps outer current plus 5
-	bindsym p gaps outer current plus 2
-	
-	#inner gaps current minus
-	bindsym r gaps inner current minus 5
-	bindsym e gaps inner current minus 2
-	
-	#outer gaps current plus
-	bindsym w gaps outer current minus 5
-	bindsym q gaps outer current minus 2
-	
-	#set default gaps
-	bindsym 1 gaps inner current set $inner
-	bindsym 2 gaps outer current set $outer
-	
+	bindsym h resize grow width 5 px or 1 ppt
+	bindsym j resize grow height 5 px or 1 ppt
+	bindsym k resize shrink height 5 px or 1 ppt
+	bindsym l resize shrink width 5 px or 1 ppt
+
+	bindsym f gaps inner current plus 1
+	bindsym d gaps inner current minus 1
+
+	bindsym s gaps outer current plus 1
+	bindsym a gaps outer current minus 1
+
+	bindsym 9 gaps inner current set $inner
+	bindsym 0 gaps outer current set $outer
+
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
+	bindsym q mode "default"
+}
+mode "$cust2" {
+	bindsym 1 mode "$cust1"
+	bindsym 2 mode "$cust2"
+	bindsym 3 mode "$cust3"
+
+	bindsym h resize grow width 15 px or 4 ppt
+	bindsym j resize grow height 15 px or 4 ppt
+	bindsym k resize shrink height 15 px or 4 ppt
+	bindsym l resize shrink width 15 px or 4 ppt
+
+	bindsym f gaps inner current plus 3
+	bindsym d gaps inner current minus 3
+
+	bindsym s gaps outer current plus 3
+	bindsym a gaps outer current minus 3
+
+	bindsym 9 gaps inner current set $inner
+	bindsym 0 gaps outer current set $outer
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym q mode "default"
+}
+mode "$cust3" {
+	bindsym 1 mode "$cust1"
+	bindsym 2 mode "$cust2"
+	bindsym 3 mode "$cust3"
+
+	bindsym h resize grow width 30 px or 10 ppt
+	bindsym j resize grow height 30 px or 10 ppt
+	bindsym k resize shrink height 30 px or 10 ppt
+	bindsym l resize shrink width 30 px or 10 ppt
+
+	bindsym f gaps inner current plus 10
+	bindsym d gaps inner current minus 10
+
+	bindsym s gaps outer current plus 10
+	bindsym a gaps outer current minus 10
+
+	bindsym 9 gaps inner current set $inner
+	bindsym 0 gaps outer current set $outer
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym q mode "default"
 }
 
 #border
@@ -255,7 +287,7 @@ for_window [class="mpv"] resize set 400 225
 for_window [class="mpv"] move position 727 30 
 
 #drop down terminal
-bindsym $mod+z exec xfce4-terminal --hide-menubar --hide-scrollbar --drop-down -T dd-terminal
+bindsym $mod+d exec xfce4-terminal --hide-menubar --hide-scrollbar --drop-down -T dd-terminal
 for_window [title="dd-terminal"] move position 0 0;
 
 #screenshot

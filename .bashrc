@@ -16,6 +16,7 @@ alias fgrep='fgrep --color=always'
 alias egrep='egrep --color=always'
 alias gcc='gcc -fdiagnostics-color=always'
 alias pacman='pacman --color=always'
+alias ts='trans :ru -b'
 
 man() {
     env LESS_TERMCAP_mb=$'\E[01;31m' \
