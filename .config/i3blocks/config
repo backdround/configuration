@@ -146,7 +146,7 @@ border_bottom=0
 
 [battery]
 instance=#FFFFFF
-interval=15
+interval=4
 min_width=55
 background=#222222
 

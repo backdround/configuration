@@ -21,9 +21,7 @@ function! Plugins()
 
 	let g:airline_section_b = '%t%m%#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
 	let g:airline_section_c = '%='
-
 	let g:airline_section_gutter = '%='
-
 	let g:airline_section_x = ''
 	let g:airline_section_y = '%{getcwd()}'
 	let g:airline_section_z = '%#__accent_bold#%p%% %l/%L%#__restore__#'
@@ -50,6 +48,9 @@ function! Plugins()
 	"let g:ctrlp_custom_ignore = {'dir':  '\v[\/](\.(git|hg|svn)|\_site)$', 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',}
 	let g:ctrlp_root_markers = ['main.cpp']
 
+	let g:AutoPairsMapBS = 0
+	let g:AutoPairsMapCh = 0
+	let g:AutoPairsShortcutToggle = ''
 endfunc
 
 function! LocalLang()
@@ -154,6 +155,21 @@ function! BindKeys()
     "nmap fb :GrepBuffer<cr>
     "nmap p4e :!p4 edit %<cr>
 	nnoremap <space> za
+	"inoremap <BS> <left>
+	inoremap <m-h> <left>
+	inoremap <m-j> <down>
+	inoremap <m-k> <up>
+	inoremap <m-l> <right>
+
+	nmap <silent> <m-k> :wincmd k<CR>
+	nmap <silent> <m-j> :wincmd j<CR>
+	nmap <silent> <m-h> :wincmd h<CR>
+	nmap <silent> <m-l> :wincmd l<CR>	
+
+	nmap <silent> <m-K> :wincmd K<CR>
+	nmap <silent> <m-J> :wincmd J<CR>
+	nmap <silent> <m-H> :wincmd H<CR>
+	nmap <silent> <m-L> :wincmd L<CR>	
 endfunction
 
 

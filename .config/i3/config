@@ -238,6 +238,7 @@ mode "launcher" {
 	
 	#chromium
 	bindsym c exec --no-startup-id chromium; mode "default"
+	bindsym $mod+c exec --no-startup-id pkill chromium; mode "default"
 	
 	#weather
 	bindsym t exec --no-startup-id Scripts/i3/weather; mode "default"
