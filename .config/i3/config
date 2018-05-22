@@ -1,4 +1,5 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
+#focus_follows_mouse no
 
 set $mod Mod4
 
@@ -23,10 +24,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
+bindsym $mod+Shift+h move left 50px
+bindsym $mod+Shift+j move down 50px
+bindsym $mod+Shift+k move up 50px
+bindsym $mod+Shift+l move right 50px
 
 
 # alternatively, you can use the cursor keys:
@@ -39,8 +40,8 @@ bindsym $mod+Shift+Right move right
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+#bindsym $mod+s layout stacking
+#bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
@@ -60,6 +61,7 @@ bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
+bindsym $mod+bar workspace work
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
@@ -79,32 +81,37 @@ bindsym $mod+Shift+r restart
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
+
 bar {
-	i3bar_command i3bar -t
-	status_command i3blocks
-	
-	
-	font pango:DejaVu Sans Mono, Icons, FontAwesome 14
-	font pango:xos4 Terminus Semi-Condensed Bold 13
-	#font pango: digital-7 14
-	#font pango:Fantasque sans mono bold italic 14
-	
+  i3bar_command i3bar -t
+  status_command i3blocks
 
-	tray_output none
-	
-	height 20
 
-	colors {
-		statusline "#0099AAFF"
-		#background "#00000060"
-		background "#15151590"
-		separator "#AAAAAAFF"
+  font pango:DejaVu Sans Mono, Icons, FontAwesome 14
+  font pango:xos4 Terminus Semi-Condensed Bold 13
+  #font pango: digital-7 14
+  #font pango:Fantasque sans mono bold italic 14
 
-		focused_workspace   #00000000 #558888FF #FFFFFF 
-		inactive_workspace  #00000000 #152222FF #88D2D2
-		urgent_workspace    #000000FF #FFFFFF99 #000000
-	}
+
+  tray_output none
+
+  height 20
+
+  colors {
+  statusline "#FFFFFFFF"
+  #statusline "#0099AAFF"
+  #background "#15151590"
+  background "#1A1A1A"
+  separator "#AAAAAAFF"
+
+  #focused_workspace   #00000000 #558888FF #FFFFFF 
+  #inactive_workspace  #00000000 #152222FF #88D2D2
+  focused_workspace   #00000000 #99BBBB #000000 
+  inactive_workspace  #00000000 #222222FF #BBFFDD
+  urgent_workspace    #000000FF #FFFFFF99 #000000
+  }
 }
+
 
 #myconf
 
@@ -117,18 +124,19 @@ font pango:xos4 Terminus Semi-Condensed 8
 
 #session
 mode "session" {
-	bindsym e exec --no-startup-id i3-msg exit; exec --no-startup-id systemctl --user stop i3-gaps.target; mode "default"
-	bindsym l exec --no-startup-id ~/Scripts/i3/i3lock-blur; mode "default"
-	bindsym s exec --no-startup-id systemctl poweroff; exec --no-startup-id systemctl --user stop i3-gaps.target; mode "default"
-	bindsym r exec --no-startup-id systemctl reboot; exec --no-startup-id systemctl --user stop i3-gaps.target; mode "default"
+  bindsym e exec --no-startup-id systemctl --user stop i3-gaps.target; i3-msg exit ; mode "default"
+  bindsym e exec --no-startup-id systemctl --user stop i3-gaps.target; exec i3-msg exit ; mode "default"
+  bindsym l exec --no-startup-id ~/Scripts/i3/i3lock-blur; mode "default"
+  bindsym s exec --no-startup-id "systemctl --user stop i3-gaps.target; sleep 0.5; systemctl poweroff"; mode "default"
+  bindsym r exec --no-startup-id "systemctl --user stop i3-gaps.target; sleep 0.5; systemctl reboot"; mode "default"
 
-	bindsym q mode "default"
-	bindsym Escape mode "default"
-	bindsym Return mode "default"
+  bindsym q mode "default"
+  bindsym Escape mode "default"
+  bindsym Return mode "default"
 }
 bindsym $mod+Shift+e mode "session"
 
-set $outer 4
+set $outer 0
 set $inner 20
 
 set $cust1 customization 1
@@ -137,123 +145,143 @@ set $cust3 customization 3
 
 bindsym $mod+n mode "$cust1"
 mode "$cust1" {
-	bindsym 1 mode "$cust1"
-	bindsym 2 mode "$cust2"
-	bindsym 3 mode "$cust3"
+  bindsym 1 mode "$cust1"
+  bindsym 2 mode "$cust2"
+  bindsym 3 mode "$cust3"
 
-	bindsym h resize grow width 5 px or 1 ppt
-	bindsym j resize grow height 5 px or 1 ppt
-	bindsym k resize shrink height 5 px or 1 ppt
-	bindsym l resize shrink width 5 px or 1 ppt
+  bindsym h resize grow width 5 px or 1 ppt
+  bindsym j resize grow height 5 px or 1 ppt
+  bindsym k resize shrink height 5 px or 1 ppt
+  bindsym l resize shrink width 5 px or 1 ppt
 
-	bindsym f gaps inner current plus 1
-	bindsym d gaps inner current minus 1
+  bindsym $mod+Shift+h move left 10px
+  bindsym $mod+Shift+j move down 10px
+  bindsym $mod+Shift+k move up 10px
+  bindsym $mod+Shift+l move right 10px
 
-	bindsym s gaps outer current plus 1
-	bindsym a gaps outer current minus 1
+  bindsym f gaps inner current plus 1
+  bindsym d gaps inner current minus 1
 
-	bindsym 9 gaps inner current set $inner
-	bindsym 0 gaps outer current set $outer
+  bindsym s gaps outer current plus 1
+  bindsym a gaps outer current minus 1
 
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
-	bindsym q mode "default"
+  bindsym 9 gaps inner current set $inner
+  bindsym 0 gaps outer current set $outer
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym q mode "default"
 }
 mode "$cust2" {
-	bindsym 1 mode "$cust1"
-	bindsym 2 mode "$cust2"
-	bindsym 3 mode "$cust3"
+  bindsym 1 mode "$cust1"
+  bindsym 2 mode "$cust2"
+  bindsym 3 mode "$cust3"
 
-	bindsym h resize grow width 15 px or 4 ppt
-	bindsym j resize grow height 15 px or 4 ppt
-	bindsym k resize shrink height 15 px or 4 ppt
-	bindsym l resize shrink width 15 px or 4 ppt
+  bindsym h resize grow width 15 px or 4 ppt
+  bindsym j resize grow height 15 px or 4 ppt
+  bindsym k resize shrink height 15 px or 4 ppt
+  bindsym l resize shrink width 15 px or 4 ppt
 
-	bindsym f gaps inner current plus 3
-	bindsym d gaps inner current minus 3
+  bindsym $mod+Shift+h move left 25px
+  bindsym $mod+Shift+j move down 25px
+  bindsym $mod+Shift+k move up 25px
+  bindsym $mod+Shift+l move right 25px
 
-	bindsym s gaps outer current plus 3
-	bindsym a gaps outer current minus 3
+  bindsym f gaps inner current plus 3
+  bindsym d gaps inner current minus 3
 
-	bindsym 9 gaps inner current set $inner
-	bindsym 0 gaps outer current set $outer
+  bindsym s gaps outer current plus 3
+  bindsym a gaps outer current minus 3
 
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
-	bindsym q mode "default"
+  bindsym 9 gaps inner current set $inner
+  bindsym 0 gaps outer current set $outer
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym q mode "default"
 }
 mode "$cust3" {
-	bindsym 1 mode "$cust1"
-	bindsym 2 mode "$cust2"
-	bindsym 3 mode "$cust3"
+  bindsym 1 mode "$cust1"
+  bindsym 2 mode "$cust2"
+  bindsym 3 mode "$cust3"
 
-	bindsym h resize grow width 30 px or 10 ppt
-	bindsym j resize grow height 30 px or 10 ppt
-	bindsym k resize shrink height 30 px or 10 ppt
-	bindsym l resize shrink width 30 px or 10 ppt
+  bindsym h resize grow width 60 px or 20 ppt
+  bindsym j resize grow height 60 px or 20 ppt
+  bindsym k resize shrink height 60 px or 20 ppt
+  bindsym l resize shrink width 60 px or 20 ppt
 
-	bindsym f gaps inner current plus 10
-	bindsym d gaps inner current minus 10
+  bindsym $mod+Shift+h move left 60px
+  bindsym $mod+Shift+j move down 60px
+  bindsym $mod+Shift+k move up 60px
+  bindsym $mod+Shift+l move right 60px
 
-	bindsym s gaps outer current plus 10
-	bindsym a gaps outer current minus 10
+  bindsym f gaps inner current plus 10
+  bindsym d gaps inner current minus 10
 
-	bindsym 9 gaps inner current set $inner
-	bindsym 0 gaps outer current set $outer
+  bindsym s gaps outer current plus 10
+  bindsym a gaps outer current minus 10
 
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
-	bindsym q mode "default"
+  bindsym 9 gaps inner current set $inner
+  bindsym 0 gaps outer current set $outer
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym q mode "default"
 }
 
 #border
-new_window pixel 0
+#new_window pixel 0
 smart_borders on
-#for_window [class="^.*"] border pixel 0
+for_window [class="^.*"] border pixel 0
 
 bindsym $mod+b border toggle
 
 #gaps
-smart_gaps on
+#smart_gaps off
 gaps outer $outer
 gaps inner $inner
 
 
-#execution
-
 #translate
-#bindsym $mod+q exec --no-startup-id pkill -RTMIN+11 i3blocks
-#bindsym $mod+a exec --no-startup-id echo | xclip && pkill -RTMIN+11 i3blocks
 bindsym $mod+a exec --no-startup-id Scripts/i3/translate_ya_ru
 bindsym $mod+q exec --no-startup-id Scripts/i3/translate_trans
 
 
 #launcher
 mode "launcher" {
-	# bindsym $mod+d exec dmenu_run; mode "default"
-	bindsym d exec --no-startup-id j4-dmenu-desktop --no-generic  --dmenu='dmenu -i -l 20 -dim 1 -fn 8';mode "default"
-	
-	#terminal
-	bindsym Return exec i3-sensible-terminal --hide-menubar --hide-scrollbar; mode "default"
-	
-	#chromium
-	bindsym c exec --no-startup-id chromium; mode "default"
-	bindsym $mod+c exec --no-startup-id pkill chromium; mode "default"
-	
-	#weather
-	bindsym t exec --no-startup-id Scripts/i3/weather; mode "default"
-	
-	# split in horizontal orientation
-	bindsym $mod+h split h
-	# split in vertical orientation
-	bindsym $mod+v split v
-	# focus the parent container
-	bindsym $mod+o focus parent
-	# focus the child container
-	bindsym $mod+c focus child
+  bindsym F1 exec --no-startup-id telegram-desktop -- %u; mode "default"
 
-	bindsym q mode "default"
-	bindsym Escape mode "default"
+  # bindsym $mod+d exec dmenu_run; mode "default"
+  bindsym d exec --no-startup-id j4-dmenu-desktop --no-generic  --dmenu='dmenu -i -l 20 -dim 1 -fn 8';mode "default"
+
+  #terminal
+  bindsym Return exec --no-startup-id i3-sensible-terminal; mode "default"
+
+  #chromium
+  bindsym c exec --no-startup-id chromium; mode "default"
+  bindsym $mod+c exec --no-startup-id pkill chromium; mode "default"
+
+  #firefox
+  bindsym f exec firefox; mode "default"
+  bindsym $mod+f exec --no-startup-id pkill firefox; mode "default"
+
+  #pulse audio
+  bindsym p exec pavucontrol; mode "default"
+
+  #weather
+  bindsym t exec --no-startup-id Scripts/i3/weather; mode "default"
+
+  # split in horizontal orientation
+  bindsym $mod+h split h
+  # split in vertical orientation
+  bindsym $mod+v split v
+  # focus the parent container
+  bindsym $mod+o focus parent
+  # focus the child container
+  bindsym $mod+c focus child
+
+  #bindsym q mode "default"
+  bindsym Escape mode "default"
 }
 bindsym $mod+x mode "launcher"
 
@@ -262,40 +290,159 @@ exec_always --no-startup-id systemctl --user restart i3-gaps.target
 
 #unit manager
 mode "unit manager"{
-	bindsym w exec --no-startup-id systemctl --user start feh-wallpaper.service; mode "default"
-	bindsym $mod+w exec --no-startup-id systemctl --user stop feh-wallpaper.timer; mode "default"
+  bindsym w exec --no-startup-id systemctl --user start feh-wallpaper.service; mode "default"
+  bindsym $mod+w exec --no-startup-id systemctl --user stop feh-wallpaper.timer; mode "default"
 
-	bindsym c exec --no-startup-id systemctl --user restart compton.service; mode "default"
-	bindsym $mod+c exec --no-startup-id systemctl --user stop compton.service; mode "default"
+  bindsym c exec --no-startup-id systemctl --user restart compton.service; mode "default"
+  bindsym $mod+c exec --no-startup-id systemctl --user stop compton.service; mode "default"
 
-	bindsym d exec --no-startup-id systemctl --user restart dunst.service; mode "default"
-	bindsym $mod+d exec --no-startup-id systemctl --user stop dunst.service; mode "default"
-	
-	bindsym r exec --no-startup-id systemctl --user restart lofi-radio.service; mode "default"
-	bindsym $mod+r exec --no-startup-id systemctl --user stop lofi-radio.service; mode "default"
+  bindsym d exec --no-startup-id systemctl --user restart ddterminal.service; mode "default"
+  bindsym $mod+d exec --no-startup-id systemctl --user stop ddterminal.service; mode "default"
 
-	bindsym i exec --no-startup-id systemctl --user restart i3-gaps.target; mode "default"
+  bindsym i exec --no-startup-id systemctl --user restart i3-gaps.target; mode "default"
+  bindsym $mod+i exec --no-startup-id systemctl --user stop i3-gaps.target; mode "default"
 
-	bindsym q mode "default"
-	bindsym Escape mode "default"
-	bindsym Return mode "default"
+  bindsym F1 exec --no-startup-id systemctl --user restart telegram.service; mode "default"
+  bindsym $mod+F1 exec --no-startup-id systemctl --user stop telegram.service; mode "default"
+
+  bindsym l exec --no-startup-id systemctl --user restart lofi-radio.service; mode "default"
+  bindsym $mod+l exec --no-startup-id systemctl --user stop lofi-radio.service; mode "default"
+
+  bindsym m exec --no-startup-id systemctl --user restart ncmpcpp.service; mode "default"
+  bindsym $mod+m exec --no-startup-id systemctl --user stop ncmpcpp.service; mode "default"
+
+  bindsym r exec --no-startup-id systemctl --user restart ranger.service; mode "default"
+  bindsym $mod+r exec --no-startup-id systemctl --user stop ranger.service; mode "default"
+
+  bindsym t exec --no-startup-id systemctl --user restart rtorrent.service; mode "default"
+  bindsym $mod+t exec --no-startup-id systemctl --user stop rtorrent.service; mode "default"
+
+  bindsym F2 exec --no-startup-id systemctl --user restart toxic.service; mode "default"
+  bindsym $mod+F2 exec --no-startup-id systemctl --user stop toxic.service; mode "default"
+
+  bindsym 1 exec --no-startup-id systemctl --user restart mcabber.service; mode "default"
+  bindsym mod3+1 exec --no-startup-id systemctl --user stop mcabber.service; mode "default"
+
+  bindsym period exec --no-startup-id systemctl --user restart qt-log.service; mode "default"
+  bindsym $mod+period exec --no-startup-id systemctl --user stop qt-log.service; mode "default"
+
+  bindsym q mode "default"
+  bindsym Escape mode "default"
+  bindsym Return mode "default"
 }
 bindsym $mod+u mode "unit manager"
+
+#scratchpad
+bindsym $mod+minus move scratchpad
+bindsym $mod+plus scratchpad show
+
+#telegram messenger
+bindsym $mod+F1 [class="TelegramDesktop"] scratchpad show
+for_window [class="TelegramDesktop"] floating enable
+for_window [class="TelegramDesktop"] resize set 525 700
+for_window [class="TelegramDesktop"] move position 1375 10
+for_window [class="TelegramDesktop"] sticky enable
+for_window [class="TelegramDesktop"] move scratchpad
+
+#ncmpcpp
+bindsym $mod+m [class="ncmpcpp-desktop"] scratchpad show
+for_window [class="ncmpcpp-desktop"] floating enable
+for_window [class="ncmpcpp-desktop"] sticky enable
+for_window [class="ncmpcpp-desktop"] move position 210 745
+for_window [class="ncmpcpp-desktop"] resize set 1500 300
+for_window [class="ncmpcpp-desktop"] move scratchpad
+
+#drop down terminal
+bindsym $mod+d [class="ddterminal-desktop"] scratchpad show
+for_window [class="ddterminal-desktop"] floating enable
+for_window [class="ddterminal-desktop"] sticky enable
+for_window [class="ddterminal-desktop"] move position 5 5
+for_window [class="ddterminal-desktop"] resize set 1910 490
+#for_window [class="ddterminal-desktop"] move position 5 5
+#for_window [class="ddterminal-desktop"] resize set 1300 980
+for_window [class="ddterminal-desktop"] move scratchpad
+
+#toxic messenger
+bindsym $mod+F2 [class="toxic-desktop"] scratchpad show
+for_window [class="toxic-desktop"] floating enable
+for_window [class="toxic-desktop"] sticky enable
+for_window [class="toxic-desktop"] move position 20 10
+for_window [class="toxic-desktop"] resize set 700 850
+for_window [class="toxic-desktop"] move scratchpad
+
+#mcabber messenger
+bind Mod5+10 [class="mcabber-desktop"] scratchpad show
+for_window [class="mcabber-desktop"] floating enable
+for_window [class="mcabber-desktop"] sticky enable
+for_window [class="mcabber-desktop"] move position 20 10
+for_window [class="mcabber-desktop"] resize set 700 850
+for_window [class="mcabber-desktop"] move scratchpad
+
+#ranger file manager
+bindsym $mod+r [class="ranger-desktop"] scratchpad show
+for_window [class="ranger-desktop"] floating enable
+for_window [class="ranger-desktop"] sticky enable
+for_window [class="ranger-desktop"] move position 5 5
+for_window [class="ranger-desktop"] resize set 1910 490
+for_window [class="ranger-desktop"] move scratchpad
+
+#rtorrent
+bindsym $mod+t [class="rtorrent-desktop"] scratchpad show
+for_window [class="rtorrent-desktop"] floating enable
+for_window [class="rtorrent-desktop"] sticky enable
+for_window [class="rtorrent-desktop"] move position 192 108
+for_window [class="rtorrent-desktop"] resize set 1536 864
+for_window [class="rtorrent-desktop"] move scratchpad
+
+#qt debug console
+for_window [class="cool-retro-term"] floating enable
+for_window [class="cool-retro-term"] move position 1050 70
+for_window [class="cool-retro-term"] resize set 720 400
+
 
 #floating mpv
 for_window [class="mpv"] floating enable
 for_window [class="mpv"] resize set 400 225
 for_window [class="mpv"] move position 727 30 
 
-#drop down terminal
-bindsym $mod+d exec xfce4-terminal --hide-menubar --hide-scrollbar --drop-down -T dd-terminal
-for_window [title="dd-terminal"] move position 0 0;
+#lo-fi radio
+bindsym $mod+p [instance="lofi-radio"] scratchpad show
+for_window [instance="lofi-radio"] floating enable
+for_window [instance="lofi-radio"] sticky enable
+for_window [instance="lofi-radio"] resize set 640 360
+for_window [instance="lofi-radio"] move position 1255 675 
+for_window [instance="lofi-radio"] move scratchpad
+
+#qt project log
+bindsym $mod+period [class="qt-log"] scratchpad show
+for_window [class="qt-log"] floating enable
+for_window [class="qt-log"] sticky enable
+for_window [class="qt-log"] move position 500 700
+for_window [class="qt-log"] resize set 1200 300
+for_window [class="qt-log"] move scratchpad
+
+#qt projects
+#for_window [class="qtTest"] floating enable
 
 #screenshot
-bindsym --release Print exec --no-startup-id scrot -q 100  $HOME/Pictures/screenshot-$(date +%Y-%m-%d_%H-%M-%S).jpg
-bindsym --release $mod+Print exec --no-startup-id scrot -q 100 -s $HOME/Pictures/screenshot-$(date +%Y-%m-%d_%H-%M-%S).jpg
+bindsym --release Print exec --no-startup-id ~/Scripts/i3/screenshot_full
+bindsym --release $mod+Print exec --no-startup-id ~/Scripts/i3/screenshot_focus
+bindsym --release $mod+Shift+Print exec --no-startup-id ~/Scripts/i3/screenshot_area Screens
+mode "screen layer" {
+  bindsym --release o exec --no-startup-id ~/Scripts/i3/screenshot_area study_obj ; mode "default"
+  bindsym --release t exec --no-startup-id ~/Scripts/i3/screenshot_area terms ; mode "default"
 
-#multikeys
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% && pkill -RTMIN+10 i3blocks
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% && pkill -RTMIN+10 i3blocks
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle && pkill -RTMIN+10 i3blocks
+  bindsym q mode "default"
+  bindsym Escape mode "default"
+  bindsym Return mode "default"
+}
+bindsym $mod+s mode "screen layer"
+
+#language
+bindsym ISO_Next_Group exec --no-startup-id pkill -RTMIN+1 i3blocks
+
+#volume
+bind Mod5+44 exec --no-startup-id pactl -- set-sink-volume 0 +5%; exec --no-startup-id pkill -RTMIN+10 i3blocks
+bind Mod5+45 exec --no-startup-id pactl set-sink-mute 0 toggle; exec --no-startup-id pkill -RTMIN+10 i3blocks
+bind Mod5+58 exec --no-startup-id pactl -- set-sink-volume 0 100%; exec --no-startup-id pkill -RTMIN+10 i3blocks
+bind Mod5+46 exec --no-startup-id pactl -- set-sink-volume 0 -5%; exec --no-startup-id pkill -RTMIN+10 i3blocks

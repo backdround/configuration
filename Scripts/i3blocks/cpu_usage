@@ -24,6 +24,8 @@ echo $CPU
 echo $CPU
 
 TEMP=`echo $CPU | cut -d '.' -f1`
-if [[ $TEMP -ge 50 ]]; then
-    echo "#FF0000"
+if [[ $TEMP -ge 75 ]]; then
+    echo "#FF4444"
+elif [[ $TEMP -ge 50 ]]; then
+    echo "#FFC077"
 fi

@@ -1,2 +1,7 @@
+#!/bin/sh
+
+[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
+[ -f /etc/xprofile ] && . /etc/xprofile
+[ -f ~/.xprofile ] && . ~/.xprofile
+
 exec i3
-exec i3 -V >> ~/.i3/i3log 2>&1

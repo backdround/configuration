@@ -1,18 +1,21 @@
 #!/bin/bash
 
 case $BLOCK_BUTTON in
-  3) amixer -q -D default sset Master toggle ;;
-  4) amixer -q -D default sset Master 5%+ unmute ;;
-  5) amixer -q -D default sset Master 5%- unmute ;;
+#  3) amixer -q -D default sset Master toggle ;;
+#  4) amixer -q -D default sset Master 5%+ unmute ;;
+#  5) amixer -q -D default sset Master 5%- unmute ;;
+  3) pactl set-sink-mute 0 toggle;;
+  4) pactl -- set-sink-volume 0 +5% ;;
+  5) pactl -- set-sink-volume 0 -5% ;;
 esac
 
-LINE=`amixer -D default get Master | grep -m1 --color=never "[0-9]*%"`
-if [[ "`echo "$LINE" | grep -wo --color=never \"on\"`" == "on" ]]; then
-RET=`echo "$LINE" | grep -wo --color=never "[0-9]*%"`
-echo "$RET"
-echo "$RET"
+if [ `ponymix is-muted; echo $?` = 1 ] ; then
+RET=`ponymix get-volume`
+echo "$RET"%
+echo "$RET"%
 else
-FA_VOL2="<span font='FontAwesome'>&#xf05e;</span>"
+FA_VOL2="<span font='FantasqueSansMono Nerd Font'>&#xf05e;</span>"
 echo $FA_VOL2
 echo $FA_VOL2
+
 fi

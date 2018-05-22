@@ -30,7 +30,7 @@ markup=pango
 #interval=0
 #background=#060606FF
 #signal=11
-#border=#FFFFFFFF
+#border=#BBFFDDFF
 #border_left=0
 #border_right=0
 #border_top=1
@@ -38,128 +38,147 @@ markup=pango
 
 [separator1]
 full_text=<span font='xos4 Terminus 14'></span>
-color=#000000
-background=#15151590
-border=#15151590
+color=#333333
+background=#1A1A1A
+border=#1A1A1A
 border_left=40
 border_right=0
 border_top=0
 border_bottom=0
 
 [volume label]
-color=#FFFFFF
-command=echo "<span font='FontAwesome'>&#xf028;</span>"
-background=#000000
-border=#000000
+color=#BBFFDD
+command=echo "<span font='FantasqueSansMono Nerd Font'>&#xf028;</span>"
+background=#333333
+border=#333333
 border_left=4
 border_right=3
 interval=-1
 
 [volume]
-interval=10
+interval=5
 signal=10
 align=center
 min_width=40
-background=#000000
+background=#333333
 
 [separator1]
 full_text=<span font='xos4 Terminus 14'></span>
-color=#112222
-background=#000000
+color=#1A1A1A
+background=#333333
 
 
 [memoryO label]
-color=#FFFFFF
-command=echo "<span font='FontAwesome 12'></span>"
-background=#112222
-border=#112222
+color=#BBFFDD
+command=echo "<span font='FantasqueSansMono Nerd Font 12'></span>"
+background=#1A1A1A
+border=#1A1A1A
 border_left=6
 border_right=3
 interval=-1
 
 [memoryO]
 interval=2
-background=#112222
-border=#112222
-border_right=10
+background=#1A1A1A
+border=#1A1A1A
+border_right=7
 
-[memoryS label]
-color=#FFFFFF
-command=echo "<span font='FontAwesome 12'></span>"
-background=#112222
-border=#112222
-border_left=3
-border_right=3
-interval=-1
+#[memoryS label]
+#color=#BBFFDD
+#command=echo "<span font='FontAwesome 12'></span>"
+#background=#1A1A1A
+#border=#1A1A1A
+#border_left=3
+#border_right=3
+#interval=-1
+#
+#[memoryS]
+#interval=2
+#background=#1A1A1A
+#border=#1A1A1A
+#border_right=10
 
-[memoryS]
-interval=2
-background=#112222
-border=#112222
-border_right=10
+[separator1]
+full_text=<span font='xos4 Terminus 14'></span>
+color=#333333
+background=#1A1A1A
 
 [cpu_usage label]
-color=#FFFFFF
-command=echo "<span font='FontAwesome 12'></span>"
-background=#112222
-border=#112222
-border_left=3
+color=#BBFFDD
+command=echo "<span font='FantasqueSansMono Nerd Font 12'></span>"
+background=#333333
+border=#333333
+border_left=7
 border_right=3
 interval=-1
 
 [cpu_usage]
 interval=2
-min_width=25
+min_width=21
 align=left
-background=#112222
-border=#112222
-border_right=4
+background=#333333
+border=#333333
+border_right=0
+
+#[wifi label]
+#color=#BBFFDD
+#command=echo "<span font='FontAwesome 12'>&#xf1eb;</span>"
+#background=#333333
+#border=#333333
+#border_left=6
+#border_right=3
+#interval=-1
+
+#[wifi]
+#instance=wlp3s0
+#interval=10
+#background=#333333
 
 [separator1]
 full_text=<span font='xos4 Terminus 14'></span>
-color=#030303
-background=#112222
-
-[wifi label]
-color=#FFFFFF
-command=echo "<span font='FontAwesome 12'>&#xf1eb;</span>"
-background=#030303
-border=#030303
-border_left=6
-border_right=3
-interval=-1
-
-[wifi]
-instance=wlp3s0
-interval=10
-background=#030303
-
-[separator1]
-full_text=<span font='xos4 Terminus 14'></span>
-color=#222222
-background=#030303
-border=#030303
+color=#1A1A1A
+background=#333333
+border=#333333
 border_left=6
 border_right=0
 border_top=0
 border_bottom=0
 
-[battery]
-instance=#FFFFFF
-interval=4
-min_width=55
-background=#222222
+[language label]
+color=#BBFFDD
+command=echo "<span font='FantasqueSansMono Nerd Font 12'>&#xf024;</span>"
+background=#1A1A1A
+border=#1A1A1A
+border_left=6
+border_right=3
+interval=-1
+
+[language]
+command=xkblayout-state print %s | awk '{print toupper($0)}'
+interval=once
+signal=1
+background=#1A1A1A
+border=#1A1A1A
+border_left=6
+border_right=3
+interval=1
+
+#[battery]
+#instance=#BBFFDD
+#interval=4
+#min_width=55
+#background=#1A1A1A
 
 [separator1]
 full_text=<span font='xos4 Terminus 14'></span>
-color=#030303
-background=#222222
+color=#333333
+background=#1A1A1A
 
 [celandar label]
-color=#FFFFFF
-command=echo "<span font='FontAwesome 14'>&#xf073;</span>"
-background=#030303
-border=#030303
+color=#BBFFDD
+command=echo "<span font='FantasqueSansMono Nerd Font 13'>&#xf073;</span>"
+background=#333333
+border=#333333
 border_left=7
 border_right=3
 interval=-1
@@ -168,28 +187,23 @@ interval=-1
 command=echo "<span font='digital dream fat bold 9'>$(date +%d/%m)</span>"
 #command=date +%d/%m
 interval=10
-background=#030303
-border=#77FF77
-border_left=0
-border_right=0
-border_top=0
-border_bottom=1
+background=#333333
 
 [separator1]
 full_text=<span font='xos4 Terminus 14'></span>
-color=#222222
-background=#030303
-border=#030303
+color=#1A1A1A
+background=#333333
+border=#333333
 border_left=6
 border_right=0
 border_top=0
 border_bottom=0
 
 [time label]
-color=#FFFFFF
-full_text=<span font='FontAwesome 14'>&#xf017;</span>
-background=#222222
-border=#222222
+color=#BBFFDD
+full_text=<span font='FantasqueSansMono Nerd Font 14'>&#xf017;</span>
+background=#1A1A1A
+border=#1A1A1A
 border_left=6
 border_right=3
 
@@ -197,9 +211,4 @@ border_right=3
 command=echo "<span font='digital dream fat bold 9'>$(date +%H:%M)</span>"
 #command=date +%H:%M
 interval=5
-background=#222222
-border=#77FF77
-border_left=0
-border_right=0
-border_top=0
-border_bottom=1
+background=#1A1A1A

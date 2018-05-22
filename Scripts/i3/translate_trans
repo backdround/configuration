@@ -1,6 +1,7 @@
 #!/bin/bash
 
-TEXT=$(xclip -o)
+TEXT=$(xclip -o -selection primary)
+#TEXT=$(xclip -o -selection primary)
 if [[ -z "$TEXT" ]]; then
 exit 0
 else

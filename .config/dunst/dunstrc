@@ -113,10 +113,10 @@
     separator_height = 7
     
     # Padding between text and separator.
-    padding = 10
+    padding = 15
     
     # Horizontal padding.
-    horizontal_padding = 20
+    horizontal_padding = 27
     
     # Define a color for the separator.
     # possible values are:
@@ -145,8 +145,8 @@
 
 [frame]
     width = 3
-    color = "#88DDFF"
-#    color = "#001111"
+    #color = "#88DDFF"
+    color = "#BBEED5"
 
 [shortcuts]
 
@@ -159,12 +159,12 @@
     close = mod1+space
     
     # Close all notifications.
-    close_all = mod1+shift+space
+    #close_all = mod1+shift+space
     
     # Redisplay last message(s).
     # On the US keyboard layout "grave" is normally above TAB and left
     # of "1".
-    history = mod1+a
+    history = mod1+shift+space
     
     # Context menu.
     context = mod1+shift+grave
@@ -172,18 +172,18 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#333333"
-    foreground = "#99EEFF"
-    timeout = 5
+    background = "#666666"
+    foreground = "#ffffff"
+    timeout = 4
 
 [urgency_normal]
-    background = "#445555"
+    background = "#333333"
     foreground = "#ffffff"
-    timeout = 10
+    timeout = 6
 
 [urgency_critical]
-    background = "#AA4433"
-    foreground = "#ffffff"
+    background = "#282a36"
+    foreground = "#f1fa8c"
     timeout = 0
 
 
@@ -223,10 +223,18 @@
 #    summary = *signed off*
 #    urgency = low
 #
-#[says]
-#    appname = Pidgin
-#    summary = *says*
-#    urgency = critical
+[mcabber_says]
+    appname = mcabber_says
+    urgency = normal
+
+[mcabber_status]
+    appname = mcabber_status
+    urgency = low
+
+[telegram]
+    appname = Telegram Desktop
+    urgency = critical
+
 #
 #[twitter]
 #    appname = Pidgin

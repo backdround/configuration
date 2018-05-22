@@ -14,7 +14,7 @@ echo $MEM
 echo $MEM
 
 if [[ $MEM -ge 90 ]]; then
-    echo "#FF2222"
+    echo "#FF6666"
 elif [[ $MEM -ge 80 ]]; then
-    echo "#FF6633"
+    echo "#FFC077"
 fi
