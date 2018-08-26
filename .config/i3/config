@@ -124,8 +124,8 @@ font pango:xos4 Terminus Semi-Condensed 8
 
 #session
 mode "session" {
-  bindsym e exec --no-startup-id systemctl --user stop i3-gaps.target; i3-msg exit ; mode "default"
-  bindsym e exec --no-startup-id systemctl --user stop i3-gaps.target; exec i3-msg exit ; mode "default"
+  #bindsym e exec --no-startup-id systemctl --user stop i3-gaps.target; i3-msg exit ; mode "default"
+  #bindsym e exec --no-startup-id systemctl --user stop i3-gaps.target; exec i3-msg exit ; mode "default"
   bindsym l exec --no-startup-id ~/Scripts/i3/i3lock-blur; mode "default"
   bindsym s exec --no-startup-id "systemctl --user stop i3-gaps.target; sleep 0.5; systemctl poweroff"; mode "default"
   bindsym r exec --no-startup-id "systemctl --user stop i3-gaps.target; sleep 0.5; systemctl reboot"; mode "default"
@@ -136,8 +136,13 @@ mode "session" {
 }
 bindsym $mod+Shift+e mode "session"
 
+#gaps
 set $outer 0
-set $inner 20
+set $inner 23
+
+#smart_gaps off
+gaps outer $outer
+gaps inner $inner
 
 set $cust1 customization 1
 set $cust2 customization 2
@@ -159,16 +164,6 @@ mode "$cust1" {
   bindsym $mod+Shift+k move up 10px
   bindsym $mod+Shift+l move right 10px
 
-  bindsym f gaps inner current plus 1
-  bindsym d gaps inner current minus 1
-
-  bindsym s gaps outer current plus 1
-  bindsym a gaps outer current minus 1
-
-  bindsym 9 gaps inner current set $inner
-  bindsym 0 gaps outer current set $outer
-
-  bindsym Return mode "default"
   bindsym Escape mode "default"
   bindsym q mode "default"
 }
@@ -187,16 +182,6 @@ mode "$cust2" {
   bindsym $mod+Shift+k move up 25px
   bindsym $mod+Shift+l move right 25px
 
-  bindsym f gaps inner current plus 3
-  bindsym d gaps inner current minus 3
-
-  bindsym s gaps outer current plus 3
-  bindsym a gaps outer current minus 3
-
-  bindsym 9 gaps inner current set $inner
-  bindsym 0 gaps outer current set $outer
-
-  bindsym Return mode "default"
   bindsym Escape mode "default"
   bindsym q mode "default"
 }
@@ -215,16 +200,15 @@ mode "$cust3" {
   bindsym $mod+Shift+k move up 60px
   bindsym $mod+Shift+l move right 60px
 
-  bindsym f gaps inner current plus 10
-  bindsym d gaps inner current minus 10
+  bindsym Escape mode "default"
+  bindsym q mode "default"
+}
 
-  bindsym s gaps outer current plus 10
-  bindsym a gaps outer current minus 10
+bindsym $mod+Shift+n mode "gaps"
+mode "gaps" {
+  bindsym 1 gaps inner current set $inner
+  bindsym 0 gaps inner current set 5
 
-  bindsym 9 gaps inner current set $inner
-  bindsym 0 gaps outer current set $outer
-
-  bindsym Return mode "default"
   bindsym Escape mode "default"
   bindsym q mode "default"
 }
@@ -233,14 +217,7 @@ mode "$cust3" {
 #new_window pixel 0
 smart_borders on
 for_window [class="^.*"] border pixel 0
-
 bindsym $mod+b border toggle
-
-#gaps
-#smart_gaps off
-gaps outer $outer
-gaps inner $inner
-
 
 #translate
 bindsym $mod+a exec --no-startup-id Scripts/i3/translate_ya_ru
@@ -285,8 +262,8 @@ mode "launcher" {
 }
 bindsym $mod+x mode "launcher"
 
-#restart or start i3
-exec_always --no-startup-id systemctl --user restart i3-gaps.target
+#start i3
+exec_always --no-startup-id systemctl --user start i3-gaps.target
 
 #unit manager
 mode "unit manager"{
@@ -357,7 +334,7 @@ bindsym $mod+d [class="ddterminal-desktop"] scratchpad show
 for_window [class="ddterminal-desktop"] floating enable
 for_window [class="ddterminal-desktop"] sticky enable
 for_window [class="ddterminal-desktop"] move position 5 5
-for_window [class="ddterminal-desktop"] resize set 1910 490
+for_window [class="ddterminal-desktop"] resize set 1910 486
 #for_window [class="ddterminal-desktop"] move position 5 5
 #for_window [class="ddterminal-desktop"] resize set 1300 980
 for_window [class="ddterminal-desktop"] move scratchpad
@@ -446,3 +423,6 @@ bind Mod5+44 exec --no-startup-id pactl -- set-sink-volume 0 +5%; exec --no-star
 bind Mod5+45 exec --no-startup-id pactl set-sink-mute 0 toggle; exec --no-startup-id pkill -RTMIN+10 i3blocks
 bind Mod5+58 exec --no-startup-id pactl -- set-sink-volume 0 100%; exec --no-startup-id pkill -RTMIN+10 i3blocks
 bind Mod5+46 exec --no-startup-id pactl -- set-sink-volume 0 -5%; exec --no-startup-id pkill -RTMIN+10 i3blocks
+
+#other
+bindsym $mod+v exec --no-startup-id xdotool key z

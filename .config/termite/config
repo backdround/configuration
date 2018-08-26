@@ -21,16 +21,15 @@ search_wrap = true
 urgent_on_bell = true
 
 [colors]
-cursor = #FFFFFF
-cursor_foreground = #282A36
-#foreground_bold = #ffffff
+cursor = #7BC992
+cursor_foreground = #000000
+#foreground_bold = #000000
 
 # if unset, will reverse foreground and background
 highlight = #777777
 foreground= #F8F8F2
 background= #282A36
 # 15% background transparency
-#background = rgba(40, 42, 54, 0.85)
 background = rgba(40, 42, 54, 1.00)
 color0=     #000000
 color8=     #4D4D4D

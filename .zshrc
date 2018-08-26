@@ -48,7 +48,10 @@ ENHANCD_COMMAND=e
 ENHANCD_DOT_SHOW_FULLPATH=1
 
 FZF_TMUX_HEIGHT=40%
-FZF_DEFAULT_OPTS='-i -m --no-mouse --cycle --reverse --border --color=bg:233 --history=.fzf_history'
+FZF_DEFAULT_OPTS='-m --no-mouse --cycle --reverse --border --color=bg:233 --history=.fzf_history'
+FZF_DEFAULT_COMMAND='fd --hidden --no-ignore --type file'
+FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+FZF_ALT_C_COMMAND='fd --hidden --no-ignore --type directory'
 
 zstyle ':filter-select' case-insensitive yes 
 
@@ -65,6 +68,7 @@ antigen bundle zsh-users/zaw
 antigen bundle colored-man-pages
 antigen bundle colorize
 antigen bundle command-not-found
+antigen bundle extract
 
 antigen bundle djui/alias-tips
 antigen bundle Valiev/almostontop
@@ -81,12 +85,11 @@ source /usr/share/fzf/key-bindings.zsh
 #PLUGINS CONFIG POST
 
 #zaw
+bindkey -M viins '\eu' zaw-bookmark-add-buffer
+bindkey -M vicmd '\eu' zaw-bookmark-add-buffer
+
 bindkey -M viins '\eb' zaw-bookmark
 bindkey -M vicmd '\eb' zaw-bookmark
-
-#fasd
-alias n='f -e nvim' # quick opening files with vim
-alias o='a -e xdg-open' # quick opening files with xdg-open
 
 #autosuggest
 bindkey -M viins '\el' autosuggest-accept
@@ -124,6 +127,8 @@ alias gcc='gcc -fdiagnostics-color=always'
 #hacks alias
 alias sudo='sudo '
 alias ranger='ranger --choosedir=/tmp/.rangerdir; LASTDIR=`cat /tmp/.rangerdir`; cd "$LASTDIR"'
+alias n='nvim'
+alias f='fd -IH'
 
 #my scripts aliases
 alias ts='trans :ru -b'
@@ -133,6 +138,7 @@ alias scr='~/Scripts/i3/spellchecker_ru'
 alias sce='~/Scripts/i3/spellchecker_en'
 
 #ls aliases
+alias k='k -h'
 alias l='ls '
 alias ll='ls -lh'
 alias la='ls -A'
@@ -147,6 +153,9 @@ alias mv='mv -i'
 alias -g .g='| grep'
 alias -g .l='| less'
 alias -g .stn='| tr " " "\n"'
+
+#other
+alias cal='cal -m'
 
 ################################################################################
 #INDICATORS
