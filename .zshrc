@@ -128,6 +128,7 @@ alias gcc='gcc -fdiagnostics-color=always'
 alias sudo='sudo '
 alias ranger='ranger --choosedir=/tmp/.rangerdir; LASTDIR=`cat /tmp/.rangerdir`; cd "$LASTDIR"'
 alias n='nvim'
+alias p='python'
 alias f='fd -IH'
 
 #my scripts aliases

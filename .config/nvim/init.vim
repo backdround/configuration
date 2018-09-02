@@ -6,10 +6,7 @@ function! s:LoadPlugins()
 
   "HIGHLIGHTS
   Plug 'rafi/awesome-vim-colorschemes'
-  Plug 'PotatoesMaster/i3-vim-syntax'
-  Plug 'tmux-plugins/vim-tmux'
-  Plug 'octol/vim-cpp-enhanced-highlight'
-  "Plug 'ap/vim-css-color'
+  Plug 'sheerun/vim-polyglot'
 
   "YCM
   Plug 'Valloric/YouCompleteMe'
@@ -26,11 +23,15 @@ function! s:LoadPlugins()
   "NERDTREE
   Plug 'scrooloose/nerdtree'
   Plug 'Xuyuanp/nerdtree-git-plugin'
-  "Plug 'jistr/vim-nerdtree-tabs'
 
-  "FZF
+  "SESSIONS
+  Plug 'xolox/vim-misc'
+  Plug 'xolox/vim-session'
+
+  "SEARCHERS
   Plug '/usr/share/vim/vimfiles' "fzf installed by pacman
   Plug 'junegunn/fzf.vim'
+  Plug 'dyng/ctrlsf.vim'
 
   "TAGS
   Plug 'majutsushi/tagbar'
@@ -42,7 +43,6 @@ function! s:LoadPlugins()
 
   "SOME UI ENCHANTMENTS
   Plug 'ryanoasis/vim-devicons'
-  Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
   Plug 'blueyed/vim-diminactive'
   Plug 'mhinz/vim-startify'
 
@@ -51,17 +51,55 @@ function! s:LoadPlugins()
   Plug 'junegunn/vim-easy-align'
   Plug 'tpope/vim-surround'
   Plug 'jiangmiao/auto-pairs'
-  Plug 'haya14busa/incsearch.vim'
-  Plug 'haya14busa/incsearch-fuzzy.vim'
-  Plug 'haya14busa/incsearch-easymotion.vim'
-  Plug 'easymotion/vim-easymotion'
-  Plug 'tpope/vim-repeat'
   Plug 'terryma/vim-multiple-cursors'
+  Plug 'AndrewRadev/sideways.vim'
+  Plug 'tommcdo/vim-exchange'
+  Plug 'kana/vim-niceblock'
+  Plug 'matze/vim-move'
 
-  "FUN
+  "MOTIONS
+  Plug 'romainl/vim-cool'
+  Plug 'easymotion/vim-easymotion'
+  Plug 'yuttie/comfortable-motion.vim'
+  Plug 'chaoren/vim-wordmotion'
+
+  "FEATURSE
+  Plug 'xolox/vim-notes'
+  Plug 'airblade/vim-rooter'
+  Plug 'markonm/traces.vim'
+  Plug 'tpope/vim-repeat'
   Plug 'junegunn/limelight.vim'
   Plug 'junegunn/vim-peekaboo'
+  Plug 'troydm/zoomwintab.vim'
+  Plug 'mbbill/undotree'
+  Plug 'machakann/vim-highlightedyank'
 
+  "TESTING RIGHT NOW
+
+  "TO TEST
+
+  "TEXT OBJECT
+  "https://github.com/gcmt/wildfire.vim
+  "https://github.com/wellle/targets.vim
+  "https://github.com/kana/vim-textobj-user
+  "https://github.com/Julian/vim-textobj-variable-segment
+  "https://github.com/rhysd/vim-textobj-anyblock
+
+  "EDITOR
+  "https://github.com/AndrewRadev/splitjoin.vim
+
+  "TO HARD
+  "https://github.com/lifepillar/vim-mucomplete
+  "https://github.com/xolox/vim-notes
+  "https://github.com/xolox/vim-easytags
+
+  "DOUBT
+  "https://github.com/tpope/vim-unimpaired
+  "https://github.com/tpope/vim-rsi
+
+  " there are so nice structed config --> hneutr/dotfiles
+  " and remember this guy             --> junegunn
+  " so nice too                       --> https://habr.com/post/303524/
   call plug#end()
 endfunction
 " }}}
@@ -115,6 +153,7 @@ function! s:BasicSettings()
   set backup
   set backupdir=~/.nvimbk
   set notimeout " for leader key etc
+  set sessionoptions-=buffers
   " }}}
 
   " --------------------------------------------------------------------------
@@ -153,21 +192,32 @@ function! s:BasicSettings()
   nnoremap <silent> <leader>th :call LoadWindow()<CR>
 
   "terminal toggle
-  "nnoremap <silent> <leader>z :call TerminalToggle()<CR>
   nnoremap <silent> <leader>z :call TerminalToggle()<CR>
+  tnoremap <C-t> <C-\><C-n>:call TerminalToggle()<CR>
 
   "work directory
   nnoremap <leader>dc :cd %:p:h<CR>:pwd<CR>
 
   "misc
   set pastetoggle=<F8>
-  nnoremap <silent> <leader>n :noh<CR>
-  nnoremap <leader>w <C-w>
-
   noremap s <NOP>
   noremap S <NOP>
-  nnoremap <leader>m m
   noremap m <NOP>
+  nnoremap <leader>m m
+  noremap q <NOP>
+  nnoremap <leader>2 q
+
+  "swap ' and `
+  nnoremap ' `
+  nnoremap ` '
+  nnoremap * g*
+  nnoremap g* *
+  nnoremap # g#
+  nnoremap g# #
+
+  "useful binds
+  vnoremap // y/<C-R>"<CR>
+  nnoremap <leader>w <C-w>
 
   " }}}
 
@@ -288,7 +338,7 @@ function! s:ConfigureFZF() " {{{
   " --------------------------------------------------------------------------
   " options {{{
   let $FZF_DEFAULT_OPTS = '--multi --no-mouse --inline-info'
-  let $FZF_DEFAULT_COMMAND = 'fd --hidden --no-ignore --type file'
+  let $FZF_DEFAULT_COMMAND = 'fd --hidden --no-ignore-vcs --type file'
 
   let g:fzf_action = {
     \ 'ctrl-t': 'tab split',
@@ -335,10 +385,10 @@ function! s:ConfigureFZF() " {{{
   " }}}
   " --------------------------------------------------------------------------
   " bindings {{{
-  nmap <m-l> <plug>(fzf-maps-n)
-  xmap <m-l> <plug>(fzf-maps-x)
-  omap <m-l> <plug>(fzf-maps-o)
-  imap <m-l> <plug>(fzf-maps-i)
+  nmap <m-m> <plug>(fzf-maps-n)
+  xmap <m-m> <plug>(fzf-maps-x)
+  omap <m-m> <plug>(fzf-maps-o)
+  imap <m-m> <plug>(fzf-maps-i)
 
   inoremap <expr> <c-f>p fzf#vim#complete#path("fd --no-ignore --hidden --type directory")
   inoremap <expr> <c-f>f fzf#vim#complete#path("fd --no-ignore --hidden --type file")
@@ -471,20 +521,69 @@ endf
 " }}}
 
 function! s:ConfigureOtherPlugins() " {{{
+
+  " --------------------------------------------------------------------------
+  " session
+  let g:session_directory = '~/.local/share/nvim/sessions/'
+  let g:session_default_overwrite = 1
+  let g:session_autoload = 'no'
+  let g:session_autosave = 'yes'
+  let g:session_autosave_periodic = 5
+  let g:session_autosave_silent = 1
+  let g:session_persist_font = 0
+  let g:session_persist_colors = 0
+  let g:session_command_aliases = 1
+
+  " --------------------------------------------------------------------------
+  " word motion
+  let g:wordmotion_mappings = {
+        \ 'w'         :'mw',
+        \ 'b'         :'mb',
+        \ 'e'         :'me',
+        \ 'ge'        :'gme',
+        \ 'aw'        :'amw',
+        \ 'iw'        :'imw',
+        \ '<C-R><C-W>':'<C-R><C-W>'
+        \ }
+
+  " --------------------------------------------------------------------------
+  " comfortable motion
+  let g:comfortable_motion_no_default_key_mappings = 1
+  let g:comfortable_motion_interval = 1000.0 / 60
+
+  let g:comfortable_motion_friction = 80.0
+  let g:comfortable_motion_air_drag = 6.5
+
+  let g:cm_impulse = 4
+
+  nnoremap <silent> <C-e> :call comfortable_motion#flick(g:cm_impulse * winheight(0) *  0.3 )<CR>
+  nnoremap <silent> <C-y> :call comfortable_motion#flick(g:cm_impulse * winheight(0) * -0.3 )<CR>
+  nnoremap <silent> <C-d> :call comfortable_motion#flick(g:cm_impulse * winheight(0) *    1 )<CR>
+  nnoremap <silent> <C-u> :call comfortable_motion#flick(g:cm_impulse * winheight(0) *   -1 )<CR>
+  nnoremap <silent> <C-f> :call comfortable_motion#flick(g:cm_impulse * winheight(0) *  1.8 )<CR>
+  nnoremap <silent> <C-b> :call comfortable_motion#flick(g:cm_impulse * winheight(0) * -1.8 )<CR>
+
+  " --------------------------------------------------------------------------
+  " ctrlsf
+  let g:ctrlsf_auto_focus = {"at" : "start"}
+  let g:ctrlsf_context = '-A 5 -B 2'
+  let g:ctrlsf_default_root = 'project+fw'
+  let g:ctrlsf_populate_qflist = 1
+  let g:ctrlsf_default_view_mode = 'normal'
+  let g:ctrlsf_position = 'left'
+  let g:ctrlsf_winsize = '70'
+  let g:ctrlsf_indent = 2
+
+  nmap <Leader>i <Plug>CtrlSFCwordExec
+  nmap <Leader>e <Plug>CtrlSFCCwordExec
+  vmap <Leader>i <Plug>CtrlSFVwordExec
+
   " --------------------------------------------------------------------------
   " nerd tree
 
-  "NERDTREE TABS
-  "let g:nerdtree_tabs_synchronize_view = 0
-  "let g:nerdtree_tabs_synchronize_focus = 0
-  "let g:nerdtree_tabs_focus_on_files = 1
-
-  "NERDTREE
   let g:NERDTreeStatusline = 'NERD'
-  let g:NERDTreeAutoDeleteBuffer = 1
-
-  "nnoremap <silent> <F3> :NERDTreeMirrorToggle<CR>
   nnoremap <silent> <F3> :NERDTreeToggle<CR>
+  nnoremap <silent> <leader>n :NERDTree<CR>
 
   "my theme fix
   augroup SetHighlightFunctionGroup
@@ -537,13 +636,6 @@ function! s:ConfigureOtherPlugins() " {{{
   let g:DevIconsEnableFoldersOpenClose = 1
   let g:DevIconsEnableFolderExtensionPatternMatching = 1
 
-  "nerdtree highlights
-  let g:NERDTreeFileExtensionHighlightFullName = 1
-  let g:NERDTreeExactMatchHighlightFullName = 1
-  let g:NERDTreePatternMatchHighlightFullName = 1
-  let g:NERDTreeHighlightFolders = 1
-  let g:NERDTreeHighlightFoldersFullName = 1
-
   "diminactive
   let g:diminactive_buftype_blacklist = ['nofile', 'nowrite', 'acwrite', 'quickfix']
   let g:diminactive_filetype_blacklist = []
@@ -565,10 +657,10 @@ function! s:ConfigureOtherPlugins() " {{{
         \ ]
 
   let g:startify_lists = [
-        \ { 'type':'files',     'header': ['MRU']            },
-        \ { 'type':'dir',       'header': ['MRU '. getcwd()] },
         \ { 'type':'sessions',  'header': ['Sessions']       },
-        \ { 'type':'bookmarks', 'header': ['Bookmarks']      }
+        \ { 'type':'bookmarks', 'header': ['Bookmarks']      },
+        \ { 'type':'files',     'header': ['MRU']            },
+        \ { 'type':'dir',       'header': ['MRU '. getcwd()] }
         \ ]
 
   let g:startify_session_before_save = [
@@ -578,6 +670,31 @@ function! s:ConfigureOtherPlugins() " {{{
 
   " --------------------------------------------------------------------------
   " editors
+
+  "exchange
+  let g:exchange_no_mappings = 1
+  xmap x <Plug>(Exchange)
+  nmap cx <Plug>(Exchange)
+  nmap cxc <Plug>(ExchangeClear)
+  nmap cxl <Plug>(ExchangeLine)
+
+  "undotree
+  nnoremap <F5> :UndotreeToggle<CR>
+  let g:undotree_CustomUndotreeCmd  = 'topleft vertical 30 new'
+  let g:undotree_CustomDiffpanelCmd = 'botright 7 new'
+  let g:undotree_RelativeTimestamp = 1
+  let g:undotree_ShortIndicators = 1
+  let g:undotree_HelpLine = 0
+
+  "sideways
+  let b:sideways_skip_syntax = []
+  nnoremap <silent> <Leader>, :SidewaysLeft<cr>
+  nnoremap <silent> <Leader>. :SidewaysRight<cr>
+
+  omap aa <Plug>SidewaysArgumentTextobjA
+  xmap aa <Plug>SidewaysArgumentTextobjA
+  omap ia <Plug>SidewaysArgumentTextobjI
+  xmap ia <Plug>SidewaysArgumentTextobjI
 
   "nerdcommenter
   let g:NERDRemoveExtraSpaces = 1
@@ -594,36 +711,7 @@ function! s:ConfigureOtherPlugins() " {{{
 
   "auto-pairs
   let g:AutoPairsFlyMode = 1
-
-  "incsearch
-  set hlsearch
-  let g:incsearch#auto_nohlsearch = 1
-
-  map /  <Plug>(incsearch-forward)
-  map ?  <Plug>(incsearch-backward)
-  map g/ <Plug>(incsearch-stay)
-  map n  <Plug>(incsearch-nohl-n)
-  map N  <Plug>(incsearch-nohl-N)
-  map *  <Plug>(incsearch-nohl-*)
-  map #  <Plug>(incsearch-nohl-#)
-  map g* <Plug>(incsearch-nohl-g*)
-  map g# <Plug>(incsearch-nohl-g#)
-
-  "incsearch fuzzy
-  map z/ <Plug>(incsearch-fuzzy-/)
-  map z? <Plug>(incsearch-fuzzy-?)
-  map zg/ <Plug>(incsearch-fuzzy-stay)
-
-  function! s:config_easyfuzzymotion(...) abort
-    return extend(copy({
-          \   'converters': [incsearch#config#fuzzy#converter()],
-          \   'modules': [incsearch#config#easymotion#module()],
-          \   'keymap': {"\<CR>": '<Over>(easymotion)'},
-          \   'is_expr': 0,
-          \   'is_stay': 1
-          \ }), get(a:, 1, {}))
-  endfunction
-  noremap <silent><expr> <Leader>/ incsearch#go(<SID>config_easyfuzzymotion())
+  let g:AutoPairsShortcutJump = '<M-q>'
 
   "easymotion
   let g:EasyMotion_do_mapping = 0
@@ -633,7 +721,7 @@ function! s:ConfigureOtherPlugins() " {{{
   let g:EasyMotion_keys = 'ASDGHKLQWERTYUIOPZXCVBNMFJ;'
   let g:EasyMotion_space_jump_first = 1
 
-  map m <Plug>(easymotion-lineanywhere)
+  map q <Plug>(easymotion-lineanywhere)
 
   nmap ss <Plug>(easymotion-overwin-f2)
   omap ss <Plug>(easymotion-s2)
@@ -675,11 +763,11 @@ function! s:ConfigureOtherPlugins() " {{{
   " other
 
   "cpp enhanced highlight
-  let g:cpp_class_scope_highlight = 1
-  let g:cpp_member_variable_highlight = 1
-  let g:cpp_class_decl_highlight = 1
-  let g:cpp_experimental_template_highlight = 1
-  let g:cpp_concepts_highlight = 1
+  "let g:cpp_class_scope_highlight = 1
+  "let g:cpp_member_variable_highlight = 1
+  "let g:cpp_class_decl_highlight = 1
+  "let g:cpp_experimental_template_highlight = 1
+  "let g:cpp_concepts_highlight = 1
 
   "limelight
   let g:limelight_conceal_guifg = '#446666'
@@ -688,6 +776,19 @@ function! s:ConfigureOtherPlugins() " {{{
 
   "peekaboo
   let g:peekaboo_window = "vert bo 50new"
+
+  "zoomwintab
+  nnoremap <Leader>wo :ZoomWinTabToggle<CR>
+
+  "highlighted yank
+  let g:highlightedyank_highlight_duration = 200
+
+  "rooter
+  let g:rooter_silent_chdir = 1
+
+  "notes
+  let g:notes_directories = ['~/.local/share/nvim/notes']
+  let g:notes_title_sync = 'rename_file'
 
 endfunction
 " }}}
@@ -800,6 +901,8 @@ function! TerminalToggle()
     terminal
     setlocal bufhidden=hide
     setlocal nobuflisted
+    "setlocal winfixwidth
+    "setlocal winfixheight
     file Terminal
     return
   endif
