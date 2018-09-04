@@ -187,13 +187,13 @@ function! s:BasicSettings()
   xmap <leader>vy "*y
 
   "windows switching
-  nnoremap <silent> <leader>tn :call SwitchWindowTo("NERD_tree_*")<CR>
-  nnoremap <silent> <leader>tt :call SwitchWindowTo("__Tagbar__.*")<CR>
-  nnoremap <silent> <leader>th :call LoadWindow()<CR>
+  nnoremap <silent> <leader>h :call LoadWindow()<CR>
 
   "terminal toggle
-  nnoremap <silent> <leader>z :call TerminalToggle()<CR>
-  tnoremap <C-t> <C-\><C-n>:call TerminalToggle()<CR>
+  nnoremap <silent> <F1> :call TerminalToggle()<CR>
+  tnoremap <silent> <F1> <C-\><C-n>:call TerminalToggle()<CR>
+  nnoremap <silent> <F13> :call SwitchWindowTo("Terminal")<CR>
+  tnoremap <silent> <F13> <C-\><C-n>:call SwitchWindowTo("Terminal")<CR>
 
   "work directory
   nnoremap <leader>dc :cd %:p:h<CR>:pwd<CR>
@@ -581,8 +581,9 @@ function! s:ConfigureOtherPlugins() " {{{
   " --------------------------------------------------------------------------
   " nerd tree
 
-  let g:NERDTreeStatusline = 'NERD'
-  nnoremap <silent> <F3> :NERDTreeToggle<CR>
+  let g:NERDTreeStatusline = 'Nerdtree'
+  nnoremap <silent> <F3> :call NerdtreeToggle()<CR>
+  nnoremap <silent> <F15> :call SwitchWindowTo("NERD_tree_*")<CR>
   nnoremap <silent> <leader>n :NERDTree<CR>
 
   "my theme fix
@@ -612,13 +613,15 @@ function! s:ConfigureOtherPlugins() " {{{
   " tags
 
   " tagbar
-  let g:tagbar_width = 38
+  let g:tagbar_width = 30
   let g:tagbar_zoomwidth = 100
   let g:tagbar_hide_nonpublic = 1
   let g:tagbar_silent = 1
-  let g:tagbar_map_showproto = "t"
+  "let g:tagbar_map_showproto = "t"
   let g:tagbar_autoshowtag = 1
+  let g:tagbar_autofocus = 0
   nnoremap <silent> <F2> :TagbarToggle<CR>
+  nnoremap <silent> <F14> :call SwitchWindowTo("__Tagbar__.*")<CR>
 
   "gutentags
   let g:gutentags_exclude_project_root = ['/home/vlad']
@@ -853,12 +856,28 @@ function! s:GetNormalWindow()
 endfun
 
 let t:saved_window = '-1'
-function! SaveWindow()
+function! s:SaveWindow()
   let l:current_window = bufwinnr('%')
   if s:CheckNormalWindow(l:current_window)
     let t:saved_window = l:current_window
   endif
 endfunction
+
+
+function! s:EnableAutoSaveWindow()
+  augroup PreviousNormalWindow
+    autocmd!
+    autocmd WinEnter * call s:SaveWindow()
+  augroup END
+endfunction
+call s:EnableAutoSaveWindow()
+
+function! s:DisableAutoSaveWindow()
+  augroup PreviousNormalWindow
+    autocmd!
+  augroup END
+endfunction
+
 
 function! LoadWindow()
   if s:CheckNormalWindow(t:saved_window)
@@ -886,7 +905,6 @@ function! SwitchWindowTo(bufexpr)
     return
   endif
 
-  call SaveWindow()
   execute l:window_number . "wincmd w"
 endfunction
 
@@ -896,27 +914,39 @@ endfunction
 function! TerminalToggle()
   let l:terminal_buffer = bufnr('Terminal')
   if terminal_buffer == -1
-    call SaveWindow()
-    execute "bot 20new"
+    execute "bot 15new"
     terminal
     setlocal bufhidden=hide
     setlocal nobuflisted
-    "setlocal winfixwidth
-    "setlocal winfixheight
+    setlocal winfixwidth
+    setlocal winfixheight
     file Terminal
     return
   endif
 
   let l:terminal_window = bufwinnr(terminal_buffer)
   if terminal_window == -1
-    call SaveWindow()
-    execute "bot 20new +buffer".terminal_buffer
+    execute "bot 15new +buffer".terminal_buffer
+    setlocal winfixwidth
+    setlocal winfixheight
   else
-    call LoadWindow()
+    if bufwinnr('%') == l:terminal_window
+      call LoadWindow()
+    endif
     execute "close ".terminal_window
   endif
 endfunction
 
+" ----------------------------------------------------------------------------
+" nerdtree toggle
+
+" NERDTreeToggle renumber windows
+function! NerdtreeToggle()
+  let l:buffer_number = winbufnr(t:saved_window)
+  NERDTreeToggle
+  let t:saved_window = bufwinnr(l:buffer_number)
+  call LoadWindow()
+endfunction
 " }}}
 " ============================================================================
 
