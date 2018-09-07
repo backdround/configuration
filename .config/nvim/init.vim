@@ -43,8 +43,8 @@ function! s:LoadPlugins()
 
   "SOME UI ENCHANTMENTS
   Plug 'ryanoasis/vim-devicons'
-  Plug 'blueyed/vim-diminactive'
   Plug 'mhinz/vim-startify'
+  Plug 'nathanaelkane/vim-indent-guides'
 
   "EDITORS
   Plug 'scrooloose/nerdcommenter'
@@ -56,6 +56,7 @@ function! s:LoadPlugins()
   Plug 'tommcdo/vim-exchange'
   Plug 'kana/vim-niceblock'
   Plug 'matze/vim-move'
+  Plug 'AndrewRadev/splitjoin.vim'
 
   "MOTIONS
   Plug 'romainl/vim-cool'
@@ -73,33 +74,15 @@ function! s:LoadPlugins()
   Plug 'troydm/zoomwintab.vim'
   Plug 'mbbill/undotree'
   Plug 'machakann/vim-highlightedyank'
-
-  "TESTING RIGHT NOW
-
-  "TO TEST
+  Plug 'tyru/open-browser.vim'
+  Plug 'kshenoy/vim-signature'
 
   "TEXT OBJECT
-  "https://github.com/gcmt/wildfire.vim
-  "https://github.com/wellle/targets.vim
-  "https://github.com/kana/vim-textobj-user
-  "https://github.com/Julian/vim-textobj-variable-segment
-  "https://github.com/rhysd/vim-textobj-anyblock
+  Plug 'gcmt/wildfire.vim'
+  Plug 'wellle/targets.vim'
+  Plug 'kana/vim-textobj-user'
+  Plug 'kana/vim-textobj-indent'
 
-  "EDITOR
-  "https://github.com/AndrewRadev/splitjoin.vim
-
-  "TO HARD
-  "https://github.com/lifepillar/vim-mucomplete
-  "https://github.com/xolox/vim-notes
-  "https://github.com/xolox/vim-easytags
-
-  "DOUBT
-  "https://github.com/tpope/vim-unimpaired
-  "https://github.com/tpope/vim-rsi
-
-  " there are so nice structed config --> hneutr/dotfiles
-  " and remember this guy             --> junegunn
-  " so nice too                       --> https://habr.com/post/303524/
   call plug#end()
 endfunction
 " }}}
@@ -195,15 +178,13 @@ function! s:BasicSettings()
   nnoremap <silent> <F13> :call SwitchWindowTo("Terminal")<CR>
   tnoremap <silent> <F13> <C-\><C-n>:call SwitchWindowTo("Terminal")<CR>
 
-  "work directory
-  nnoremap <leader>dc :cd %:p:h<CR>:pwd<CR>
-
   "misc
   set pastetoggle=<F8>
   noremap s <NOP>
   noremap S <NOP>
   noremap m <NOP>
-  nnoremap <leader>m m
+  "this map set automaticly with signature plug-in
+  "nnoremap <leader>m m
   noremap q <NOP>
   nnoremap <leader>2 q
 
@@ -235,26 +216,6 @@ function! s:BasicSettings()
     autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
   augroup END
 
-  ""auto save/loading folds {{{
-  "function! ValidFolds()
-  "  if &l:diff | return 0 | endif
-  "  if &buftype != '' | return 0 | endif
-  "  if expand('%') =~ '\[.*\]' | return 0 | endif
-  "  if empty(glob(expand('%:p'))) | return 0 | endif
-  "  if &modifiable == 0 | return 0 | endif
-  "  if len($TEMP) && expand('%:p:h') == $TEMP | return 0 | endif
-  "  if len($TMP) && expand('%:p:h') == $TMP | return 0 | endif
-  "  if expand('%:p:t') == '' | return 0 | endif
-
-  "  return 1
-  "endfunction
-
-  "augroup RememberFolds
-  "  autocmd!
-  "  autocmd BufWritePre,BufWinLeave ?* if ValidFolds() | silent! mkview | endif
-  "  autocmd BufWinEnter ?* if ValidFolds() | silent! loadview | endif
-  "augroup END
-  "" so many fucking errors. may be later}}}
  "}}}
 
 endfunction
@@ -271,31 +232,23 @@ function! s:ConfigureView()
 
   " --------------------------------------------------------------------------
   " favorite sets {{{
+
   let g:airline_theme='onedark'
+  "let g:airline_theme='behelit'
+  "let g:airline_theme='wombat'
+  "let g:airline_theme='hybrid'
+  "let g:airline_theme='ayu_mirage'
+
   colorscheme lucid
   "colorscheme one
-  "colorscheme lucius
-  "colorscheme atom
-
-  "let g:airline_theme='hybrid'
-  "colorscheme lucius
   "colorscheme deus
-
-  "let g:airline_theme='wombat'
   "colorscheme wombat256mod
   "colorscheme apprentice
-
-  "let g:airline_theme='behelit'
   "colorscheme space-vim-dark
   "colorscheme minimalist
-
-  "let g:airline_theme='ayu_mirage'
-  "colorscheme one
   "colorscheme molokai
   "colorscheme dracula
 
-  "unusable but good
-  "let g:airline_theme='base16_shell'
   " }}}
 
   " --------------------------------------------------------------------------
@@ -320,9 +273,6 @@ function! s:ConfigureView()
   "Folded
   call s:SetHighlight("Folded",       { 'bg': '#302737'})
 
-  "ColorColumn
-  call s:SetHighlight("ColorColumn",  { 'bg': '#16121d', 'fg': '#d4eddd'})
-
   "Directory
   "call s:SetHighlight("Directory",   { 'fg': '#7bc992'})
   " }}}
@@ -338,7 +288,7 @@ function! s:ConfigureFZF() " {{{
   " --------------------------------------------------------------------------
   " options {{{
   let $FZF_DEFAULT_OPTS = '--multi --no-mouse --inline-info'
-  let $FZF_DEFAULT_COMMAND = 'fd --hidden --no-ignore-vcs --type file'
+  let $FZF_DEFAULT_COMMAND = 'fd --hidden --no-ignore-vcs --exclude .git/ --type file'
 
   let g:fzf_action = {
     \ 'ctrl-t': 'tab split',
@@ -462,7 +412,7 @@ function! s:ConfigureAirline() " {{{
   " --------------------------------------------------------------------------
   " options
   let g:airline#extensions#disable_rtp_load = 1
-  let g:airline_extensions = ['tabline', 'branch', 'ycm', 'quickfix', 'tagbar', 'gutentags']
+  let g:airline_extensions = ['tabline', 'branch', 'ycm', 'quickfix', 'tagbar', 'gutentags', 'undotree']
 
   let g:airline_highlighting_cache = 1
   let g:airline_inactive_collapse = 0
@@ -523,6 +473,19 @@ endf
 function! s:ConfigureOtherPlugins() " {{{
 
   " --------------------------------------------------------------------------
+  " signature
+  call s:SetHighlight('MySignatureMarkText',   { 'fg': '#b895ff'})
+  call s:SetHighlight('MySignatureMarkerText',   { 'fg': '#ff4a33'})
+  let g:SignatureMarkTextHL = 'MySignatureMarkText'
+  let g:SignatureMarkerTextHL = 'MySignatureMarkerText'
+  let g:SignatureMap = {
+        \ 'Leader'             :  "<Ledaer>m",
+        \ 'DeleteMark'         :  "d<Leader>m",
+        \ 'ListBufferMarks'    :  "<Leader>m/",
+        \ 'ListBufferMarkers'  :  "<Leader>m?"
+        \ }
+
+  " --------------------------------------------------------------------------
   " session
   let g:session_directory = '~/.local/share/nvim/sessions/'
   let g:session_default_overwrite = 1
@@ -540,7 +503,7 @@ function! s:ConfigureOtherPlugins() " {{{
         \ 'w'         :'mw',
         \ 'b'         :'mb',
         \ 'e'         :'me',
-        \ 'ge'        :'gme',
+        \ 'ge'        :'mge',
         \ 'aw'        :'amw',
         \ 'iw'        :'imw',
         \ '<C-R><C-W>':'<C-R><C-W>'
@@ -598,8 +561,8 @@ function! s:ConfigureOtherPlugins() " {{{
   let g:signify_vcs_list = ['git']
   let g:signify_sign_delete = '-'
 
-  nmap <leader>j <plug>(signify-next-hunk)
-  nmap <leader>k <plug>(signify-prev-hunk)
+  nmap ]g <plug>(signify-next-hunk)
+  nmap [g <plug>(signify-prev-hunk)
 
   "update without saving
   augroup SignifyRefresh
@@ -617,7 +580,7 @@ function! s:ConfigureOtherPlugins() " {{{
   let g:tagbar_zoomwidth = 100
   let g:tagbar_hide_nonpublic = 1
   let g:tagbar_silent = 1
-  "let g:tagbar_map_showproto = "t"
+  let g:tagbar_map_showproto = "t" "remap showproto from <Space> to t
   let g:tagbar_autoshowtag = 1
   let g:tagbar_autofocus = 0
   nnoremap <silent> <F2> :TagbarToggle<CR>
@@ -633,15 +596,17 @@ function! s:ConfigureOtherPlugins() " {{{
   " --------------------------------------------------------------------------
   " ui enchantments
 
+  " indent guides
+  let g:indent_guides_enable_on_vim_startup = 1
+  let g:indent_guides_guide_size = 1
+  let g:indent_guides_exclude_filetypes = ['help', 'startify', 'man', 'nerdtree', 'tagbar', 'terminal']
+  let g:indent_guides_default_mapping = 0
+
   "devicons
   let g:WebDevIconsNerdTreeGitPluginForceVAlign = 0
   let g:WebDevIconsUnicodeDecorateFolderNodes = 1
   let g:DevIconsEnableFoldersOpenClose = 1
   let g:DevIconsEnableFolderExtensionPatternMatching = 1
-
-  "diminactive
-  let g:diminactive_buftype_blacklist = ['nofile', 'nowrite', 'acwrite', 'quickfix']
-  let g:diminactive_filetype_blacklist = []
 
   "startify
   let g:startify_change_to_vcs_root = 1
@@ -674,6 +639,10 @@ function! s:ConfigureOtherPlugins() " {{{
   " --------------------------------------------------------------------------
   " editors
 
+  "splitjoin
+  let g:splitjoin_join_mapping = 'gj'
+  let g:splitjoin_split_mapping = 'gk'
+
   "exchange
   let g:exchange_no_mappings = 1
   xmap x <Plug>(Exchange)
@@ -682,7 +651,8 @@ function! s:ConfigureOtherPlugins() " {{{
   nmap cxl <Plug>(ExchangeLine)
 
   "undotree
-  nnoremap <F5> :UndotreeToggle<CR>
+  nnoremap <silent> <F4> :UndotreeToggle<CR>
+  nnoremap <silent> <F16> :call SwitchWindowTo("undotree_*")<CR>
   let g:undotree_CustomUndotreeCmd  = 'topleft vertical 30 new'
   let g:undotree_CustomDiffpanelCmd = 'botright 7 new'
   let g:undotree_RelativeTimestamp = 1
@@ -713,7 +683,6 @@ function! s:ConfigureOtherPlugins() " {{{
   xmap gl <Plug>(LiveEasyAlign))
 
   "auto-pairs
-  let g:AutoPairsFlyMode = 1
   let g:AutoPairsShortcutJump = '<M-q>'
 
   "easymotion
@@ -765,12 +734,25 @@ function! s:ConfigureOtherPlugins() " {{{
   " --------------------------------------------------------------------------
   " other
 
-  "cpp enhanced highlight
-  "let g:cpp_class_scope_highlight = 1
-  "let g:cpp_member_variable_highlight = 1
-  "let g:cpp_class_decl_highlight = 1
-  "let g:cpp_experimental_template_highlight = 1
-  "let g:cpp_concepts_highlight = 1
+  "textobj indent
+  let g:textobj_indent_no_default_key_mappings = 1
+  xmap gs <Plug>(textobj-indent-same-a)
+  xmap gS <Plug>(textobj-indent-same-i)
+  xmap gc <Plug>(textobj-indent-a)
+  xmap gC <Plug>(textobj-indent-i)
+
+  "niceblock
+  let g:niceblock_no_default_key_mappings = 1
+  xmap gI <Plug>(niceblock-I)
+  xmap gi <Plug>(niceblock-gI)
+  xmap gA <Plug>(niceblock-A)
+
+  "wildfire
+  let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "ip", "it", "i>"]
+
+  "openbrowser
+	nmap gx <Plug>(openbrowser-smart-search)
+	vmap gx <Plug>(openbrowser-smart-search)
 
   "limelight
   let g:limelight_conceal_guifg = '#446666'
@@ -920,6 +902,7 @@ function! TerminalToggle()
     setlocal nobuflisted
     setlocal winfixwidth
     setlocal winfixheight
+    setlocal filetype=terminal
     file Terminal
     return
   endif
