@@ -4,84 +4,81 @@
 function! s:LoadPlugins()
   call plug#begin('~/.local/share/nvim/plugged')
 
-  "HIGHLIGHTS
-  Plug 'rafi/awesome-vim-colorschemes'
-  Plug 'sheerun/vim-polyglot'
+  " --------------------------------------------------------------------------
+  " UI ENCHANTMENTS
+  Plug 'rafi/awesome-vim-colorschemes'   " COLORSCHEMES
+  Plug 'sheerun/vim-polyglot'            " POLYGLOT
+  Plug 'nathanaelkane/vim-indent-guides' " INDENT GUIDES
+  Plug 'ryanoasis/vim-devicons'          " DEVICONS
 
-  "YCM
-  Plug 'Valloric/YouCompleteMe'
-  Plug 'Valloric/ListToggle'
-
-  "STATUSLINE
-  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline'         " AIRLINE
   Plug 'vim-airline/vim-airline-themes'
 
-  "GIT
-  Plug 'mhinz/vim-signify'
-  Plug 'tpope/vim-fugitive'
+  " --------------------------------------------------------------------------
+  " FEATURES
+  Plug 'dyng/ctrlsf.vim'               " CTRLSF
+  Plug 'ludovicchabant/vim-gutentags'  " GUTENTAGS
+  Plug 'xolox/vim-notes'               " NOTES
+  Plug 'airblade/vim-rooter'           " ROOTER
+  Plug 'markonm/traces.vim'            " TRACES
+  Plug 'tpope/vim-repeat'              " REPEAT
+  Plug 'junegunn/limelight.vim'        " LIMELIGHT
+  Plug 'junegunn/vim-peekaboo'         " PEEKABOO
+  Plug 'troydm/zoomwintab.vim'         " ZOOMWINTAB
+  Plug 'machakann/vim-highlightedyank' " HIGHLIGHTEDYANK
+  Plug 'tyru/open-browser.vim'         " OPEN-BROWSER
+  Plug 'kshenoy/vim-signature'         " SIGNATURE
 
-  "NERDTREE
-  Plug 'scrooloose/nerdtree'
-  Plug 'Xuyuanp/nerdtree-git-plugin'
-
-  "SESSIONS
-  Plug 'xolox/vim-misc'
-  Plug 'xolox/vim-session'
-
-  "SEARCHERS
-  Plug '/usr/share/vim/vimfiles' "fzf installed by pacman
-  Plug 'junegunn/fzf.vim'
-  Plug 'dyng/ctrlsf.vim'
-
-  "TAGS
-  Plug 'majutsushi/tagbar'
-  Plug 'ludovicchabant/vim-gutentags'
-
-  "SNIPPETS
-  Plug 'SirVer/ultisnips'
+  Plug 'SirVer/ultisnips'              " SNIPPETS
   Plug 'honza/vim-snippets'
 
-  "SOME UI ENCHANTMENTS
-  Plug 'ryanoasis/vim-devicons'
-  Plug 'mhinz/vim-startify'
-  Plug 'nathanaelkane/vim-indent-guides'
+  Plug '/usr/share/vim/vimfiles'       " FZF (INSTALLED BY PACMAN)
+  Plug 'junegunn/fzf.vim'
 
-  "EDITORS
-  Plug 'scrooloose/nerdcommenter'
-  Plug 'junegunn/vim-easy-align'
-  Plug 'tpope/vim-surround'
-  Plug 'jiangmiao/auto-pairs'
-  Plug 'terryma/vim-multiple-cursors'
-  Plug 'AndrewRadev/sideways.vim'
-  Plug 'tommcdo/vim-exchange'
-  Plug 'kana/vim-niceblock'
-  Plug 'matze/vim-move'
-  Plug 'AndrewRadev/splitjoin.vim'
+  Plug 'xolox/vim-misc'                " SESSION
+  Plug 'xolox/vim-session'
 
-  "MOTIONS
-  Plug 'romainl/vim-cool'
-  Plug 'easymotion/vim-easymotion'
-  Plug 'yuttie/comfortable-motion.vim'
-  Plug 'chaoren/vim-wordmotion'
+  Plug 'Valloric/YouCompleteMe'        " YCM
+  Plug 'Valloric/ListToggle'
 
-  "FEATURSE
-  Plug 'xolox/vim-notes'
-  Plug 'airblade/vim-rooter'
-  Plug 'markonm/traces.vim'
-  Plug 'tpope/vim-repeat'
-  Plug 'junegunn/limelight.vim'
-  Plug 'junegunn/vim-peekaboo'
-  Plug 'troydm/zoomwintab.vim'
-  Plug 'mbbill/undotree'
-  Plug 'machakann/vim-highlightedyank'
-  Plug 'tyru/open-browser.vim'
-  Plug 'kshenoy/vim-signature'
+  Plug 'mhinz/vim-signify'             " GIT
+  Plug 'tpope/vim-fugitive'
 
+  " --------------------------------------------------------------------------
+  " WINDOW-BASED FEATURES
+  Plug 'mhinz/vim-startify'          " STARTIFY
+  Plug 'majutsushi/tagbar'           " TAG BAR
+  Plug 'mbbill/undotree'             " UNDOTREE
+
+  Plug 'scrooloose/nerdtree'         " NERDTREE
+  Plug 'Xuyuanp/nerdtree-git-plugin'
+
+  " --------------------------------------------------------------------------
+  " MOTIONS
+  Plug 'romainl/vim-cool'              " COOL
+  Plug 'easymotion/vim-easymotion'     " EASYMOTION
+  Plug 'yuttie/comfortable-motion.vim' " COMFORTABLE-MOTION
+  Plug 'chaoren/vim-wordmotion'        " WORDMOTION
+
+  " --------------------------------------------------------------------------
+  " EDITORS
+  Plug 'scrooloose/nerdcommenter'     " NERDCOMMENTER
+  Plug 'junegunn/vim-easy-align'      " EASY-ALIGN
+  Plug 'tpope/vim-surround'           " SURROUND
+  Plug 'jiangmiao/auto-pairs'         " AUTO-PAIRS
+  Plug 'terryma/vim-multiple-cursors' " MULTIPLE-CURSORS
+  Plug 'AndrewRadev/sideways.vim'     " SIDEWAYS
+  Plug 'tommcdo/vim-exchange'         " EXCHANGE
+  Plug 'kana/vim-niceblock'           " NICEBLOCK
+  Plug 'matze/vim-move'               " MOVE
+  Plug 'AndrewRadev/splitjoin.vim'    " SPLITJOIN
+
+  " --------------------------------------------------------------------------
   "TEXT OBJECT
-  Plug 'gcmt/wildfire.vim'
-  Plug 'wellle/targets.vim'
-  Plug 'kana/vim-textobj-user'
-  Plug 'kana/vim-textobj-indent'
+  Plug 'gcmt/wildfire.vim'       " WILDFIRE
+  Plug 'wellle/targets.vim'      " TARGETS
+  Plug 'kana/vim-textobj-user'   " TEXTOBJ USER
+  Plug 'kana/vim-textobj-indent' " TEXTOBJ INDENT
 
   call plug#end()
 endfunction
@@ -284,8 +281,152 @@ endfunction
 " ============================================================================
 " Configure Plugins {{{
 
-function! s:ConfigureFZF() " {{{
+function! s:ConfigurePlugins()
+
+  " **************************************************************************
+  " UI ENCHANTMENTS
+
   " --------------------------------------------------------------------------
+  " indent guides
+  let g:indent_guides_enable_on_vim_startup = 1
+  let g:indent_guides_guide_size = 1
+  let g:indent_guides_exclude_filetypes = ['help', 'startify', 'man', 'nerdtree', 'tagbar', 'terminal']
+  let g:indent_guides_default_mapping = 0
+
+  " --------------------------------------------------------------------------
+  " devicons
+  let g:WebDevIconsNerdTreeGitPluginForceVAlign = 0
+  let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+  let g:DevIconsEnableFoldersOpenClose = 1
+  let g:DevIconsEnableFolderExtensionPatternMatching = 1
+
+  " --------------------------------------------------------------------------
+  " airline
+  let g:airline#extensions#disable_rtp_load = 1
+  let g:airline_extensions = ['tabline', 'branch', 'ycm', 'quickfix', 'tagbar', 'gutentags', 'undotree']
+
+  let g:airline_highlighting_cache = 1
+  let g:airline_inactive_collapse = 0
+  let g:airline_powerline_fonts = 1
+
+  let g:airline#extensions#ctrlp#color_template = 'visual'
+  let g:airline#extensions#ctrlp#show_adjacent_modes = 0
+
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#tabline#show_buffers = 0
+  let g:airline#extensions#tabline#show_tabs = 1
+  let g:airline#extensions#tabline#show_splits = 0
+  let g:airline#extensions#tabline#show_close_button = 0
+  let g:airline#extensions#tabline#tab_nr_type = 1
+  let g:airline#extensions#tabline#fnamemod = ':t'
+  "let g:airline#extensions#tabline#tab_min_count = 2
+
+  function! AirlineInit()
+    let g:airline_section_b = airline#section#create(['branch'])
+    let g:airline_section_c = '%t%m'
+    let g:airline_section_z = '%#__accent_bold#%p%% %l/%L%#__restore__#'
+  endfunction
+  augroup AAInit
+    autocmd!
+    autocmd User AirlineAfterInit call AirlineInit()
+  augroup END
+
+
+  " **************************************************************************
+  " FEATURES
+
+  " --------------------------------------------------------------------------
+  " ctrlsf
+  let g:ctrlsf_auto_focus = {"at" : "start"}
+  let g:ctrlsf_context = '-A 5 -B 2'
+  let g:ctrlsf_default_root = 'project+fw'
+  let g:ctrlsf_populate_qflist = 1
+  let g:ctrlsf_default_view_mode = 'normal'
+  let g:ctrlsf_position = 'left'
+  let g:ctrlsf_winsize = '70'
+  let g:ctrlsf_indent = 2
+
+  nmap <Leader>i <Plug>CtrlSFCwordExec
+  nmap <Leader>e <Plug>CtrlSFCCwordExec
+  vmap <Leader>i <Plug>CtrlSFVwordExec
+
+  " --------------------------------------------------------------------------
+  " gutentags
+  let g:gutentags_exclude_project_root = ['/home/vlad']
+  let g:gutentags_add_default_project_roots = 0
+  let g:gutentags_project_root = ['.git', '.gutMark']
+  let g:gutentags_cache_dir = '~/.local/share/nvim/tags'
+  let g:gutentags_file_list_command = 'fd --hidden --no-ignore --type file'
+
+  " --------------------------------------------------------------------------
+  " notes
+  let g:notes_directories = ['~/.local/share/nvim/notes']
+  let g:notes_title_sync = 'rename_file'
+
+  " --------------------------------------------------------------------------
+  " rooter
+  let g:rooter_silent_chdir = 1
+
+  " --------------------------------------------------------------------------
+  " limelight
+  let g:limelight_conceal_guifg = '#446666'
+  let g:limelight_paragraph_span = 2
+  nnoremap <Leader>fl :Limelight!!<CR>
+
+  " --------------------------------------------------------------------------
+  " peekaboo
+  let g:peekaboo_window = "vert bo 50new"
+
+  " --------------------------------------------------------------------------
+  " zoomwintab
+  nnoremap <Leader>wo :ZoomWinTabToggle<CR>
+
+  " --------------------------------------------------------------------------
+  " highlightedyank
+  let g:highlightedyank_highlight_duration = 200
+
+  " --------------------------------------------------------------------------
+  " open-browser
+	nmap gx <Plug>(openbrowser-smart-search)
+	vmap gx <Plug>(openbrowser-smart-search)
+
+  " --------------------------------------------------------------------------
+  " signature
+  call s:SetHighlight('MySignatureMarkText',   { 'fg': '#b895ff'})
+  call s:SetHighlight('MySignatureMarkerText',   { 'fg': '#ff4a33'})
+  let g:SignatureMarkTextHL = 'MySignatureMarkText'
+  let g:SignatureMarkerTextHL = 'MySignatureMarkerText'
+  let g:SignatureMap = {
+        \ 'Leader'             :  "<Leader>m",
+        \ 'DeleteMark'         :  "d<Leader>m",
+        \ 'ListBufferMarks'    :  "<Leader>m/",
+        \ 'ListBufferMarkers'  :  "<Leader>m?"
+        \ }
+
+  " --------------------------------------------------------------------------
+  " ultisnips
+  let g:UltiSnipsUsePythonVersion = 3
+  let g:UltiSnipsEditSplit = 'vertical'
+  let g:UltiSnipsSnippetsDir ='/home/vlad/.local/share/nvim/pSnips'
+  let g:UltiSnipsSnippetDirectories = ["UltiSnips", "/home/vlad/.local/share/nvim/pSnips"]
+
+  let g:UltiSnipsListSnippets = '<nop>'
+  "let g:UltiSnipsExpandTrigger = '<nop>'
+  "let g:UltiSnipsJumpForwardTrigger = '<nop>'
+  "let g:UltiSnipsJumpBackwardTrigger = '<nop>'
+  let g:UltiSnipsExpandTrigger = '<c-j>'
+  let g:UltiSnipsJumpForwardTrigger = '<c-j>'
+  let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
+
+  "inoremap <c-j> <c-r>=UltiSnips#ExpandSnippetOrJump()<CR>
+  "inoremap <c-j> <c-r>=UltiSnips#ExpandSnippetOrJump()<CR>
+  inoremap <c-]> <c-r>=UltiSnips#ListSnippets()<CR>
+
+  xnoremap  <c-j> :call UltiSnips#SaveLastVisualSelection()<CR>gvs
+  snoremap  <c-j> <Esc>:call UltiSnips#ExpandSnippetOrJump()<CR>
+
+  " --------------------------------------------------------------------------
+  " fzf
   " options {{{
   let $FZF_DEFAULT_OPTS = '--multi --no-mouse --inline-info'
   let $FZF_DEFAULT_COMMAND = 'fd --hidden --no-ignore-vcs --exclude .git/ --type file'
@@ -305,7 +446,7 @@ function! s:ConfigureFZF() " {{{
     autocmd  FileType fzf autocmd BufLeave <buffer> set laststatus=2 showmode relativenumber
   augroup END
   " }}}
-  " --------------------------------------------------------------------------
+
   " highlights {{{
   let g:fzf_colors =
   \ { 'fg'      : ['fg', 'FzfFg'      ] ,
@@ -333,7 +474,7 @@ function! s:ConfigureFZF() " {{{
   call s:SetHighlight('FzfSpiner' , {'fg': '#d0ffc3'})
   call s:SetHighlight('FzfHeader' , {'fg': '#ffffff'})
   " }}}
-  " --------------------------------------------------------------------------
+
   " bindings {{{
   nmap <m-m> <plug>(fzf-maps-n)
   xmap <m-m> <plug>(fzf-maps-x)
@@ -371,119 +512,7 @@ function! s:ConfigureFZF() " {{{
   "nnoremap <leader>oc :FzfCommits<CR>
   "nnoremap <leader>oC :FzfBCommits<CR>
   " }}}
-endfunction " }}}
 
-function! s:ConfigureYCM() " {{{
-  " --------------------------------------------------------------------------
-  " options
-  let g:ycm_global_ycm_extra_conf = '~/.config/ycm/ycm_extra_conf.py'
-  set completeopt-=preview
-  let g:ycm_add_preview_to_completeopt = 0
-  let g:ycm_always_populate_location_list = 1
-  "let g:ycm_autoclose_preview_window_after_insertion = 1
-  let g:lt_height = 7
-
-  " --------------------------------------------------------------------------
-  " highlights
-  call s:SetHighlight('YcmErrorSign', {'mode': 'bold', 'bg': '#101010', 'fg': '#f43753'})
-  call s:SetHighlight('YcmErrorLine', {'bg': '#20202d'})
-  call s:SetHighlight('YcmErrorSection', {'mode': 'bold', 'bg': '#ff5555', 'fg': '#000000'})
-
-  " --------------------------------------------------------------------------
-  " bindings
-  nnoremap <leader>yc :YcmForceCompileAndDiagnostics<CR>
-  let g:ycm_key_invoke_completion = '<C-Space>'
-  let g:ycm_key_list_stop_completion = ['<C-y>']
-  let g:ycm_key_detailed_diagnostics = '<leader>yd'
-  nnoremap <leader>ff :YcmCompleter FixIt<CR>
-  let g:lt_location_list_toggle_map = '<leader>l'
-
-  nnoremap <buffer> <leader>yt :YcmCompleter GetType<CR>
-  nnoremap <buffer> <leader>yr :YcmCompleter ClearCompilationFlagCache<CR>
-
-  nnoremap <buffer> <leader>gg :YcmCompleter GoTo<CR>
-  nnoremap <buffer> <leader>gf :YcmCompleter GoToDefinition<CR>
-  nnoremap <buffer> <leader>gc :YcmCompleter GoToDeclaration<CR>
-  nnoremap <buffer> <leader>gi :YcmCompleter GoToInclude<CR>
-endfunction
-" }}}
-
-function! s:ConfigureAirline() " {{{
-  " --------------------------------------------------------------------------
-  " options
-  let g:airline#extensions#disable_rtp_load = 1
-  let g:airline_extensions = ['tabline', 'branch', 'ycm', 'quickfix', 'tagbar', 'gutentags', 'undotree']
-
-  let g:airline_highlighting_cache = 1
-  let g:airline_inactive_collapse = 0
-  let g:airline_powerline_fonts = 1
-
-  let g:airline#extensions#ctrlp#color_template = 'visual'
-  let g:airline#extensions#ctrlp#show_adjacent_modes = 0
-
-  let g:airline#extensions#tabline#enabled = 1
-  let g:airline#extensions#tabline#show_buffers = 0
-  let g:airline#extensions#tabline#show_tabs = 1
-  let g:airline#extensions#tabline#show_splits = 0
-  let g:airline#extensions#tabline#show_close_button = 0
-  let g:airline#extensions#tabline#tab_nr_type = 1
-  let g:airline#extensions#tabline#fnamemod = ':t'
-  "let g:airline#extensions#tabline#tab_min_count = 2
-
-  " --------------------------------------------------------------------------
-  " custom sections
-  function! AirlineInit()
-    let g:airline_section_b = airline#section#create(['branch'])
-    let g:airline_section_c = '%t%m'
-    let g:airline_section_z = '%#__accent_bold#%p%% %l/%L%#__restore__#'
-  endfunction
-  augroup AAInit
-    autocmd!
-    autocmd User AirlineAfterInit call AirlineInit()
-  augroup END
-
-endfunction
-" }}}
-
-function! s:ConfigureUltiSnips() " {{{
-  let g:UltiSnipsUsePythonVersion = 3
-  let g:UltiSnipsEditSplit = 'vertical'
-  let g:UltiSnipsSnippetsDir ='/home/vlad/.local/share/nvim/pSnips'
-  let g:UltiSnipsSnippetDirectories = ["UltiSnips", "/home/vlad/.local/share/nvim/pSnips"]
-
-  let g:UltiSnipsListSnippets = '<nop>'
-  "let g:UltiSnipsExpandTrigger = '<nop>'
-  "let g:UltiSnipsJumpForwardTrigger = '<nop>'
-  "let g:UltiSnipsJumpBackwardTrigger = '<nop>'
-  let g:UltiSnipsExpandTrigger = '<c-j>'
-  let g:UltiSnipsJumpForwardTrigger = '<c-j>'
-  let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
-
-
-  "inoremap <c-j> <c-r>=UltiSnips#ExpandSnippetOrJump()<CR>
-  "inoremap <c-j> <c-r>=UltiSnips#ExpandSnippetOrJump()<CR>
-  inoremap <c-]> <c-r>=UltiSnips#ListSnippets()<CR>
-
-  xnoremap  <c-j> :call UltiSnips#SaveLastVisualSelection()<CR>gvs
-  snoremap  <c-j> <Esc>:call UltiSnips#ExpandSnippetOrJump()<CR>
-
-endf
-" }}}
-
-function! s:ConfigureOtherPlugins() " {{{
-
-  " --------------------------------------------------------------------------
-  " signature
-  call s:SetHighlight('MySignatureMarkText',   { 'fg': '#b895ff'})
-  call s:SetHighlight('MySignatureMarkerText',   { 'fg': '#ff4a33'})
-  let g:SignatureMarkTextHL = 'MySignatureMarkText'
-  let g:SignatureMarkerTextHL = 'MySignatureMarkerText'
-  let g:SignatureMap = {
-        \ 'Leader'             :  "<Ledaer>m",
-        \ 'DeleteMark'         :  "d<Leader>m",
-        \ 'ListBufferMarks'    :  "<Leader>m/",
-        \ 'ListBufferMarkers'  :  "<Leader>m?"
-        \ }
 
   " --------------------------------------------------------------------------
   " session
@@ -498,117 +527,57 @@ function! s:ConfigureOtherPlugins() " {{{
   let g:session_command_aliases = 1
 
   " --------------------------------------------------------------------------
-  " word motion
-  let g:wordmotion_mappings = {
-        \ 'w'         :'mw',
-        \ 'b'         :'mb',
-        \ 'e'         :'me',
-        \ 'ge'        :'mge',
-        \ 'aw'        :'amw',
-        \ 'iw'        :'imw',
-        \ '<C-R><C-W>':'<C-R><C-W>'
-        \ }
+  " ycm
+  "  options
+  let g:ycm_global_ycm_extra_conf = '~/.config/ycm/ycm_extra_conf.py'
+  set completeopt-=preview
+  let g:ycm_add_preview_to_completeopt = 0
+  let g:ycm_always_populate_location_list = 1
+  "let g:ycm_autoclose_preview_window_after_insertion = 1
+  let g:lt_height = 7
+
+  "  highlights
+  call s:SetHighlight('YcmErrorSign', {'mode': 'bold', 'bg': '#101010', 'fg': '#f43753'})
+  call s:SetHighlight('YcmErrorLine', {'bg': '#20202d'})
+  call s:SetHighlight('YcmErrorSection', {'mode': 'bold', 'bg': '#ff5555', 'fg': '#000000'})
+
+  "  bindings
+  nnoremap <leader>yc :YcmForceCompileAndDiagnostics<CR>
+  let g:ycm_key_invoke_completion = '<C-Space>'
+  let g:ycm_key_list_stop_completion = ['<C-y>']
+  let g:ycm_key_detailed_diagnostics = '<leader>yd'
+  nnoremap <leader>ff :YcmCompleter FixIt<CR>
+  let g:lt_location_list_toggle_map = '<leader>l'
+
+  nnoremap <buffer> <leader>yt :YcmCompleter GetType<CR>
+  nnoremap <buffer> <leader>yr :YcmCompleter ClearCompilationFlagCache<CR>
+
+  nnoremap <buffer> <leader>gg :YcmCompleter GoTo<CR>
+  nnoremap <buffer> <leader>gf :YcmCompleter GoToDefinition<CR>
+  nnoremap <buffer> <leader>gc :YcmCompleter GoToDeclaration<CR>
+  nnoremap <buffer> <leader>gi :YcmCompleter GoToInclude<CR>
 
   " --------------------------------------------------------------------------
-  " comfortable motion
-  let g:comfortable_motion_no_default_key_mappings = 1
-  let g:comfortable_motion_interval = 1000.0 / 60
-
-  let g:comfortable_motion_friction = 80.0
-  let g:comfortable_motion_air_drag = 6.5
-
-  let g:cm_impulse = 4
-
-  nnoremap <silent> <C-e> :call comfortable_motion#flick(g:cm_impulse * winheight(0) *  0.3 )<CR>
-  nnoremap <silent> <C-y> :call comfortable_motion#flick(g:cm_impulse * winheight(0) * -0.3 )<CR>
-  nnoremap <silent> <C-d> :call comfortable_motion#flick(g:cm_impulse * winheight(0) *    1 )<CR>
-  nnoremap <silent> <C-u> :call comfortable_motion#flick(g:cm_impulse * winheight(0) *   -1 )<CR>
-  nnoremap <silent> <C-f> :call comfortable_motion#flick(g:cm_impulse * winheight(0) *  1.8 )<CR>
-  nnoremap <silent> <C-b> :call comfortable_motion#flick(g:cm_impulse * winheight(0) * -1.8 )<CR>
-
-  " --------------------------------------------------------------------------
-  " ctrlsf
-  let g:ctrlsf_auto_focus = {"at" : "start"}
-  let g:ctrlsf_context = '-A 5 -B 2'
-  let g:ctrlsf_default_root = 'project+fw'
-  let g:ctrlsf_populate_qflist = 1
-  let g:ctrlsf_default_view_mode = 'normal'
-  let g:ctrlsf_position = 'left'
-  let g:ctrlsf_winsize = '70'
-  let g:ctrlsf_indent = 2
-
-  nmap <Leader>i <Plug>CtrlSFCwordExec
-  nmap <Leader>e <Plug>CtrlSFCCwordExec
-  vmap <Leader>i <Plug>CtrlSFVwordExec
-
-  " --------------------------------------------------------------------------
-  " nerd tree
-
-  let g:NERDTreeStatusline = 'Nerdtree'
-  nnoremap <silent> <F3> :call NerdtreeToggle()<CR>
-  nnoremap <silent> <F15> :call SwitchWindowTo("NERD_tree_*")<CR>
-  nnoremap <silent> <leader>n :NERDTree<CR>
-
-  "my theme fix
-  augroup SetHighlightFunctionGroup
-    autocmd ColorScheme * highlight link NERDTreeDir Directory
-  augroup END
-
-  " --------------------------------------------------------------------------
-  " git
-
-  "SIGNIFY
+  "signify
   let g:signify_vcs_list = ['git']
   let g:signify_sign_delete = '-'
 
   nmap ]g <plug>(signify-next-hunk)
   nmap [g <plug>(signify-prev-hunk)
 
-  "update without saving
-  augroup SignifyRefresh
+  augroup SignifyRefresh "update without saving
     autocmd!
     autocmd CursorHold * SignifyRefresh
     autocmd CursorHoldI * SignifyRefresh
     autocmd FocusGained * SignifyRefresh
   augroup END
 
-  " --------------------------------------------------------------------------
-  " tags
 
-  " tagbar
-  let g:tagbar_width = 30
-  let g:tagbar_zoomwidth = 100
-  let g:tagbar_hide_nonpublic = 1
-  let g:tagbar_silent = 1
-  let g:tagbar_map_showproto = "t" "remap showproto from <Space> to t
-  let g:tagbar_autoshowtag = 1
-  let g:tagbar_autofocus = 0
-  nnoremap <silent> <F2> :TagbarToggle<CR>
-  nnoremap <silent> <F14> :call SwitchWindowTo("__Tagbar__.*")<CR>
-
-  "gutentags
-  let g:gutentags_exclude_project_root = ['/home/vlad']
-  let g:gutentags_add_default_project_roots = 0
-  let g:gutentags_project_root = ['.git', '.gutMark']
-  let g:gutentags_cache_dir = '~/.local/share/nvim/tags'
-  let g:gutentags_file_list_command = 'fd --hidden --no-ignore --type file'
+  " **************************************************************************
+  " WINDOW-BASED FEATURES
 
   " --------------------------------------------------------------------------
-  " ui enchantments
-
-  " indent guides
-  let g:indent_guides_enable_on_vim_startup = 1
-  let g:indent_guides_guide_size = 1
-  let g:indent_guides_exclude_filetypes = ['help', 'startify', 'man', 'nerdtree', 'tagbar', 'terminal']
-  let g:indent_guides_default_mapping = 0
-
-  "devicons
-  let g:WebDevIconsNerdTreeGitPluginForceVAlign = 0
-  let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-  let g:DevIconsEnableFoldersOpenClose = 1
-  let g:DevIconsEnableFolderExtensionPatternMatching = 1
-
-  "startify
+  " startify
   let g:startify_change_to_vcs_root = 1
   let g:startify_update_oldfiles = 1
   let g:startify_fortune_use_unicode = 1
@@ -637,20 +606,19 @@ function! s:ConfigureOtherPlugins() " {{{
         \ ]
 
   " --------------------------------------------------------------------------
-  " editors
+  " tagbar
+  let g:tagbar_width = 30
+  let g:tagbar_zoomwidth = 100
+  let g:tagbar_hide_nonpublic = 1
+  let g:tagbar_silent = 1
+  let g:tagbar_map_showproto = "t" "remap showproto from <Space> to t
+  let g:tagbar_autoshowtag = 1
+  let g:tagbar_autofocus = 0
+  nnoremap <silent> <F2> :TagbarToggle<CR>
+  nnoremap <silent> <F14> :call SwitchWindowTo("__Tagbar__.*")<CR>
 
-  "splitjoin
-  let g:splitjoin_join_mapping = 'gj'
-  let g:splitjoin_split_mapping = 'gk'
-
-  "exchange
-  let g:exchange_no_mappings = 1
-  xmap x <Plug>(Exchange)
-  nmap cx <Plug>(Exchange)
-  nmap cxc <Plug>(ExchangeClear)
-  nmap cxl <Plug>(ExchangeLine)
-
-  "undotree
+  " --------------------------------------------------------------------------
+  " undotree
   nnoremap <silent> <F4> :UndotreeToggle<CR>
   nnoremap <silent> <F16> :call SwitchWindowTo("undotree_*")<CR>
   let g:undotree_CustomUndotreeCmd  = 'topleft vertical 30 new'
@@ -659,33 +627,24 @@ function! s:ConfigureOtherPlugins() " {{{
   let g:undotree_ShortIndicators = 1
   let g:undotree_HelpLine = 0
 
-  "sideways
-  let b:sideways_skip_syntax = []
-  nnoremap <silent> <Leader>, :SidewaysLeft<cr>
-  nnoremap <silent> <Leader>. :SidewaysRight<cr>
+  " --------------------------------------------------------------------------
+  " nerdtree
+  let g:NERDTreeStatusline = 'Nerdtree'
+  nnoremap <silent> <F3> :call NerdtreeToggle()<CR>
+  nnoremap <silent> <F15> :call SwitchWindowTo("NERD_tree_*")<CR>
+  nnoremap <silent> <leader>n :NERDTree<CR>
 
-  omap aa <Plug>SidewaysArgumentTextobjA
-  xmap aa <Plug>SidewaysArgumentTextobjA
-  omap ia <Plug>SidewaysArgumentTextobjI
-  xmap ia <Plug>SidewaysArgumentTextobjI
+  "my theme fix
+  augroup SetHighlightFunctionGroup
+    autocmd ColorScheme * highlight link NERDTreeDir Directory
+  augroup END
 
-  "nerdcommenter
-  let g:NERDRemoveExtraSpaces = 1
-  let g:NERDTrimTrailingWhitespace = 1
-  let g:NERDCompactSexyComs = 1
-  let g:NERDToggleCheckAllLines = 1
 
-  "easy-aligm
-  nmap ga <Plug>(EasyAlign)
-  xmap ga <Plug>(EasyAlign)
+  " **************************************************************************
+  " MOTIONS
 
-  nmap gl <Plug>(LiveEasyAlign))
-  xmap gl <Plug>(LiveEasyAlign))
-
-  "auto-pairs
-  let g:AutoPairsShortcutJump = '<M-q>'
-
-  "easymotion
+  " --------------------------------------------------------------------------
+  " easymotion
   let g:EasyMotion_do_mapping = 0
   let g:EasyMotion_smartcase = 1
   let g:EasyMotion_use_smartsign_us = 1
@@ -730,54 +689,105 @@ function! s:ConfigureOtherPlugins() " {{{
   map s/ <Plug>(easymotion-bd-n)
   map sr <Plug>(easymotion-repeat)
 
+  " --------------------------------------------------------------------------
+  " comfortable-motion
+  let g:comfortable_motion_no_default_key_mappings = 1
+  let g:comfortable_motion_interval = 1000.0 / 60
+
+  let g:comfortable_motion_friction = 80.0
+  let g:comfortable_motion_air_drag = 6.5
+
+  let g:cm_impulse = 4
+
+  nnoremap <silent> <C-e> :call comfortable_motion#flick(g:cm_impulse * winheight(0) *  0.3 )<CR>
+  nnoremap <silent> <C-y> :call comfortable_motion#flick(g:cm_impulse * winheight(0) * -0.3 )<CR>
+  nnoremap <silent> <C-d> :call comfortable_motion#flick(g:cm_impulse * winheight(0) *    1 )<CR>
+  nnoremap <silent> <C-u> :call comfortable_motion#flick(g:cm_impulse * winheight(0) *   -1 )<CR>
+  nnoremap <silent> <C-f> :call comfortable_motion#flick(g:cm_impulse * winheight(0) *  1.8 )<CR>
+  nnoremap <silent> <C-b> :call comfortable_motion#flick(g:cm_impulse * winheight(0) * -1.8 )<CR>
 
   " --------------------------------------------------------------------------
-  " other
+  " wordmotion
+  let g:wordmotion_mappings = {
+        \ 'w'         :'mw',
+        \ 'b'         :'mb',
+        \ 'e'         :'me',
+        \ 'ge'        :'mge',
+        \ 'aw'        :'amw',
+        \ 'iw'        :'imw',
+        \ '<C-R><C-W>':'<C-R><C-W>'
+        \ }
 
-  "textobj indent
+  " **************************************************************************
+  " EDITORS
+
+  " --------------------------------------------------------------------------
+  " nerdcommenter
+  let g:NERDRemoveExtraSpaces = 1
+  let g:NERDTrimTrailingWhitespace = 1
+  let g:NERDCompactSexyComs = 1
+  let g:NERDToggleCheckAllLines = 1
+
+  " --------------------------------------------------------------------------
+  " easy-align
+  nmap ga <Plug>(EasyAlign)
+  xmap ga <Plug>(EasyAlign)
+
+  nmap gl <Plug>(LiveEasyAlign))
+  xmap gl <Plug>(LiveEasyAlign))
+
+  " --------------------------------------------------------------------------
+  " auto-pairs
+  let g:AutoPairsShortcutJump = '<M-q>'
+
+  " --------------------------------------------------------------------------
+  " sideways
+  let b:sideways_skip_syntax = []
+  nnoremap <silent> <Leader>, :SidewaysLeft<cr>
+  nnoremap <silent> <Leader>. :SidewaysRight<cr>
+
+  omap aa <Plug>SidewaysArgumentTextobjA
+  xmap aa <Plug>SidewaysArgumentTextobjA
+  omap ia <Plug>SidewaysArgumentTextobjI
+  xmap ia <Plug>SidewaysArgumentTextobjI
+
+  " --------------------------------------------------------------------------
+  " exchange
+  let g:exchange_no_mappings = 1
+  xmap x <Plug>(Exchange)
+  nmap cx <Plug>(Exchange)
+  nmap cxc <Plug>(ExchangeClear)
+  nmap cxl <Plug>(ExchangeLine)
+
+  " --------------------------------------------------------------------------
+  " niceblock
+  let g:niceblock_no_default_key_mappings = 1
+  xmap gI <Plug>(niceblock-I)
+  xmap gi <Plug>(niceblock-gI)
+  xmap gA <Plug>(niceblock-A)
+
+  " --------------------------------------------------------------------------
+  " splitjoin
+  let g:splitjoin_join_mapping = 'gj'
+  let g:splitjoin_split_mapping = 'gk'
+
+
+  " **************************************************************************
+  "TEXT OBJECT
+
+  " wildfire
+  let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "ip", "it", "i>"]
+
+  " textobj indent
   let g:textobj_indent_no_default_key_mappings = 1
   xmap gs <Plug>(textobj-indent-same-a)
   xmap gS <Plug>(textobj-indent-same-i)
   xmap gc <Plug>(textobj-indent-a)
   xmap gC <Plug>(textobj-indent-i)
 
-  "niceblock
-  let g:niceblock_no_default_key_mappings = 1
-  xmap gI <Plug>(niceblock-I)
-  xmap gi <Plug>(niceblock-gI)
-  xmap gA <Plug>(niceblock-A)
 
-  "wildfire
-  let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "ip", "it", "i>"]
-
-  "openbrowser
-	nmap gx <Plug>(openbrowser-smart-search)
-	vmap gx <Plug>(openbrowser-smart-search)
-
-  "limelight
-  let g:limelight_conceal_guifg = '#446666'
-  let g:limelight_paragraph_span = 2
-  nnoremap <Leader>fl :Limelight!!<CR>
-
-  "peekaboo
-  let g:peekaboo_window = "vert bo 50new"
-
-  "zoomwintab
-  nnoremap <Leader>wo :ZoomWinTabToggle<CR>
-
-  "highlighted yank
-  let g:highlightedyank_highlight_duration = 200
-
-  "rooter
-  let g:rooter_silent_chdir = 1
-
-  "notes
-  let g:notes_directories = ['~/.local/share/nvim/notes']
-  let g:notes_title_sync = 'rename_file'
-
+  call plug#end()
 endfunction
-" }}}
-
 " }}}
 " ============================================================================
 
@@ -935,10 +945,6 @@ endfunction
 
 call s:LoadPlugins()
 call s:BasicSettings()
-call s:ConfigureFZF()
-call s:ConfigureYCM()
-call s:ConfigureAirline()
-call s:ConfigureUltiSnips()
-call s:ConfigureOtherPlugins()
+call s:ConfigurePlugins()
 call s:ConfigureView()
 
