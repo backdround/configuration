@@ -16,6 +16,7 @@ setopt hist_verify
 setopt inc_append_history
 
 #completion
+#fpath+=/.zfunc
 autoload -U compinit && compinit
 zmodload -i zsh/complist
 
@@ -69,6 +70,8 @@ antigen bundle colored-man-pages
 antigen bundle colorize
 antigen bundle command-not-found
 antigen bundle extract
+antigen bundle rust
+antigen bundle cargo
 
 antigen bundle djui/alias-tips
 antigen bundle Valiev/almostontop
@@ -129,6 +132,8 @@ alias sudo='sudo '
 alias ranger='ranger --choosedir=/tmp/.rangerdir; LASTDIR=`cat /tmp/.rangerdir`; cd "$LASTDIR"'
 alias n='nvim'
 alias p='python'
+alias r='rustup'
+alias c='cargo'
 alias f='fd -IH'
 
 #my scripts aliases

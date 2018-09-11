@@ -8,7 +8,6 @@ function! s:LoadPlugins()
   " UI ENCHANTMENTS
   Plug 'rafi/awesome-vim-colorschemes'   " COLORSCHEMES
   Plug 'sheerun/vim-polyglot'            " POLYGLOT
-  Plug 'nathanaelkane/vim-indent-guides' " INDENT GUIDES
   Plug 'ryanoasis/vim-devicons'          " DEVICONS
 
   Plug 'vim-airline/vim-airline'         " AIRLINE
@@ -16,33 +15,36 @@ function! s:LoadPlugins()
 
   " --------------------------------------------------------------------------
   " FEATURES
-  Plug 'dyng/ctrlsf.vim'               " CTRLSF
-  Plug 'ludovicchabant/vim-gutentags'  " GUTENTAGS
-  Plug 'xolox/vim-notes'               " NOTES
-  Plug 'airblade/vim-rooter'           " ROOTER
-  Plug 'markonm/traces.vim'            " TRACES
-  Plug 'tpope/vim-repeat'              " REPEAT
-  Plug 'junegunn/limelight.vim'        " LIMELIGHT
-  Plug 'junegunn/vim-peekaboo'         " PEEKABOO
-  Plug 'troydm/zoomwintab.vim'         " ZOOMWINTAB
-  Plug 'machakann/vim-highlightedyank' " HIGHLIGHTEDYANK
-  Plug 'tyru/open-browser.vim'         " OPEN-BROWSER
-  Plug 'kshenoy/vim-signature'         " SIGNATURE
+  Plug 'dyng/ctrlsf.vim'                " CTRLSF
+  Plug 'ludovicchabant/vim-gutentags'   " GUTENTAGS
+  Plug 'xolox/vim-notes'                " NOTES
+  Plug 'airblade/vim-rooter'            " ROOTER
+  Plug 'markonm/traces.vim'             " TRACES
+  Plug 'tpope/vim-repeat'               " REPEAT
+  Plug 'junegunn/limelight.vim'         " LIMELIGHT
+  Plug 'junegunn/vim-peekaboo'          " PEEKABOO
+  Plug 'troydm/zoomwintab.vim'          " ZOOM WIN TAB
+  Plug 'machakann/vim-highlightedyank'  " HIGHLIGHTED YANK
+  Plug 'tyru/open-browser.vim'          " OPEN BROWSER
+  Plug 'kshenoy/vim-signature'          " SIGNATURE
+  Plug 'Valloric/ListToggle'            " LIST TOGGLE
 
-  Plug 'SirVer/ultisnips'              " SNIPPETS
+  Plug 'SirVer/ultisnips'               " SNIPPETS
   Plug 'honza/vim-snippets'
 
-  Plug '/usr/share/vim/vimfiles'       " FZF (INSTALLED BY PACMAN)
+  Plug '/usr/share/vim/vimfiles'        " FZF (INSTALLED BY PACMAN)
   Plug 'junegunn/fzf.vim'
 
-  Plug 'xolox/vim-misc'                " SESSION
+  Plug 'xolox/vim-misc'                 " SESSION
   Plug 'xolox/vim-session'
 
-  Plug 'Valloric/YouCompleteMe'        " YCM
-  Plug 'Valloric/ListToggle'
+  "Plug 'Valloric/YouCompleteMe'        " YCM
+  Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-  Plug 'mhinz/vim-signify'             " GIT
+  Plug 'mhinz/vim-signify'              " GIT
   Plug 'tpope/vim-fugitive'
+
 
   " --------------------------------------------------------------------------
   " WINDOW-BASED FEATURES
@@ -141,7 +143,7 @@ function! s:BasicSettings()
 
   "leader space
   let g:mapleader = ' '
-  nnoremap <space> <NOP>
+  map <space> <NOP>
 
   "movement in insert mode
   inoremap <m-h> <left>
@@ -177,12 +179,10 @@ function! s:BasicSettings()
 
   "misc
   set pastetoggle=<F8>
-  noremap s <NOP>
-  noremap S <NOP>
-  noremap m <NOP>
-  "this map set automaticly with signature plug-in
-  "nnoremap <leader>m m
-  noremap q <NOP>
+  map s <NOP>
+  map S <NOP>
+  map m <NOP>
+  map q <NOP>
   nnoremap <leader>2 q
 
   "swap ' and `
@@ -213,7 +213,7 @@ function! s:BasicSettings()
     autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
   augroup END
 
- "}}}
+  "}}}
 
 endfunction
 " }}}
@@ -259,13 +259,19 @@ function! s:ConfigureView()
   call s:SetHighlight("WarningMsg",   { 'mode': 'bold', 'bg': '#101010', 'fg': '#ff79c6'})
 
   "Pmenu
-  call s:SetHighlight("Pmenu",        { 'bg': '#101010', 'fg': '7bc992'})
-  call s:SetHighlight("PmenuSel",     { 'bg': '#ff99ff', 'fg': 'black'})
+  call s:SetHighlight("Pmenu",        { 'bg': '#103030', 'fg': '7bc992'})
+  call s:SetHighlight("PmenuSel",     { 'bg': 'black', 'fg': '#55ff88'})
 
   "Diffs
   call s:SetHighlight("DiffAdd",      { 'fg': '#55ff55'})
   call s:SetHighlight("DiffDelete",   { 'fg': '#ff5555'})
   call s:SetHighlight("DiffChange",   { 'fg': '#ff9955'})
+
+  "Signs
+  call s:SetHighlight('ErrorSign', {'mode': 'bold', 'bg': '#101010', 'fg': '#f43753'})
+  call s:SetHighlight('WarningSing', {'mode': 'bold', 'bg': '#101010', 'fg': '#f4f453'})
+  call s:SetHighlight('InformationSign', {'mode': 'bold', 'bg': '#101010', 'fg': '#67f473'})
+  call s:SetHighlight('HintSing', {'mode': 'bold', 'bg': '#101010', 'fg': '#f484f4'})
 
   "Folded
   call s:SetHighlight("Folded",       { 'bg': '#302737'})
@@ -285,13 +291,6 @@ function! s:ConfigurePlugins()
 
   " **************************************************************************
   " UI ENCHANTMENTS
-
-  " --------------------------------------------------------------------------
-  " indent guides
-  let g:indent_guides_enable_on_vim_startup = 1
-  let g:indent_guides_guide_size = 1
-  let g:indent_guides_exclude_filetypes = ['help', 'startify', 'man', 'nerdtree', 'tagbar', 'terminal']
-  let g:indent_guides_default_mapping = 0
 
   " --------------------------------------------------------------------------
   " devicons
@@ -387,8 +386,8 @@ function! s:ConfigurePlugins()
 
   " --------------------------------------------------------------------------
   " open-browser
-	nmap gx <Plug>(openbrowser-smart-search)
-	vmap gx <Plug>(openbrowser-smart-search)
+  nmap gx <Plug>(openbrowser-smart-search)
+  vmap gx <Plug>(openbrowser-smart-search)
 
   " --------------------------------------------------------------------------
   " signature
@@ -432,9 +431,9 @@ function! s:ConfigurePlugins()
   let $FZF_DEFAULT_COMMAND = 'fd --hidden --no-ignore-vcs --exclude .git/ --type file'
 
   let g:fzf_action = {
-    \ 'ctrl-t': 'tab split',
-    \ 'ctrl-s': 'split',
-    \ 'ctrl-v': 'vsplit' }
+        \ 'ctrl-t': 'tab split',
+        \ 'ctrl-s': 'split',
+        \ 'ctrl-v': 'vsplit' }
   let g:fzf_layout = { 'down': '30%' }
   let g:fzf_history_dir = '~/.local/share/fzf-history'
   let g:fzf_command_prefix='Fzf'
@@ -449,19 +448,19 @@ function! s:ConfigurePlugins()
 
   " highlights {{{
   let g:fzf_colors =
-  \ { 'fg'      : ['fg', 'FzfFg'      ] ,
-    \ 'bg'      : ['fg', 'FzfBg'      ] ,
-    \ 'hl'      : ['fg', 'FzfHl'      ] ,
-    \ 'fg+'     : ['bg', 'FzfFg'      ] ,
-    \ 'bg+'     : ['bg', 'FzfBg'      ] ,
-    \ 'hl+'     : ['bg', 'FzfHl'      ] ,
-    \ 'info'    : ['fg', 'FzfInfo'    ] ,
-    \ 'border'  : ['fg', 'FzfBorder'  ] ,
-    \ 'prompt'  : ['fg', 'FzfPrompt'  ] ,
-    \ 'pointer' : ['fg', 'FzfPointer' ] ,
-    \ 'marker'  : ['fg', 'FzfMarker'  ] ,
-    \ 'spinner' : ['fg', 'FzfSpiner'  ] ,
-    \ 'header'  : ['fg', 'FzfHeader'  ] }
+        \ { 'fg'      : ['fg', 'FzfFg'      ] ,
+        \ 'bg'      : ['fg', 'FzfBg'      ] ,
+        \ 'hl'      : ['fg', 'FzfHl'      ] ,
+        \ 'fg+'     : ['bg', 'FzfFg'      ] ,
+        \ 'bg+'     : ['bg', 'FzfBg'      ] ,
+        \ 'hl+'     : ['bg', 'FzfHl'      ] ,
+        \ 'info'    : ['fg', 'FzfInfo'    ] ,
+        \ 'border'  : ['fg', 'FzfBorder'  ] ,
+        \ 'prompt'  : ['fg', 'FzfPrompt'  ] ,
+        \ 'pointer' : ['fg', 'FzfPointer' ] ,
+        \ 'marker'  : ['fg', 'FzfMarker'  ] ,
+        \ 'spinner' : ['fg', 'FzfSpiner'  ] ,
+        \ 'header'  : ['fg', 'FzfHeader'  ] }
   call s:SetHighlight('FzfFg', {'fg': '#3fc997', 'bg': '#00ffff'})
   call s:SetHighlight('FzfBg', {'fg': '#000000', 'bg': '#161616'})
   call s:SetHighlight('FzfHl', {'fg': '#db0088', 'bg': '#ff0000'})
@@ -529,33 +528,74 @@ function! s:ConfigurePlugins()
   " --------------------------------------------------------------------------
   " ycm
   "  options
-  let g:ycm_global_ycm_extra_conf = '~/.config/ycm/ycm_extra_conf.py'
-  set completeopt-=preview
-  let g:ycm_add_preview_to_completeopt = 0
-  let g:ycm_always_populate_location_list = 1
-  "let g:ycm_autoclose_preview_window_after_insertion = 1
-  let g:lt_height = 7
+  "let g:ycm_global_ycm_extra_conf = '~/.config/ycm/ycm_extra_conf.py'
+  "set completeopt-=preview
+  "let g:ycm_add_preview_to_completeopt = 0
+  "let g:ycm_always_populate_location_list = 1
+  ""let g:ycm_autoclose_preview_window_after_insertion = 1
+  "let g:lt_height = 7
 
-  "  highlights
-  call s:SetHighlight('YcmErrorSign', {'mode': 'bold', 'bg': '#101010', 'fg': '#f43753'})
-  call s:SetHighlight('YcmErrorLine', {'bg': '#20202d'})
-  call s:SetHighlight('YcmErrorSection', {'mode': 'bold', 'bg': '#ff5555', 'fg': '#000000'})
+  ""  highlights
+  "call s:SetHighlight('YcmErrorSign', {'mode': 'bold', 'bg': '#101010', 'fg': '#f43753'})
+  "call s:SetHighlight('YcmErrorLine', {'bg': '#20202d'})
+  "call s:SetHighlight('YcmErrorSection', {'mode': 'bold', 'bg': '#ff5555', 'fg': '#000000'})
 
-  "  bindings
-  nnoremap <leader>yc :YcmForceCompileAndDiagnostics<CR>
-  let g:ycm_key_invoke_completion = '<C-Space>'
-  let g:ycm_key_list_stop_completion = ['<C-y>']
-  let g:ycm_key_detailed_diagnostics = '<leader>yd'
-  nnoremap <leader>ff :YcmCompleter FixIt<CR>
-  let g:lt_location_list_toggle_map = '<leader>l'
+  ""  bindings
+  "nnoremap <leader>yc :YcmForceCompileAndDiagnostics<CR>
+  "let g:ycm_key_invoke_completion = '<C-Space>'
+  "let g:ycm_key_list_stop_completion = ['<C-y>']
+  "let g:ycm_key_detailed_diagnostics = '<leader>yd'
+  "nnoremap <leader>ff :YcmCompleter FixIt<CR>
+  "let g:lt_location_list_toggle_map = '<leader>l'
 
-  nnoremap <buffer> <leader>yt :YcmCompleter GetType<CR>
-  nnoremap <buffer> <leader>yr :YcmCompleter ClearCompilationFlagCache<CR>
+  "nnoremap <buffer> <leader>yt :YcmCompleter GetType<CR>
+  "nnoremap <buffer> <leader>yr :YcmCompleter ClearCompilationFlagCache<CR>
 
-  nnoremap <buffer> <leader>gg :YcmCompleter GoTo<CR>
-  nnoremap <buffer> <leader>gf :YcmCompleter GoToDefinition<CR>
-  nnoremap <buffer> <leader>gc :YcmCompleter GoToDeclaration<CR>
-  nnoremap <buffer> <leader>gi :YcmCompleter GoToInclude<CR>
+  "nnoremap <buffer> <leader>gg :YcmCompleter GoTo<CR>
+  "nnoremap <buffer> <leader>gf :YcmCompleter GoToDefinition<CR>
+  "nnoremap <buffer> <leader>gc :YcmCompleter GoToDeclaration<CR>
+  "nnoremap <buffer> <leader>gi :YcmCompleter GoToInclude<CR>
+
+  " --------------------------------------------------------------------------
+  " lsp
+  let g:LanguageClient_serverCommands = {
+        \ 'cpp': ['cquery', '--log-file=/tmp/cq.log'],
+        \ 'c': ['cquery', '--log-file=/tmp/cq.log'],
+        \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+        \ }
+  let g:LanguageClient_rootMarkers = {
+        \ 'cpp': ['compile_commands.json']
+        \ }
+  let g:LanguageClient_diagnosticsDisplay = { 1: { }, 2: { }, 3: { }, 4: { }, }
+  let g:LanguageClient_diagnosticsDisplay[1]['signTexthl'] = "ErrorSign"
+  let g:LanguageClient_diagnosticsDisplay[2]['signTexthl'] = "WarningSing"
+  let g:LanguageClient_diagnosticsDisplay[3]['signTexthl'] = "InformationSign"
+  let g:LanguageClient_diagnosticsDisplay[4]['signTexthl'] = "HintSing"
+
+  let g:LanguageClient_loadSettings = 1
+  let g:LanguageClient_settingsPath = '~/.config/nvim/settings.json'
+  let g:LanguageClient_loggingFile = "/tmp/LanguageClient.log"
+  let g:LanguageClient_windowLogMessageLevel = "Error"
+  set completefunc=LanguageClient#complete
+  set formatexpr=LanguageClient_textDocument_rangeFormatting()
+
+  function! SetLSPHotkeys()
+    nnoremap <buffer> <silent> gh :call LanguageClient#textDocument_hover()<CR>
+    nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
+    nnoremap <buffer> <silent> gr :call LanguageClient#textDocument_references()<CR>
+    nnoremap <buffer> <silent> gs :call LanguageClient#textDocument_documentSymbol()<CR>
+    nnoremap <buffer> <silent> gn :call LanguageClient#textDocument_rename()<CR>
+    nnoremap <buffer> <silent> gm :call LanguageClient_contextMenu()<CR>
+  endfunction
+
+  augroup LSPHotkeysForFiles
+    autocmd!
+    autocmd FileType cpp,hpp,c,h,rust call SetLSPHotkeys()
+  augroup END
+
+  " --------------------------------------------------------------------------
+  " deoplete
+  let g:deoplete#enable_at_startup = 1
 
   " --------------------------------------------------------------------------
   "signify
