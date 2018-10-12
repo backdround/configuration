@@ -39,8 +39,8 @@ function! s:LoadPlugins()
   Plug 'xolox/vim-session'
 
   "Plug 'Valloric/YouCompleteMe'        " YCM
-  Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 
   Plug 'mhinz/vim-signify'              " GIT
   Plug 'tpope/vim-fugitive'
@@ -135,7 +135,9 @@ function! s:BasicSettings()
   set backup
   set backupdir=~/.nvimbk
   set notimeout " for leader key etc
+  set noequalalways
   set sessionoptions-=buffers
+  set completeopt-=preview
   " }}}
 
   " --------------------------------------------------------------------------
@@ -196,11 +198,18 @@ function! s:BasicSettings()
   "useful binds
   vnoremap // y/<C-R>"<CR>
   nnoremap <leader>w <C-w>
+  nnoremap ß <esc>:w<CR>
 
   " }}}
 
   " --------------------------------------------------------------------------
   " autocomands {{{
+
+  "nobackup for pass-store
+  augroup PassStoreFile
+    autocmd!
+    autocmd BufRead,BufNewFile /dev/shm/* set nobackup
+  augroup END
 
   "clear highlight function autoloads
   augroup SetHighlightFunctionGroup
@@ -409,20 +418,46 @@ function! s:ConfigurePlugins()
   let g:UltiSnipsSnippetsDir ='/home/vlad/.local/share/nvim/pSnips'
   let g:UltiSnipsSnippetDirectories = ["UltiSnips", "/home/vlad/.local/share/nvim/pSnips"]
 
-  let g:UltiSnipsListSnippets = '<nop>'
-  "let g:UltiSnipsExpandTrigger = '<nop>'
-  "let g:UltiSnipsJumpForwardTrigger = '<nop>'
-  "let g:UltiSnipsJumpBackwardTrigger = '<nop>'
+  let g:UltiSnipsListSnippets = '<c-]>'
   let g:UltiSnipsExpandTrigger = '<c-j>'
   let g:UltiSnipsJumpForwardTrigger = '<c-j>'
   let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 
-  "inoremap <c-j> <c-r>=UltiSnips#ExpandSnippetOrJump()<CR>
-  "inoremap <c-j> <c-r>=UltiSnips#ExpandSnippetOrJump()<CR>
-  inoremap <c-]> <c-r>=UltiSnips#ListSnippets()<CR>
-
   xnoremap  <c-j> :call UltiSnips#SaveLastVisualSelection()<CR>gvs
-  snoremap  <c-j> <Esc>:call UltiSnips#ExpandSnippetOrJump()<CR>
+
+  " temporary workaround(LanguageClient - deoplete - UltiSnips)
+  " check https://github.com/autozimu/LanguageClient-neovim/issues/379
+  function! ExpandLspSnippet()
+    call UltiSnips#ExpandSnippetOrJump()
+    if !pumvisible() || empty(v:completed_item)
+      return ''
+    endif
+
+    " only expand Lsp if UltiSnips#ExpandSnippetOrJump not effect.
+    let l:value = v:completed_item['word']
+    let l:matched = len(l:value)
+    if l:matched <= 0
+      return ''
+    endif
+
+    " remove inserted chars before expand snippet
+    if col('.') == col('$')
+      let l:matched -= 1
+      exec 'normal! ' . l:matched . 'Xx'
+    else
+      exec 'normal! ' . l:matched . 'X'
+    endif
+
+    if col('.') == col('$') - 1
+      " move to $ if at the end of line.
+      call cursor(line('.'), col('$'))
+    endif
+
+    " expand snippet now.
+    call UltiSnips#Anon(l:value)
+    return ''
+  endfunction
+  imap <C-e> <C-R>=ExpandLspSnippet()<CR>
 
   " --------------------------------------------------------------------------
   " fzf
@@ -529,7 +564,6 @@ function! s:ConfigurePlugins()
   " ycm
   "  options
   "let g:ycm_global_ycm_extra_conf = '~/.config/ycm/ycm_extra_conf.py'
-  "set completeopt-=preview
   "let g:ycm_add_preview_to_completeopt = 0
   "let g:ycm_always_populate_location_list = 1
   ""let g:ycm_autoclose_preview_window_after_insertion = 1
@@ -596,6 +630,7 @@ function! s:ConfigurePlugins()
   " --------------------------------------------------------------------------
   " deoplete
   let g:deoplete#enable_at_startup = 1
+  call deoplete#custom#source('_', 'max_menu_width', 90)
 
   " --------------------------------------------------------------------------
   "signify

@@ -44,6 +44,13 @@ bindkey -M vicmd -s '\em' '^[ddiranger\n'
 bindkey -M viins -s '\em' '^[ddiranger\n'
 
 ################################################################################
+#ENV VARIABLES
+
+#pass store
+PASSWORD_STORE_CLIP_TIME=15
+PASSWORD_STORE_GENERATED_LENGTH=17
+
+################################################################################
 #PLUGINS CONFIG PRE
 ENHANCD_COMMAND=e
 ENHANCD_DOT_SHOW_FULLPATH=1

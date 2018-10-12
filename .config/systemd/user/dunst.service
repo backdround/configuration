@@ -6,7 +6,7 @@ PartOf=i3-gaps.target
 [Service]
 Type=simple
 Environment="DISPLAY=:0"
-ExecStart=/bin/bash -c 'dunst'
+ExecStart=/bin/bash -c 'dunst -print > /tmp/dunst'
 RemainAfterExit=no
 
 [Install]
