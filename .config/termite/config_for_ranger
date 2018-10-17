@@ -28,10 +28,8 @@ cursor_foreground = #282A36
 
 # if unset, will reverse foreground and background
 highlight = #777777
-foreground= #F8F8F2
-background= #282A36
-# 15% background transparency
-background = rgba(40, 42, 54, 0.85)
+foreground= #E4E0ED
+background= #0F0C14
 color0=     #000000
 color8=     #4D4D4D
 color1=     #FF5555

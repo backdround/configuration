@@ -334,9 +334,7 @@ bindsym $mod+d [class="ddterminal-desktop"] scratchpad show
 for_window [class="ddterminal-desktop"] floating enable
 for_window [class="ddterminal-desktop"] sticky enable
 for_window [class="ddterminal-desktop"] move position 5 5
-for_window [class="ddterminal-desktop"] resize set 1910 486
-#for_window [class="ddterminal-desktop"] move position 5 5
-#for_window [class="ddterminal-desktop"] resize set 1300 980
+for_window [class="ddterminal-desktop"] resize set 1910 534
 for_window [class="ddterminal-desktop"] move scratchpad
 
 #toxic messenger

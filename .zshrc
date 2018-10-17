@@ -142,6 +142,7 @@ alias p='python'
 alias r='rustup'
 alias c='cargo'
 alias f='fd -IH'
+alias g='glances -0 -1 --disable-bg --fs-free-space'
 
 #my scripts aliases
 alias ts='trans :ru -b'
