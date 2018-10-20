@@ -431,3 +431,4 @@ bind Mod5+46 exec --no-startup-id pactl -- set-sink-volume 0 -5%; exec --no-star
 
 #other
 bindsym $mod+v exec --no-startup-id xdotool key z
+

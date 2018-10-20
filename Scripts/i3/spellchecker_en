@@ -1,0 +1,6 @@
+#!/bin/bash
+for WORD in "$@"
+do
+	echo "$WORD" | aspell pipe -l en | tail -n 2| grep --color -E "$WORD"
+done
+

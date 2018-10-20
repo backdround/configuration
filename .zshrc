@@ -79,6 +79,7 @@ antigen bundle command-not-found
 antigen bundle extract
 antigen bundle rust
 antigen bundle cargo
+antigen bundle transfer
 
 antigen bundle djui/alias-tips
 antigen bundle Valiev/almostontop
@@ -133,6 +134,7 @@ alias grep='grep --color=always'
 alias fgrep='fgrep --color=always'
 alias egrep='egrep --color=always'
 alias gcc='gcc -fdiagnostics-color=always'
+alias tldr='tldr -c'
 
 #hacks alias
 alias sudo='sudo '
@@ -143,6 +145,7 @@ alias r='rustup'
 alias c='cargo'
 alias f='fd -IH'
 alias g='glances -0 -1 --disable-bg --fs-free-space'
+alias h='howdoi'
 
 #my scripts aliases
 alias ts='trans :ru -b'
