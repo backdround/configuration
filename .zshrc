@@ -45,6 +45,8 @@ bindkey -M viins -s '\em' '^[ddiranger\n'
 
 ################################################################################
 #ENV VARIABLES
+EDITOR="nvim -u ~/.config/nvim/init_for_editing.vim"
+export MANPAGER="nvim -c 'set ft=man' -"
 
 #pass store
 PASSWORD_STORE_CLIP_TIME=15
@@ -52,7 +54,7 @@ PASSWORD_STORE_GENERATED_LENGTH=17
 
 ################################################################################
 #PLUGINS CONFIG PRE
-ENHANCD_COMMAND=e
+ENHANCD_COMMAND=h
 ENHANCD_DOT_SHOW_FULLPATH=1
 
 FZF_TMUX_HEIGHT=40%
@@ -140,12 +142,13 @@ alias tldr='tldr -c'
 alias sudo='sudo '
 alias ranger='ranger --choosedir=/tmp/.rangerdir; LASTDIR=`cat /tmp/.rangerdir`; cd "$LASTDIR"'
 alias n='nvim'
+e() { eval "$EDITOR $*" }
 alias p='python'
 alias r='rustup'
 alias c='cargo'
 alias f='fd -IH'
 alias g='glances -0 -1 --disable-bg --fs-free-space'
-alias h='howdoi'
+alias hd='howdoi'
 
 #my scripts aliases
 ts() { trans :ru -b "$*" }

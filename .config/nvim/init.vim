@@ -200,17 +200,12 @@ function! s:BasicSettings()
   nnoremap <leader>w <C-w>
   nnoremap Y y$
   nnoremap ß <esc>:w<CR>
+  nnoremap <leader>k :tab Man<CR>
 
   " }}}
 
   " --------------------------------------------------------------------------
   " autocomands {{{
-
-  "nobackup for pass-store
-  augroup PassStoreFile
-    autocmd!
-    autocmd BufRead,BufNewFile /dev/shm/* set nobackup
-  augroup END
 
   "clear highlight function autoloads
   augroup SetHighlightFunctionGroup
@@ -222,6 +217,15 @@ function! s:BasicSettings()
     autocmd!
     autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
   augroup END
+
+  "remap q in Man page
+  augroup ManPageQuit
+    autocmd!
+    autocmd FileType man nunmap <buffer> q
+    autocmd FileType man map <buffer> q <Plug>(easymotion-lineanywhere)
+    autocmd FileType man nnoremap <buffer> z :vnew \| bd # \| :q<CR>
+  augroup END
+
 
   "}}}
 
