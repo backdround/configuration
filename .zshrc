@@ -46,6 +46,7 @@ bindkey -M viins -s '\em' '^[ddiranger\n'
 ################################################################################
 #ENV VARIABLES
 EDITOR="nvim -u ~/.config/nvim/init_for_editing.vim"
+PAGER="nvim -u ~/.config/nvim/init_for_editing.vim -R"
 export MANPAGER="nvim -c 'set ft=man' -"
 
 #pass store
@@ -172,6 +173,7 @@ alias mv='mv -i'
 #global aliases
 alias -g .g='| grep'
 alias -g .l='| less'
+alias -g .p="| $PAGER"
 alias -g .stn='| tr " " "\n"'
 
 #other
