@@ -49,7 +49,41 @@ c.bindings.key_mappings = {
     'Ь': 'M', 'ь': 'm',
     'Б': '<', 'б': ',',
     'Ю': '>', 'ю': '.',
-    ',': '?', '.': '/'
+    ',': '?', '.': '/',
+
+    '<Alt-й>': '<Alt-q>',
+    '<Alt-ц>': '<Alt-w>',
+    '<Alt-у>': '<Alt-e>',
+    '<Alt-к>': '<Alt-r>',
+    '<Alt-е>': '<Alt-t>',
+    '<Alt-н>': '<Alt-y>',
+    '<Alt-г>': '<Alt-u>',
+    '<Alt-ш>': '<Alt-i>',
+    '<Alt-щ>': '<Alt-o>',
+    '<Alt-з>': '<Alt-p>',
+    '<Alt-х>': '<Alt-[>',
+    '<Alt-ъ>': '<Alt-]>',
+    '<Alt-ф>': '<Alt-a>',
+    '<Alt-ы>': '<Alt-s>',
+    '<Alt-в>': '<Alt-d>',
+    '<Alt-а>': '<Alt-f>',
+    '<Alt-п>': '<Alt-g>',
+    '<Alt-р>': '<Alt-h>',
+    '<Alt-о>': '<Alt-j>',
+    '<Alt-л>': '<Alt-k>',
+    '<Alt-д>': '<Alt-l>',
+    '<Alt-ж>': '<Alt-;>',
+    '<Alt-э>': '<Alt-\'>',
+    '<Alt-я>': '<Alt-z>',
+    '<Alt-ч>': '<Alt-x>',
+    '<Alt-с>': '<Alt-c>',
+    '<Alt-м>': '<Alt-v>',
+    '<Alt-и>': '<Alt-b>',
+    '<Alt-т>': '<Alt-n>',
+    '<Alt-ь>': '<Alt-m>',
+    '<Alt-б>': '<Alt-,>',
+    '<Alt-ю>': '<Alt-.>',
+    '<Alt-.>': '<Alt-/>'
 }
 
 c.completion.cmd_history_max_items = 400
@@ -181,15 +215,9 @@ config.bind(';Y', 'hint links yank-primary')
 config.bind(';d', 'hint links download')
 
 # tabs
-config.bind('<Alt-1>', 'tab-focus 1')
-config.bind('<Alt-2>', 'tab-focus 2')
-config.bind('<Alt-3>', 'tab-focus 3')
-config.bind('<Alt-4>', 'tab-focus 4')
-config.bind('<Alt-5>', 'tab-focus 5')
-config.bind('<Alt-6>', 'tab-focus 6')
-config.bind('<Alt-7>', 'tab-focus 7')
-config.bind('<Alt-8>', 'tab-focus 8')
-config.bind('<Alt-9>', 'tab-focus -1')
+for i in range(1, 10):
+    config.bind('<Alt-{}>'.format(i), 'tab-focus {}'.format(i))
+config.bind('<Alt-0>', 'tab-focus -1')
 
 config.bind('H', 'back')
 config.bind('L', 'forward')
@@ -287,9 +315,11 @@ config.bind('<Ctrl-i>', 'enter-mode passthrough')
 config.bind('v', 'enter-mode caret')
 
 # like vim <Ctrl-o>
-from string import ascii_lowercase
-for i in ascii_lowercase:
+from string import ascii_letters, digits
+for i in ascii_letters + digits:
     config.bind('<Ctrl-o>{}'.format(i), 'fake-key ' + i)
+# for i in range(0, 10):
+    # config.bind('<Ctrl-o>{}'.format(i), 'fake-key {}'.format(i))
 config.bind('<Alt-Return>', 'fake-key <Return>')
 config.bind('<Alt-Backspace>', 'fake-key <Backspace>')
 config.bind('<Alt-Escape>', 'fake-key <Escape>')
@@ -444,7 +474,12 @@ config.bind('<Ctrl-n>', 'jseval -q -f /usr/share/qutebrowser/scripts/cycle-input
 config.bind('<Ctrl-e>', 'open-editor', mode='insert')
 config.bind('<Escape>', 'leave-mode', mode='insert')
 config.bind('<Ctrl-m>', 'leave-mode', mode='insert')
+config.bind('<Alt-e>', 'leave-mode', mode='insert')
 config.bind('<Ctrl-t>', 'enter-mode passthrough', mode='insert')
+
+for i in range(1, 10):
+    config.bind('<Alt-{}>'.format(i), 'tab-focus {}'.format(i), mode='insert')
+config.bind('<Alt-0>', 'tab-focus -1', mode='insert')
 
 #  *****************************************************************************
 ## Bindings for passthrough mode
@@ -454,10 +489,15 @@ config.bind('<Ctrl-h>', 'scroll left', mode='passthrough')
 config.bind('<Ctrl-l>', 'scroll right', mode='passthrough')
 config.bind('<Ctrl-n>', 'jseval -q -f /usr/share/qutebrowser/scripts/cycle-inputs.js', mode='passthrough')
 config.bind('<Ctrl-m>', 'leave-mode', mode='passthrough')
+config.bind('<Alt-e>', 'leave-mode', mode='passthrough')
 config.bind('<Return>', 'fake-key <Return> ;; leave-mode', mode='passthrough')
 config.bind('<Alt-Return>', 'fake-key <Return>', mode='passthrough')
 config.bind('<Ctrl-e>', 'open-editor', mode='passthrough')
 config.bind('<Ctrl-t>', 'enter-mode insert', mode='passthrough')
+
+for i in range(1, 10):
+    config.bind('<Alt-{}>'.format(i), 'tab-focus {}'.format(i), mode='passthrough')
+config.bind('<Alt-0>', 'tab-focus -1', mode='passthrough')
 
 ## Bindings for prompt mode
 # config.bind('<Alt-B>', 'rl-backward-word', mode='prompt')
