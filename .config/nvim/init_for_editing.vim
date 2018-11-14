@@ -117,12 +117,12 @@ function! s:BasicSettings()
   nnoremap <leader>vr :source ~/.config/nvim/init_for_editing.vim<CR>
 
   "clipboard copy
-  nmap <leader>vc "+y
-  xmap <leader>vc "+y
+  nmap <leader>y "+y
+  xmap <leader>y "+y
 
   "primary copy
-  nmap <leader>vy "*y
-  xmap <leader>vy "*y
+  nmap <leader>Y "*y
+  xmap <leader>Y "*y
 
 
   "misc
