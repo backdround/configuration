@@ -36,6 +36,16 @@ zstyle ':completion:*:commands' list-colors "=(#b)*(-- [a-zA-Z0-9]*)=32=36"
 setopt correct
 setopt auto_cd
 
+#copy whole line
+vi-yank-x-line () {
+  print -rn -- $BUFFER | xsel -i -p;
+  print -rn -- $BUFFER | xsel -i -b;
+}
+zle -N vi-yank-x-line
+bindkey -M vicmd '^y' vi-yank-x-line
+bindkey -v '^y' vi-yank-x-line
+
+
 #key fixes
 bindkey -M viins '^?' backward-delete-char
 
