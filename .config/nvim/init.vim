@@ -965,9 +965,11 @@ endfunction
 
 
 function! LoadWindow()
-  if s:CheckNormalWindow(t:saved_window)
-    execute t:saved_window . "wincmd w"
-    return
+  if t:saved_window != -1
+    if s:CheckNormalWindow(t:saved_window)
+      execute t:saved_window . "wincmd w"
+      return
+    endif
   endif
 
   let l:window_number = s:GetNormalWindow()
