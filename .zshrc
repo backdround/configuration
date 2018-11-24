@@ -162,6 +162,7 @@ alias g='glances -0 -1 --disable-bg --fs-free-space'
 alias hd='howdoi'
 
 #my scripts aliases
+t() { echo "$*" | ~/Scripts/i3/new_word.py }
 ts() { trans :ru -b "$*" }
 tse() { trans :en -b "$*" }
 alias tsf='trans :ru'
