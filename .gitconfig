@@ -1,5 +1,11 @@
 [user]
-	name = Vlad Chepaikyn
-	email = backdround@yandex.ru
+  name = Vlad Chepaikyn
+  email = backdround@yandex.ru
 [core]
-	excludesfile = /home/vlad/.gitignore_global
+  excludesfile = /home/vlad/.gitignore_global
+[alias]
+  st = status
+  ch = checkout
+  br = branch
+  cm = commit
+  logb = log --oneline --graph
