@@ -325,7 +325,7 @@ config.bind('<Alt-Backspace>', 'fake-key <Backspace>')
 config.bind('<Alt-Escape>', 'fake-key <Escape>')
 
 # main
-clear_script = "jseval -q -f ~/.local/share/qutebrowser/my_scripts/clear.js"
+clear_script = "jseval -q -f ~/.config/qutebrowser/my_scripts/clear.js"
 config.bind('<Escape>', 'clear-keychain ;; search ;; fullscreen --leave ;; ' + clear_script)
 config.bind('<Ctrl-m>', 'clear-keychain ;; search ;; fullscreen --leave ;; ' + clear_script)
 config.bind("'", 'enter-mode jump_mark')

@@ -234,7 +234,7 @@ mode "launcher" {
   #terminal
   bindsym Return exec --no-startup-id i3-sensible-terminal; mode "default"
 
-  #chromium
+  #qutebrowser
   bindsym q exec --no-startup-id qutebrowser; mode "default"
   bindsym $mod+q exec --no-startup-id pkill qutebrowser; mode "default"
 
@@ -409,6 +409,8 @@ for_window [class="qt-log"] move scratchpad
 
 #qutebrowser scratchpad
 bindsym $mod+s [class="qutebrowser"] scratchpad show
+for_window [class="qutebrowser"] move position 25 25
+for_window [class="qutebrowser"] resize set 1900 1100
 
 #qutebrowser editor
 for_window [class="qute_editor"] floating enable
