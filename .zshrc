@@ -55,7 +55,7 @@ bindkey -M viins -s '\em' '^[ddiranger\n'
 
 ################################################################################
 #ENV VARIABLES
-EDITOR="nvim -u ~/.config/nvim/init_for_editing.vim"
+export EDITOR="nvim -u ~/.config/nvim/init_for_editing.vim"
 PAGER="nvim -u ~/.config/nvim/init_for_editing.vim -R"
 export MANPAGER="nvim -c 'set ft=man' -"
 
@@ -160,6 +160,7 @@ alias c='cargo'
 alias f='fd -IH'
 alias g='glances -0 -1 --disable-bg --fs-free-space'
 alias hd='howdoi'
+sp() { eval "sudo pacman -$*" }
 
 #my scripts aliases
 t() { echo "$*" | ~/Scripts/i3/new_word.py }
