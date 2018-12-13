@@ -16,11 +16,10 @@ Ctrl <Key>C: copy-selection(CLIPBOARD) \n\
 Ctrl <Key>V: insert-selection(CLIPBOARD) \n\
 Shift <Key>Insert: insert-selection(CLIPBOARD)
 
-!urxvt don't use because dosen't provide true color
 *.scrollBar: false
 urxvt*.font: xft:xos4 Terminus:size=10:antialias=false
 *.matcher.button: 1
-*.urlLauncher: firefox
+*.urlLauncher: qutebrowser
 *.underlineURLs: true
 
 *.foreground: #F8F8F2

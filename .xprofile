@@ -1,10 +1,8 @@
 #!/bin/sh
 
-#export TERMINAL=uxterm
 export TERMINAL=termite
 
 xset m 1/1 0
-#setxkbmap -model pc105 -layout us,ru -variant altgr-intl, winkey -option terminate:ctrl_alt_bksp, grp:caps_toggle, grp_led:scroll, compose:menu, lv5:rwin_switch_lock &
 setxkbmap -model pc105 -layout us,ru -variant altgr-intl, winkey -option terminate:ctrl_alt_bksp, grp:caps_toggle, grp_led:scroll, compose:menu, lv5:rwin_switch_lock
 xset b off
 

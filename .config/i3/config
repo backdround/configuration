@@ -3,8 +3,6 @@
 
 set $mod Mod4
 
-#font pango:DejaVu Sans Mono 8
-
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -83,15 +81,10 @@ bindsym $mod+Shift+r restart
 # finds out, if available)
 
 bar {
-  i3bar_command i3bar -t
   status_command i3blocks
-
 
   font pango:DejaVu Sans Mono, Icons, FontAwesome 14
   font pango:xos4 Terminus Semi-Condensed Bold 13
-  #font pango: digital-7 14
-  #font pango:Fantasque sans mono bold italic 14
-
 
   tray_output none
 
@@ -119,7 +112,6 @@ bar {
 bindsym $mod+Shift+p bar mode toggle
 
 #font
-#font "pango:InconsolataForPowerline NF small 8"
 font pango:xos4 Terminus Semi-Condensed 8
 
 #session

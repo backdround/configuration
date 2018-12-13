@@ -575,36 +575,6 @@ function! s:ConfigurePlugins()
   let g:session_command_aliases = 1
 
   " --------------------------------------------------------------------------
-  " ycm
-  "  options
-  "let g:ycm_global_ycm_extra_conf = '~/.config/ycm/ycm_extra_conf.py'
-  "let g:ycm_add_preview_to_completeopt = 0
-  "let g:ycm_always_populate_location_list = 1
-  ""let g:ycm_autoclose_preview_window_after_insertion = 1
-  "let g:lt_height = 7
-
-  ""  highlights
-  "call s:SetHighlight('YcmErrorSign', {'mode': 'bold', 'bg': '#101010', 'fg': '#f43753'})
-  "call s:SetHighlight('YcmErrorLine', {'bg': '#20202d'})
-  "call s:SetHighlight('YcmErrorSection', {'mode': 'bold', 'bg': '#ff5555', 'fg': '#000000'})
-
-  ""  bindings
-  "nnoremap <leader>yc :YcmForceCompileAndDiagnostics<CR>
-  "let g:ycm_key_invoke_completion = '<C-Space>'
-  "let g:ycm_key_list_stop_completion = ['<C-y>']
-  "let g:ycm_key_detailed_diagnostics = '<leader>yd'
-  "nnoremap <leader>ff :YcmCompleter FixIt<CR>
-  "let g:lt_location_list_toggle_map = '<leader>l'
-
-  "nnoremap <buffer> <leader>yt :YcmCompleter GetType<CR>
-  "nnoremap <buffer> <leader>yr :YcmCompleter ClearCompilationFlagCache<CR>
-
-  "nnoremap <buffer> <leader>gg :YcmCompleter GoTo<CR>
-  "nnoremap <buffer> <leader>gf :YcmCompleter GoToDefinition<CR>
-  "nnoremap <buffer> <leader>gc :YcmCompleter GoToDeclaration<CR>
-  "nnoremap <buffer> <leader>gi :YcmCompleter GoToInclude<CR>
-
-  " --------------------------------------------------------------------------
   " lsp
   let g:LanguageClient_serverCommands = {
         \ 'cpp': ['cquery', '--log-file=/tmp/cq.log'],
