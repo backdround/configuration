@@ -1,8 +1,10 @@
 import os
-import utils.fs
+import install.utils
+
+"""install configs for terminal"""
 
 
-def main(settings_object, force = False):
+def main(settings_object, project_root, force = False):
     # all paris of [config, symlink] without prefixes
     all_pairs = (
         ("bashrc",             ".bashrc"),
@@ -25,11 +27,11 @@ def main(settings_object, force = False):
             symlink_pairs.append(list(pair))
 
     # relative prfix
-    config_prefix = os.path.dirname(__file__)
+    config_prefix = os.path.join(project_root, "terminal")
     symlink_prefix = os.path.expanduser("~/")
     # make absolute paths
-    utils.fs.make_absolute_path(symlink_pairs, config_prefix, symlink_prefix)
+    install.utils.make_absolute_path(symlink_pairs, config_prefix, symlink_prefix)
 
     # process and exit
-    return utils.fs.create_list_of_symlink(symlink_pairs, force)
+    return install.utils.create_list_of_symlink(symlink_pairs, force)
 

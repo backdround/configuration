@@ -1,8 +1,8 @@
 #!/bin/python
 import os
 import sys
-import terminal.install
-import settings
+import install.terminal
+import install.settings
 
 
 def help(modules):
@@ -46,11 +46,11 @@ def parse_args(args):
         elif arg == 'all':
             ret_settings["modules"] = all_modules
         elif arg == 'home':
-            ret_settings["settings"] = settings.HomeSettings()
+            ret_settings["settings"] = install.settings.HomeSettings()
         elif arg == 'note':
-            ret_settings["settings"] = settings.NoteSettings()
+            ret_settings["settings"] = install.settings.NoteSettings()
         elif arg == 'work':
-            ret_settings["settings"] = settings.WorkSettings()
+            ret_settings["settings"] = install.settings.WorkSettings()
         elif arg == '--help' or arg == '-h':
             help(all_modules)
             sys.exit(0)
@@ -72,17 +72,24 @@ if __name__ == '__main__':
     print("yours args:")
     print(settings_dict, "\n")
 
+    project_root = os.path.abspath(os.path.dirname(__file__))
+
     #do install
     ret_val = 0
     for module in settings_dict["modules"]:
         print("install {}".format(module))
 
-        string_to_eval = "{module}.install.main({settings}, {force})".format(
-            module = module,
+        args_to_install = "{settings}, {root}, {force}".format(
             settings = 'settings_dict["settings"]',
+            root = "project_root",
             force = settings_dict["force"])
 
-        if not eval(string_to_eval):
+        to_eval = "install.{module}.main({args})".format(
+            module = module,
+            args = args_to_install)
+
+        print(to_eval)
+        if not eval(to_eval):
             ret_val = 1
 
     sys.exit(ret_val)

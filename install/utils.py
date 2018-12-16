@@ -2,7 +2,6 @@ import os
 
 
 def create_symlink(file, symlink_file, force = False):
-
     # check values
     if not os.path.isabs(file):
         raise ValueError(file," isn't absolute path")
@@ -28,7 +27,6 @@ def create_symlink(file, symlink_file, force = False):
     return 1
 
 def create_list_of_symlink(symlink_pairs, force = False):
-
     ret_val = True
     for config, symlink in symlink_pairs:
         if create_symlink(config, symlink, force):
