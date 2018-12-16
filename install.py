@@ -2,6 +2,7 @@
 import os
 import sys
 import install.terminal
+import install.qutebrowser
 import install.settings
 
 
