@@ -19,12 +19,8 @@ def main(settings_object, project_root, force = False):
     settings = settings_object.get_terminal_settings()
 
     # get symlink_pairs by treatment settings
-    symlink_pairs = []
-    for pair in all_pairs:
-        if not pair[0] in settings:
-            raise Exception("settings has not value for {}".format(pair[0]))
-        if settings[pair[0]]:
-            symlink_pairs.append(list(pair))
+    symlink_pairs = install.utils \
+        .get_symlink_pairs_by_treatment_settigns(all_pairs, settings)
 
     # relative prfix
     config_prefix = os.path.join(project_root, "terminal")

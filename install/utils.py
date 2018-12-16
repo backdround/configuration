@@ -44,3 +44,12 @@ def make_absolute_path(pairs, config_prefix, symlink_prefix):
     for pair in pairs:
         pair[0] = os.path.join(config_prefix, pair[0])
         pair[1] = os.path.join(symlink_prefix, pair[1])
+
+def get_symlink_pairs_by_treatment_settigns(all_pairs, settings):
+    symlink_pairs = []
+    for pair in all_pairs:
+        if not pair[0] in settings:
+            raise Exception("settings has not value for {}".format(pair[0]))
+        if settings[pair[0]]:
+            symlink_pairs.append(list(pair))
+    return symlink_pairs
