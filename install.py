@@ -5,6 +5,7 @@ import install.terminal
 import install.qutebrowser
 import install.nvim
 import install.misc
+import install.desktop
 import install.settings
 
 
