@@ -31,6 +31,18 @@ class __DefaultSettings__:
         }
         return settings
 
+    def get_i3_settings(self):
+        position_size = {
+            "telegram":           ("525 700", "1375 10"),
+            "ncmpcpp":            ("210 745", "1500 300"),
+            "dropdown":           ("5 5",     "1910 534"),
+            "ranger":             ("5 5",     "1910 490"),
+            "rtorrent":           ("192 108", "1536 864"),
+            "gis_weather":        ("10 10",   ""),
+            "qutebrowser_editor": ("65 65",   "675 342"),
+        }
+        return position_size
+
 
 class HomeSettings(__DefaultSettings__):
     """settings only for home pc"""

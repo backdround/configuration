@@ -1,21 +1,50 @@
 import os
+import shutil
+import fileinput
 import install.utils
 
 """install configs for desktop"""
 
 def create_symlink_pairs_from_dir(prefix_scripts, prefix_symlinks):
+    # get list of files in directory
     files = [file for file in os.listdir(prefix_scripts)
              if os.path.isfile(os.path.join(prefix_scripts, file))]
 
-    pairs = [[os.path.join(prefix_scripts, file),
-              os.path.join(prefix_symlinks, file)]
+    pairs = [(os.path.join(prefix_scripts, file),
+              os.path.join(prefix_symlinks, file))
              for file in files]
 
     return pairs
 
+def create_i3_config(settings_object, project_root):
+    # create paths
+    template_file = os.path.join(project_root, "desktop/i3/config_template")
+    instance_file = os.path.join(project_root, "desktop/i3/config")
+    symlink_file = os.path.expanduser("~/.config/i3/config")
+
+    # create config instance
+    if os.path.isfile(instance_file):
+        os.remove(instance_file)
+    shutil.copyfile(template_file, instance_file)
+
+    # create replace list
+    settings = settings_object.get_i3_settings()
+    replaces =      [('--position-{}--'.format(key), val1) for key, (val1, _) in settings.items()]
+    replaces.extend([('--size-{}--'.format(key), val1) for key, (val1, _) in settings.items()])
+
+    # replace in file
+    for line in fileinput.FileInput(instance_file, inplace=1):
+        for old, new in replaces:
+            line = line.replace(old, new)
+        print(line, end='')
+
+    # return symlink_pair
+    return (instance_file, symlink_file)
+
 
 def main(settings_object, project_root, force = False):
     symlink_pairs = []
+    symlink_pairs.append(create_i3_config(settings_object, project_root))
 
     # i3 script pairs
     directory_with_scripts = os.path.join(project_root, "desktop/i3/scripts/")
