@@ -10,8 +10,9 @@ MEM=`awk '
 }
 ' /proc/meminfo | cut -d "." -f1`
 
-echo $MEM
-echo $MEM
+RET="<span font='xos4 Terminus 13'>$MEM</span>"
+echo $RET
+echo $RET
 
 if [[ $MEM -ge 90 ]]; then
     echo "#FF6666"

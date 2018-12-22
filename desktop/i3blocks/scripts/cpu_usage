@@ -20,8 +20,10 @@ NEWSUM=$((NEWBUSY + TIDLE + TIOWAIT))
 CPU=$(( ( $NEWBUSY - $BUSY ) * 100 / ( $NEWSUM - $SUM ) ))
 
 
-echo $CPU
-echo $CPU
+RET="<span font='xos4 Terminus 13'>$CPU</span>"
+
+echo $RET
+echo $RET
 
 TEMP=`echo $CPU | cut -d '.' -f1`
 if [[ $TEMP -ge 75 ]]; then
