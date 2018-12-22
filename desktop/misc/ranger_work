@@ -1,0 +1,19 @@
+#my config
+set preview_images true
+default_linemode devicons
+set draw_borders true
+
+map gd cd ~/Downloads
+map gD cd ~/rtorrent/downloads
+map gw cd ~/rtorrent/watch
+map gs cd ~/Pictures/Screens
+map go cd ~/other
+map gC cd ~/.config
+map gE cd ~/other/eng
+map gp cd ~/Proj/qt
+
+map xx shell -f termite
+map xt shell -f thunar
+map xn shell -t "nvim %s" > /dev/null 2>&1 
+map xd shell -f dragon-drag-and-drop %p
+#/myconfig

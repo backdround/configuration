@@ -13,8 +13,8 @@ def main(settings_object, project_root, force = False):
     ]
 
     # get appropriate quickmarks
-    settings = settings_object.get_qutebrowser_settings()
-    if settings == "home":
+    settings = settings_object.get_instance()
+    if settings == "home" or settings == "note":
         symlink_pairs.append(["quickmarks_home", "quickmarks"])
     elif settings == "work":
         symlink_pairs.append(["quickmarks_work", "quickmarks"])

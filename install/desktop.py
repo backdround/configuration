@@ -82,13 +82,20 @@ def main(settings_object, project_root, force = False):
         ["misc/compton.conf", ".config/compton.conf"],
         ["misc/dunstrc",      ".config/dunst/dunstrc"],
         ["misc/gis_weather",  ".config/gis-weather/gw_config1.json"],
-        ["misc/ranger",       ".config/ranger/rc.conf"],
         ["misc/xinitrc",      ".xinitrc"],
         ["misc/xprofile",     ".xprofile"],
         ["misc/Xresources",   ".Xresources"],
         ["i3/config",         ".config/i3/config"],
         ["i3blocks/config",   ".config/i3blocks/config"],
     ]
+
+    # ranger settings
+    settings = settings_object.get_instance()
+    if settings == "home" or settings == "note":
+        misc_pairs.append(["misc/ranger_home", ".config/ranger/rc.conf"])
+    elif settings == "work":
+        misc_pairs.append(["misc/ranger_work", ".config/ranger/rc.conf"])
+
     config_prefix = os.path.join(project_root, "desktop/")
     symlink_prefix = os.path.expanduser("~/")
     install.utils.make_absolute_path(misc_pairs, config_prefix, symlink_prefix)

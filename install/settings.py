@@ -13,8 +13,7 @@ class __DefaultSettings__:
         }
         return settings
 
-    def get_qutebrowser_settings(self):
-        """quickmarks for"""
+    def get_instance(self):
         return "home"
 
     def get_misc_settings(self):
@@ -69,12 +68,14 @@ class HomeSettings(__DefaultSettings__):
 class NoteSettings(__DefaultSettings__):
     """settings only for laptop pc"""
 
+    def get_instance(self):
+        return "note"
+
 
 class WorkSettings(__DefaultSettings__):
     """settings only for work pc"""
 
-    def get_qutebrowser_settings(self):
-        """quickmarks for"""
+    def get_instance(self):
         return "work"
 
     def get_misc_settings(self):
