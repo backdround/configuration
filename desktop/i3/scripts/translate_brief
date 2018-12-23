@@ -1,0 +1,16 @@
+#!/bin/bash
+
+BUFFER_TEXT=$(xclip -o -selection primary)
+
+if [[ -z "$BUFFER_TEXT" ]]; then
+  exit 0
+fi
+
+SOURCE_TEXT=$(echo $BUFFER_TEXT| tr -d '\n')
+
+TRANSLATED_TEXT=$(echo $SOURCE_TEXT| trans -brief :ru)
+
+gdbus call --session --dest org.freedesktop.Notifications --object-path \
+  /org/freedesktop/Notifications --method org.freedesktop.Notifications.Notify \
+  'translater' 0 0 "$SOURCE_TEXT \n" "$TRANSLATED_TEXT" [] {} 40000
+

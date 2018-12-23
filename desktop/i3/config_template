@@ -184,10 +184,6 @@ smart_borders on
 for_window [class="^.*"] border pixel 0
 bindsym $mod+b border toggle
 
-#translate
-bindsym $mod+a exec --no-startup-id Scripts/i3/translate_ya_ru
-bindsym $mod+q exec --no-startup-id Scripts/i3/translate_trans
-
 
 #launcher
 mode "launcher" {
@@ -342,6 +338,11 @@ for_window [class="qutebrowser"] resize set 1900 1100
 for_window [class="qute_editor"] floating enable
 for_window [class="qute_editor"] move position --position-qutebrowser_editor--
 for_window [class="qute_editor"] resize set --size-qutebrowser_editor--
+
+#translate
+bindsym $mod+a exec --no-startup-id Scripts/i3/translate_yandex
+bindsym $mod+q exec --no-startup-id Scripts/i3/translate_brief
+bindsym $mod+z exec --no-startup-id Scripts/i3/translate_full
 
 #screenshot
 bindsym --release Print exec --no-startup-id ~/Scripts/i3/screenshot_full
