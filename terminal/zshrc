@@ -63,6 +63,9 @@ export MANPAGER="nvim -c 'set ft=man' -"
 PASSWORD_STORE_CLIP_TIME=15
 PASSWORD_STORE_GENERATED_LENGTH=17
 
+#venv
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
 ################################################################################
 #PLUGINS CONFIG PRE
 ENHANCD_COMMAND=h
@@ -93,6 +96,7 @@ antigen bundle extract
 antigen bundle rust
 antigen bundle cargo
 antigen bundle transfer
+antigen bundle git-prompt
 
 antigen bundle djui/alias-tips
 antigen bundle Valiev/almostontop
@@ -244,6 +248,19 @@ function almostontop_prompt_with_toggle {
 }
 zle -N almostontop_prompt_with_toggle 
 
+#venv indicator
+function prompt_venv {
+  echo $VIRTUAL_ENV | sed 's~.*/\(.*/\)~\1~g'
+}
+
+#git indicator
+ZSH_THEME_GIT_PROMPT_PREFIX=""
+ZSH_THEME_GIT_PROMPT_SUFFIX="%f"
+ZSH_THEME_GIT_PROMPT_BRANCH="%F{yellow}"
+ZSH_THEME_GIT_PROMPT_STAGED="%F{green}%{●%G%}"
+ZSH_THEME_GIT_PROMPT_CONFLICTS="%F{red}%{✖ %G%}"
+ZSH_THEME_GIT_PROMPT_CHANGED="%F{red}%{✚ %G%}"
+ZSH_THEME_GIT_PROMPT_CLEAN="%F{green}%{✔%G%}"
 ################################################################################
 #MY PROMPT
 autoload -U colors && colors
@@ -259,8 +276,9 @@ prompt_pnt_left='%B%F{white}[%f%b'
 prompt_pnt_right='%B%F{white}]%f%b'
 
 #line1
-prompt_line1a=('$(prompt_almostontop)' '%B$(prompt_vi_mode)%b' '%F{cyan}%~%f')
-prompt_line1b=('$(prompt_command_time)' '%F{white}%n@%m%f')
+prompt_line1a=('$(prompt_almostontop)' '%B$(prompt_vi_mode)%b'\
+  '%F{cyan}%~%f' '%F{magenta}$(prompt_venv)%f')
+prompt_line1b=('$(prompt_command_time)' '%F{green}$(git_super_status)%f' '%F{white}%n@%m%f')
 
 #line2
 prompt_line2a="%(?:%F{green}✔ :%F{red}✗ )%f%(!:%F{red}# :%F{cyan}$)%f:"
