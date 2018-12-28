@@ -285,53 +285,27 @@ prompt_line2a="%(?:%F{green}✔ :%F{red}✗ )%f%(!:%F{red}# :%F{cyan}$)%f:"
 prompt_line2b=('%*')
 
 
-function prompt_eliminate_zsh_escape_sequence {
-  echo $1 | sed 's/%[KF1]{[a-zA-Z0-9]*}\|%[Bbkf]//g'
-  #or try this
-  #echo $1 | perl -pe "s/%\{[^}]+\}//g"
+#return value
+prompt_return_size=""
+prompt_return_line=""
+
+#takes pormpt line
+#return processed line and size
+function prompt_process_line {
+  local processed_line=$1
+
+  #zsh substitute
+  processed_line=${(S%%)processed_line}
+  #return line
+  prompt_return_line=$processed_line
+
+  #eliminate terminal symbols
+  processed_line=$(echo $processed_line | sed 's/\x1b\[[0-9;]*m//g' | sed 's/\x0f//g')
+  #return size
+  prompt_return_size=${#processed_line}
 }
 
-function prompt_eliminate_escape_sequence {
-  #normal seq
-  #echo $1 | sed 's/\x1b\[[0-9;]*m//g'
-  
-  #with kernel console seq
-  echo $1 | sed 's/\x1b\[[0-9;]*m//g' | sed 's/\x0f//g'
-}
-
-function prompt_calculation_size {
-  local size=0
-  local i
-  for i in $@; do
-		i=${(S%%)i}
-    i=$(prompt_eliminate_escape_sequence $i)
-    size=$(( size + ${#i} ))
-  done
-  echo $size
-}
-
-function prompt_create_line {
-	local one_ph_symbol="%F{$prompt_ph_color}$prompt_ph%f"
-  if $prompt_ph_bold; then
-    one_ph_symbol="%B$one_ph_symbol%b"
-  fi
-  local line
-  local arr="$@"
-  local i
-  for i in $@; do
-		local size=$(prompt_calculation_size $i)
-		if [[ $size -ne 0 ]]
-		then
-			local element="${(S%%)i}"
-			element="%$size{$element%}"
-			element="$prompt_pnt_left$element$prompt_pnt_right"
-			element="$one_ph_symbol$element$one_ph_symbol"
-			line="$line$element"
-		fi
-  done
-  echo $line
-}
-
+#takes size
 function prompt_create_placeholder {
   eval "local placeholder=\${(l:${1}::${prompt_ph}:)}"
   if $prompt_ph_bold; then
@@ -342,19 +316,55 @@ function prompt_create_placeholder {
   echo $placeholder
 }
 
+#return full prompt line and size
+function prompt_create_line {
+  local one_placeholder_symbol=$(prompt_create_placeholder 1)
+
+  #get decorate_size
+  prompt_process_line $one_placeholder_symbol$prompt_pnt_left$prompt_pnt_right$one_placeholder_symbol
+  local decorate_size=$prompt_return_size
+
+  #values to return
+  local summary_line
+  local summary_size=0
+
+  local i
+  for i in $@; do
+
+		prompt_process_line $i
+    local size=$prompt_return_size
+    local element=$prompt_return_line
+
+		if [[ $size -ne 0 ]]
+		then
+      summary_size=$(( summary_size + size + decorate_size ))
+			element="%$size{$element%}"
+			element="$prompt_pnt_left$element$prompt_pnt_right"
+			element="$one_placeholder_symbol$element$one_placeholder_symbol"
+			summary_line="$summary_line$element"
+		fi
+  done
+
+  prompt_return_size=$summary_size
+  prompt_return_line=$summary_line
+}
+
 function prompt_ps1 {
 
   local newline='%1{\n\r%}'
 
   #create line1
-  local line1a=$(prompt_create_line $prompt_line1a[@])
-  local line1b=$(prompt_create_line $prompt_line1b[@])
+  prompt_create_line $prompt_line1a[@]
+  local line1a=$prompt_return_line
+  local line1a_width=$prompt_return_size
+
+  prompt_create_line $prompt_line1b[@]
+  local line1b=$prompt_return_line
+  local line1b_width=$prompt_return_size
 
   #create placeholder
-  local line1a_width=$(prompt_calculation_size $line1a)
-  local line1b_width=$(prompt_calculation_size $line1b)
   local placeholder_size=$(( COLUMNS - line1a_width - line1b_width ))
-  
+
   if (( placeholder_size > 0 )); then
     local placeholder=$(prompt_create_placeholder $placeholder_size)
     local endline=$line1a$placeholder$line1b$newline$prompt_line2a
@@ -376,8 +386,8 @@ function prompt_ps1 {
   echo $endline
 }
 function prompt_rps1 {
-  local line2b=$(prompt_create_line $prompt_line2b[@])
-  echo $line2b
+  prompt_create_line $prompt_line2b[@]
+  echo $prompt_return_line
 }
 PS1='$(prompt_ps1)'
 RPS1='$(prompt_rps1)'
