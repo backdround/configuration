@@ -257,6 +257,10 @@ autoload -Uz vcs_info
 precmd() { vcs_info }
 zstyle ':vcs_info:git:*' formats '%b'
 
+#ssh indicator
+function prompt_ssh {
+  echo $SSH_CONNECTION | cut -d' ' -f3
+}
 ################################################################################
 #MY PROMPT
 autoload -U colors && colors
@@ -274,7 +278,8 @@ prompt_pnt_right='%B%F{white}]%f%b'
 #line1
 prompt_line1a=('$(prompt_almostontop)' '%B$(prompt_vi_mode)%b'\
   '%F{cyan}%~%f' '%F{magenta}$(prompt_venv)%f')
-prompt_line1b=('$(prompt_command_time)' '%F{green}${vcs_info_msg_0_}%f' '%F{white}%n@%m%f')
+prompt_line1b=('$(prompt_command_time)' '%F{red}$(prompt_ssh)%f'\
+  '%F{green}${vcs_info_msg_0_}%f' '%F{white}%n@%m%f')
 
 #line2
 prompt_line2a="%(?:%F{green}✔ :%F{red}✗ )%f%(!:%F{red}# :%F{cyan}$)%f:"
