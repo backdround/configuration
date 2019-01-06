@@ -164,6 +164,8 @@ alias f='fd -IH'
 alias g='glances -0 -1 --disable-bg --fs-free-space'
 alias hd='howdoi'
 sp() { eval "sudo pacman -$*" }
+S() { eval "sudo pacman -S $*" }
+Ss() { eval "sudo pacman -Ss $*" }
 
 #my scripts aliases
 t() { echo "$*" | ~/Scripts/i3/new_word.py }
@@ -172,6 +174,18 @@ tse() { trans :en -b "$*" }
 alias tsf='trans :ru'
 alias se='~/Scripts/i3/spellchecker'
 alias sr='~/Scripts/i3/spellchecker_ru'
+gotmux() {
+
+  local REPTYR_PID=$(jobs -l | grep '+' | cut -d' ' -f4)
+  local TASK_ID=$(jobs -l | grep '+' | cut -d' ' -f1 | tr -d \[\])
+  bg %$TASK_ID
+  disown %$TASK_ID
+
+  tmux new-session -d
+  local TMUX_SESSION=$(tmux ls | tail -n 1 | cut -d':' -f1)
+  tmux send-keys -t $TMUX_SESSION "reptyr $REPTYR_PID" ENTER
+  tmux attach -t $TMUX_SESSION
+}
 
 #ls aliases
 alias k='k -h'
@@ -188,6 +202,7 @@ alias mv='mv -i'
 #global aliases
 alias -g .g='| grep'
 alias -g .l='| less'
+alias -g .c="| column -t"
 alias -g .p="| $PAGER"
 alias -g .stn='| tr " " "\n"'
 
