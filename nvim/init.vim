@@ -149,8 +149,6 @@ function! s:BasicSettings()
 
   "movement in insert mode
   inoremap <m-h> <left>
-  inoremap <m-j> <down>
-  inoremap <m-k> <up>
   inoremap <m-l> <right>
 
   "separating sting
@@ -186,6 +184,7 @@ function! s:BasicSettings()
   map m <NOP>
   map q <NOP>
   nnoremap <leader>2 q
+  inoremap <M-j> <C-^>
 
   "swap ' and `
   nnoremap ' `
