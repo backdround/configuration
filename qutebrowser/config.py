@@ -294,8 +294,8 @@ config.bind('<Ctrl-l>', 'scroll right')
 
 config.bind('j', 'scroll-page 0 0.12')
 config.bind('k', 'scroll-page 0 -0.12')
-config.bind('<Ctrl-j>', 'scroll down')
-config.bind('<Ctrl-k>', 'scroll up')
+config.bind('<Ctrl-j>', 'run-with-count 3 scroll down')
+config.bind('<Ctrl-k>', 'run-with-count 3 scroll up')
 config.bind('s', 'scroll-page 0 0.12')
 config.bind('w', 'scroll-page 0 -0.12')
 
@@ -304,6 +304,8 @@ config.bind('<Ctrl-F>', 'scroll-page 0 1')
 
 config.bind('u', 'scroll-page 0 -0.5')
 config.bind('d', 'scroll-page 0 0.5')
+config.bind('<Ctrl-n>', 'run-with-count 9 scroll down')
+config.bind('<Ctrl-p>', 'run-with-count 9 scroll up')
 
 config.bind('G', 'scroll-to-perc')
 config.bind('gg', 'scroll-to-perc 0')
@@ -360,7 +362,7 @@ config.bind('<Ctrl-s>', 'stop')
 config.bind('<Ctrl-c>', 'yank selection')
 config.bind('<Alt-r>', 'config-cycle --temp hints.chars {} {}'.format(both_hands_chars, left_hand_chars))
 
-config.bind('<Ctrl-n>', 'jseval -q -f /usr/share/qutebrowser/scripts/cycle-inputs.js')
+config.bind('<Alt-n>', 'jseval -q -f /usr/share/qutebrowser/scripts/cycle-inputs.js')
 
 # Session
 config.bind('Ss', 'set-cmd-text -s :session-save --only-active-window')
