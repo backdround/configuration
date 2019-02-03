@@ -350,6 +350,7 @@ config.bind('X', 'undo')
 # config.bind(' 2', 'run-macro')
 # config.bind('q', 'record-macro')
 config.bind('q', 'set-cmd-text -s :quickmark-load --tab'),
+config.bind('Q', 'set-cmd-text -s :bookmark-load --tab'),
 config.bind('n', 'search-next')
 config.bind('N', 'search-prev')
 config.bind('f', 'hint')

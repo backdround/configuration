@@ -1,4 +1,5 @@
 mpc\ load\ soundcloud://url/soundcloud.com/fasterbru/likes
+redshift\ -x\ \;\ seq\ 6\ \|\ xargs\ -i\ bash\ -c\ \"redshift\ -O\ 4900\ \;\ redshift\ -O\ 10000\"
 sudo\ bash\ -c\ \"echo\ 3\ \>\ /proc/sys/vm/drop_caches\"
 sudo\ iptables\ -t\ nat\ -A\ OUTPUT\ -p\ tcp\ -m\ tcp\ --dport\ 80\ -d\ 195.82.146.120/30\ -j\ DNAT\ --to-destination\ 163.172.167.207:3128
 sudo\ ~/Scripts/i3/clear

@@ -8,10 +8,11 @@ esac
 
 if [ `ponymix is-muted; echo $?` = 1 ] ; then
   TEXT=`ponymix get-volume`%
+  RET="<span font='xos4 Terminus 13'>$TEXT</span>"
 else
   TEXT="&#xf05e;"
+  RET="<span font='FantasqueSansMono Nerd Font'>$TEXT</span>"
 fi
 
-RET="<span font='xos4 Terminus 13'>$TEXT</span>"
 echo $RET
 echo $RET
