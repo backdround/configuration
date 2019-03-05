@@ -311,8 +311,8 @@ config.bind('G', 'scroll-to-perc')
 config.bind('gg', 'scroll-to-perc 0')
 
 # into other modes
-config.bind('i', 'enter-mode insert')
-config.bind('I', 'enter-mode passthrough')
+config.bind('I', 'enter-mode insert')
+config.bind('i', 'enter-mode passthrough')
 config.bind('<Ctrl-i>', 'enter-mode passthrough')
 config.bind('v', 'enter-mode caret')
 

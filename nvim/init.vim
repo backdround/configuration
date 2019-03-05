@@ -186,6 +186,8 @@ function! s:BasicSettings()
   nnoremap <leader>2 q
   inoremap <M-j> <C-^>
 
+  command! FilePath echo(expand("%"))
+
   "swap ' and `
   nnoremap ' `
   nnoremap ` '
