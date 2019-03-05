@@ -1,0 +1,33 @@
+partial default modifier_keys
+xkb_symbols "keys" {
+
+  name[Group1]= "Special keys";
+  include "us"
+
+  key <AD01> { [ minus ]};
+  key <AD02> { [ plus ] };
+  key <AD03> { [ asciitilde ] };
+  key <AD04> { [ ampersand ] };
+  key <AD05> { [ equal ] };
+
+  key <AC01> { [ Escape ]};
+  key <AC02> { [ underscore ] };
+  key <AC03> { [ parenleft ] };
+  key <AC04> { [ parenright ] };
+  key <AC05> { [ bar ] };
+
+  key <AB01> { [ bracketleft ]};
+  key <AB02> { [ bracketright ] };
+  key <AB03> { [ braceleft ] };
+  key <AB04> { [ braceright ] };
+  key <AB05> { [ backslash ] };
+
+  //X keys
+  key <AC09> { [ XF86AudioLowerVolume ] };
+  key <AC08> { [ XF86AudioMute ] };
+  key <AC07> { [ XF86AudioRaiseVolume ] };
+  replace key <AB07> {
+    [ SetGroup(group=+1) ]
+  };
+
+};

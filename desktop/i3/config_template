@@ -353,10 +353,9 @@ bindsym --release $mod+Shift+Print exec --no-startup-id ~/Scripts/i3/screenshot_
 bindsym ISO_Next_Group exec --no-startup-id pkill -RTMIN+1 i3blocks
 
 #volume
-bind Mod5+44 exec --no-startup-id pactl -- set-sink-volume 0 +5%; exec --no-startup-id pkill -RTMIN+10 i3blocks
-bind Mod5+45 exec --no-startup-id pactl set-sink-mute 0 toggle; exec --no-startup-id pkill -RTMIN+10 i3blocks
-bind Mod5+58 exec --no-startup-id pactl -- set-sink-volume 0 100%; exec --no-startup-id pkill -RTMIN+10 i3blocks
-bind Mod5+46 exec --no-startup-id pactl -- set-sink-volume 0 -5%; exec --no-startup-id pkill -RTMIN+10 i3blocks
+bindsym Group2+XF86AudioRaiseVolume exec --no-startup-id pactl -- set-sink-volume 0 +5%; exec --no-startup-id pkill -RTMIN+10 i3blocks
+bindsym Group2+XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle; exec --no-startup-id pkill -RTMIN+10 i3blocks
+bindsym Group2+XF86AudioLowerVolume exec --no-startup-id pactl -- set-sink-volume 0 100%; exec --no-startup-id pkill -RTMIN+10 i3blocks
 
 #other
 bindsym $mod+v exec --no-startup-id ~/Scripts/i3/dragon_screen ~/Pictures/Screens

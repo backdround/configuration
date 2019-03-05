@@ -76,8 +76,19 @@ def main(settings_object, project_root, force = False):
     # systemd pairs
     systemd_directory = os.path.join(project_root, "desktop/systemd/")
     symlink_prefix = os.path.expanduser("~/.config/systemd/user")
-    i3_pairs = create_symlink_pairs_from_dir(systemd_directory,symlink_prefix)
-    symlink_pairs.extend(i3_pairs)
+    systemd_pairs = create_symlink_pairs_from_dir(systemd_directory,symlink_prefix)
+    symlink_pairs.extend(systemd_pairs)
+
+    # xkb pairs
+    xkb_directory = os.path.join(project_root, "desktop/xkb/")
+    symlink_prefix = os.path.expanduser("~/.config/xkb")
+    xkb_pairs = [
+        ["keymap/config",   "keymap/config"],
+        ["symbols/nums",    "symbols/nums"],
+        ["symbols/special", "symbols/special"],
+    ]
+    install.utils.make_absolute_path(xkb_pairs, xkb_directory, symlink_prefix)
+    symlink_pairs.extend(xkb_pairs)
 
     # misc pairs without prefixes
     misc_pairs = [

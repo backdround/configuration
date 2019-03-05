@@ -1,0 +1,48 @@
+xkb_keymap {
+  xkb_keycodes { include "evdev+aliases(qwerty)" };
+  xkb_types    { include "complete" };
+
+  xkb_compat {
+    include "complete"
+    include "ledscroll(group_lock)"
+
+    interpret ISO_First_Group {
+      action= LockGroup(group=1);
+    };
+
+    interpret ISO_Last_Group {
+      action= LockGroup(group=-1);
+    };
+
+  };
+
+  xkb_symbols {
+    include "pc+us+special:2+nums:3+ru:4+inet(evdev)"
+
+    //include "pc+us"
+    //include "special:2"
+    //include "nums:3"
+    //include "ru:4"
+    //include "inet(evdev)"
+
+    include "compose(menu)"
+    include "terminate(ctrl_alt_bksp)"
+    include "level5(rwin_switch_lock)"
+
+    replace key <CAPS> {
+      symbols[Group1] = [ VoidSymbol, ISO_Last_Group ],
+      symbols[Group2] = [ VoidSymbol, VoidSymbol ],
+      symbols[Group3] = [ VoidSymbol, VoidSymbol ],
+      symbols[Group4] = [ ISO_First_Group, VoidSymbol ]
+    };
+
+    replace key <RALT> {
+      actions[Group1] = [ SetGroup(group=+1) ],
+      actions[Group4] = [ SetGroup(group=+2) ]
+    };
+
+  };
+
+  xkb_geometry  { include "pc(pc105)" };
+};
+
