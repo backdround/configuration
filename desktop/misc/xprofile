@@ -6,4 +6,7 @@ xset m 1/1 0
 setxkbmap -model pc105 -layout us,ru -variant altgr-intl, winkey -option terminate:ctrl_alt_bksp, grp:caps_toggle, grp_led:scroll, compose:menu, lv5:rwin_switch_lock
 xset b off
 
-hsetroot -addd "#657565" 1 -addd "#606f60" 1 -addd "#263030" 28 -addd "#222222" 2 -gradient 1
+TOP="#50405a"
+BOT="#0a0a0a"
+
+hsetroot -addd "$TOP" 1 -addd "$BOT" 2 -gradient 1

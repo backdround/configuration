@@ -1,34 +1,30 @@
+import os
+
+def get_color(string):
+    return os.popen("xrdb -query | grep \"{}:\" | cut -f 2| tr -d '\n'".format(string)).read()
+
 def set_colors(c):
-    palette = {
-        # rock/cloud
-        'rock-dark':    '#090809',
-        'rock':         '#0f0c14',
-        'rock-light':   '#17121e',
-        'gray-dark':    '#2c2d2c',
-        'gray':         '#323232',
-        'gray-light':   '#304750',
-        'cloud-dark':   '#e4e0ed',
-        'cloud':        '#f3f4f4',
-        'cloud-light':  '#ffffff',
-        # colors
-        'cyan':         '#b3e4eb',
-        'blue':         '#61afef',
-        'green':        '#3fe097',
-        'turquoise':    '#00fa90',
-        'pink':         '#db0088',
-        'purple':       '#c678dd',
-        'red':          '#ff2d5e',
-        'yellow':       '#fdf2a2',
-        # other
-        'current-line': '#233323',
-        'selection':    '#f34d5e',
-        'comment':      '#847d91'
-    }
+    palette = {}
+    palette['rock-dark']    = get_color("background")
+    palette['rock-light']   = get_color("color0")
+    palette['gray-dark']    = get_color("color7")
+    palette['gray-light']   = get_color("color8")
+    palette['cloud-dark']   = get_color("foreground")
+    palette['cloud-light']  = get_color("color15")
+
+    palette['cyan']         = get_color("color6")
+    palette['blue']         = get_color("color14")
+    palette['green']        = get_color("color2")
+    palette['turquoise']    = get_color("color10")
+    palette['pink']         = get_color("color5")
+    palette['purple']       = get_color("color4")
+    palette['red']          = get_color("color1")
+    palette['yellow']       = get_color("color3")
 
     colors = {
         # tabs
         'tabs-bg': palette['rock-light'],
-        'tabs-fg': palette['cloud'],
+        'tabs-fg': palette['cloud-dark'],
         'tabs-selected-bg': palette['gray-light'],
         'tabs-selected-fg': palette['green'],
 
@@ -45,7 +41,7 @@ def set_colors(c):
         'sts-caret-selection-fg': palette['rock-dark'],
         'sts-caret-selection-bg': palette['pink'],
 
-        'sts-command-bg': palette['rock'],
+        'sts-command-bg': palette['rock-dark'],
         'sts-command-fg': palette['pink'],
         'sts-command-private-bg': palette['rock-light'],
         'sts-command-private-fg': palette['purple'],
@@ -62,13 +58,13 @@ def set_colors(c):
         'sts-progress-bg': palette['rock-dark'],
 
         # prompts
-        'prompt-bg': palette['rock'],
+        'prompt-bg': palette['rock-dark'],
         'prompt-fg': palette['cyan'],
         'prompt-border': palette['green'],
-        'prompt-selected': palette['gray'],
+        'prompt-selected': palette['gray-dark'],
 
         # messages
-        'msg-bg': palette['rock'],
+        'msg-bg': palette['rock-dark'],
         'msg-error': palette['red'],
         'msg-info': palette['turquoise'],
         'msg-warning': palette['yellow'],
@@ -81,7 +77,7 @@ def set_colors(c):
         # hints
         'hints-bg': palette['turquoise'],
         'hints-fg': palette['rock-dark'],
-        'hints-match': palette['gray'],
+        'hints-match': palette['gray-dark'],
 
         # download bar
         'db-bg': palette['rock-dark'],
@@ -91,13 +87,13 @@ def set_colors(c):
         'db-file-stop': palette['green'],
 
         # completion widget
-        'cw': palette['cloud'],
+        'cw': palette['cloud-dark'],
         'cw-comment': palette['blue'],
         'cw-bind': palette['green'],
         'cw-header': palette['green'],
         'cw-header-bg': palette['rock-dark'],
         'cw-selection': palette['green'],
-        'cw-selection-bg': palette['gray'],
+        'cw-selection-bg': palette['gray-dark'],
         'cw-match': palette['red'],
         'cw-scrollbar': palette['green'],
         'cw-scrollbar-bg': palette['rock-dark'],
@@ -111,7 +107,7 @@ def set_colors(c):
     c.colors.completion.category.border.top = colors['cw-header']
 
     # rows
-    c.colors.completion.even.bg = palette['rock']
+    c.colors.completion.even.bg = palette['rock-dark']
     c.colors.completion.odd.bg = palette['rock-light']
     c.colors.completion.fg = [colors['cw'], colors['cw-comment'], colors['cw-bind']]
 
@@ -181,7 +177,7 @@ def set_colors(c):
     c.colors.statusbar.insert.fg = colors['sts-insert-fg']
 
     # normal
-    c.colors.statusbar.normal.bg = palette['rock']
+    c.colors.statusbar.normal.bg = palette['rock-dark']
     c.colors.statusbar.normal.fg = palette['cloud-dark']
 
     # passthrough
@@ -222,7 +218,7 @@ def set_colors(c):
     c.colors.tabs.indicator.start = palette['blue']
     c.colors.tabs.indicator.stop = palette['green']
 
-    c.colors.webpage.bg = palette['cloud']
+    c.colors.webpage.bg = palette['cloud-dark']
 
 
 def set_style(c, options = {}):
