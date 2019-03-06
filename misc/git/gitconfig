@@ -8,4 +8,4 @@
   ch = checkout
   br = branch
   cm = commit
-  logb = log --oneline --graph
+  logb = log --oneline --graph --all
