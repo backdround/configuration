@@ -16,6 +16,8 @@ function! s:LoadPlugins()
 
   " --------------------------------------------------------------------------
   " FEATURES
+  "Plug 'kassio/neoterm' check this plugin
+  Plug 'Chiel92/vim-autoformat'         " AUTOFORMAT
   Plug 'dyng/ctrlsf.vim'                " CTRLSF
   Plug 'ludovicchabant/vim-gutentags'   " GUTENTAGS
   Plug 'xolox/vim-notes'                " NOTES
@@ -94,9 +96,11 @@ function! s:BasicSettings()
   " --------------------------------------------------------------------------
   " options {{{
 
-  "left colomn
+  "left column
   set number
   set relativenumber
+  "right column
+  "set colorcolumn=80
   "search
   set incsearch
   set hlsearch
@@ -129,7 +133,8 @@ function! s:BasicSettings()
   set history=200
   set list
   set listchars=tab:\ \ ,trail:·
-  set fillchars=fold:\ 
+  set fillchars=fold:\ ,
+  set fillchars=vert:\ ,
   set cursorline
   set nocompatible
   set backup
@@ -171,12 +176,6 @@ function! s:BasicSettings()
   "windows switching
   nnoremap <silent> <leader>h :call LoadWindow()<CR>
 
-  "terminal toggle
-  nnoremap <silent> <F1> :call TerminalToggle()<CR>
-  tnoremap <silent> <F1> <C-\><C-n>:call TerminalToggle()<CR>
-  nnoremap <silent> <F13> :call SwitchWindowTo("Terminal")<CR>
-  tnoremap <silent> <F13> <C-\><C-n>:call SwitchWindowTo("Terminal")<CR>
-
   "misc
   set pastetoggle=<F8>
   map s <NOP>
@@ -217,6 +216,12 @@ function! s:BasicSettings()
   augroup DisablingAutocommenting
     autocmd!
     autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+  augroup END
+
+  "change indention to 4 spaces
+  augroup IdentionInCppLanguage
+    autocmd!
+    autocmd FileType cpp,c,hpp,h setlocal shiftwidth=4
   augroup END
 
   "remap q in Man page
@@ -283,13 +288,17 @@ function! s:ConfigureView()
   call s:SetHighlight("DiffChange",   { 'fg': '#ff9955'})
 
   "Signs
-  call s:SetHighlight('ErrorSign', {'mode': 'bold', 'bg': '#101010', 'fg': '#f43753'})
-  call s:SetHighlight('WarningSing', {'mode': 'bold', 'bg': '#101010', 'fg': '#f4f453'})
+  call s:SetHighlight('ErrorSign',       {'mode': 'bold', 'bg': '#101010', 'fg': '#f43753'})
+  call s:SetHighlight('WarningSing',     {'mode': 'bold', 'bg': '#101010', 'fg': '#f4f453'})
   call s:SetHighlight('InformationSign', {'mode': 'bold', 'bg': '#101010', 'fg': '#67f473'})
-  call s:SetHighlight('HintSing', {'mode': 'bold', 'bg': '#101010', 'fg': '#f484f4'})
+  call s:SetHighlight('HintSing',        {'mode': 'bold', 'bg': '#101010', 'fg': '#f484f4'})
 
   "Folded
   call s:SetHighlight("Folded",       { 'bg': '#302737'})
+
+  "Left column
+  call s:SetHighlight("ColorColumn",       { 'bg': '#232323'})
+  call s:SetHighlight("VertSplit",       { 'bg': '#3E4550'})
 
   "Directory
   "call s:SetHighlight("Directory",   { 'fg': '#7bc992'})
@@ -350,10 +359,34 @@ function! s:ConfigurePlugins()
   " FEATURES
 
   " --------------------------------------------------------------------------
+  " terminal
+
+  tnoremap <silent> <C-o> <C-\><C-n>
+
+  " toggle
+  nnoremap <silent> <F1> :call TerminalToggle()<CR>
+  tnoremap <silent> <F1> <C-\><C-n>:call TerminalToggle()<CR>
+  nnoremap <silent> <F13> :call SwitchWindowTo("Terminal")<CR>
+  tnoremap <silent> <F13> <C-\><C-n>:call SwitchWindowTo("Terminal")<CR>
+
+  "insert mode in terminal by default
+  augroup TerminalInsertMode
+    autocmd!
+    "autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif
+    autocmd BufWinEnter,WinEnter Terminal startinsert
+    autocmd BufLeave Terminal stopinsert
+  augroup END
+
+
+  " --------------------------------------------------------------------------
+  " autoformat
+  noremap <Leader>j :Autoformat<CR>
+
+  " --------------------------------------------------------------------------
   " ctrlsf
   let g:ctrlsf_auto_focus = {"at" : "start"}
   let g:ctrlsf_context = '-A 5 -B 2'
-  let g:ctrlsf_default_root = 'project+fw'
+  "let g:ctrlsf_default_root = 'project+fw'
   let g:ctrlsf_populate_qflist = 1
   let g:ctrlsf_default_view_mode = 'normal'
   let g:ctrlsf_position = 'left'
@@ -384,6 +417,7 @@ function! s:ConfigurePlugins()
   " --------------------------------------------------------------------------
   " rooter
   let g:rooter_silent_chdir = 1
+  let g:rooter_patterns = ['.git/', '.git', '_darcs/', '.hg/', '.bzr/', '.svn/']
 
   " --------------------------------------------------------------------------
   " limelight
@@ -694,6 +728,7 @@ function! s:ConfigurePlugins()
   let g:NERDTreeMapOpenVSplit = 'v'
   let g:NERDTreeMapPreviewVSplit = 'gv'
   let g:NERDTreeMapMenu = 'a'
+  let g:NERDTreeWinSize = '24'
   nnoremap <silent> <F3> :call NerdtreeToggle()<CR>
   nnoremap <silent> <F15> :call SwitchWindowTo("NERD_tree_*")<CR>
   nnoremap <silent> <leader>n :NERDTree<CR>
@@ -978,7 +1013,9 @@ function! TerminalToggle()
     setlocal winfixwidth
     setlocal winfixheight
     setlocal filetype=terminal
+    setlocal scrolloff=0
     file Terminal
+    startinsert
     return
   endif
 
