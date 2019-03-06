@@ -37,19 +37,19 @@ bind -n M-J select-pane -D
 bind -n M-K select-pane -U
 bind -n M-L select-pane -R
 
-bind -n M-y resize-pane -L 5
-bind -n M-u resize-pane -D 5
-bind -n M-i resize-pane -U 5
-bind -n M-o resize-pane -R 5
+bind -n M-Y resize-pane -L 5
+bind -n M-U resize-pane -D 5
+bind -n M-I resize-pane -U 5
+bind -n M-O resize-pane -R 5
 
 
 bind-key -r "<" swap-window -t -1
 bind-key -r ">" swap-window -t +1
 
-bind -n M-n resize-pane -L 1
-bind -n M-m resize-pane -D 1
-bind -n M-, resize-pane -U 1
-bind -n M-. resize-pane -R 1
+bind -n M-N resize-pane -L 1
+bind -n M-M resize-pane -D 1
+bind -n M-< resize-pane -U 1
+bind -n M-> resize-pane -R 1
 
 bind h split-window -h
 bind v split-window
