@@ -13,7 +13,6 @@ def main(settings_object, project_root, force = False):
         ("zshrc",              ".zshrc"),
         ("zaw-bookmarks",      ".zaw-bookmarks"),
         ("termite",            ".config/termite/config"),
-        ("termite_for_ranger", ".config/termite/config_for_ranger"),
     )
 
     settings = settings_object.get_terminal_settings()

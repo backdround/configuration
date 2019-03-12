@@ -158,11 +158,6 @@ bindkey -M vicmd '\eb' zaw-bookmark
 bindkey -M viins '\el' autosuggest-accept
 bindkey -M vicmd '\el' autosuggest-accept
 
-#almost on top
-almostontop off
-bindkey -M vicmd '\ej' almostontop_prompt_with_toggle
-bindkey -M viins '\ej' almostontop_prompt_with_toggle
-
 #substring search
 HISTORY_SUBSTRING_SEARCH_FUZZY=true
 HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=true
@@ -197,12 +192,13 @@ alias r='rustup'
 alias c='cargo'
 alias f='fd -IH'
 alias g='glances -0 -1 --disable-bg --fs-free-space'
-alias hd='howdoi'
+alias hdi='howdoi'
 gr() { eval "grep -r \"$*\" ./" }
 sp() { eval "sudo pacman -$*" }
 S() { eval "sudo pacman -S $*" }
 Ss() { eval "sudo pacman -Ss $*" }
 uw() { xclip -o | tr -s '\n' ' ' | sed "s/$/\n/" >> unknown_sentences }
+hd() { clear ; eval "h $*"}
 
 #my scripts aliases
 t() { echo "$*" | ~/Scripts/i3/new_word.py }

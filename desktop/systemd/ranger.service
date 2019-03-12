@@ -9,7 +9,7 @@ Type=simple
 Environment="DISPLAY=:0"
 Environment="TERMCMD=termite"
 
-ExecStart=/usr/bin/termite --class ranger-desktop -c .config/termite/config_for_ranger -e ranger
+ExecStart=/usr/bin/termite --class ranger-desktop -e ranger
 
 Restart=always
 RestartSec=0
