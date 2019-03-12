@@ -42,7 +42,7 @@ class __DefaultSettings__:
                 "qutebrowser_editor": ("65 65",   "675 342"),
             },
             "replaces": {
-                "--inner-gaps--": "23"
+                "--inner-gaps--": "24"
             },
         }
         return settings

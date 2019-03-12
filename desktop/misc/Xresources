@@ -1,5 +1,5 @@
-
 *termName: xterm-256color
+
 *locale: true
 *metaSendsEscape: true
 *saveLines: 4096
@@ -23,11 +23,11 @@ urxvt*.font: xft:xos4 Terminus:size=10:antialias=false
 *.underlineURLs: true
 
 *.foreground:     #e4e0ed
-*.background:     #090809
+*.background:     #0F0C14
 *.background-alt: #000111
 *.color0:         #17121e
-*.color7:         #2c2d2c
-*.color8:         #304750
+*.color7:         #e4e0ed
+*.color8:         #343439
 *.color1:         #ff2d5e
 *.color9:         #FF6E67
 *.color2:         #3fe097

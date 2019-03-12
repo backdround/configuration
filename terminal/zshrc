@@ -63,13 +63,14 @@ export MANPAGER="nvim -c 'set ft=man' -"
 PASSWORD_STORE_CLIP_TIME=15
 PASSWORD_STORE_GENERATED_LENGTH=17
 
-#venv
-export VIRTUAL_ENV_DISABLE_PROMPT=1
+#termite ssh fix
+export TERM=xterm-256color
 
 ################################################################################
 #PLUGINS CONFIG PRE
 ENHANCD_COMMAND=h
 ENHANCD_DOT_SHOW_FULLPATH=1
+ENHANCD_HOOK_AFTER_CD='ls'
 
 FZF_TMUX_HEIGHT=40%
 FZF_DEFAULT_OPTS='-m --no-mouse --cycle --reverse --border --color=bg:233 --history=.fzf_history'
@@ -77,8 +78,44 @@ FZF_DEFAULT_COMMAND='fd --hidden --no-ignore --type file'
 FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 FZF_ALT_C_COMMAND='fd --hidden --no-ignore --type directory'
 
-zstyle ':filter-select' case-insensitive yes 
+ZSH_AUTOSUGGEST_USE_ASYNC=1
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#778077'
 
+POWERLEVEL9K_MODE='nerdfont-complete'
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vi_mode dir dir_writable)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs vcs command_execution_time time user os_icon)
+
+POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=''
+POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%K{green} %k%F{green}%f "
+
+POWERLEVEL9K_FOLDER_ICON=''
+POWERLEVEL9K_HOME_ICON=''
+POWERLEVEL9K_HOME_SUB_ICON=''
+
+POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND='11'
+POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND='black'
+POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND='13'
+POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND='black'
+
+POWERLEVEL9K_USER_DEFAULT_BACKGROUND='8'
+POWERLEVEL9K_USER_DEFAULT_FOREGROUND='10'
+POWERLEVEL9K_USER_SUDO_BACKGROUND='8'
+POWERLEVEL9K_USER_SUDO_FOREGROUND='red'
+POWERLEVEL9K_USER_ROOT_BACKGROUND='8'
+POWERLEVEL9K_USER_ROOT_FOREGROUND='red'
+
+POWERLEVEL9K_OS_ICON_FOREGROUND='10'
+POWERLEVEL9K_OS_ICON_BACKGROUND='black'
+
+POWERLEVEL9K_TIME_BACKGROUND='white'
+POWERLEVEL9K_TIME_FOREGROUND='black'
+
+POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND='black'
+POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND='6'
+
+
+zstyle ':filter-select' case-insensitive yes
 
 ################################################################################
 #PLUGINS
@@ -89,19 +126,18 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zaw
 
-antigen bundle colored-man-pages
 antigen bundle colorize
 antigen bundle command-not-found
 antigen bundle extract
-antigen bundle rust
-antigen bundle cargo
 antigen bundle transfer
+#antigen bundle tmux # check this
 
-antigen bundle djui/alias-tips
-antigen bundle Valiev/almostontop
 antigen bundle b4b4r07/enhancd
-#antigen bundle oldratlee/hacker-quotes
-antigen bundle supercrabtree/k
+antigen bundle djui/alias-tips
+antigen bundle arzzen/calc.plugin.zsh
+antigen bundle hlissner/zsh-autopair
+
+antigen theme bhilburn/powerlevel9k
 
 antigen apply
 #FZF
@@ -139,7 +175,6 @@ bindkey -M viins '^N' history-substring-search-down
 ################################################################################
 #ALIASES
 #color aliases
-alias ls='ls --color'
 alias less='less -R'
 alias diff='diff --color=always'
 alias watch='watch --color'
@@ -176,25 +211,17 @@ tse() { trans :en -b "$*" }
 alias tsf='trans :ru'
 alias se='~/Scripts/i3/spellchecker'
 alias sr='~/Scripts/i3/spellchecker_ru'
-gotmux() {
-
-  local REPTYR_PID=$(jobs -l | grep '+' | cut -d' ' -f4)
-  local TASK_ID=$(jobs -l | grep '+' | cut -d' ' -f1 | tr -d \[\])
-  bg %$TASK_ID
-  disown %$TASK_ID
-
-  tmux new-session -d
-  local TMUX_SESSION=$(tmux ls | tail -n 1 | cut -d':' -f1)
-  tmux send-keys -t $TMUX_SESSION "reptyr $REPTYR_PID" ENTER
-  tmux attach -t $TMUX_SESSION
-}
 
 #ls aliases
-alias k='k -h'
+if  command -v colorls > /dev/null ; then
+  alias ls='colorls'
+else
+  alias ls='ls --color'
+fi
 alias l='ls '
-alias ll='ls -lh'
+alias ll='ls -l'
 alias la='ls -A'
-alias lla='ls -lAh'
+alias lla='ls -lA'
 
 #confirm aliases
 alias rm='rm -i'
@@ -207,205 +234,3 @@ alias -g .l='| less'
 alias -g .c="| column -t"
 alias -g .p="| $PAGER"
 alias -g .stn='| tr " " "\n"'
-
-#other
-alias cal='cal -m'
-
-################################################################################
-#INDICATORS
-#command time
-function _command_time_preexec { start_command_time=$SECONDS }
-function _command_time_precmd { command_time=$(( SECONDS - start_command_time )) }
-function prompt_command_time { 
-  if (( command_time < 3 )); then
-    return
-  elif (( command_time > 3600 )); then
-    echo "%F{red}"$(( command_time/3600 ))"h:"$(( command_time/60%60 ))"m%f"
-    return
-  elif (( command_time > 60 )); then
-    echo "%F{yellow}"$(( command_time/60 ))"m:"$(( command_time%60 ))"s%f"
-    return
-  else
-    echo "%F{cyan}${command_time}s%f"
-  fi
-}
-
-precmd_functions+=(_command_time_precmd)
-preexec_functions+=(_command_time_preexec)
-
-#vi indicators
-VI_NORMAL="%F{magenta}NORMAL%f"
-VI_INSERT="%F{yellow}INSERT%f"
-function prompt_vi_mode() {
-	echo "${${KEYMAP/vicmd/$VI_NORMAL}/(main|viins)/$VI_INSERT}"
-}
-
-function zle-line-init zle-keymap-select {
-	zle && zle reset-prompt
-}
-
-zle -N zle-line-init
-zle -N zle-keymap-select
-
-TRAPWINCH() {
-	zle && zle reset-prompt
-}
-
-#top indicator
-function prompt_almostontop {
-  if [[ $ALMOSONTOP == true ]] then
-    echo "%F{green}TOP%f"
-  fi
-}
-
-function almostontop_prompt_with_toggle {
-  almostontop_toggle 
-	zle && zle reset-prompt
-}
-zle -N almostontop_prompt_with_toggle 
-
-#venv indicator
-function prompt_venv {
-  echo $VIRTUAL_ENV | sed 's~.*/\(.*/\)~\1~g'
-}
-
-#for git indicator
-autoload -Uz vcs_info
-precmd() { vcs_info }
-zstyle ':vcs_info:git:*' formats '%b'
-
-#ssh indicator
-function prompt_ssh {
-  echo $SSH_CONNECTION | cut -d' ' -f3
-}
-################################################################################
-#MY PROMPT
-autoload -U colors && colors
-setopt PROMPT_SUBST
-
-#placeholder
-prompt_ph="-"
-prompt_ph_color='blue'
-prompt_ph_bold=true
-
-#parentheses
-prompt_pnt_left='%B%F{white}[%f%b'
-prompt_pnt_right='%B%F{white}]%f%b'
-
-#line1
-prompt_line1a=('$(prompt_almostontop)' '%B$(prompt_vi_mode)%b'\
-  '%F{cyan}%~%f' '%F{magenta}$(prompt_venv)%f')
-prompt_line1b=('$(prompt_command_time)' '%F{red}$(prompt_ssh)%f'\
-  '%F{green}${vcs_info_msg_0_}%f' '%F{white}%n@%m%f')
-
-#line2
-prompt_line2a="%(?:%F{green}✔ :%F{red}✗ )%f%(!:%F{red}# :%F{cyan}$)%f:"
-prompt_line2b=('%*')
-
-
-#return value
-prompt_return_size=""
-prompt_return_line=""
-
-#takes pormpt line
-#return processed line and size
-function prompt_process_line {
-  local processed_line=$1
-
-  #zsh substitute
-  processed_line=${(S%%)processed_line}
-  #return line
-  prompt_return_line=$processed_line
-
-  #eliminate terminal symbols
-  processed_line=$(echo $processed_line | sed 's/\x1b\[[0-9;]*m//g' | sed 's/\x0f//g')
-  #return size
-  prompt_return_size=${#processed_line}
-}
-
-#takes size
-function prompt_create_placeholder {
-  eval "local placeholder=\${(l:${1}::${prompt_ph}:)}"
-  if $prompt_ph_bold; then
-    placeholder="%B%F{$prompt_ph_color}$placeholder%f%b"
-  else
-    placeholder="%F{$prompt_ph_color}$placeholder%f"
-  fi
-  echo $placeholder
-}
-
-#return full prompt line and size
-function prompt_create_line {
-  local one_placeholder_symbol=$(prompt_create_placeholder 1)
-
-  #get decorate_size
-  prompt_process_line $one_placeholder_symbol$prompt_pnt_left$prompt_pnt_right$one_placeholder_symbol
-  local decorate_size=$prompt_return_size
-
-  #values to return
-  local summary_line
-  local summary_size=0
-
-  local i
-  for i in $@; do
-
-		prompt_process_line $i
-    local size=$prompt_return_size
-    local element=$prompt_return_line
-
-		if [[ $size -ne 0 ]]
-		then
-      summary_size=$(( summary_size + size + decorate_size ))
-			element="%$size{$element%}"
-			element="$prompt_pnt_left$element$prompt_pnt_right"
-			element="$one_placeholder_symbol$element$one_placeholder_symbol"
-			summary_line="$summary_line$element"
-		fi
-  done
-
-  prompt_return_size=$summary_size
-  prompt_return_line=$summary_line
-}
-
-function prompt_ps1 {
-
-  local newline='%1{\n\r%}'
-
-  #create line1
-  prompt_create_line $prompt_line1a[@]
-  local line1a=$prompt_return_line
-  local line1a_width=$prompt_return_size
-
-  prompt_create_line $prompt_line1b[@]
-  local line1b=$prompt_return_line
-  local line1b_width=$prompt_return_size
-
-  #create placeholder
-  local placeholder_size=$(( COLUMNS - line1a_width - line1b_width ))
-
-  if (( placeholder_size > 0 )); then
-    local placeholder=$(prompt_create_placeholder $placeholder_size)
-    local endline=$line1a$placeholder$line1b$newline$prompt_line2a
-    echo $endline
-    return
-  fi
-
-  placeholder_size=$(( COLUMNS - line1a_width ))
-  if (( placeholder_size > 0 )); then
-    local placeholder=$(prompt_create_placeholder $placeholder_size)
-    local endline=$line1a$placeholder$newline$prompt_line2a
-    echo $endline
-    return
-  fi
-
-  placeholder_size=$COLUMNS
-  local placeholder=$(prompt_create_placeholder $placeholder_size)
-  local endline=$placeholder$newline$prompt_line2a
-  echo $endline
-}
-function prompt_rps1 {
-  prompt_create_line $prompt_line2b[@]
-  echo $prompt_return_line
-}
-PS1='$(prompt_ps1)'
-RPS1='$(prompt_rps1)'

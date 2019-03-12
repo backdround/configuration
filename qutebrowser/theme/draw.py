@@ -5,27 +5,26 @@ def get_color(string):
 
 def set_colors(c):
     palette = {}
-    palette['rock-dark']    = get_color("background")
-    palette['rock-light']   = get_color("color0")
-    palette['gray-dark']    = get_color("color7")
-    palette['gray-light']   = get_color("color8")
-    palette['cloud-dark']   = get_color("foreground")
-    palette['cloud-light']  = get_color("color15")
+    palette['rock-dark']   = get_color("background")
+    palette['rock-light']  = get_color("color0")
+    palette['gray']        = get_color("color8")
+    palette['cloud-dark']  = get_color("foreground")
+    palette['cloud-light'] = get_color("color15")
 
-    palette['cyan']         = get_color("color6")
-    palette['blue']         = get_color("color14")
-    palette['green']        = get_color("color2")
-    palette['turquoise']    = get_color("color10")
-    palette['pink']         = get_color("color5")
-    palette['purple']       = get_color("color4")
-    palette['red']          = get_color("color1")
-    palette['yellow']       = get_color("color3")
+    palette['cyan']        = get_color("color6")
+    palette['blue']        = get_color("color14")
+    palette['green']       = get_color("color2")
+    palette['turquoise']   = get_color("color10")
+    palette['pink']        = get_color("color5")
+    palette['purple']      = get_color("color4")
+    palette['red']         = get_color("color1")
+    palette['yellow']      = get_color("color3")
 
     colors = {
         # tabs
         'tabs-bg': palette['rock-light'],
         'tabs-fg': palette['cloud-dark'],
-        'tabs-selected-bg': palette['gray-light'],
+        'tabs-selected-bg': palette['gray'],
         'tabs-selected-fg': palette['green'],
 
         # url
@@ -52,7 +51,7 @@ def set_colors(c):
         'sts-insert-bg': palette['turquoise'],
         'sts-insert-fg': palette['rock-dark'],
 
-        'sts-private-bg': palette['gray-dark'],
+        'sts-private-bg': palette['gray'],
         'sts-private-fg': palette['green'],
 
         'sts-progress-bg': palette['rock-dark'],
@@ -61,7 +60,7 @@ def set_colors(c):
         'prompt-bg': palette['rock-dark'],
         'prompt-fg': palette['cyan'],
         'prompt-border': palette['green'],
-        'prompt-selected': palette['gray-dark'],
+        'prompt-selected': palette['gray'],
 
         # messages
         'msg-bg': palette['rock-dark'],
@@ -77,7 +76,7 @@ def set_colors(c):
         # hints
         'hints-bg': palette['turquoise'],
         'hints-fg': palette['rock-dark'],
-        'hints-match': palette['gray-dark'],
+        'hints-match': palette['gray'],
 
         # download bar
         'db-bg': palette['rock-dark'],
@@ -93,7 +92,7 @@ def set_colors(c):
         'cw-header': palette['green'],
         'cw-header-bg': palette['rock-dark'],
         'cw-selection': palette['green'],
-        'cw-selection-bg': palette['gray-dark'],
+        'cw-selection-bg': palette['gray'],
         'cw-match': palette['red'],
         'cw-scrollbar': palette['green'],
         'cw-scrollbar-bg': palette['rock-dark'],
