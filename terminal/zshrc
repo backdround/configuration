@@ -163,6 +163,7 @@ alias c='cargo'
 alias f='fd -IH'
 alias g='glances -0 -1 --disable-bg --fs-free-space'
 alias hd='howdoi'
+gr() { eval "grep -r \"$*\" ./" }
 sp() { eval "sudo pacman -$*" }
 S() { eval "sudo pacman -S $*" }
 Ss() { eval "sudo pacman -Ss $*" }

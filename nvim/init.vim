@@ -185,7 +185,7 @@ function! s:BasicSettings()
   nnoremap <leader>2 q
   inoremap <M-j> <C-^>
 
-  command! FilePath echo(expand("%"))
+  command! FilePath echo(expand("%:p"))
 
   "swap ' and `
   nnoremap ' `
@@ -199,7 +199,7 @@ function! s:BasicSettings()
   vnoremap // y/<C-R>"<CR>
   nnoremap <leader>w <C-w>
   nnoremap Y y$
-  nnoremap ß <esc>:w<CR>
+  nnoremap _ <esc>:w<CR>
   nnoremap <leader>k :tab Man<CR>
 
   " }}}
@@ -728,7 +728,7 @@ function! s:ConfigurePlugins()
   let g:NERDTreeMapOpenVSplit = 'v'
   let g:NERDTreeMapPreviewVSplit = 'gv'
   let g:NERDTreeMapMenu = 'a'
-  let g:NERDTreeWinSize = '24'
+  let g:NERDTreeWinSize = '29'
   nnoremap <silent> <F3> :call NerdtreeToggle()<CR>
   nnoremap <silent> <F15> :call SwitchWindowTo("NERD_tree_*")<CR>
   nnoremap <silent> <leader>n :NERDTree<CR>

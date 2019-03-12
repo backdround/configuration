@@ -1,2 +1,3 @@
 .fzf_history
 .session.vim
+compile_commands.json

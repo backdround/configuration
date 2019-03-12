@@ -4,6 +4,7 @@ export TERMINAL=termite
 
 xset m 1/1 0
 xset r rate 200 30
+setxkbmap -model pc105 -layout us,ru -variant altgr-intl, winkey -option terminate:ctrl_alt_bksp, grp:caps_toggle, grp_led:scroll, compose:menu, lv5:rwin_switch_lock
 xkbcomp -I$HOME/.config/xkb ~/.config/xkb/keymap/config $DISPLAY -w 0
 xset b off
 
