@@ -198,7 +198,22 @@ sp() { eval "sudo pacman -$*" }
 S() { eval "sudo pacman -S $*" }
 Ss() { eval "sudo pacman -Ss $*" }
 uw() { xclip -o | tr -s '\n' ' ' | sed "s/$/\n/" >> unknown_sentences }
-hd() { clear ; eval "h $*"}
+
+my-accept-line () {
+if [[ "$BUFFER" == ('hd '*|'hd') ]]; then
+    zle clear-screen
+  fi
+  zle .accept-line
+}
+zle -N accept-line my-accept-line
+
+hd() {
+  if [[ "$*" == "" ]] ; then
+    h ~
+  else
+    eval "h $*"
+  fi
+}
 
 #my scripts aliases
 t() { echo "$*" | ~/Scripts/i3/new_word.py }
