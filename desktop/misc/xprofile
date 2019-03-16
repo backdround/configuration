@@ -1,6 +1,7 @@
 #!/bin/sh
 
 export TERMINAL=termite
+export LC_ALL=en_US.UTF-8
 
 xset m 1/1 0
 xset r rate 200 30

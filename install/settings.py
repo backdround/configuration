@@ -35,11 +35,11 @@ class __DefaultSettings__:
             "position_size": {
                 "telegram":           ("525 700", "1375 10"),
                 "ncmpcpp":            ("210 745", "1500 300"),
-                "dropdown":           ("5 5",     "1910 534"),
-                "ranger":             ("5 5",     "1910 490"),
+                "dropdown":           ("5 5",     "1910 532"),
+                "ranger":             ("5 5",     "1910 486"),
                 "rtorrent":           ("192 108", "1536 864"),
                 "gis_weather":        ("10 10",   ""),
-                "qutebrowser_editor": ("65 65",   "675 342"),
+                "qutebrowser_editor": ("65 65",   "675 336"),
             },
             "replaces": {
                 "--inner-gaps--": "24"

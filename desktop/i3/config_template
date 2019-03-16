@@ -2,8 +2,10 @@
 
 set $mod Mod4
 
-# Use Mouse+$mod to drag floating windows to their wanted position
+# general config
 floating_modifier $mod
+popup_during_fullscreen smart
+force_focus_wrapping yes
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -22,6 +24,10 @@ bindsym $mod+Shift+l move right 50px
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
+
+# change focused layout
+bindsym $mod+p focus parent
+bindsym $mod+c focus child
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -58,6 +64,26 @@ bindsym $mod+Shift+bar move container to workspace work
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
+#colors
+set_from_resource  $black  i3wm.color0  #17121e
+set_from_resource  $red    i3wm.color1  #ff2d5e
+set_from_resource  $green  i3wm.color10 #00fa90
+set_from_resource  $green2 i3wm.color2  #3fe097
+set_from_resource  $yellow i3wm.color3  #fdf2a2
+set_from_resource  $purple i3wm.color4  #BD93F9
+set_from_resource  $pink   i3wm.color5  #db0088
+set_from_resource  $blue   i3wm.color6  #8BE9FD
+set_from_resource  $white  i3wm.color7  #e4e0ed
+set_from_resource  $gray   i3wm.color8  #343439
+
+#class                  border  backgr. text    indicator child_border
+client.focused          $gray   $black  $green2 $green    $green
+client.focused_inactive $gray   $black  $green2 $white    $white
+client.unfocused        $gray   $black  $green2 #777777   #777777
+client.urgent           $pink   $black  $green2 $pink     $pink
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+client.background       #ffffff
 
 bar {
   status_command i3blocks
@@ -180,8 +206,8 @@ mode "gaps" {
 }
 
 #border
-smart_borders on
-for_window [class="^.*"] border pixel 0
+default_border pixel 2
+default_floating_border pixel 2
 bindsym $mod+b border toggle
 
 
@@ -197,15 +223,12 @@ mode "launcher" {
 
   #qutebrowser
   bindsym q exec --no-startup-id qutebrowser; mode "default"
-  bindsym $mod+q exec --no-startup-id pkill qutebrowser; mode "default"
 
   #chromium
   bindsym c exec --no-startup-id chromium; mode "default"
-  bindsym $mod+c exec --no-startup-id pkill chromium; mode "default"
 
   #firefox
   bindsym f exec firefox; mode "default"
-  bindsym $mod+f exec --no-startup-id pkill firefox; mode "default"
 
   #pulse audio
   bindsym p exec pavucontrol; mode "default"
@@ -213,25 +236,18 @@ mode "launcher" {
   #weather
   bindsym w exec --no-startup-id Scripts/i3/weather; mode "default"
 
-  # split in horizontal orientation
-  bindsym $mod+h split h
-  # split in vertical orientation
-  bindsym $mod+v split v
-  # focus the parent container
-  bindsym $mod+o focus parent
-  # focus the child container
-  bindsym $mod+c focus child
-
   # change layout
+  bindsym $mod+h split h
+  bindsym $mod+v split v
   bindsym $mod+s layout stacking
   bindsym $mod+t layout tabbed
   bindsym $mod+e layout toggle split
 
   # change focus
-  bindsym $mod+h focus left
-  bindsym $mod+j focus down
-  bindsym $mod+k focus up
-  bindsym $mod+l focus right
+  bindsym h focus left
+  bindsym j focus down
+  bindsym k focus up
+  bindsym l focus right
 
   #bindsym q mode "default"
   bindsym Escape mode "default"
@@ -355,7 +371,7 @@ bindsym ISO_Next_Group exec --no-startup-id pkill -RTMIN+1 i3blocks
 #volume
 bindsym Group2+XF86AudioRaiseVolume exec --no-startup-id pactl -- set-sink-volume 0 +5%; exec --no-startup-id pkill -RTMIN+10 i3blocks
 bindsym Group2+XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle; exec --no-startup-id pkill -RTMIN+10 i3blocks
-bindsym Group2+XF86AudioLowerVolume exec --no-startup-id pactl -- set-sink-volume 0 100%; exec --no-startup-id pkill -RTMIN+10 i3blocks
+bindsym Group2+XF86AudioLowerVolume exec --no-startup-id pactl -- set-sink-volume 0 -5%; exec --no-startup-id pkill -RTMIN+10 i3blocks
 
 #other
 bindsym $mod+v exec --no-startup-id ~/Scripts/i3/dragon_screen ~/Pictures/Screens

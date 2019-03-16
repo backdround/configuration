@@ -209,7 +209,7 @@ zle -N accept-line my-accept-line
 
 hd() {
   if [[ "$*" == "" ]] ; then
-    h ~
+    eval "h ~"
   else
     eval "h $*"
   fi

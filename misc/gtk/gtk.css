@@ -13,14 +13,3 @@ headerbar {
     margin: 0px; /* same as headerbar side padding for nicer proportions */
     padding: 0px;
 }
-
-/*.termite {
-    padding: 4px;
-	background-color: #EBB;
-	background-color: #CAC;
-}*/
-
-.termite {
-    padding: 2px;
-	background-color: #777;
-}
