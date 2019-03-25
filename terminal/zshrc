@@ -193,11 +193,14 @@ alias c='cargo'
 alias f='fd -IH'
 alias g='glances -0 -1 --disable-bg --fs-free-space'
 alias hdi='howdoi'
+alias gir='h $(git rev-parse --show-toplevel)'
+
 gr() { eval "grep -r \"$*\" ./" }
 sp() { eval "sudo pacman -$*" }
 S() { eval "sudo pacman -S $*" }
 Ss() { eval "sudo pacman -Ss $*" }
 uw() { xclip -o | tr -s '\n' ' ' | sed "s/$/\n/" >> unknown_sentences }
+
 
 my-accept-line () {
 if [[ "$BUFFER" == ('hd '*|'hd') ]]; then
@@ -222,6 +225,7 @@ tse() { trans :en -b "$*" }
 alias tsf='trans :ru'
 alias se='~/Scripts/i3/spellchecker'
 alias sr='~/Scripts/i3/spellchecker_ru'
+alias lolclock='while true; do tput clear; date +"%H : %M : %S" | figlet ; sleep 1; done'
 
 #ls aliases
 if  command -v colorls > /dev/null ; then
