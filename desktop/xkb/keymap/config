@@ -1,6 +1,18 @@
 xkb_keymap {
   xkb_keycodes { include "evdev+aliases(qwerty)" };
-  xkb_types    { include "complete" };
+  xkb_types    {
+    include "complete"
+
+    type "LOCAL_TYPE" {
+      modifiers = Control+Shift;
+      map[None] = Level1;
+      map[Shift] = Level2;
+      map[Control] = Level3;
+      level_name[Level1] = "Base";
+      level_name[Level2] = "Shift";
+      level_name[Level3] = "Ctrl";
+    };
+  };
 
   xkb_compat {
     include "complete"
@@ -39,6 +51,23 @@ xkb_keymap {
     replace key <RALT> {
       actions[Group1] = [ SetGroup(group=+1) ],
       actions[Group4] = [ SetGroup(group=+2) ]
+    };
+
+    replace key <AB07> {
+      type = "LOCAL_TYPE",
+      symbols[Group2] = [ SetGroup(group=+1) ],
+      symbols[Group1] = [ m,                 M,                 NoSymbol ],
+      symbols[Group4] = [ Cyrillic_softsign, Cyrillic_SOFTSIGN, NoSymbol ],
+      actions[Group1] = [ NoAction(), NoAction(), RedirectKey(key=<RTRN>,clearmods=Control)],
+      actions[Group4] = [ NoAction(), NoAction(), RedirectKey(key=<RTRN>,clearmods=Control)]
+    };
+
+    replace key <AC06> {
+      type = "LOCAL_TYPE",
+      symbols[Group1] = [ h,           H,           BackSpace ],
+      symbols[Group4] = [ Cyrillic_er, Cyrillic_ER, BackSpace ],
+      actions[Group1] = [ NoAction(), NoAction(), RedirectKey(key=<BKSP>,clearmods=Control)],
+      actions[Group4] = [ NoAction(), NoAction(), RedirectKey(key=<BKSP>,clearmods=Control)]
     };
 
   };

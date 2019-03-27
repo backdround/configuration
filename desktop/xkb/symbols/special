@@ -26,7 +26,7 @@ xkb_symbols "keys" {
   key <AC09> { [ XF86AudioLowerVolume ] };
   key <AC08> { [ XF86AudioMute ] };
   key <AC07> { [ XF86AudioRaiseVolume ] };
-  replace key <AB07> {
+  replace key <AB06> {
     [ SetGroup(group=+1) ]
   };
 
