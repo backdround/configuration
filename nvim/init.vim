@@ -16,7 +16,6 @@ function! s:LoadPlugins()
 
   " --------------------------------------------------------------------------
   " FEATURES
-  "Plug 'kassio/neoterm' check this plugin
   Plug 'Chiel92/vim-autoformat'         " AUTOFORMAT
   Plug 'dyng/ctrlsf.vim'                " CTRLSF
   Plug 'ludovicchabant/vim-gutentags'   " GUTENTAGS
@@ -41,7 +40,7 @@ function! s:LoadPlugins()
   Plug 'xolox/vim-misc'                 " SESSION
   Plug 'xolox/vim-session'
 
-  "Plug 'Valloric/YouCompleteMe'        " YCM
+                                        " COMPLETE
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 
@@ -83,6 +82,11 @@ function! s:LoadPlugins()
   Plug 'wellle/targets.vim'      " TARGETS
   Plug 'kana/vim-textobj-user'   " TEXTOBJ USER
   Plug 'kana/vim-textobj-indent' " TEXTOBJ INDENT
+
+  "INTERESTED
+  "https://github.com/Shougo/defx.nvim
+  "https://github.com/junegunn/gv.vim
+  "https://github.com/liuchengxu/vim-which-key
 
   call plug#end()
 endfunction
@@ -230,6 +234,12 @@ function! s:BasicSettings()
     autocmd FileType man nunmap <buffer> q
     autocmd FileType man map <buffer> q <Plug>(easymotion-lineanywhere)
     autocmd FileType man nnoremap <buffer> z :vnew \| bd # \| :q<CR>
+  augroup END
+
+  "set engligsh language when leave insert mode
+  augroup LeaveInsertLanguage
+    autocmd!
+    autocmd InsertLeave * set iminsert=0
   augroup END
 
 
@@ -387,10 +397,11 @@ function! s:ConfigurePlugins()
   let g:ctrlsf_auto_focus = {"at" : "start"}
   let g:ctrlsf_context = '-A 5 -B 2'
   "let g:ctrlsf_default_root = 'project+fw'
-  let g:ctrlsf_populate_qflist = 1
+  "let g:ctrlsf_populate_qflist = 1
   let g:ctrlsf_default_view_mode = 'normal'
-  let g:ctrlsf_position = 'left'
-  let g:ctrlsf_winsize = '70'
+  let g:ctrlsf_position = 'bottom'
+  "let g:ctrlsf_position = 'left'
+  let g:ctrlsf_winsize = '40%'
   let g:ctrlsf_indent = 2
   let g:ctrlsf_mapping = {
         \ "split"   : "<C-s>",

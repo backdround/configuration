@@ -472,7 +472,6 @@ config.bind('<Ctrl-l>', 'scroll right', mode='insert')
 config.bind('<Ctrl-n>', 'jseval -q -f /usr/share/qutebrowser/scripts/cycle-inputs.js', mode='insert')
 config.bind('<Ctrl-e>', 'open-editor', mode='insert')
 config.bind('<Escape>', 'leave-mode', mode='insert')
-config.bind('<Alt-e>', 'leave-mode', mode='insert')
 config.bind('<Ctrl-t>', 'enter-mode passthrough', mode='insert')
 
 for i in range(1, 10):
@@ -488,9 +487,6 @@ config.bind('<Ctrl-l>', 'scroll right', mode='passthrough')
 config.bind('<Ctrl-n>', 'jseval -q -f /usr/share/qutebrowser/scripts/cycle-inputs.js', mode='passthrough')
 config.bind('<Alt-Escape>', 'fake-key <Escape>', mode='passthrough')
 config.bind('<Escape>', 'leave-mode', mode='passthrough')
-config.bind('<Alt-e>', 'leave-mode', mode='passthrough')
-config.bind('<Return>', 'fake-key <Return> ;; leave-mode', mode='passthrough')
-config.bind('<Alt-Return>', 'fake-key <Return>', mode='passthrough')
 config.bind('<Ctrl-e>', 'open-editor', mode='passthrough')
 config.bind('<Ctrl-t>', 'enter-mode insert', mode='passthrough')
 
