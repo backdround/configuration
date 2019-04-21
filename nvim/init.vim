@@ -1017,7 +1017,10 @@ endfunction
 function! TerminalToggle()
   let l:terminal_buffer = bufnr('Terminal')
   if terminal_buffer == -1
-    execute "bot 15new"
+    " Save splits pos and size
+    let t:terminal_winrestcmd = winrestcmd()
+    " Create terminal buffer
+    execute "bot 55new"
     terminal
     setlocal bufhidden=hide
     setlocal nobuflisted
@@ -1032,14 +1035,23 @@ function! TerminalToggle()
 
   let l:terminal_window = bufwinnr(terminal_buffer)
   if terminal_window == -1
-    execute "bot 15new +buffer".terminal_buffer
+    " Save splits pos and size
+    let t:terminal_winrestcmd = winrestcmd()
+    " Create terminal window
+    execute "bot 55new +buffer".terminal_buffer
     setlocal winfixwidth
     setlocal winfixheight
   else
+    " Restore focuse
     if bufwinnr('%') == l:terminal_window
       call LoadWindow()
     endif
+    " Close window
     execute "close ".terminal_window
+    " Restore splits pos and size
+    if exists("t:terminal_winrestcmd")
+        execute t:terminal_winrestcmd
+    endif
   endif
 endfunction
 
