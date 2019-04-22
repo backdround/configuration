@@ -7,12 +7,17 @@ import install.utils
 def main(settings_object, project_root, force = False):
     # all paris of [config, symlink] without prefixes
     symlink_pairs = [
-        ["init.vim",                 ".config/nvim/init.vim"],
-        ["init_for_editing.vim",     ".config/nvim/init_for_editing.vim"],
-        ["settings.json",            ".config/nvim/settings.json"],
-        ["notes/plugin_hotkeys",     ".local/share/nvim/notes/plugin_hotkeys"],
-        ["notes/qute_hotkeys",       ".local/share/nvim/notes/qute_hotkeys"],
-        ["notes/vim_useful_hotkeys", ".local/share/nvim/notes/vim_useful_hotkeys"],
+        ["init.vim",                    ".config/nvim/init.vim"],
+        ["init_for_editing.vim",        ".config/nvim/init_for_editing.vim"],
+        ["settings.json",               ".config/nvim/settings.json"],
+
+        ["notes/plugin_hotkeys",        ".local/share/nvim/notes/plugin_hotkeys"],
+        ["notes/qute_hotkeys",          ".local/share/nvim/notes/qute_hotkeys"],
+        ["notes/vim_useful_hotkeys",    ".local/share/nvim/notes/vim_useful_hotkeys"],
+
+        ["UltiSnips/all.snippets",      ".local/share/nvim/UltiSnips/all.snippets"],
+        ["UltiSnips/cpp.snippets",      ".local/share/nvim/UltiSnips/cpp.snippets"],
+        ["UltiSnips/snippets.snippets", ".local/share/nvim/UltiSnips/snippets.snippets"],
     ]
 
     # relative prfix

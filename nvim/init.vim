@@ -155,15 +155,11 @@ function! s:BasicSettings()
   "leader space
   let g:mapleader = ' '
   map <space> <NOP>
+  snoremap <c-space> <space>
 
   "movement in insert mode
   inoremap <m-h> <left>
   inoremap <m-l> <right>
-
-  "separating sting
-  nnoremap <leader>/- :call AppendCommentLine('-')<CR>
-  nnoremap <leader>/= :call AppendCommentLine('=')<CR>
-  nnoremap <leader>/* :call AppendCommentLine('*')<CR>
 
   "vim
   nnoremap <leader>vs :Startify<CR>
@@ -473,14 +469,20 @@ function! s:ConfigurePlugins()
   " --------------------------------------------------------------------------
   " ultisnips
   let g:UltiSnipsUsePythonVersion = 3
-  let g:UltiSnipsEditSplit = 'vertical'
-  let g:UltiSnipsSnippetsDir ='/home/vlad/.local/share/nvim/pSnips'
-  let g:UltiSnipsSnippetDirectories = ["UltiSnips", "/home/vlad/.local/share/nvim/pSnips"]
+  let g:UltiSnipsEditSplit = 'normal'
+  let g:UltiSnipsSnippetDirectories = ['/home/vlad/.local/share/nvim/UltiSnips']
+  let g:UltiSnipsSnippetsDir = '/home/vlad/.local/share/nvim/UltiSnips'
+  let g:UltiSnipsEnableSnipMate = 0
 
-  let g:UltiSnipsListSnippets = '<c-=>'
+  let g:UltiSnipsListSnippets = '<M-t>'
   let g:UltiSnipsExpandTrigger = '<c-j>'
   let g:UltiSnipsJumpForwardTrigger = '<c-j>'
   let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
+
+  augroup ReloadSnippetsOnSave
+    autocmd!
+    autocmd BufWritePost *.snippets call UltiSnips#RefreshSnippets()
+  augroup END
 
   xnoremap  <c-j> :call UltiSnips#SaveLastVisualSelection()<CR>gvs
 
@@ -913,26 +915,6 @@ function! s:SetHighlight(hlName, hl)
   augroup SetHighlightFunctionGroup
     execute "autocmd ColorScheme * highlight ".a:hlName." gui=".l:mode." guifg=".l:fg." guibg=".l:bg
   augroup END
-endfunction
-
-" ----------------------------------------------------------------------------
-" Comment line
-function! AppendCommentLine(placeholder)
-  "line width
-  let l:text_width = &textwidth> 0? &textwidth : 80
-
-  "widths
-  let l:indent_width = indent(line('.'))
-  let l:comment_string_width = len(substitute(&commentstring, '%s', '', '',))
-  let l:placeholder_width = l:text_width - l:indent_width - l:comment_string_width - len(' ')
-
-  "parts
-  let l:indent_part = repeat(' ', l:indent_width)
-  let l:placeholder_part = repeat(a:placeholder, l:placeholder_width)
-
-  "line
-  let l:line = l:indent_part . substitute(&commentstring, '%s', ' ' . l:placeholder_part, '')
-  call append(line('.'), l:line)
 endfunction
 
 " ----------------------------------------------------------------------------

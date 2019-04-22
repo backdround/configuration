@@ -1,0 +1,282 @@
+# ------------------------------------------------------------------------------
+# Global function
+
+global !p
+import re
+
+def ife(value, true_string, false_string = ''):
+		if t[value]:
+				snip.rv = true_string
+		else:
+				snip.rv = false_string
+
+def ifne(value, true_string, false_string = ''):
+		if not t[value]:
+				snip.rv = true_string
+		else:
+				snip.rv = false_string
+
+def get_class_name():
+		line_number = int(vim.eval("searchpair('{', '', '}', 'bnW')")) - 1
+		if (line_number == -1):
+				return ""
+
+		for i in (line_number, line_number - 1):
+				line = vim.current.buffer[i]
+				search = re.search('class ([a-zA-Z_]+)( |$)', line)
+				if search:
+						class_name = search.group(1)
+						return class_name
+		return ""
+
+def parse_args(line):
+		args = re.sub("<.*?>", "", line)
+		args = re.findall(".+? ([a-zA-Z_]+)[,)]", args)
+		return args
+
+endglobal
+
+# ------------------------------------------------------------------------------
+# Protected defines
+
+# PROJECT_PATH_TO_FILE_FILE_EXT_
+snippet head "protected ifndef " b
+#ifndef ${1:`!p
+file_path = vim.eval("expand('%')")
+project = re.sub(".*/", '', vim.eval("getcwd()"))
+
+path = project + '_' + file_path + '_'
+path = re.sub("[^a-zA-Z]", "_", path)
+snip.rv = path.upper()
+`}
+$0
+#define $1
+#endif /* $1 */
+endsnippet
+
+# ------------------------------------------------------------------------------
+# Includes
+snippet inc "c include" b
+#include "${1:string}.h"${0}
+endsnippet
+
+snippet in "cpp include" b
+#include <${1:cstring}>${0}
+endsnippet
+
+snippet iv "include vector" b
+#include <vector>${0}
+endsnippet
+
+snippet is "include string" b
+#include <string>${0}
+endsnippet
+
+snippet io "include iostream" b
+#include <iostream>
+using namespace std;${0}
+endsnippet
+
+# ------------------------------------------------------------------------------
+# Mains
+snippet tmain "test main" b
+#include <iostream>
+using namespace std;
+
+int main() {
+	${0}
+	return 0;
+}
+endsnippet
+
+snippet main "main" b
+int main() {
+	${0}
+	return 0;
+}
+endsnippet
+
+# ------------------------------------------------------------------------------
+# If
+snippet if "if" s
+if ($1) {
+	$2
+}$0
+endsnippet
+
+snippet elif "else if" s
+else if ($1) {
+	$2
+}$0
+endsnippet
+
+snippet el "else" s
+el {
+	$1
+}$0
+endsnippet
+
+snippet sw "switch(value)" b
+switch(${1:value}) {
+	case: ${2:value1}
+		${3}
+		break;
+
+	default:
+		${4}
+}$0
+endsnippet
+
+snippet sc "switch case" b
+case: ${1}
+	${2}
+	break;
+$0
+endsnippet
+
+# ------------------------------------------------------------------------------
+# For
+snippet range "range from 0 to $1" bs
+for (int i = 0; i < $1; i++) {
+	$2
+}$0
+endsnippet
+
+snippet for "for" bs
+for ($1) {
+	$2
+}$0
+endsnippet
+
+snippet wh "while" bs
+while ($1) {
+	$2
+}$0
+endsnippet
+
+snippet rbase "range base for" bs
+for (auto& i: $1) {
+	$2
+}$0
+endsnippet
+
+snippet rbasec "range base for" bs
+for (const auto& i: $1) {
+	$2
+}$0
+endsnippet
+
+# ------------------------------------------------------------------------------
+# Cout / cin
+snippet cout "cout << 'visual' << endl;"
+${1:std::}cout << "${2:${VISUAL}}" << $1endl;$0
+endsnippet
+
+snippet vout "cout << 'var: ' << var << endl;"
+${1:std::}cout << "$2: " << ${2:${VISUAL}} << $1endl;$0
+endsnippet
+
+snippet cin "cin >> val;"
+${1:std::}cin >> $2;$0
+endsnippet
+
+# ------------------------------------------------------------------------------
+# Structures / Classes
+
+snippet st "define struct" b
+struct ${1:struct_name_t} {
+	${2}
+};$0
+endsnippet
+
+snippet cl "define class" bs
+class ${1:`!p
+class_name = list(snip.basename)
+class_name[0] = class_name[0].upper()
+snip.rv = "".join(class_name)
+`} `!p ife(2, ": public ")`${2:Class_name}`!p ife(2, " ")`{
+public:
+	${3}
+
+private:
+	${7}
+};$0
+endsnippet
+
+snippet cc "class construction" b
+`!p
+if not snip.c:
+		snip.rv = get_class_name()
+`(${1})${2:`!p ifne(1, " = default;", ";")`}$0
+endsnippet
+
+snippet cd "class destruction"
+~`!p
+if not snip.c:
+		snip.rv = get_class_name()
+`(${1})${2:`!p ifne(1, " = default;", ";")`}$0
+endsnippet
+
+snippet cm "class member"
+${1:member_name}();$0
+endsnippet
+
+# ------------------------------------------------------------------------------
+# Aliases
+
+snippet .v "class virtual"
+virtual
+endsnippet
+
+snippet .o "class override"
+override
+endsnippet
+
+snippet .f "class final"
+final
+endsnippet
+
+snippet .c "const"
+const
+endsnippet
+
+snippet .df "default"
+default
+endsnippet
+
+snippet .dl "delete"
+delete
+endsnippet
+
+# ------------------------------------------------------------------------------
+# Doxygen
+
+snippet 't\\nt' "Description" rb
+yo
+yo
+yo
+endsnippet
+
+#snippet "((.+) ([a-zA-Z_:]+) ?(\(.*\))(|{| {)?) ?d" "generate doxygen class" brs
+snippet "((.+) ([a-zA-Z_:]+) ?(\(.*\))(|{| {)?) ?d" "generate doxygen class" brs
+/**
+  \brief ${1}
+`!p
+# insert args
+args = parse_args(match.group(4))
+if args:
+		snip.rv += '\n'
+		for arg in args:
+				snip.rv += '  \\param[in] ' + str(arg)
+				snip.rv += '\n'
+
+# insert return type
+return_type = match.group(2)
+if return_type and return_type != "void":
+		snip.rv += '\n'
+		snip.rv += '  \\return'
+		snip.rv += '\n'
+` */
+`!p snip.rv = match.group(1)`
+endsnippet
+
