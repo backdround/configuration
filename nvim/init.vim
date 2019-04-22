@@ -160,6 +160,8 @@ function! s:BasicSettings()
   "movement in insert mode
   inoremap <m-h> <left>
   inoremap <m-l> <right>
+  inoremap <m-j> <down>
+  inoremap <m-k> <up>
 
   "vim
   nnoremap <leader>vs :Startify<CR>
@@ -183,7 +185,7 @@ function! s:BasicSettings()
   map m <NOP>
   map q <NOP>
   nnoremap <leader>2 q
-  inoremap <M-j> <C-^>
+  inoremap <M-i> <C-^>
 
   command! FilePath echo(expand("%:p"))
 
@@ -424,6 +426,7 @@ function! s:ConfigurePlugins()
   " --------------------------------------------------------------------------
   " rooter
   let g:rooter_silent_chdir = 1
+  let g:rooter_resolve_links = 1
   let g:rooter_patterns = ['.git/', '.git', '_darcs/', '.hg/', '.bzr/', '.svn/']
 
   " --------------------------------------------------------------------------

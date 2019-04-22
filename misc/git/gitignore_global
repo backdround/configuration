@@ -1,3 +1,4 @@
 .fzf_history
 .session.vim
+.gdb_history
 compile_commands.json
