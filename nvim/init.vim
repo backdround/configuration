@@ -17,7 +17,7 @@ function! s:LoadPlugins()
   " --------------------------------------------------------------------------
   " FEATURES
   Plug 'Chiel92/vim-autoformat'         " AUTOFORMAT
-  Plug 'dyng/ctrlsf.vim'                " CTRLSF
+  Plug 'fasterbru/ctrlsf.vim'           " CTRLSF
   Plug 'ludovicchabant/vim-gutentags'   " GUTENTAGS
   Plug 'xolox/vim-notes'                " NOTES
   Plug 'airblade/vim-rooter'            " ROOTER
@@ -33,6 +33,8 @@ function! s:LoadPlugins()
 
   Plug 'SirVer/ultisnips'               " SNIPPETS
   Plug 'honza/vim-snippets'
+
+  Plug 'vim-scripts/DoxygenToolkit.vim' " DOXYGEN
 
   Plug '/usr/share/vim/vimfiles'        " FZF (INSTALLED BY PACMAN)
   Plug 'junegunn/fzf.vim'
@@ -522,6 +524,17 @@ function! s:ConfigurePlugins()
     return ''
   endfunction
   imap <C-e> <C-R>=ExpandLspSnippet()<CR>
+
+  " --------------------------------------------------------------------------
+  " Doxygen Toolkit
+  let g:DoxygenToolkit_briefTag_pre = "\\brief "
+  let g:DoxygenToolkit_templateParamTag_pre = "\\tparam "
+  let g:DoxygenToolkit_paramTag_pre = "\\param "
+  let g:DoxygenToolkit_returnTag = "\\return "
+  let g:DoxygenToolkit_blockTag = "\\name "
+  let g:DoxygenToolkit_classTag = "\\class "
+  let g:DoxygenToolkit_interCommentTag = ""
+  let g:DoxygenToolkit_interCommentBlock = ""
 
   " --------------------------------------------------------------------------
   " fzf
