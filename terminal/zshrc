@@ -194,6 +194,7 @@ alias f='fd -IH'
 alias g='glances -0 -1 --disable-bg --fs-free-space'
 alias hdi='howdoi'
 alias gir='h $(git rev-parse --show-toplevel)'
+alias psc='pass show --clip'
 
 gr() { eval "grep -r \"$*\" ./" }
 sp() { eval "sudo pacman -$*" }
