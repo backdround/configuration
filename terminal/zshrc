@@ -250,3 +250,4 @@ alias -g .l='| less'
 alias -g .c="| column -t"
 alias -g .p="| $PAGER"
 alias -g .stn='| tr " " "\n"'
+alias -g .sources='--include=\*.h --include=\*.hpp --include=\*.cpp --include=\*.c'

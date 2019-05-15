@@ -2,6 +2,20 @@
 " Load Plugins {{{
 
 function! s:LoadPlugins()
+  " --------------------------------------------------------------------------
+  " INSTALL vim-plug
+  if !filereadable(expand('~/.local/share/nvim/site/autoload/plug.vim'))
+    echom 'Plugin manager: vim-plug has not been installed. Try to install...'
+    exec 'silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs '.
+      \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    echom 'Installing vim-plug complete.'
+
+    let l:first_init = 1
+  endif
+
+  " --------------------------------------------------------------------------
+  " SET PLUGINS
+
   call plug#begin('~/.local/share/nvim/plugged')
 
   " --------------------------------------------------------------------------
@@ -91,6 +105,11 @@ function! s:LoadPlugins()
   "https://github.com/liuchengxu/vim-which-key
 
   call plug#end()
+
+  if exists("l:first_init")
+    PlugInstall
+  endif
+
 endfunction
 " }}}
 " ============================================================================
@@ -1018,7 +1037,7 @@ function! TerminalToggle()
     " Save splits pos and size
     let t:terminal_winrestcmd = winrestcmd()
     " Create terminal buffer
-    execute "bot 55new"
+    execute "bot 35new"
     terminal
     setlocal bufhidden=hide
     setlocal nobuflisted
@@ -1036,7 +1055,7 @@ function! TerminalToggle()
     " Save splits pos and size
     let t:terminal_winrestcmd = winrestcmd()
     " Create terminal window
-    execute "bot 55new +buffer".terminal_buffer
+    execute "bot 35new +buffer".terminal_buffer
     setlocal winfixwidth
     setlocal winfixheight
   else
@@ -1048,7 +1067,7 @@ function! TerminalToggle()
     execute "close ".terminal_window
     " Restore splits pos and size
     if exists("t:terminal_winrestcmd")
-        execute t:terminal_winrestcmd
+      execute t:terminal_winrestcmd
     endif
   endif
 endfunction
