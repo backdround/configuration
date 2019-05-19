@@ -29,8 +29,10 @@ def create_i3_config(settings_object, project_root):
 
     # create replace list
     settings = settings_object.get_i3_settings()
-    replaces =      [('--position-{}--'.format(key), val1) for key, (val1, _) in settings.items()]
-    replaces.extend([('--size-{}--'.format(key), val2) for key, (_, val2) in settings.items()])
+    position_size = settings["position_size"]
+    replaces =      [('--position-{}--'.format(key), val1) for key, (val1, _) in position_size.items()]
+    replaces.extend([('--size-{}--'.format(key), val2) for key, (_, val2) in position_size.items()])
+    replaces.extend([(key, val) for key, val in settings["replaces"].items()])
 
     # replace
     install.utils.replace_in_file(instance_file, replaces)

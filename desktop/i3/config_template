@@ -130,7 +130,7 @@ bindsym $mod+Shift+e mode "session"
 
 #gaps
 set $outer 0
-set $inner 23
+set $inner --inner-gaps--
 
 #smart_gaps off
 gaps outer $outer

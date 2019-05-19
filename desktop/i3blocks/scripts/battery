@@ -1,0 +1,55 @@
+#!/bin/bash
+
+STATUS=$(cat /sys/class/power_supply/BAT1/status)
+
+ICON=""
+TEXT=""
+COLOR=""
+case $STATUS in
+	Full)
+		FA_LIGHTNING="&#xf0e7;"
+		FA_PLUG="&#xf1e6;"
+		ICON=$FA_LIGHTNING
+		TEXT=$FA_PLUG
+	;;
+	Unknown)
+		FA_UNKNOWN="&#xf128;"
+		ICON=$FA_UNKNOWN
+	;;
+	Discharging)
+		FA_BAT0="&#xf244;"
+		FA_BAT1="&#xf243;"
+		FA_BAT2="&#xf242;"
+		FA_BAT3="&#xf241;"
+		FA_BAT4="&#xf240;"
+		CHARGE=$(echo "$(cat /sys/class/power_supply/BAT1/charge_now) * 100 / $(cat /sys/class/power_supply/BAT1/charge_full)" | bc)
+		TEXT=$CHARGE
+		if [[ $CHARGE -ge 80 ]]; then
+			ICON=$FA_BAT4
+		elif [[ $CHARGE -ge 60 ]]; then
+			ICON=$FA_BAT3
+		elif [[ $CHARGE -ge 40 ]]; then
+			ICON=$FA_BAT2
+		elif [[ $CHARGE -ge 20 ]]; then
+			ICON=$FA_BAT1
+			COLOR="#CC2222"
+		else
+			ICON=$FA_BAT0
+			COLOR="#FF0000"
+		fi
+	;;
+	Charging)
+		FA_LIGHTNING="&#xf0e7;"
+		CHARGE=$(echo "$(cat /sys/class/power_supply/BAT1/charge_now) * 100 / $(cat /sys/class/power_supply/BAT1/charge_full)" | bc)
+		TEXT=$CHARGE
+		ICON=$FA_LIGHTNING
+	;;
+	*)
+		FA_NO_FOUND="&#xf00d; &#xf240;"
+		ICON=$FA_NO_FOUND
+	;;
+esac
+
+echo "<span font='xos4 Terminus 13'>"$ICON $TEXT"</span>"
+echo "<span font='xos4 Terminus 13'>"$ICON $TEXT"</span>"
+echo $COLOR

@@ -64,7 +64,6 @@ interval=10
 command=echo "<span font='FantasqueSansMono Nerd Font 12'>&#xf024;</span>"
 
 [language]
-command=xkblayout-state print %s | awk '{print toupper($0)}'
 interval=1
 signal=1
 
@@ -72,14 +71,14 @@ signal=1
 [battery]
 instance=#BBFFDD
 min_width=55
-interval=4
+interval=8
 
 
 [celandar label]
 command=echo "<span font='FantasqueSansMono Nerd Font 13'>&#xf073;</span>"
 
 [celandar]
-command=echo "<span font='digital dream fat bold 9'>$(date +%d/%m)</span>"
+command=echo "<span font='xos4 Terminus 14'>$(date +%d/%m)</span>"
 #command=date +%d/%m
 interval=10
 
@@ -88,6 +87,6 @@ interval=10
 full_text=<span font='FantasqueSansMono Nerd Font 14'>&#xf017;</span>
 
 [time]
-command=echo "<span font='digital dream fat bold 9'>$(date +%H:%M)</span>"
+command=echo "<span font='xos4 Terminus 14'>$(date +%H:%M)</span>"
 #command=date +%H:%M
 interval=5
