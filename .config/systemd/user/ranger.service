@@ -1,0 +1,20 @@
+[Unit]
+Description=File manager
+After=i3-gaps.target
+PartOf=i3-gaps.target
+
+[Service]
+Type=simple
+
+Environment="DISPLAY=:0"
+Environment="TERMCMD=termite"
+
+ExecStart=/usr/bin/termite --class ranger-desktop -c .config/termite/config_for_ranger -e ranger
+
+Restart=always
+RestartSec=0
+
+RemainAfterExit=no
+
+[Install]
+WantedBy=i3-gaps.target

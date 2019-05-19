@@ -1,0 +1,17 @@
+[Unit]
+Description=Telegram messenger
+After=i3-gaps.target
+PartOf=i3-gaps.target
+
+[Service]
+Type=simple
+Environment="DISPLAY=:0"
+ExecStart=/bin/bash -c 'telegram-desktop -- %u'
+Restart=always
+RestartSec=2
+
+RemainAfterExit=no
+
+[Install]
+WantedBy=i3-gaps.target
+

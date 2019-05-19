@@ -1,0 +1,18 @@
+[Unit]
+Description=Lo-fi radio [TODO: use normal api, not a hardcode url :c]
+After=i3-gaps.target
+PartOf=i3-gaps.target
+
+[Service]
+Type=simple
+
+Environment="DISPLAY=:0"
+ExecStart=/usr/bin/mpv https://youtu.be/ohQPySWJToo --x11-name "lofi-radio"
+
+Restart=always
+RestartSec=5
+
+RemainAfterExit=no
+
+[Install]
+WantedBy=i3-gaps.target

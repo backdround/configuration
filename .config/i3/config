@@ -371,6 +371,13 @@ for_window [class="rtorrent-desktop"] move position 192 108
 for_window [class="rtorrent-desktop"] resize set 1536 864
 for_window [class="rtorrent-desktop"] move scratchpad
 
+#gis weather
+bindsym $mod+w [class="Gis-weather.py"] scratchpad show
+for_window [class="Gis-weather.py"] floating enable
+for_window [class="Gis-weather.py"] sticky enable
+for_window [class="Gis-weather.py"] move position 10 10
+for_window [class="Gis-weather.py"] move scratchpad
+
 #qt debug console
 for_window [class="cool-retro-term"] floating enable
 for_window [class="cool-retro-term"] move position 1050 70
