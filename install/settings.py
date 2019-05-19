@@ -33,7 +33,7 @@ class __DefaultSettings__:
     def get_i3_settings(self):
         settings = {
             "position_size": {
-                "telegram":           ("525 700", "1375 10"),
+                "telegram":           ("525 700", "1348 96"),
                 "ncmpcpp":            ("210 745", "1500 300"),
                 "dropdown":           ("5 5",     "1910 532"),
                 "ranger":             ("5 5",     "1910 486"),
@@ -42,7 +42,7 @@ class __DefaultSettings__:
                 "qutebrowser_editor": ("65 65",   "675 336"),
             },
             "replaces": {
-                "--inner-gaps--": "24"
+                "--inner-gaps--": "19"
             },
         }
         return settings

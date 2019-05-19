@@ -75,39 +75,18 @@ set_from_resource  $pink   i3wm.color5  #db0088
 set_from_resource  $blue   i3wm.color6  #8BE9FD
 set_from_resource  $white  i3wm.color7  #e4e0ed
 set_from_resource  $gray   i3wm.color8  #343439
+set_from_resource  $gray2  i3wm.color17 #777777
 
 #class                  border  backgr. text    indicator child_border
 client.focused          $gray   $black  $green2 $green    $green
 client.focused_inactive $gray   $black  $green2 $white    $white
-client.unfocused        $gray   $black  $green2 #777777   #777777
+client.unfocused        $gray   $black  $green2 $gray2    $gray2
 client.urgent           $pink   $black  $green2 $pink     $pink
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 client.background       #ffffff
 
-bar {
-  status_command i3blocks
-
-  font pango:DejaVu Sans Mono, Icons, FontAwesome 14
-  font pango:xos4 Terminus Semi-Condensed Bold 13
-
-  tray_output none
-
-  height 20
-
-  colors {
-  statusline "#FFFFFFFF"
-  background "#1A1A1A"
-  separator "#AAAAAAFF"
-
-  focused_workspace   #00000000 #99BBBB #000000 
-  inactive_workspace  #00000000 #222222FF #BBFFDD
-  urgent_workspace    #000000FF #FFFFFF99 #000000
-  }
-}
-
-
-#myconf
+exec_always --no-startup-id $HOME/.config/polybar/startup
 
 #bar mod
 bindsym $mod+Shift+p bar mode toggle

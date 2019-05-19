@@ -1,7 +1,6 @@
 import os
 import shutil
 import install.utils
-import install.i3blocks
 
 """install configs for desktop"""
 
@@ -40,38 +39,17 @@ def create_i3_config(settings_object, project_root):
     # return symlink_pair
     return (instance_file, symlink_file)
 
-def create_i3blocks_config(settings_object, project_root):
-    # create paths
-    template_file = os.path.join(project_root, "desktop/i3blocks/config_template")
-    instance_file = os.path.join(project_root, "desktop/i3blocks/config")
-    symlink_file = os.path.expanduser("~/.config/i3blocks/config")
-
-    # create instance file
-    i3_settings = settings_object.get_i3blocks_settings()
-    config = install.i3blocks.i3blocks_config_generator(i3_settings, template_file)
-    config.create_config_file(instance_file)
-
-    return (instance_file, symlink_file)
-
 def main(settings_object, project_root, force = False):
 
     symlink_pairs = []
     # create i3 config and add symlink_pairs
     symlink_pairs.append(create_i3_config(settings_object, project_root))
-    # create i3blocks config and add symlink_pairs
-    symlink_pairs.append(create_i3blocks_config(settings_object, project_root))
 
     # i3 script pairs
     directory_with_scripts = os.path.join(project_root, "desktop/i3/scripts/")
     symlink_prefix = os.path.expanduser("~/Scripts/i3/")
     i3_pairs = create_symlink_pairs_from_dir(directory_with_scripts,symlink_prefix)
     symlink_pairs.extend(i3_pairs)
-
-    # i3blocks script pairs
-    directory_with_scripts = os.path.join(project_root, "desktop/i3blocks/scripts/")
-    symlink_prefix = os.path.expanduser("~/Scripts/i3blocks/")
-    i3blocks_pairs = create_symlink_pairs_from_dir(directory_with_scripts,symlink_prefix)
-    symlink_pairs.extend(i3blocks_pairs)
 
     # systemd pairs
     systemd_directory = os.path.join(project_root, "desktop/systemd/")
@@ -99,7 +77,8 @@ def main(settings_object, project_root, force = False):
         ["misc/xprofile",     ".xprofile"],
         ["misc/Xresources",   ".Xresources"],
         ["i3/config",         ".config/i3/config"],
-        ["i3blocks/config",   ".config/i3blocks/config"],
+        ["polybar/config",    ".config/polybar/config"],
+        ["polybar/startup",   ".config/polybar/startup"],
     ]
 
     # ranger settings

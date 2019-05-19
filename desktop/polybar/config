@@ -1,0 +1,296 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/jaagr/polybar
+;
+;   The README contains alot of information
+;
+;==========================================================
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+
+[settings]
+throttle-output = 5
+throttle-output-for = 10
+screenchange-reload = false
+
+
+[colors]
+background     = ${xrdb:background}
+background-alt = ${xrdb:color16   }
+foreground     = ${xrdb:color7    }
+foreground-alt = ${xrdb:color15   }
+primary        = ${xrdb:color2    }
+secondary      = ${xrdb:color4    }
+urgent         = ${xrdb:color5    }
+gray           = ${xrdb:color8    }
+gray-alt       = ${xrdb:color17   }
+
+
+[bar/primary]
+width = 100%
+height = 30
+radius = 0.0
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 2
+line-color = ${colors.secondary}
+
+border-size = 0
+border-top = 17
+border-left = 18
+border-right = 18
+border-bottom = 0
+border-color = #00000000
+
+padding-right = 0
+padding-left = 0
+
+module-margin-left = 2
+module-margin-right = 2
+
+font-0 = FantasqueSansMono Nerd Font:size=11;2
+
+modules-left = memory cpu filesystem xkeyboard
+modules-center = i3
+modules-right = pulseaudio eth date powermenu
+
+tray-position = none
+tray-background = #0063ff
+tray-maxsize = 16
+tray-scale = 1.0
+
+wm-restack = i3
+override-redirect = false
+enable-ipc = true
+fixed-center = true
+
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+cursor-click = pointer
+
+
+[label/base]
+format-prefix-foreground = ${colors.primary}
+format-foreground = ${colors.foreground}
+format-background = ${colors.background-alt}
+format-underline = ${colors.gray-alt}
+
+format-padding = 1
+format-margin = 0
+
+;duplication
+format-connected-prefix-foreground = ${self.format-prefix-foreground}
+format-connected-foreground        = ${self.format-foreground}
+format-connected-background        = ${self.format-background}
+format-connected-padding           = ${self.format-padding}
+format-connected-margin            = ${self.format-margin}
+format-connected-underline         = ${self.format-underline}
+
+format-disconnected-prefix-foreground = ${self.format-prefix-foreground}
+format-disconnected-foreground        = ${self.format-foreground}
+format-disconnected-background        = ${self.format-background}
+format-disconnected-padding           = ${self.format-padding}
+format-disconnected-margin            = ${self.format-margin}
+format-disconnected-underline         = ${self.format-underline}
+
+format-mounted-prefix-foreground = ${self.format-prefix-foreground}
+format-mounted-foreground        = ${self.format-foreground}
+format-mounted-background        = ${self.format-background}
+format-mounted-padding           = ${self.format-padding}
+format-mounted-margin            = ${self.format-margin}
+format-mounted-underline         = ${self.format-underline}
+
+format-unmounted-prefix-foreground = ${self.format-prefix-foreground}
+format-unmounted-foreground        = ${self.format-foreground}
+format-unmounted-background        = ${self.format-background}
+format-unmounted-padding           = ${self.format-padding}
+format-unmounted-margin            = ${self.format-margin}
+format-unmounted-underline         = ${self.format-underline}
+
+format-volume-prefix-foreground = ${self.format-prefix-foreground}
+format-volume-foreground        = ${self.format-foreground}
+format-volume-background        = ${self.format-background}
+format-volume-padding           = ${self.format-padding}
+format-volume-margin            = ${self.format-margin}
+format-volume-underline         = ${self.format-underline}
+
+format-muted-prefix-foreground = ${self.format-prefix-foreground}
+format-muted-foreground        = ${self.format-foreground}
+format-muted-background        = ${self.format-background}
+format-muted-padding           = ${self.format-padding}
+format-muted-margin            = ${self.format-margin}
+format-muted-underline         = ${self.format-underline}
+
+
+[module/i3]
+inherit = label/base
+type = internal/i3
+index-sort = true
+format = <label-state> <label-mode>
+wrapping-scroll = false
+
+format-padding = 0
+
+label-mode-foreground = ${colors.background}
+label-mode-background = ${colors.foreground}
+label-mode-underline  = ${colors.foreground}
+label-mode-padding    = 2
+
+; focused = Active workspace on focused monitor
+label-focused = %index%
+label-focused-background = ${colors.gray}
+label-focused-underline  = ${colors.primary}
+label-focused-padding    = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %index%
+label-unfocused-background = ${colors.background-alt}
+label-unfocused-underline  = ${colors.foreground}
+label-unfocused-padding = 2
+
+; visible = Active workspace on unfocused monitor
+label-visible = %index%
+label-visible-background = ${colors.background-alt}
+label-visible-underline = ${colors.foreground}
+label-visible-padding = 2
+
+; urgent = Workspace with urgency hint set
+label-urgent = %index%
+label-urgent-foreground = ${colors.background}
+label-urgent-background = ${colors.urgent}
+label-urgent-underline  = ${colors.foreground}
+label-urgent-padding = 2
+
+label-separator = |
+
+
+[module/xkeyboard]
+inherit = label/base
+type = internal/xkeyboard
+blacklist-0 = num lock
+
+format-prefix = " "
+format =  <label-layout> <label-indicator>
+
+label-indicator = 
+
+
+[module/filesystem]
+inherit = label/base
+type = internal/fs
+
+mount-0 = /
+
+format-mounted-prefix = " "
+
+label-mounted =  %percentage_used%%
+label-unmounted = %mountpoint%
+label-unmounted-foreground = ${colors.urgent}
+
+
+[module/memory]
+inherit = label/base
+type = internal/memory
+interval = 2
+format-prefix = " "
+label = %percentage_used%%
+
+
+[module/cpu]
+inherit = label/base
+type = internal/cpu
+interval = 2
+format-prefix = " "
+label = %percentage:2%%
+
+
+[module/date]
+inherit = label/base
+type = internal/date
+interval = 5
+
+format-prefix = "  "
+# maintain color manualy :c
+time = "  %{F#3fe097}%{F-} %H:%M"
+time-alt =
+date = %d/%m
+date-alt = %A
+
+label = "%date%%time% "
+
+[module/pulseaudio]
+inherit = label/base
+type = internal/pulseaudio
+
+format-volume = <ramp-volume> <label-volume> <bar-volume>
+ramp-volume-0 = ""
+ramp-volume-foreground = ${label/base.format-prefix-foreground}
+
+label-volume =  %percentage:2%%
+label-volume-foreground = ${root.foreground}
+
+label-muted = "  muted"
+label-muted-foreground = #666
+
+bar-volume-width = 10
+bar-volume-foreground-0 = #3fe097
+bar-volume-foreground-1 = #3fe097
+bar-volume-foreground-2 = #3fe097
+bar-volume-foreground-3 = #3fe097
+bar-volume-foreground-4 = #3fe097
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+bar-volume-gradient = false
+bar-volume-indicator = ●
+bar-volume-indicator-font = 1
+bar-volume-fill = ━
+bar-volume-fill-font = 1
+bar-volume-empty = ─
+bar-volume-empty-font = 1
+bar-volume-empty-foreground = ${colors.foreground-alt}
+
+[module/powermenu]
+inherit = label/base
+type = custom/menu
+
+expand-right = true
+
+label-open = "  "
+label-open-foreground = ${colors.urgent}
+label-close = "  cancel "
+label-close-foreground = ${colors.secondary}
+label-separator = |
+label-separator-foreground = ${colors.foreground-alt}
+
+menu-0-0 = "  reboot "
+menu-0-0-exec = sudo systemctl reboot
+menu-0-1 = "  power off "
+menu-0-1-exec = sudo systemctl poweroff
+menu-0-1-foreground = ${colors.urgent}
+
+
+[module/eth]
+inherit = label/base
+type = internal/network
+interface = enp1s0
+interval = 3.0
+
+format-connected-prefix = " "
+label-connected = %local_ip%
+
+; vim:ft=dosini
