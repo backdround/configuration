@@ -1,7 +1,7 @@
 import os
 import shutil
-import fileinput
 import install.utils
+import install.i3blocks
 
 """install configs for desktop"""
 
@@ -30,21 +30,34 @@ def create_i3_config(settings_object, project_root):
     # create replace list
     settings = settings_object.get_i3_settings()
     replaces =      [('--position-{}--'.format(key), val1) for key, (val1, _) in settings.items()]
-    replaces.extend([('--size-{}--'.format(key), val1) for key, (val1, _) in settings.items()])
+    replaces.extend([('--size-{}--'.format(key), val2) for key, (_, val2) in settings.items()])
 
-    # replace in file
-    for line in fileinput.FileInput(instance_file, inplace=1):
-        for old, new in replaces:
-            line = line.replace(old, new)
-        print(line, end='')
+    # replace
+    install.utils.replace_in_file(instance_file, replaces)
 
     # return symlink_pair
     return (instance_file, symlink_file)
 
+def create_i3blocks_config(settings_object, project_root):
+    # create paths
+    template_file = os.path.join(project_root, "desktop/i3blocks/config_template")
+    instance_file = os.path.join(project_root, "desktop/i3blocks/config")
+    symlink_file = os.path.expanduser("~/.config/i3blocks/config")
+
+    # create instance file
+    i3_settings = settings_object.get_i3blocks_settings()
+    config = install.i3blocks.i3blocks_config_generator(i3_settings, template_file)
+    config.create_config_file(instance_file)
+
+    return (instance_file, symlink_file)
 
 def main(settings_object, project_root, force = False):
+
     symlink_pairs = []
+    # create i3 config and add symlink_pairs
     symlink_pairs.append(create_i3_config(settings_object, project_root))
+    # create i3blocks config and add symlink_pairs
+    symlink_pairs.append(create_i3blocks_config(settings_object, project_root))
 
     # i3 script pairs
     directory_with_scripts = os.path.join(project_root, "desktop/i3/scripts/")

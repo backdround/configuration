@@ -43,6 +43,24 @@ class __DefaultSettings__:
         }
         return position_size
 
+    def get_i3blocks_settings(self):
+        settings = {
+            "list_of_blocks": (
+                "volume",
+                "memoryO",
+                "cpu_usage",
+                "language",
+                "celandar",
+                "time",
+            ),
+            "colors": {
+                "background1": "#333333",
+                "background2": "#1A1A1A",
+                "label": "#BBFFDD",
+            }
+        }
+        return settings
+
 
 class HomeSettings(__DefaultSettings__):
     """settings only for home pc"""

@@ -1,4 +1,5 @@
 import os
+import fileinput
 
 
 def create_symlink(file, symlink_file, force = False):
@@ -53,3 +54,10 @@ def get_symlink_pairs_by_treatment_settigns(all_pairs, settings):
         if settings[pair[0]]:
             symlink_pairs.append(list(pair))
     return symlink_pairs
+
+def replace_in_file(file, replace_pairs):
+    for line in fileinput.FileInput(file, inplace=1):
+        for old, new in replace_pairs:
+            line = line.replace(old, new)
+        print(line, end='')
+
