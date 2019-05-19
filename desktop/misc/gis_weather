@@ -225,6 +225,6 @@
     "wind_direct_small": false, 
     "wind_fmt": "{wind_direct}, {wind_speed}", 
     "wind_units": 0, 
-    "x_pos": 10, 
-    "y_pos": 10
+    "x_pos": 3694, 
+    "y_pos": -76
 }

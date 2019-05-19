@@ -1,3 +1,4 @@
+import os
 import theme.draw
 
 theme.draw.set_colors(c)
@@ -147,6 +148,15 @@ c.hints.prev_regexes = ['\\bprev(ious)?\\b',
                         '\\bвернуться\\b',
                         '\\bпред(ыдущая)\\b',
                         '\\bназад\\b']
+
+instance = ""
+instance_file_path = os.path.expanduser("~/.instance")
+with open(instance_file_path, 'r') as file:
+    intsance = file.read()
+
+if instance == "home":
+    c.zoom.default = 125
+
 
 c.hints.uppercase = True
 c.input.partial_timeout = 10000

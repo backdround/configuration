@@ -27,7 +27,8 @@ def create_symlink(file, symlink_file, force = False):
     os.symlink(file, symlink_file)
     return 1
 
-def create_list_of_symlink(symlink_pairs, force = False):
+def create_list_of_symlink(symlink_pairs, config_prefix, symlink_prefix, force = False):
+    make_absolute_path(symlink_pairs, config_prefix, symlink_prefix)
     ret_val = True
     for config, symlink in symlink_pairs:
         if create_symlink(config, symlink, force):
@@ -46,18 +47,17 @@ def make_absolute_path(pairs, config_prefix, symlink_prefix):
         pair[0] = os.path.join(config_prefix, pair[0])
         pair[1] = os.path.join(symlink_prefix, pair[1])
 
-def get_symlink_pairs_by_treatment_settigns(all_pairs, settings):
-    symlink_pairs = []
-    for pair in all_pairs:
-        if not pair[0] in settings:
-            raise Exception("settings has not value for {}".format(pair[0]))
-        if settings[pair[0]]:
-            symlink_pairs.append(list(pair))
-    return symlink_pairs
-
 def replace_in_file(file, replace_pairs):
     for line in fileinput.FileInput(file, inplace=1):
         for old, new in replace_pairs:
             line = line.replace(old, new)
         print(line, end='')
 
+def create_pairs_from_dir(path_to_files):
+    # get list of files in directory
+    files = [file for file in os.listdir(path_to_files)
+             if os.path.isfile(os.path.join(path_to_files, file))]
+
+    pairs = [[file, file] for file in files]
+
+    return pairs

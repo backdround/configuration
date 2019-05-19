@@ -3,6 +3,10 @@
 export TERMINAL=termite
 export LC_ALL=en_US.UTF-8
 
+if grep -q home ~/.instance; then
+  xrandr --output DVI-1 --mode 1920x1080 --scale 1x1 --primary --output HDMI-0 --noprimary --rate 60 --mode 3840x2160 --scale 0.8x0.8 --right-of DVI-1
+fi
+
 xset m 1/1 0
 xset r rate 200 30
 setxkbmap -model pc105 -layout us,ru -variant altgr-intl, winkey -option terminate:ctrl_alt_bksp, grp:caps_toggle, grp_led:scroll, compose:menu, lv5:rwin_switch_lock
