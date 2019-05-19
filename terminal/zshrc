@@ -166,6 +166,7 @@ alias hd='howdoi'
 sp() { eval "sudo pacman -$*" }
 S() { eval "sudo pacman -S $*" }
 Ss() { eval "sudo pacman -Ss $*" }
+uw() { xclip -o | tr -s '\n' ' ' | sed "s/$/\n/" >> unknown_sentences }
 
 #my scripts aliases
 t() { echo "$*" | ~/Scripts/i3/new_word.py }

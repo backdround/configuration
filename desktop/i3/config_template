@@ -359,5 +359,6 @@ bindsym Group2+XF86AudioLowerVolume exec --no-startup-id pactl -- set-sink-volum
 
 #other
 bindsym $mod+v exec --no-startup-id ~/Scripts/i3/dragon_screen ~/Pictures/Screens
+bindsym $mod+i exec --no-startup-id ~/Scripts/i3/unknow_sentens
 
 # vim: set ft=i3:
