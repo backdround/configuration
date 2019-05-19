@@ -1,4 +1,3 @@
-# Please see http://i3wm.org/docs/userguide.html for a complete reference!
 #focus_follows_mouse no
 
 set $mod Mod4
@@ -15,32 +14,14 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
 # move focused window
 bindsym $mod+Shift+h move left 50px
 bindsym $mod+Shift+j move down 50px
 bindsym $mod+Shift+k move up 50px
 bindsym $mod+Shift+l move right 50px
 
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
-
-# change container layout (stacked, tabbed, toggle split)
-#bindsym $mod+s layout stacking
-#bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -72,13 +53,11 @@ bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+bar move container to workspace work
 
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
-
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
 
 bar {
   status_command i3blocks
@@ -92,13 +71,9 @@ bar {
 
   colors {
   statusline "#FFFFFFFF"
-  #statusline "#0099AAFF"
-  #background "#15151590"
   background "#1A1A1A"
   separator "#AAAAAAFF"
 
-  #focused_workspace   #00000000 #558888FF #FFFFFF 
-  #inactive_workspace  #00000000 #152222FF #88D2D2
   focused_workspace   #00000000 #99BBBB #000000 
   inactive_workspace  #00000000 #222222FF #BBFFDD
   urgent_workspace    #000000FF #FFFFFF99 #000000
@@ -116,8 +91,7 @@ font pango:xos4 Terminus Semi-Condensed 8
 
 #session
 mode "session" {
-  #bindsym e exec --no-startup-id systemctl --user stop i3-gaps.target; i3-msg exit ; mode "default"
-  #bindsym e exec --no-startup-id systemctl --user stop i3-gaps.target; exec i3-msg exit ; mode "default"
+  bindsym e exec --no-startup-id systemctl --user stop i3-gaps.target; exec i3-msg exit ; mode "default"
   bindsym l exec --no-startup-id ~/Scripts/i3/i3lock-blur; mode "default"
   bindsym s exec --no-startup-id "systemctl --user stop i3-gaps.target; sleep 0.5; systemctl poweroff"; mode "default"
   bindsym r exec --no-startup-id "systemctl --user stop i3-gaps.target; sleep 0.5; systemctl reboot"; mode "default"
@@ -206,7 +180,6 @@ mode "gaps" {
 }
 
 #border
-#new_window pixel 0
 smart_borders on
 for_window [class="^.*"] border pixel 0
 bindsym $mod+b border toggle
@@ -220,7 +193,7 @@ bindsym $mod+q exec --no-startup-id Scripts/i3/translate_trans
 mode "launcher" {
   bindsym F1 exec --no-startup-id telegram-desktop -- %u; mode "default"
 
-  # bindsym $mod+d exec dmenu_run; mode "default"
+  #dmenu
   bindsym d exec --no-startup-id j4-dmenu-desktop --no-generic  --dmenu='dmenu -i -l 20 -dim 1 -fn 8';mode "default"
 
   #terminal
@@ -242,7 +215,7 @@ mode "launcher" {
   bindsym p exec pavucontrol; mode "default"
 
   #weather
-  bindsym t exec --no-startup-id Scripts/i3/weather; mode "default"
+  bindsym w exec --no-startup-id Scripts/i3/weather; mode "default"
 
   # split in horizontal orientation
   bindsym $mod+h split h
@@ -252,6 +225,17 @@ mode "launcher" {
   bindsym $mod+o focus parent
   # focus the child container
   bindsym $mod+c focus child
+
+  # change layout
+  bindsym $mod+s layout stacking
+  bindsym $mod+t layout tabbed
+  bindsym $mod+e layout toggle split
+
+  # change focus
+  bindsym $mod+h focus left
+  bindsym $mod+j focus down
+  bindsym $mod+k focus up
+  bindsym $mod+l focus right
 
   #bindsym q mode "default"
   bindsym Escape mode "default"
@@ -263,8 +247,8 @@ exec_always --no-startup-id systemctl --user start i3-gaps.target
 
 #unit manager
 mode "unit manager"{
-  bindsym w exec --no-startup-id systemctl --user start feh-wallpaper.service; mode "default"
-  bindsym $mod+w exec --no-startup-id systemctl --user stop feh-wallpaper.timer; mode "default"
+  bindsym w exec --no-startup-id systemctl --user start weather.service; mode "default"
+  bindsym $mod+w exec --no-startup-id systemctl --user stop weather.timer; mode "default"
 
   bindsym c exec --no-startup-id systemctl --user restart compton.service; mode "default"
   bindsym $mod+c exec --no-startup-id systemctl --user stop compton.service; mode "default"
@@ -278,9 +262,6 @@ mode "unit manager"{
   bindsym F1 exec --no-startup-id systemctl --user restart telegram.service; mode "default"
   bindsym $mod+F1 exec --no-startup-id systemctl --user stop telegram.service; mode "default"
 
-  bindsym l exec --no-startup-id systemctl --user restart lofi-radio.service; mode "default"
-  bindsym $mod+l exec --no-startup-id systemctl --user stop lofi-radio.service; mode "default"
-
   bindsym m exec --no-startup-id systemctl --user restart ncmpcpp.service; mode "default"
   bindsym $mod+m exec --no-startup-id systemctl --user stop ncmpcpp.service; mode "default"
 
@@ -289,15 +270,6 @@ mode "unit manager"{
 
   bindsym t exec --no-startup-id systemctl --user restart rtorrent.service; mode "default"
   bindsym $mod+t exec --no-startup-id systemctl --user stop rtorrent.service; mode "default"
-
-  bindsym F2 exec --no-startup-id systemctl --user restart toxic.service; mode "default"
-  bindsym $mod+F2 exec --no-startup-id systemctl --user stop toxic.service; mode "default"
-
-  bindsym 1 exec --no-startup-id systemctl --user restart mcabber.service; mode "default"
-  bindsym mod3+1 exec --no-startup-id systemctl --user stop mcabber.service; mode "default"
-
-  bindsym period exec --no-startup-id systemctl --user restart qt-log.service; mode "default"
-  bindsym $mod+period exec --no-startup-id systemctl --user stop qt-log.service; mode "default"
 
   bindsym q mode "default"
   bindsym Escape mode "default"
@@ -333,22 +305,6 @@ for_window [class="ddterminal-desktop"] move position --position-dropdown--
 for_window [class="ddterminal-desktop"] resize set --size-dropdown--
 for_window [class="ddterminal-desktop"] move scratchpad
 
-#toxic messenger
-bindsym $mod+F2 [class="toxic-desktop"] scratchpad show
-for_window [class="toxic-desktop"] floating enable
-for_window [class="toxic-desktop"] sticky enable
-for_window [class="toxic-desktop"] move position 20 10
-for_window [class="toxic-desktop"] resize set 700 850
-for_window [class="toxic-desktop"] move scratchpad
-
-#mcabber messenger
-bind Mod5+10 [class="mcabber-desktop"] scratchpad show
-for_window [class="mcabber-desktop"] floating enable
-for_window [class="mcabber-desktop"] sticky enable
-for_window [class="mcabber-desktop"] move position 20 10
-for_window [class="mcabber-desktop"] resize set 700 850
-for_window [class="mcabber-desktop"] move scratchpad
-
 #ranger file manager
 bindsym $mod+r [class="ranger-desktop"] scratchpad show
 for_window [class="ranger-desktop"] floating enable
@@ -372,32 +328,10 @@ for_window [class="Gis-weather.py"] sticky enable
 for_window [class="Gis-weather.py"] move position --position-gis_weather--
 for_window [class="Gis-weather.py"] move scratchpad
 
-#qt debug console
-for_window [class="cool-retro-term"] floating enable
-for_window [class="cool-retro-term"] move position 1050 70
-for_window [class="cool-retro-term"] resize set 720 400
-
-
 #floating mpv
 for_window [class="mpv"] floating enable
 for_window [class="mpv"] resize set 400 225
 for_window [class="mpv"] move position 727 30 
-
-#lo-fi radio
-bindsym $mod+p [instance="lofi-radio"] scratchpad show
-for_window [instance="lofi-radio"] floating enable
-for_window [instance="lofi-radio"] sticky enable
-for_window [instance="lofi-radio"] resize set 640 360
-for_window [instance="lofi-radio"] move position 1255 675 
-for_window [instance="lofi-radio"] move scratchpad
-
-#qt project log
-bindsym $mod+period [class="qt-log"] scratchpad show
-for_window [class="qt-log"] floating enable
-for_window [class="qt-log"] sticky enable
-for_window [class="qt-log"] move position 500 700
-for_window [class="qt-log"] resize set 1200 300
-for_window [class="qt-log"] move scratchpad
 
 #qutebrowser scratchpad
 bindsym $mod+s [class="qutebrowser"] scratchpad show

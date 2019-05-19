@@ -31,7 +31,7 @@ min_width=30
 
 
 [memoryO label]
-command=echo "<span font='FantasqueSansMono Nerd Font 12'></span>"
+command=echo "<span font='FantasqueSansMono Nerd Font 12'></span>"
 
 [memoryO]
 interval=2
