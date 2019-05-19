@@ -407,6 +407,9 @@ for_window [class="qt-log"] move position 500 700
 for_window [class="qt-log"] resize set 1200 300
 for_window [class="qt-log"] move scratchpad
 
+#qutebrowser scratchpad
+bindsym $mod+s [class="qutebrowser"] scratchpad show
+
 #qutebrowser editor
 for_window [class="qute_editor"] floating enable
 for_window [class="qute_editor"] move position 65 65
@@ -416,15 +419,6 @@ for_window [class="qute_editor"] resize set 675 342
 bindsym --release Print exec --no-startup-id ~/Scripts/i3/screenshot_full
 bindsym --release $mod+Print exec --no-startup-id ~/Scripts/i3/screenshot_focus
 bindsym --release $mod+Shift+Print exec --no-startup-id ~/Scripts/i3/screenshot_area Screens
-mode "screen layer" {
-  bindsym --release o exec --no-startup-id ~/Scripts/i3/screenshot_area study_obj ; mode "default"
-  bindsym --release t exec --no-startup-id ~/Scripts/i3/screenshot_area terms ; mode "default"
-
-  bindsym q mode "default"
-  bindsym Escape mode "default"
-  bindsym Return mode "default"
-}
-bindsym $mod+s mode "screen layer"
 
 #language
 bindsym ISO_Next_Group exec --no-startup-id pkill -RTMIN+1 i3blocks
