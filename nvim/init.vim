@@ -476,8 +476,7 @@ function! s:ConfigurePlugins()
   " fzf
   " options {{{
   let $FZF_DEFAULT_OPTS = '--multi --no-mouse --inline-info'
-  let $FZF_DEFAULT_COMMAND = 'fd --hidden --exclude .git/ --type file'
-  "let $FZF_DEFAULT_COMMAND = 'fd --hidden --no-ignore-vcs --exclude .git/ --type file'
+  let $FZF_DEFAULT_COMMAND = 'fd --hidden --no-ignore-vcs --exclude .git/ --type file'
 
   let g:fzf_action = {
         \ 'ctrl-t': 'tab split',
@@ -646,10 +645,10 @@ function! s:ConfigurePlugins()
   let g:startify_session_sort = 1
 
   let g:startify_bookmarks = [
-        \ {'c': '~/.config/nvim/init.vim'   },
-        \ {'z': '~/.zshrc'                  },
-        \ {'i': '~/.config/i3/config'       },
-        \ {'b': '~/.config/i3blocks/config' }
+        \ {'c': '~/configuration/nvim/init.vim'},
+        \ {'z': '~/configuration/terminal/zshrc'},
+        \ {'i': '~/configuration/desktop/i3/config_template'},
+        \ {'b': '~/configuration/desktop/i3blocks/config_template'}
         \ ]
 
   let g:startify_lists = [
