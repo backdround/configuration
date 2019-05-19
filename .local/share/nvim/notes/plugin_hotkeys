@@ -1,0 +1,323 @@
+plugin_hotkeys
+
+“map types”:
+• n - normal
+• v - visual
+• i - input
+• o - operator pending
+• c - command line
+• _ - plugin internal
+
+//ctrlsf
+n `<Leader>i` // word
+n `<Leader>e` // \bword\b
+v `<Leader>i` // visual
+
+_ `<CR>/o` // open
+_ `O`      // open in background
+_ `<C-s>`  // open in horizontal split
+_ `<C-v>`  // open in vertical split
+_ `p`      // open in preview mode
+_ `P`      // open in preview mode and switch focus
+_ `q`      // close main or preview winodw
+_ `<C-j>`  // jump to next match
+_ `<C-k>`  // jump to prev match
+_ `M`      // change mode
+_ `<C-c>`  // stop async searching
+
+//notes
+_ `@`             // trigger tag completion
+_ `--`            // —
+_ `->`            // →
+_ `<-`            // ←
+_ `*/-/+`         // •
+_ `***`           // horizontal ruler delimited
+_ `<Tab>/<M-→>`   // increse indentation list
+_ `<S-Tab>/<M-→>` // decrese indentation list
+
+//Limelight
+n `<Leader>fl
+`
+//Zoom-Win-Tab-Toggle
+n `<Leader>wo
+`
+//openbrowser-smart-search
+n `gx`
+v `gx`
+
+//signature
+n `<Leader>m[a-z]`   // toggle mark [a-z]
+n `d<Leader>mx`      // delete mark x
+n `<Leader>m,`       // place the next available mark
+n `<Leader>m.`       // place next available marks, if no mark on line. otherwise delete first
+n `<Leader>m/`       // list all marks [a-zA-Z]
+n `<Leader>m?`       // list all markers !@#$%^&*()
+n `<Leader>m-`       // delete marks from the current line
+n `<Leader>m<Space>` // delete all marks
+n `<Leader>m<BS>`    // delete all markers
+n `m>` // go to next marker
+n `m<` // go to prev marker
+n `m]` // go to next any marker
+n `m[` // go to prev any marker
+
+//list-toggle
+n `<leader>l` // location list
+n `<leader>q` // quickfix list
+
+//snips
+i `<c-=>` // snippets list
+i `<c-j>` // expand trigger
+i `<c-j>` // jump forward
+i `<c-k>` // jump backward
+i `<c-e>` // expand lsp snippet
+
+//fzf
+nvoi `<m-m>` // list hotkeys
+
+complete
+i `<c-f>p` // complete path
+i `<c-f>f` // complete file
+i `<c-f>l` // complete line from all buffers
+i `<c-f>b` // complete line from buffer
+
+search
+n `<Leader>of` // file from cwr
+n `<leader>od` // file from directory with this file
+n `<leader>ov` // vim files
+n `<leader>og` // git files
+n `<leader>oc` // git chaged files
+n `<leader>ob` // buffers
+n `<leader>ol` // lines
+n `<leader>ot` // tags
+n `<leader>oz` // marks
+n `<leader>ow` // windows
+n `<leader>om` // mru
+
+n `<leader>bl` // buffer lines
+n `<leader>bt` // buffer tags
+
+n `<leader>st` // themes
+n `<leader>s:` // cmd history
+n `<leader>sc` // cmd commands
+n `<leader>s/` // search history
+n `<leader>ss` // snippets
+n `<leader>sh` // help tags
+
+//LSP
+n `gh` // hover
+n `gd` // to definition
+n `gr` // references
+n `gs` // document symbol
+n `gn` // rename
+n `gm` // context menu
+
+//signify
+n `mj` // git next hunk
+n `mk` // git prev hunk
+
+//startify
+_ `q`       // close
+_ `e`       // empty buffer
+_ `b/s/v/t` // open in this buffer/split/vsplit/tab
+_ `<CR>`    // press after setting up the flags to open
+
+//tagbar
+n `<F2>`   // toggle window
+n `<S-F2>` // toggle focus
+_ `<CR>`   // jump to the tag
+_ `p`      // jump to the tag, but stay in the tag window
+_ `P`      // open tag in prewiev window
+_ `<C-n>`  // next top-level tag
+_ `<C-p>`  // prev top-level tag
+_ `t`      // show prototype in cmd line
+_ `v`      // toggle non-public tags
+_ `x`      // zooming the width
+_ `za`     // toggle fold
+_ `zr/*`   // open all folds
+_ `zm/=`   // close all folds
+
+//undotree
+n `<F4>`   // toggle window
+n `<S-F4>` // toggle focus
+_ `J`      // set prev stay
+_ `K`      // set next stay
+
+//nerdtree
+n `<F3>`      // toggle window
+n `<F15>`     // toggle focus
+n `<leader>n` // reload nerdtree
+
+open file
+_ `<CR>/o` // open
+_ `go`     // open, but leave focus
+_ `t`      // open in tab
+_ `T`      // open in tab, but leave focus
+_ `s`      // open in split
+_ `gs`     // open in split, but leave focus
+_ `v`      // open in vsplit
+_ `gv`     // open in vsplit, but leave focus
+
+move inside
+_ `x`     // close parent nodes
+_ `e`     // edit the current dir
+_ `p`     // Jump to current nodes parent
+_ `P`     // Jump to the root node
+_ `K`     // jump up inside directories
+_ `J`     // jump down inside directories
+_ `<C-k>` // jump up to the sibling
+_ `<C-j>` // jump down to the sibling
+
+cwd/root
+_ `C`  // change tree root to the selected dir
+_ `u`  // change tree root to the upper dir
+_ `U`  // like u, but leave prev dir open
+_ `cd` // change cwd to the selected node
+_ `CD` // change root to cwd
+
+view
+_ `I` // toggle hidden files
+_ `F` // toggle files
+_ `B` // toggle bookmark
+
+other
+_ `r` // recursively refresh current directory
+_ `R` // recursively refresh root
+_ `a` // display the NERD tree menu(action)
+_ `A` // zoom `DONT USE`
+_ `q` // close window
+
+//easymotions
+n `q` // line movement
+
+nvo `ss` // 2 character search
+nvo `\`  // n character search
+nvo `sf` // f
+nvo `sF` // F
+nvo `st` // t
+nvo `sT` // T
+nvo `sw` // w
+nvo `sW` // W
+nvo `sb` // b
+nvo `sB` // B
+nvo `se` // e
+nvo `sE` // E
+nvo `sg` // ge
+nvo `sG` // gE
+
+nvo `sj` // to down line
+nvo `sk` // to up line
+nvo `sJ` // to down eol
+nvo `sK` // to up eol
+nvo `sl` // to line
+nvo `so` // to word
+nvo `sO` // to f
+nvo `sn` // easymotion next
+nvo `sp` // easymotion prev
+nvo `s/` // use normal search
+nvo `sr` // easymotion repeat
+
+//word-motion
+n `mw`         // like w
+n `mb`         // like b
+n `me`         // like e
+n `mge`        // like ge
+v `amw`        // select in word
+v `imw`        // select a word
+c `<C-R><C-W>` // insert word under cursor
+
+//nerd-commenter
+nv `<Leader>cc` // comment line
+nv `<Leader>cu` // comment line
+nv `<Leader>cm` // minimal comment
+nv `<Leader>cs` // sexy comment
+nv `<Leader>cy` // yank comment
+
+n `<Leader>c$` // to eol comment
+n `<Leader>cA` // append comment to eol
+n `<Leader>ca` // switch alternate delims comment
+
+//easy-align
+nv `ga` // align
+nv `gl` // live align
+
+delimiter key:
+`<Space>` `=` `:` `.` `|` `&` `#` `,`
+
+_ `[1-9]`   // num of delimiter to align
+_ `*`       // align all delimiter
+_ `<CR>`    // change around delimiter align(left/center/right)
+_ `<Left>`  // stick to left
+_ `<Right>` // stick to right
+_ `<Up>`    // reset stick/lmargin/rmargin
+_ `<Down>`  // set to zero stick/lmargin/rmargin
+
+_ `<C-x>` // set regexpr
+_ `<C-f>` // set line filter
+_ `<C-i>` // set indentation
+_ `<C-l>` // change left margin
+_ `<C-r>` // change right margin
+_ `<C-d>` // change delimeter align
+_ `<C-u>` // toggle ignore unmatched
+_ `<C-g>` // change ignore groups
+_ `<C-a>` // align all delimiter(like *)
+
+//surround
+n `ds"`   // delete surrounds
+n `cs"`   // change surrounds
+n `ysiw"` // add in word surrounds
+n `yss"`  // add whole line surrounds
+n `ySiw"` // add in word surrounds on different lines
+n `ySS"`  // add whole line surrounds on different lines
+v `S`     // add surrounds
+v `gS`    // add surrounds on diffelent lines
+
+//auto-pair
+i `<M-e>`  // fast wrap
+i `<M-b>`  // jump back after fly mode jump
+ni `<M-q>` // jump to closed pair
+ni `<M-p>` // toggle plugin
+
+//multiple-cursors
+nv `<C-n>`  // start select
+nv `<M-n>`  // select all
+nv `g<C-n>` // start select without word boundaries
+nv `g<M-n>` // select all without word boundaries
+_ `<C-n>`   // next key
+_ `<C-p>`   // prev key
+_ `<C-x>`   // skip key
+
+//sideways
+n `<Leader>,` // move argument left
+n `<Leader>.` // move argument right
+ov `aa`       // select an argument
+ov `ia`       // select in argument
+
+//exchange
+v `x`   // add exchange select
+n `cx`  // add exchange select
+n `cxc` // clear exchange select
+n `cxl` // exchange line
+
+//niceblock
+v `gI` // insert in visual mode at start of line
+v `gi` // insert in visual mode at start of text
+v `gA` // append in visual mode to end of line
+
+//move
+nv `<M-j>` // move line(n) or selected(v) up
+nv `<M-k>` // move line(n) or selected(v) down
+nv `<M-h>` // move char(n) or selected left
+nv `<M-l>` // move char(n) or selected right
+
+//splitjoin
+n `gj` // join line
+n `gk` // split line
+
+//textobj-indent
+v `gc` // select this indent with nested
+v `gC` // select this indent block with nested
+v `gs` // gc without nested
+v `gS` // gC without nested
+
+//figutive
+help usefull

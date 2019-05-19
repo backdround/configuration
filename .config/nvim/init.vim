@@ -45,7 +45,6 @@ function! s:LoadPlugins()
   Plug 'mhinz/vim-signify'              " GIT
   Plug 'tpope/vim-fugitive'
 
-
   " --------------------------------------------------------------------------
   " WINDOW-BASED FEATURES
   Plug 'mhinz/vim-startify'          " STARTIFY
@@ -182,7 +181,7 @@ function! s:BasicSettings()
   "misc
   set pastetoggle=<F8>
   map s <NOP>
-  map S <NOP>
+  nnoremap S <NOP>
   map m <NOP>
   map q <NOP>
   nnoremap <leader>2 q
@@ -198,6 +197,7 @@ function! s:BasicSettings()
   "useful binds
   vnoremap // y/<C-R>"<CR>
   nnoremap <leader>w <C-w>
+  nnoremap Y y$
   nnoremap ß <esc>:w<CR>
 
   " }}}
@@ -353,6 +353,10 @@ function! s:ConfigurePlugins()
   let g:ctrlsf_position = 'left'
   let g:ctrlsf_winsize = '70'
   let g:ctrlsf_indent = 2
+  let g:ctrlsf_mapping = {
+        \ "split"   : "<C-s>",
+        \ "vsplit"  : "<C-v>",
+        \ }
 
   nmap <Leader>i <Plug>CtrlSFCwordExec
   nmap <Leader>e <Plug>CtrlSFCCwordExec
@@ -408,7 +412,11 @@ function! s:ConfigurePlugins()
         \ 'Leader'             :  "<Leader>m",
         \ 'DeleteMark'         :  "d<Leader>m",
         \ 'ListBufferMarks'    :  "<Leader>m/",
-        \ 'ListBufferMarkers'  :  "<Leader>m?"
+        \ 'ListBufferMarkers'  :  "<Leader>m?",
+        \ 'GotoNextMarker'     :  "m>",
+        \ 'GotoPrevMarker'     :  "m<",
+        \ 'GotoNextMarkerAny'  :  "m]",
+        \ 'GotoPrevMarkerAny'  :  "m["
         \ }
 
   " --------------------------------------------------------------------------
@@ -418,7 +426,7 @@ function! s:ConfigurePlugins()
   let g:UltiSnipsSnippetsDir ='/home/vlad/.local/share/nvim/pSnips'
   let g:UltiSnipsSnippetDirectories = ["UltiSnips", "/home/vlad/.local/share/nvim/pSnips"]
 
-  let g:UltiSnipsListSnippets = '<c-]>'
+  let g:UltiSnipsListSnippets = '<c-=>'
   let g:UltiSnipsExpandTrigger = '<c-j>'
   let g:UltiSnipsJumpForwardTrigger = '<c-j>'
   let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
@@ -637,8 +645,8 @@ function! s:ConfigurePlugins()
   let g:signify_vcs_list = ['git']
   let g:signify_sign_delete = '-'
 
-  nmap ]g <plug>(signify-next-hunk)
-  nmap [g <plug>(signify-prev-hunk)
+  nmap mj <plug>(signify-next-hunk)
+  nmap mk <plug>(signify-prev-hunk)
 
   augroup SignifyRefresh "update without saving
     autocmd!
@@ -705,6 +713,11 @@ function! s:ConfigurePlugins()
   " --------------------------------------------------------------------------
   " nerdtree
   let g:NERDTreeStatusline = 'Nerdtree'
+  let g:NERDTreeMapOpenSplit = 's'
+  let g:NERDTreeMapPreviewSplit = 'gs'
+  let g:NERDTreeMapOpenVSplit = 'v'
+  let g:NERDTreeMapPreviewVSplit = 'gv'
+  let g:NERDTreeMapMenu = 'a'
   nnoremap <silent> <F3> :call NerdtreeToggle()<CR>
   nnoremap <silent> <F15> :call SwitchWindowTo("NERD_tree_*")<CR>
   nnoremap <silent> <leader>n :NERDTree<CR>
@@ -732,7 +745,7 @@ function! s:ConfigurePlugins()
   nmap ss <Plug>(easymotion-overwin-f2)
   omap ss <Plug>(easymotion-s2)
   xmap ss <Plug>(easymotion-s2)
-  map sS <Plug>(easymotion-sn)
+  map \ <Plug>(easymotion-sn)
   map sf <Plug>(easymotion-f)
   map sF <Plug>(easymotion-F)
   map st <Plug>(easymotion-t)
@@ -808,8 +821,8 @@ function! s:ConfigurePlugins()
   nmap ga <Plug>(EasyAlign)
   xmap ga <Plug>(EasyAlign)
 
-  nmap gl <Plug>(LiveEasyAlign))
-  xmap gl <Plug>(LiveEasyAlign))
+  nmap gl <Plug>(LiveEasyAlign)
+  xmap n <Plug>(LiveEasyAlign)
 
   " --------------------------------------------------------------------------
   " auto-pairs
@@ -855,10 +868,10 @@ function! s:ConfigurePlugins()
 
   " textobj indent
   let g:textobj_indent_no_default_key_mappings = 1
-  xmap gs <Plug>(textobj-indent-same-a)
-  xmap gS <Plug>(textobj-indent-same-i)
-  xmap gc <Plug>(textobj-indent-a)
-  xmap gC <Plug>(textobj-indent-i)
+  xmap gc <Plug>(textobj-indent-i)
+  xmap gC <Plug>(textobj-indent-a)
+  xmap gn <Plug>(textobj-indent-same-i)
+  xmap gN <Plug>(textobj-indent-same-a)
 
 
   call plug#end()
