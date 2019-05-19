@@ -59,7 +59,7 @@ c.completion.scrollbar.padding = 3
 c.completion.scrollbar.width = 14
 c.completion.web_history.exclude = []
 
-# c.content.autoplay = True
+c.content.autoplay = True
 
 # c.content.canvas_reading = True
 c.content.canvas_reading = False
@@ -90,7 +90,9 @@ c.editor.command = ['termite',
                     '-e',
                     'nvim {file} -u ~/.config/nvim/init_for_editing.vim -c \'normal {line}G{column0}l\'']
 
-c.hints.chars = 'asdghklqwertyuiopzxcvbnmfj;'
+both_hands_chars = 'asdghklqwertyuiopzxcvbnmfj;'
+left_hand_chars = 'asdgqwertzxcv'
+c.hints.chars = '{}'.format(both_hands_chars)
 c.hints.dictionary = '/usr/share/dict/words'
 
 c.hints.next_regexes = ['\\bnext\\b',
@@ -290,6 +292,7 @@ for i in ascii_lowercase:
     config.bind('<Ctrl-o>{}'.format(i), 'fake-key ' + i)
 config.bind('<Alt-Return>', 'fake-key <Return>')
 config.bind('<Alt-Backspace>', 'fake-key <Backspace>')
+config.bind('<Alt-Escape>', 'fake-key <Escape>')
 
 # main
 clear_script = "jseval -q -f ~/.local/share/qutebrowser/my_scripts/clear.js"
@@ -323,7 +326,9 @@ config.bind('p', 'tab-pin')
 config.bind('o', 'set-cmd-text -s :open')
 config.bind('O', 'set-cmd-text -s :open -t')
 config.bind('<Ctrl-Shift-n>', 'set-cmd-text -s :open -p')
-config.bind('<Ctrl-c>', 'stop')
+config.bind('<Ctrl-s>', 'stop')
+config.bind('<Ctrl-c>', 'yank selection')
+config.bind('<Alt-r>', 'config-cycle --temp hints.chars {} {}'.format(both_hands_chars, left_hand_chars))
 
 config.bind('<Ctrl-n>', 'jseval -q -f /usr/share/qutebrowser/scripts/cycle-inputs.js')
 
