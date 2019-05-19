@@ -314,10 +314,10 @@ n `gj` // join line
 n `gk` // split line
 
 //textobj-indent
-v `gc` // select this indent with nested
-v `gC` // select this indent block with nested
-v `gs` // gc without nested
-v `gS` // gC without nested
+v `gn` // select this indent with nested
+v `gN` // select this indent block with nested
+v `gc` // gc without nested
+v `gC` // gC without nested
 
 //figutive
 help usefull

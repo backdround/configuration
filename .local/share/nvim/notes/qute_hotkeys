@@ -1,0 +1,52 @@
+qute_hotkeys
+
+##command
+//movement
+<M-b>          // backward word
+<M-f>          // forward word
+
+<C-a>          // start of line
+<C-e>          // end of line
+
+<C-b>          // backward char
+<C-f>          // forward char
+
+//editing
+<C-k>          // kill line to right
+<C-u>          // kill line to left
+
+<M-d>          // kill word
+<M-Backspace>  // kill word backward
+<C-w>          // kill word backward
+
+<C-?>          // delete char
+<C-h>          // backward delete char
+
+//other
+<C-c>          // copy completion item to clipboard
+<C-S>          // copy completion item to primary
+<C-y>          // paste recentlty deleted text
+
+<C-d>          // delete completion item
+<S-Delete>     // delete completion item
+
+<C-k>          // history next
+<C-j>          // history prev
+
+<C-S-Tab>      // focus prev completion category
+<C-Tab>        // focus next completion category
+
+<C-n>          // completion next item focus
+<C-p>          // completion prev item focus
+<Tab>          // completion next item focus
+<S-Tab>        // completion prev item focus
+<Up>           // focus prev history item
+<Down>         // focus next history item
+
+<Escape>       // leave mode
+<CR>           // accept
+<C-CR>         // rapid accept
+
+##hint
+
+

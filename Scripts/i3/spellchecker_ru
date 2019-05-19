@@ -1,6 +1,3 @@
 #!/bin/bash
-for WORD in "$@"
-do
-	echo "$WORD" | aspell pipe -l ru | tail -n 2| grep --color -E "$WORD"
-done
+echo "$@" | ~/.local/bin/pylanguagetool -l ru-RU
 

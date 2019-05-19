@@ -7,6 +7,7 @@ function! s:LoadPlugins()
   " --------------------------------------------------------------------------
   " UI ENCHANTMENTS
   Plug 'rafi/awesome-vim-colorschemes'   " COLORSCHEMES
+  Plug 'ap/vim-css-color'                " CSS HIGHLIGHTE
   Plug 'sheerun/vim-polyglot'            " POLYGLOT
   Plug 'ryanoasis/vim-devicons'          " DEVICONS
 
@@ -158,16 +159,16 @@ function! s:BasicSettings()
   nnoremap <leader>/* :call AppendCommentLine('*')<CR>
 
   "vim
-  nnoremap <leader>vs :e ~/.config/nvim/init.vim<CR>
+  nnoremap <leader>vs :Startify<CR>
   nnoremap <leader>vr :source ~/.config/nvim/init.vim<CR>
 
   "clipboard copy
-  nmap <leader>vc "+y
-  xmap <leader>vc "+y
+  nmap <leader>y "+y
+  xmap <leader>y "+y
 
   "primary copy
-  nmap <leader>vy "*y
-  xmap <leader>vy "*y
+  nmap <leader>Y "*y
+  xmap <leader>Y "*y
 
   "windows switching
   nnoremap <silent> <leader>h :call LoadWindow()<CR>
@@ -769,7 +770,7 @@ function! s:ConfigurePlugins()
   nmap so <Plug>(easymotion-overwin-w)
   omap so <Plug>(easymotion-bd-w)
   xmap so <Plug>(easymotion-bd-w)
-  nmap sO <Plug>(easymotion-overwin-f)
+  nmap S <Plug>(easymotion-overwin-f)
   omap sO <Plug>(easymotion-bd-f)
   xmap sO <Plug>(easymotion-bd-f)
   map sn <Plug>(easymotion-next)
@@ -868,11 +869,10 @@ function! s:ConfigurePlugins()
 
   " textobj indent
   let g:textobj_indent_no_default_key_mappings = 1
-  xmap gc <Plug>(textobj-indent-i)
-  xmap gC <Plug>(textobj-indent-a)
-  xmap gn <Plug>(textobj-indent-same-i)
-  xmap gN <Plug>(textobj-indent-same-a)
-
+  xmap gn <Plug>(textobj-indent-i)
+  xmap gN <Plug>(textobj-indent-a)
+  xmap gc <Plug>(textobj-indent-same-i)
+  xmap gC <Plug>(textobj-indent-same-a)
 
   call plug#end()
 endfunction

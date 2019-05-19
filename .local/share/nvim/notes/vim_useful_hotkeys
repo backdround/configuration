@@ -1,0 +1,135 @@
+vim_useful_hotkeys
+
+# MOTIONS:
+• `-`       - to start of prev line
+• `+`       - to start of next line
+• `N%`      - to N % of file
+• `(`       - sentences forward
+• `)`       - sentences backward
+• `]]`      - to start of section. forward
+• `][`      - to end of section. forward
+• `[[`      - to start of section. backward
+• `[]`      - to end of section. backward
+• `]}` / `])` - to } or ). forward
+• `[{` / `[(` - to { or (. backward
+• `[#`      - back to unclosed "#if" or "#else"
+• `]#`      - forward to unclosed "#else" or "#endif"
+• `[*`      - back to start of comment "/*"
+• `]*`      - forward to end of comment "*/"
+• `'.`      - to last change in this file
+• `zh` / `zl` - scroll to left / right
+• `zH` / `zL` - scroll to left / right to half screen
+• `z-`      - redraw, current line at bottom of window
+
+# FOLDS:
+• `zA`        - toggle recursively
+• `zM`        - Close all folds
+• `zR`        - Open all folds
+• `zj` / `zk`   - move around folds
+
+# EDITING:
+• `v_J`    - join the highlighted lines
+• `gJ`     - like J, but without inserting spaces
+• `v_gJ`   - like v_J and gJ
+• `D`      - delete to end of line
+• `Y`      - like yy
+• `CTRL-A` - add N to the number at or after cursor
+• `CTRL-X` - subtract N from the number at or after cursor
+
+# JUMPS:
+• `CTRL-O`   - to older position in jump list
+• `CTRL-I`   - to newer position in jump list
+• `:ju[mps]` - list jump list
+
+# TAGS:
+• `:tags`    - list tag stack
+• `:ta[g]`   - jump forward in tag stack
+• `CTRL-]`   - jump to the tag under cursor
+• `CTRL-T`   - jump backward in tag stack
+• `CTRL-W-}` - like CTRL-] but show tag in preview window
+• `CTRL-W-]` - like CTRL-] but split window and open tag there
+
+# WINDOWS:
+• `CTRL-W-Z` - close preview window
+• `CTRL-W-x` - exchange current window with next one
+
+# INSERT:
+
+>                                                                           KEYS <
+• `i_CTRL-[` - <Esc>
+• `i_CTRL-I` - <Tab>
+• `i_CTRL-M` - <CR>
+• `i_CTRL-H` - <BS>
+
+>                                                                          OTHER <
+• `i_CTRL-O` - execute command and return to insert mode
+• `I_CTRL-K` {char1} {char2} - enter digraphs
+• `i_CTRL-A` - insert previously inserted text
+• `i_CTRL-R` - insert the contetns of register
+
+>                                                             LIST OF COMPLETING <
+• `i_CTRL-N` - forward in list of completing
+• `i_CTRL-P` - backward in list of completing
+• `i_CTRL-X` - complete the word before the cursor in various ways
+
+>                                                                        EDITING <
+• `i_CTRL-W`   - delete word before the cursor
+• `i_CTRL-U`   - delete all entered characters in the current line
+• `i_CTRL-T`   - insert indent in front of the current line
+• `i_CTRL-D`   - delete indent in front of the current line
+• `i_0-CTRL-D` - delete all indent in the current line
+• `i_^-CTRL-D` - delete all indent in the current line, restore indent in next line
+
+# CMD LINE:
+>                                                                           KEYS <
+• `c_CTRL-B` - <Home>
+• `c_CTRL-E` - <End>
+• `c_CTRL-H` - <BS>
+• `c_CTRL-I` - <TAB>
+• `i_CTRL-M` - <CR>
+• `i_CTRL-J` - <CR>
+
+>                                                                         INSERT <
+• `I_CTRL-K` {char1} {char2} - enter digraphs
+• `i_CTRL-R` - insert the contetns of register
+
+>                                                             LIST OF COMPLETING <
+• `c_CTRL-D` - list all names that match the pattern
+• `c_CTRL-N` - match forward
+• `c_CTRL-P` - match backward
+
+>                                                                        EDITING <
+• `c_CTRL-W` - delete word before the cursor
+• `i_CTRL-U` - delete all entered characters in the current line
+
+# VISUAL:
+• `v_o`                       - exchange cursor position with start of highlighting
+• `gv`                        - start highlighting on previous visual area
+• `v_aw`                      - select a word
+• `v_as` / `v_is`               - select a / inner sentence
+• `v_ap` / `v_ip`               - select a / inner paragraph
+• `v_ab` / `v_ib`               - select a / inner block ([])
+• `v_aB` / `v_iB`               - select a / inner block [{}]
+• `v_at` / `v_it`               - select a / inner <tag> this tag </tag>
+• `v_a>` / `v_a<` / `v_i>` / `v_i<` - select a / inner block in <>
+
+# COMMANDS:
+• `:xa`                          - :x for all files
+• `:ce[nter]` / `le[ft]` / `ri[ght]` - align the lines
+• `:dig[raphs]`                  - show list of digraphs
+• `:marks`                       - list all marks
+
+# PATTERNS:
+• `\+`             - 0 or more of the preceding atom
+• `\=`             - 0 or 1 of the preceding atom
+• `^`              - start of line
+• `$`              - end of line
+• `\<`             - start of word
+• `\>`             - end of word
+• `\|`             - separates two alternatives
+• `\(group_here\)` - group
+
+# MISC:
+• `@@` - repeat previous macros
+• `K`  - lookup word in man
+• `&`  - repeat previous :s

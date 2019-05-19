@@ -8,7 +8,7 @@
 *borderWidth: 1
 *borderColor: #FFFFFF
 *cursorOffTime: -1
-*cursorColor: #FFFFFF
+*cursorColor: #7BC992
 *selectToClipboard: false
 *pointerMode: 2
 *translations: #override \n\
@@ -20,11 +20,11 @@ Shift <Key>Insert: insert-selection(CLIPBOARD)
 *.scrollBar: false
 urxvt*.font: xft:xos4 Terminus:size=10:antialias=false
 *.matcher.button: 1
-*.urlLauncher: chromium
+*.urlLauncher: firefox
 *.underlineURLs: true
 
 *.foreground: #F8F8F2
-*.background: #282A36
+*.background: #0F0C14
 *.color0:     #000000
 *.color8:     #4D4D4D
 *.color1:     #FF5555

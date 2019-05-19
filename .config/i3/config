@@ -235,6 +235,10 @@ mode "launcher" {
   bindsym Return exec --no-startup-id i3-sensible-terminal; mode "default"
 
   #chromium
+  bindsym q exec --no-startup-id qutebrowser; mode "default"
+  bindsym $mod+q exec --no-startup-id pkill qutebrowser; mode "default"
+
+  #chromium
   bindsym c exec --no-startup-id chromium; mode "default"
   bindsym $mod+c exec --no-startup-id pkill chromium; mode "default"
 
@@ -403,8 +407,10 @@ for_window [class="qt-log"] move position 500 700
 for_window [class="qt-log"] resize set 1200 300
 for_window [class="qt-log"] move scratchpad
 
-#qt projects
-#for_window [class="qtTest"] floating enable
+#qutebrowser editor
+for_window [class="qute_editor"] floating enable
+for_window [class="qute_editor"] move position 65 65
+for_window [class="qute_editor"] resize set 675 342
 
 #screenshot
 bindsym --release Print exec --no-startup-id ~/Scripts/i3/screenshot_full

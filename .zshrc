@@ -148,11 +148,11 @@ alias g='glances -0 -1 --disable-bg --fs-free-space'
 alias h='howdoi'
 
 #my scripts aliases
-alias ts='trans :ru -b'
-alias tse='trans :en -b'
+ts() { trans :ru -b "$*" }
+tse() { trans :en -b "$*" }
 alias tsf='trans :ru'
-alias scr='~/Scripts/i3/spellchecker_ru'
-alias sce='~/Scripts/i3/spellchecker_en'
+alias se='~/Scripts/i3/spellchecker'
+alias sr='~/Scripts/i3/spellchecker_ru'
 
 #ls aliases
 alias k='k -h'
