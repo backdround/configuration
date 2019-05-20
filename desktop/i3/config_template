@@ -312,8 +312,8 @@ bindsym $mod+plus scratchpad show
 #telegram messenger
 bindsym $mod+F1 [class="TelegramDesktop"] scratchpad show
 for_window [class="TelegramDesktop"] floating enable
-for_window [class="TelegramDesktop"] resize set 525 700
-for_window [class="TelegramDesktop"] move position 1375 10
+for_window [class="TelegramDesktop"] resize set --position-telegram--
+for_window [class="TelegramDesktop"] move position --size-telegram--
 for_window [class="TelegramDesktop"] sticky enable
 for_window [class="TelegramDesktop"] move scratchpad
 
@@ -321,16 +321,16 @@ for_window [class="TelegramDesktop"] move scratchpad
 bindsym $mod+m [class="ncmpcpp-desktop"] scratchpad show
 for_window [class="ncmpcpp-desktop"] floating enable
 for_window [class="ncmpcpp-desktop"] sticky enable
-for_window [class="ncmpcpp-desktop"] move position 210 745
-for_window [class="ncmpcpp-desktop"] resize set 1500 300
+for_window [class="ncmpcpp-desktop"] move position --position-ncmpcpp--
+for_window [class="ncmpcpp-desktop"] resize set --size-ncmpcpp--
 for_window [class="ncmpcpp-desktop"] move scratchpad
 
 #drop down terminal
 bindsym $mod+d [class="ddterminal-desktop"] scratchpad show
 for_window [class="ddterminal-desktop"] floating enable
 for_window [class="ddterminal-desktop"] sticky enable
-for_window [class="ddterminal-desktop"] move position 5 5
-for_window [class="ddterminal-desktop"] resize set 1910 534
+for_window [class="ddterminal-desktop"] move position --position-dropdown--
+for_window [class="ddterminal-desktop"] resize set --size-dropdown--
 for_window [class="ddterminal-desktop"] move scratchpad
 
 #toxic messenger
@@ -353,23 +353,23 @@ for_window [class="mcabber-desktop"] move scratchpad
 bindsym $mod+r [class="ranger-desktop"] scratchpad show
 for_window [class="ranger-desktop"] floating enable
 for_window [class="ranger-desktop"] sticky enable
-for_window [class="ranger-desktop"] move position 5 5
-for_window [class="ranger-desktop"] resize set 1910 490
+for_window [class="ranger-desktop"] move position --position-ranger--
+for_window [class="ranger-desktop"] resize set --size-ranger--
 for_window [class="ranger-desktop"] move scratchpad
 
 #rtorrent
 bindsym $mod+t [class="rtorrent-desktop"] scratchpad show
 for_window [class="rtorrent-desktop"] floating enable
 for_window [class="rtorrent-desktop"] sticky enable
-for_window [class="rtorrent-desktop"] move position 192 108
-for_window [class="rtorrent-desktop"] resize set 1536 864
+for_window [class="rtorrent-desktop"] move position --position-rtorrent--
+for_window [class="rtorrent-desktop"] resize set --size-rtorrent--
 for_window [class="rtorrent-desktop"] move scratchpad
 
 #gis weather
 bindsym $mod+w [class="Gis-weather.py"] scratchpad show
 for_window [class="Gis-weather.py"] floating enable
 for_window [class="Gis-weather.py"] sticky enable
-for_window [class="Gis-weather.py"] move position 10 10
+for_window [class="Gis-weather.py"] move position --position-gis_weather--
 for_window [class="Gis-weather.py"] move scratchpad
 
 #qt debug console
@@ -406,8 +406,8 @@ for_window [class="qutebrowser"] resize set 1900 1100
 
 #qutebrowser editor
 for_window [class="qute_editor"] floating enable
-for_window [class="qute_editor"] move position 65 65
-for_window [class="qute_editor"] resize set 675 342
+for_window [class="qute_editor"] move position --position-qutebrowser_editor--
+for_window [class="qute_editor"] resize set --size-qutebrowser_editor--
 
 #screenshot
 bindsym --release Print exec --no-startup-id ~/Scripts/i3/screenshot_full
