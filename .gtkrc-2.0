@@ -6,3 +6,4 @@ style "user-font"
 }
 widget_class "*" style "user-font"
 gtk-icon-theme-name = "Papirus"
+gtk-key-theme = "Vim"

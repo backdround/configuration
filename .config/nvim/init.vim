@@ -43,6 +43,9 @@ function! Plugins()
 	set completeopt-=preview
 	let g:ycm_seed_identifiers_with_syntax = 1
 	let g:ycm_global_ycm_extra_conf = '.local/share/nvim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+	let g:ycm_keep_logfiles = 1
+	let g:ycm_log_level = 'debug'
+
 	au FileType c,cpp nnoremap <buffer> <c-]> :YcmCompleter GoTo<CR>
 
 	"let g:ctrlp_custom_ignore = {'dir':  '\v[\/](\.(git|hg|svn)|\_site)$', 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',}

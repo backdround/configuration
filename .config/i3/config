@@ -231,7 +231,7 @@ bindsym $mod+q exec --no-startup-id Scripts/i3/translate_trans
 #launcher
 mode "launcher" {
 	# bindsym $mod+d exec dmenu_run; mode "default"
-	bindsym d exec --no-startup-id i3-dmenu-desktop; mode "default"
+	bindsym d exec --no-startup-id j4-dmenu-desktop --no-generic  --dmenu='dmenu -i -l 20 -dim 1 -fn 8';mode "default"
 	
 	#terminal
 	bindsym Return exec i3-sensible-terminal --hide-menubar --hide-scrollbar; mode "default"
