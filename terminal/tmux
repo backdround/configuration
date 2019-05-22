@@ -62,8 +62,8 @@ set -g status-interval 2
 set -g status-justify centre
 
 # true color support
-set -g default-terminal "xterm-termite"
-set -ga terminal-overrides "xterm-termite:Tc"
+set -g default-terminal "tmux-256color"
+set -ga terminal-overrides ",xterm-256color:Tc"
 
 # display panes number
 set -g display-panes-active-colour colour5
