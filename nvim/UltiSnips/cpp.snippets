@@ -16,19 +16,6 @@ def ifne(value, true_string, false_string = ''):
 		else:
 				snip.rv = false_string
 
-def get_class_name():
-		line_number = int(vim.eval("searchpair('{', '', '}', 'bnW')")) - 1
-		if (line_number == -1):
-				return ""
-
-		for i in (line_number, line_number - 1):
-				line = vim.current.buffer[i]
-				search = re.search('class ([a-zA-Z_]+)( |$)', line)
-				if search:
-						class_name = search.group(1)
-						return class_name
-		return ""
-
 def parse_args(line):
 		args = re.sub("<.*?>", "", line)
 		args = re.findall(".+? ([a-zA-Z_]+)[,)]", args)
@@ -43,33 +30,23 @@ endglobal
 snippet head "protected ifndef " b
 #ifndef ${1:`!p
 file_path = vim.eval("expand('%')")
-project = re.sub(".*/", '', vim.eval("getcwd()"))
-
-path = project + '_' + file_path + '_'
+path = file_path + '_'
 path = re.sub("[^a-zA-Z]", "_", path)
 snip.rv = path.upper()
 `}
-$0
 #define $1
+$0
 #endif /* $1 */
 endsnippet
 
 # ------------------------------------------------------------------------------
 # Includes
-snippet inc "c include" b
+snippet cin "c include" b
 #include "${1:string}.h"${0}
 endsnippet
 
 snippet in "cpp include" b
 #include <${1:cstring}>${0}
-endsnippet
-
-snippet iv "include vector" b
-#include <vector>${0}
-endsnippet
-
-snippet is "include string" b
-#include <string>${0}
 endsnippet
 
 snippet io "include iostream" b
@@ -111,23 +88,20 @@ else if ($1) {
 endsnippet
 
 snippet el "else" s
-el {
+else {
 	$1
 }$0
 endsnippet
 
-snippet sw "switch(value)" b
-switch(${1:value}) {
+snippet switch "switch(value)" b
+switch (${1:value}) {
 	case: ${2:value1}
 		${3}
-		break;
-
-	default:
-		${4}
+	break;
 }$0
 endsnippet
 
-snippet sc "switch case" b
+snippet case "switch case" b
 case: ${1}
 	${2}
 	break;
@@ -148,36 +122,32 @@ for ($1) {
 }$0
 endsnippet
 
+snippet rbase "range base for" bs
+for (auto& ${1:i} : $2) {
+	$3
+}$0
+endsnippet
+
+snippet rbasec "range base for" bs
+for (const auto& ${1:i} : $2) {
+	$3
+}$0
+endsnippet
+
 snippet wh "while" bs
 while ($1) {
 	$2
 }$0
 endsnippet
 
-snippet rbase "range base for" bs
-for (auto& i: $1) {
-	$2
-}$0
-endsnippet
-
-snippet rbasec "range base for" bs
-for (const auto& i: $1) {
-	$2
-}$0
-endsnippet
-
 # ------------------------------------------------------------------------------
-# Cout / cin
+# Cout
 snippet cout "cout << 'visual' << endl;"
-${1:std::}cout << "${2:${VISUAL}}" << $1endl;$0
+cout << "${1:${VISUAL}}" << endl;$0
 endsnippet
 
 snippet vout "cout << 'var: ' << var << endl;"
-${1:std::}cout << "$2: " << ${2:${VISUAL}} << $1endl;$0
-endsnippet
-
-snippet cin "cin >> val;"
-${1:std::}cin >> $2;$0
+cout << "$1: " << ${1:${VISUAL}} << endl;$0
 endsnippet
 
 # ------------------------------------------------------------------------------
@@ -196,25 +166,8 @@ class_name[0] = class_name[0].upper()
 snip.rv = "".join(class_name)
 `} `!p ife(2, ": public ")`${2:Class_name}`!p ife(2, " ")`{
 public:
-	${3}
-
-private:
-	${7}
+	${4:$1(${5});}${6}
 };$0
-endsnippet
-
-snippet cc "class construction" b
-`!p
-if not snip.c:
-		snip.rv = get_class_name()
-`(${1})${2:`!p ifne(1, " = default;", ";")`}$0
-endsnippet
-
-snippet cd "class destruction"
-~`!p
-if not snip.c:
-		snip.rv = get_class_name()
-`(${1})${2:`!p ifne(1, " = default;", ";")`}$0
 endsnippet
 
 snippet cm "class member"
@@ -247,31 +200,3 @@ endsnippet
 snippet .dl "delete"
 delete
 endsnippet
-
-# ------------------------------------------------------------------------------
-# Doxygen
-
-# I wll do it later. Temporary workarond is use doxygen-toolkit.
-# Need to take into account a '\n' by scaning several lines.
-snippet "((.+) ([a-zA-Z_:]+) ?(\(.*\))(|{| {)?) ?d" "generate doxygen class" brs
-/**
-  \brief ${1}
-`!p
-# insert args
-args = parse_args(match.group(4))
-if args:
-		snip.rv += '\n'
-		for arg in args:
-				snip.rv += '  \\param[in] ' + str(arg)
-				snip.rv += '\n'
-
-# insert return type
-return_type = match.group(2)
-if return_type and return_type != "void":
-		snip.rv += '\n'
-		snip.rv += '  \\return'
-		snip.rv += '\n'
-` */
-`!p snip.rv = match.group(1)`
-endsnippet
-
