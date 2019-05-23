@@ -420,15 +420,15 @@ function! s:ConfigurePlugins()
   let g:ctrlsf_default_view_mode = 'normal'
   let g:ctrlsf_position = 'bottom'
   "let g:ctrlsf_position = 'left'
-  let g:ctrlsf_winsize = '40%'
+  let g:ctrlsf_winsize = '70%'
   let g:ctrlsf_indent = 2
   let g:ctrlsf_mapping = {
         \ "split"   : "<C-s>",
         \ "vsplit"  : "<C-v>",
         \ }
 
-  nmap <Leader>i <Plug>CtrlSFCwordExec
-  nmap <Leader>e <Plug>CtrlSFCCwordExec
+  nmap <Leader>i <Plug>CtrlSFCCwordExec
+  nmap <Leader>I <Plug>CtrlSFCwordExec
   vmap <Leader>i <Plug>CtrlSFVwordExec
 
   " --------------------------------------------------------------------------
@@ -559,7 +559,7 @@ function! s:ConfigurePlugins()
   " fzf
   " options {{{
   let $FZF_DEFAULT_OPTS = '--multi --no-mouse --inline-info'
-  let $FZF_DEFAULT_COMMAND = 'fd --hidden --no-ignore-vcs --exclude .git/ --type file'
+  let $FZF_DEFAULT_COMMAND = 'fd --hidden --exclude .git/ --type file'
 
   let g:fzf_action = {
         \ 'ctrl-t': 'tab split',
@@ -617,17 +617,19 @@ function! s:ConfigurePlugins()
   imap <c-f>b <plug>(fzf-complete-buffer-line)
 
   "open file
-  nnoremap <expr> <Leader>of (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":FzfFiles\<CR>"
+  nnoremap <Leader>of :FzfFiles<CR>
   nnoremap <silent> <expr> <leader>od ":FzfFiles ".(expand('%:p:h'))."\<CR>"
   nnoremap <leader>ov :FzfFiles ~/.local/share/nvim<CR>
   nnoremap <leader>og :FzfGFiles<CR>
-  nnoremap <leader>oc :FzfGFiles?<CR>| "changed
+  nnoremap <leader>oG :FzfGFiles?<CR>| "changed
   nnoremap <leader>ob :FzfBuffers<CR>
   nnoremap <leader>ol :FzfLines<CR>
   nnoremap <leader>ot :FzfTags<CR>
   nnoremap <leader>oz :FzfMarks<CR>
   nnoremap <leader>ow :FzfWindows<CR>
   nnoremap <leader>om :FzfHistory<CR>| "mru
+  nnoremap <leader>oc :FzfCommits<CR>
+  nnoremap <leader>oC :FzfBCommits<CR>
   "buffer local select
   nnoremap <leader>bl :FzfBLines<CR>
   nnoremap <leader>bt :FzfBTags<CR>
@@ -638,9 +640,6 @@ function! s:ConfigurePlugins()
   nnoremap <leader>ss :FzfSnippets<CR>
   nnoremap <leader>sc :FzfCommands<CR>
   nnoremap <leader>sh :FzfHelptags<CR>
-  "later
-  "nnoremap <leader>oc :FzfCommits<CR>
-  "nnoremap <leader>oC :FzfBCommits<CR>
   " }}}
 
 
