@@ -11,6 +11,8 @@ Environment="TERMCMD=termite"
 
 ExecStart=/usr/bin/termite --class ranger-desktop -e ranger
 
+KillMode=process
+
 Restart=always
 RestartSec=0
 
