@@ -82,7 +82,7 @@ if __name__ == '__main__':
     nvim_pairs = [
         ["init.vim",                    ".config/nvim/init.vim"],
         ["init_for_editing.vim",        ".config/nvim/init_for_editing.vim"],
-        ["settings.json",               ".config/nvim/settings.json"],
+        ["coc-settings.json",           ".config/nvim/coc-settings.json"],
 
         ["notes/plugin_hotkeys",        ".local/share/nvim/notes/plugin_hotkeys"],
         ["notes/qute_hotkeys",          ".local/share/nvim/notes/qute_hotkeys"],

@@ -57,8 +57,7 @@ function! s:LoadPlugins()
   Plug 'xolox/vim-session'
 
                                         " COMPLETE
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+  Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
 
   Plug 'mhinz/vim-signify'              " GIT
   Plug 'tpope/vim-fugitive'
@@ -657,45 +656,21 @@ function! s:ConfigurePlugins()
 
   " --------------------------------------------------------------------------
   " lsp
-  let g:LanguageClient_serverCommands = {
-        \ 'cpp': ['cquery', '--log-file=/tmp/cq.log'],
-        \ 'c': ['cquery', '--log-file=/tmp/cq.log'],
-        \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-        \ }
-  let g:LanguageClient_rootMarkers = {
-        \ 'cpp': ['compile_commands.json']
-        \ }
-  let g:LanguageClient_diagnosticsDisplay = { 1: { }, 2: { }, 3: { }, 4: { }, }
-  let g:LanguageClient_diagnosticsDisplay[1]['signTexthl'] = "ErrorSign"
-  let g:LanguageClient_diagnosticsDisplay[2]['signTexthl'] = "WarningSing"
-  let g:LanguageClient_diagnosticsDisplay[3]['signTexthl'] = "InformationSign"
-  let g:LanguageClient_diagnosticsDisplay[4]['signTexthl'] = "HintSing"
-
-  let g:LanguageClient_loadSettings = 1
-  let g:LanguageClient_settingsPath = '~/.config/nvim/settings.json'
-  let g:LanguageClient_loggingFile = "/tmp/LanguageClient.log"
-  let g:LanguageClient_windowLogMessageLevel = "Error"
-  set completefunc=LanguageClient#complete
-  set formatexpr=LanguageClient_textDocument_rangeFormatting()
-
   function! SetLSPHotkeys()
-    nnoremap <buffer> <silent> gh :call LanguageClient#textDocument_hover()<CR>
-    nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
-    nnoremap <buffer> <silent> gr :call LanguageClient#textDocument_references()<CR>
-    nnoremap <buffer> <silent> gs :call LanguageClient#textDocument_documentSymbol()<CR>
-    nnoremap <buffer> <silent> gn :call LanguageClient#textDocument_rename()<CR>
-    nnoremap <buffer> <silent> gm :call LanguageClient_contextMenu()<CR>
+    nnoremap <buffer> <silent> gi <Plug>(coc-diagnostic-info)
+    nnoremap <buffer> <silent> gD <Plug>(coc-declaration)
+    nnoremap <buffer> <silent> gd <Plug>(coc-definition)
+    nnoremap <buffer> <silent> gr <Plug>(coc-references)
+    nnoremap <buffer> <silent> gf <Plug>(coc-fix-current)
+    "nnoremap <buffer> <silent> gs :call LanguageClient#textDocument_documentSymbol()<CR>
+    "nnoremap <buffer> <silent> gn :call LanguageClient#textDocument_rename()<CR>
+    "nnoremap <buffer> <silent> gm :call LanguageClient_contextMenu()<CR>
   endfunction
 
   augroup LSPHotkeysForFiles
     autocmd!
-    autocmd FileType cpp,hpp,c,h,rust call SetLSPHotkeys()
+    autocmd FileType cpp,hpp,c,h call SetLSPHotkeys()
   augroup END
-
-  " --------------------------------------------------------------------------
-  " deoplete
-  let g:deoplete#enable_at_startup = 1
-  call deoplete#custom#source('_', 'max_menu_width', 90)
 
   " --------------------------------------------------------------------------
   "signify
@@ -1090,4 +1065,3 @@ call s:LoadPlugins()
 call s:BasicSettings()
 call s:ConfigurePlugins()
 call s:ConfigureView()
-
