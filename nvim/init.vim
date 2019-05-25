@@ -57,7 +57,7 @@ function! s:LoadPlugins()
   Plug 'xolox/vim-session'
 
                                         " COMPLETE
-  Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
+  Plug 'neoclide/coc.nvim', {'do': 'yes \| ./install.sh nightly'}
 
   Plug 'mhinz/vim-signify'              " GIT
   Plug 'tpope/vim-fugitive'
