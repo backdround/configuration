@@ -34,7 +34,7 @@ sed 's~^\(.*clone_dir.*\)".*"\(.*\)~\1"/home/vlad/.tmp/trizen"\2~' -i ~/.config/
 # Install application with pacman
 cd ~/configuration
 gpg --recv-keys 9B8450B91D1362C1
-sudo pacman --needed -S - < deps
+sudo pacman --needed --noconfirm -S - < deps
 trizen --needed --noconfirm -S - < deps_aur
 
 # Install configuration
