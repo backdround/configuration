@@ -183,6 +183,13 @@ if __name__ == '__main__':
     symlink_prefix = os.path.expanduser("~/.config/systemd/user")
     utils.create_list_of_symlink(systemd_pairs, systemd_directory, symlink_prefix, force)
 
+    # desktop links
+    links_directory = os.path.join(project_root, "desktop/applications/")
+    links_pairs = utils.create_pairs_from_dir(links_directory)
+
+    symlink_prefix = os.path.expanduser("~/.local/share/applications")
+    utils.create_list_of_symlink(links_pairs, links_directory, symlink_prefix, force)
+
     # misc
     misc_pairs = [
         ["misc/compton.conf",   ".config/compton.conf"],
@@ -191,6 +198,7 @@ if __name__ == '__main__':
         ["misc/xinitrc",        ".xinitrc"],
         ["misc/xprofile",       ".xprofile"],
         ["misc/Xresources",     ".Xresources"],
+        ["misc/mimeapps.list",  ".config/mimeapps.list"],
         ["i3/config",           ".config/i3/config"],
         ["polybar/config",      ".config/polybar/config"],
         ["polybar/startup",     ".config/polybar/startup"],
