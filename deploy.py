@@ -52,7 +52,6 @@ if __name__ == '__main__':
     # --------------------------------------------------------------------------
     # terminal
     terminal_pairs = (
-        ["bashrc",             ".bashrc"],
         ["inputrc",            ".inputrc"],
         ["tmux",               ".tmux.conf"],
         ["zshrc",              ".zshrc"],
@@ -101,7 +100,6 @@ if __name__ == '__main__':
     # misc
     misc_pairs = (
         ["cava",                     ".config/cava/config"],
-        ["gdb",                      ".gdbinit"],
         ["gpg",                      ".gnupg/gpgconf.conf"],
         ["mouse_index.theme",        ".icons/default/index.theme"],
         ["rtorrent",                 ".rtorrent.rc"],
