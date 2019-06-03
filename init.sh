@@ -38,7 +38,9 @@ sudo pacman --needed --noconfirm -S - < deps
 trizen --needed --noconfirm -S - < deps_aur
 
 # Install configuration
-sudo chsh vlad -s /bin/zsh
+sudo chsh "$USER" -s /bin/zsh
+gsettings set org.gnome.desktop.default-applications.terminal exec /usr/bin/termite
+gsettings set org.gnome.desktop.default-applications.terminal exec-arg "-x"
 ./deploy.py "$@"
 systemctl --user daemon-reload
 systemctl --user enable telegram.service

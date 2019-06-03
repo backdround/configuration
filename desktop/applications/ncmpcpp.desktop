@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=ncmpcpp
+Exec=ncmpcpp
+Terminal=true
+Type=Application
