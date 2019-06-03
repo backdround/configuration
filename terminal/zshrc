@@ -55,6 +55,7 @@ bindkey -M viins -s '\em' '^[ddiranger\n'
 
 ################################################################################
 #ENV VARIABLES
+export PATH=~/.local/bin/:$PATH
 export EDITOR="nvim -u ~/.config/nvim/init_for_editing.vim"
 PAGER="nvim -u ~/.config/nvim/init_for_editing.vim -R"
 export MANPAGER="nvim -c 'set ft=man' -"
@@ -220,12 +221,12 @@ hd() {
 }
 
 #my scripts aliases
-t() { echo "$*" | ~/Scripts/i3/new_word.py }
+t() { echo "$*" | ~/.local/bin/new_word.py }
 ts() { trans :ru -b "$*" }
 tse() { trans :en -b "$*" }
 alias tsf='trans :ru'
-alias se='~/Scripts/i3/spellchecker'
-alias sr='~/Scripts/i3/spellchecker_ru'
+alias se='~/.local/bin/spellchecker'
+alias sr='~/.local/bin/spellchecker_ru'
 alias lolclock='while true; do tput clear; date +"%H : %M : %S" | figlet ; sleep 1; done'
 
 #ls aliases

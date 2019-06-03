@@ -265,7 +265,7 @@ set beep_on_message = 1
 #   $events_command UNREAD "N x y z"        (number of unread buddy buffers)
 #   (x=attention y=muc unread buffers z=muc unread buffers with attention sign)
 # See sample script in contrib/ directory.
-set events_command = ~/Scripts/i3/mcabber_event
+set events_command = ~/.local/bin/mcabber_event
 #
 set events_ignore_active_window = 0
 #

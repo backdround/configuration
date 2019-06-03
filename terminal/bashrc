@@ -21,8 +21,8 @@ alias egrep='egrep --color=always'
 alias gcc='gcc -fdiagnostics-color=always'
 alias ts='trans :ru -b'
 alias tsf='trans :ru'
-alias scr='~/Scripts/i3/spellchecker_ru'
-alias sce='~/Scripts/i3/spellchecker_en'
+alias scr='~/.local/bin/spellchecker_ru'
+alias sce='~/.local/bin/spellchecker_en'
 
 #less man
 man() {

@@ -97,7 +97,7 @@ font pango:xos4 Terminus Semi-Condensed 8
 #session
 mode "session" {
   bindsym e exec --no-startup-id systemctl --user stop i3-gaps.target; exec i3-msg exit ; mode "default"
-  bindsym l exec --no-startup-id ~/Scripts/i3/i3lock-blur; mode "default"
+  bindsym l exec --no-startup-id ~/.local/bin/i3lock-blur; mode "default"
   bindsym s exec --no-startup-id "systemctl --user stop i3-gaps.target; sleep 0.5; systemctl poweroff"; mode "default"
   bindsym r exec --no-startup-id "systemctl --user stop i3-gaps.target; sleep 0.5; systemctl reboot"; mode "default"
 
@@ -213,7 +213,7 @@ mode "launcher" {
   bindsym p exec pavucontrol; mode "default"
 
   #weather
-  bindsym w exec --no-startup-id Scripts/i3/weather; mode "default"
+  bindsym w exec --no-startup-id .local/bin/weather; mode "default"
 
   # change layout
   bindsym $mod+h split h
@@ -335,14 +335,14 @@ for_window [class="qute_editor"] move position --position-qutebrowser_editor--
 for_window [class="qute_editor"] resize set --size-qutebrowser_editor--
 
 #translate
-bindsym $mod+a exec --no-startup-id Scripts/i3/translate_yandex
-bindsym $mod+q exec --no-startup-id Scripts/i3/translate_brief
-bindsym $mod+z exec --no-startup-id Scripts/i3/translate_full
+bindsym $mod+a exec --no-startup-id .local/bin/translate_yandex
+bindsym $mod+q exec --no-startup-id .local/bin/translate_brief
+bindsym $mod+z exec --no-startup-id .local/bin/translate_full
 
 #screenshot
-bindsym --release Print exec --no-startup-id ~/Scripts/i3/screenshot_full
-bindsym --release $mod+Print exec --no-startup-id ~/Scripts/i3/screenshot_focus
-bindsym --release $mod+Shift+Print exec --no-startup-id ~/Scripts/i3/screenshot_area Screens
+bindsym --release Print exec --no-startup-id ~/.local/bin/screenshot_full
+bindsym --release $mod+Print exec --no-startup-id ~/.local/bin/screenshot_focus
+bindsym --release $mod+Shift+Print exec --no-startup-id ~/.local/bin/screenshot_area Screens
 
 #language
 bindsym ISO_Next_Group exec --no-startup-id pkill -RTMIN+1 i3blocks
@@ -353,7 +353,7 @@ bindsym Group2+XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle; 
 bindsym Group2+XF86AudioLowerVolume exec --no-startup-id pactl -- set-sink-volume 0 -5%; exec --no-startup-id pkill -RTMIN+10 i3blocks
 
 #other
-bindsym $mod+v exec --no-startup-id ~/Scripts/i3/dragon_screen ~/Pictures/Screens
-bindsym $mod+i exec --no-startup-id ~/Scripts/i3/unknow_sentens
+bindsym $mod+v exec --no-startup-id ~/.local/bin/dragon_screen ~/Pictures/Screens
+bindsym $mod+i exec --no-startup-id ~/.local/bin/unknow_sentens
 
 # vim: set ft=i3:

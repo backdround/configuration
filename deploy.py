@@ -172,10 +172,10 @@ if __name__ == '__main__':
     # other desktop
 
     # i3 scripts
-    scripts_directory = os.path.join(project_root, "desktop/i3/scripts/")
+    scripts_directory = os.path.join(project_root, "desktop/scripts/")
     scripts_pairs = utils.create_pairs_from_dir(scripts_directory)
 
-    symlink_prefix = os.path.expanduser("~/Scripts/i3/")
+    symlink_prefix = os.path.expanduser("~/.local/bin/")
     utils.create_list_of_symlink(scripts_pairs , scripts_directory, symlink_prefix, force)
 
     # systemd pairs
