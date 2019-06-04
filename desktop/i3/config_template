@@ -46,7 +46,7 @@ bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
-bindsym $mod+bar workspace work
+bindsym $mod+o exec --no-startup-id ~/.local/bin/screen_switcher.py
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
@@ -354,6 +354,5 @@ bindsym Group2+XF86AudioLowerVolume exec --no-startup-id pactl -- set-sink-volum
 
 #other
 bindsym $mod+v exec --no-startup-id ~/.local/bin/dragon_screen ~/Pictures/Screens
-bindsym $mod+i exec --no-startup-id ~/.local/bin/unknow_sentens
 
 # vim: set ft=i3:
