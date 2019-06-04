@@ -1,7 +1,0 @@
-#!/bin/bash
-NAME=screen-$(date +%d:%m:%y-%H:%M:%S).png
-FILE=$HOME/Pictures/Screens/$NAME
-scrot -q 100  $FILE
-xclip -selection clipboard -t `file -b --mime-type $FILE` -i $FILE
-gdbus call --session --dest org.freedesktop.Notifications --object-path /org/freedesktop/Notifications --method org.freedesktop.Notifications.Notify \
-'screenshoter' 0 '' "$NAME" "fullscreen screenshot saved and copied to clipboard" [] {} 4000

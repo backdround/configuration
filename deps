@@ -12,6 +12,7 @@ deluge
 dunst
 fd
 feh
+flameshot
 fzf
 fzy
 gdb-dashboard
@@ -32,7 +33,6 @@ python-pip
 ranger
 rofi
 screenfetch
-scrot
 socat
 openssh
 sudo

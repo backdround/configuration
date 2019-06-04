@@ -19,7 +19,7 @@ sudo pacman --needed --noconfirm -Syu base base-devel git
 mkdir ~/Downloads
 mkdir ~/tmp
 mkdir ~/build
-mkdir -p ~/Pictures/Screens
+mkdir ~/screens
 mkdir ~/.nvimbk
 mkdir ~/.password-store
 mkdir -p ~/.tmp/trizen

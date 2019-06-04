@@ -4,7 +4,7 @@ set draw_borders true
 
 map gd cd ~/Downloads
 map gD cd ~/rtorrent/downloads
-map gs cd ~/Pictures/Screens
+map gs cd ~/screens
 map go cd ~/other
 map gC cd ~/.config
 map gp cd ~/build/
