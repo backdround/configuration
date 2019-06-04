@@ -198,6 +198,14 @@ function! s:BasicSettings()
   "windows switching
   nnoremap <silent> <leader>h :call LoadWindow()<CR>
 
+  "tab managment
+  nnoremap <silent> <leader>tn :tabnew<CR>
+  nnoremap <silent> <leader>tq :tabclose<CR>
+  nnoremap <silent> <leader>tf :tabfirst<CR>
+  nnoremap <silent> <leader>tl :tablast<CR>
+  nnoremap <silent> <leader>t, :-tabmove<CR>
+  nnoremap <silent> <leader>t. :+tabmove<CR>
+
   "misc
   set pastetoggle=<F8>
   map s <NOP>
@@ -753,9 +761,14 @@ function! s:ConfigurePlugins()
   let g:NERDTreeMapPreviewVSplit = 'gv'
   let g:NERDTreeMapMenu = 'a'
   let g:NERDTreeWinSize = '29'
+
   nnoremap <silent> <F3> :call NerdtreeToggle()<CR>
   nnoremap <silent> <F15> :call SwitchWindowTo("NERD_tree_*")<CR>
-  nnoremap <silent> <leader>n :NERDTree<CR>
+  nnoremap <silent> <leader>no :call NerdtreeToggle()<CR>
+  nnoremap <silent> <leader>nt :call SwitchWindowTo("NERD_tree_*")<CR>
+  nnoremap <silent> <leader>nr :NERDTreeRefreshRoot<CR>
+  nnoremap <silent> <leader>nf :NERDTreeFind<CR>
+  nnoremap <silent> <leader>nw :NERDTreeCWD<CR>
 
   "my theme fix
   augroup SetHighlightFunctionGroup
