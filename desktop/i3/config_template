@@ -10,6 +10,10 @@ force_focus_wrapping yes
 # monitors
 set $primary --primary--
 set $secondary --secondary--
+workspace "Web" output $primary
+workspace "Code" output $secondary
+workspace "Build" output $primary
+workspace "Other" output $secondary
 workspace "1" output $primary
 workspace "2" output $secondary
 exec_always --no-startup-id i3-msg focus output $primary
@@ -43,30 +47,25 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # switch to workspace
+bindsym $mod+comma workspace Web
+bindsym $mod+period workspace Code
+bindsym $mod+u workspace Build
+bindsym $mod+i workspace Other
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
 bindsym $mod+3 workspace 3
 bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
 bindsym $mod+o exec --no-startup-id ~/.local/bin/screen_switcher.py
 
 # move focused container to workspace
+bindsym $mod+Shift+comma move container to workspace Web
+bindsym $mod+Shift+period move container to workspace Code
+bindsym $mod+Shift+u move container to workspace Build
+bindsym $mod+Shift+i move container to workspace Other
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2
 bindsym $mod+Shift+3 move container to workspace 3
 bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
-bindsym $mod+Shift+bar move container to workspace work
 
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
@@ -94,9 +93,6 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff
 
 exec_always --no-startup-id $HOME/.config/polybar/startup
-
-#bar mod
-bindsym $mod+Shift+p bar mode toggle
 
 #font
 font pango:xos4 Terminus Semi-Condensed 8
@@ -235,7 +231,6 @@ mode "launcher" {
   bindsym k focus up
   bindsym l focus right
 
-  #bindsym q mode "default"
   bindsym Escape mode "default"
 }
 bindsym $mod+x mode "launcher"
@@ -243,37 +238,8 @@ bindsym $mod+x mode "launcher"
 #start i3
 exec_always --no-startup-id systemctl --user start i3-gaps.target
 
-#unit manager
-mode "unit manager"{
-  bindsym w exec --no-startup-id systemctl --user start weather.service; mode "default"
-  bindsym $mod+w exec --no-startup-id systemctl --user stop weather.timer; mode "default"
-
-  bindsym c exec --no-startup-id systemctl --user restart compton.service; mode "default"
-  bindsym $mod+c exec --no-startup-id systemctl --user stop compton.service; mode "default"
-
-  bindsym d exec --no-startup-id systemctl --user restart ddterminal.service; mode "default"
-  bindsym $mod+d exec --no-startup-id systemctl --user stop ddterminal.service; mode "default"
-
-  bindsym i exec --no-startup-id systemctl --user restart i3-gaps.target; mode "default"
-  bindsym $mod+i exec --no-startup-id systemctl --user stop i3-gaps.target; mode "default"
-
-  bindsym F1 exec --no-startup-id systemctl --user restart telegram.service; mode "default"
-  bindsym $mod+F1 exec --no-startup-id systemctl --user stop telegram.service; mode "default"
-
-  bindsym m exec --no-startup-id systemctl --user restart ncmpcpp.service; mode "default"
-  bindsym $mod+m exec --no-startup-id systemctl --user stop ncmpcpp.service; mode "default"
-
-  bindsym r exec --no-startup-id systemctl --user restart ranger.service; mode "default"
-  bindsym $mod+r exec --no-startup-id systemctl --user stop ranger.service; mode "default"
-
-  bindsym t exec --no-startup-id systemctl --user restart rtorrent.service; mode "default"
-  bindsym $mod+t exec --no-startup-id systemctl --user stop rtorrent.service; mode "default"
-
-  bindsym q mode "default"
-  bindsym Escape mode "default"
-  bindsym Return mode "default"
-}
-bindsym $mod+u mode "unit manager"
+# create ui-keydriven interface for unit managment
+# start/stop service
 
 #scratchpad
 bindsym $mod+minus move scratchpad
@@ -331,19 +297,12 @@ for_window [class="mpv"] floating enable
 for_window [class="mpv"] resize set 400 225
 for_window [class="mpv"] move position 727 30 
 
-#qutebrowser scratchpad
-bindsym $mod+s [class="qutebrowser"] scratchpad show
-for_window [class="qutebrowser"] move position 25 25
-for_window [class="qutebrowser"] resize set 1900 1100
-
 #qutebrowser editor
 for_window [class="qute_editor"] floating enable
 for_window [class="qute_editor"] move position --position-qutebrowser_editor--
 for_window [class="qute_editor"] resize set --size-qutebrowser_editor--
 
 #translate
-bindsym $mod+a exec --no-startup-id .local/bin/translate_yandex
-bindsym $mod+q exec --no-startup-id .local/bin/translate_brief
 bindsym $mod+z exec --no-startup-id .local/bin/translate_full
 
 #screenshots
