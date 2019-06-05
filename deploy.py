@@ -157,6 +157,13 @@ if __name__ == '__main__':
     replaces.extend([('--size-{}--'.format(key), val2) for key, (_, val2) in position_size.items()])
     replaces.extend([("--inner-gaps--", "19")])
 
+    if instance == "home":
+        replaces.extend([("--primary--", "DVI-1")])
+        replaces.extend([("--secondary--", "HDMI-0")])
+    elif instance == "work":
+        replaces.extend([("--primary--", "DP-1")])
+        replaces.extend([("--secondary--", "HDMI-2")])
+
     # make replaces
     utils.replace_in_file(instance_file, replaces)
 

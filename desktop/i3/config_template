@@ -7,6 +7,13 @@ floating_modifier $mod
 popup_during_fullscreen smart
 force_focus_wrapping yes
 
+# monitors
+set $primary --primary--
+set $secondary --secondary--
+workspace "1" output $primary
+workspace "2" output $secondary
+exec_always --no-startup-id i3-msg focus output $primary
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
