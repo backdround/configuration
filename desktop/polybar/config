@@ -143,6 +143,7 @@ type = internal/i3
 index-sort = true
 format = <label-state> <label-mode>
 wrapping-scroll = false
+strip-wsnumbers = true
 
 format-padding = 0
 

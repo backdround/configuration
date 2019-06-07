@@ -7,15 +7,27 @@ floating_modifier $mod
 popup_during_fullscreen smart
 force_focus_wrapping yes
 
+# name workspaces
+set $wsleft1  "1: Web"
+set $wsleft2  "2: Build"
+set $wsleft3  "3: <"
+set $wsleft4  "4: Left"
+set $wsright1 "5: Code"
+set $wsright2 "6: Other"
+set $wsright3 "7: >"
+set $wsright4 "8: Right"
+
 # monitors
 set $primary --primary--
 set $secondary --secondary--
-workspace "Web" output $primary
-workspace "Code" output $secondary
-workspace "Build" output $primary
-workspace "Other" output $secondary
-workspace "1" output $primary
-workspace "2" output $secondary
+workspace $wsleft1  output $primary
+workspace $wsleft2  output $primary
+workspace $wsleft3  output $primary
+workspace $wsleft4  output $primary
+workspace $wsright1 output $secondary
+workspace $wsright2 output $secondary
+workspace $wsright3 output $secondary
+workspace $wsright4 output $secondary
 exec_always --no-startup-id i3-msg focus output $primary
 
 # kill focused window
@@ -47,25 +59,25 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # switch to workspace
-bindsym $mod+comma workspace Web
-bindsym $mod+period workspace Code
-bindsym $mod+u workspace Build
-bindsym $mod+i workspace Other
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
+bindsym $mod+comma workspace  $wsleft1
+bindsym $mod+u workspace      $wsleft2
+bindsym $mod+1 workspace      $wsleft3
+bindsym $mod+3 workspace      $wsleft4
+bindsym $mod+period workspace $wsright1
+bindsym $mod+i workspace      $wsright2
+bindsym $mod+2 workspace      $wsright3
+bindsym $mod+4 workspace      $wsright4
 bindsym $mod+o exec --no-startup-id ~/.local/bin/screen_switcher.py
 
 # move focused container to workspace
-bindsym $mod+Shift+comma move container to workspace Web
-bindsym $mod+Shift+period move container to workspace Code
-bindsym $mod+Shift+u move container to workspace Build
-bindsym $mod+Shift+i move container to workspace Other
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+comma  move container to workspace $wsleft1
+bindsym $mod+Shift+u      move container to workspace $wsleft2
+bindsym $mod+Shift+1      move container to workspace $wsleft3
+bindsym $mod+Shift+3      move container to workspace $wsleft4
+bindsym $mod+Shift+period move container to workspace $wsright1
+bindsym $mod+Shift+i      move container to workspace $wsright2
+bindsym $mod+Shift+2      move container to workspace $wsright3
+bindsym $mod+Shift+4      move container to workspace $wsright4
 
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
