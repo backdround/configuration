@@ -200,6 +200,7 @@ if __name__ == '__main__':
     # misc
     misc_pairs = [
         ["misc/compton.conf",   ".config/compton.conf"],
+        ["misc/trizen.conf",    ".config/trizen/trizen.conf"],
         ["misc/dunstrc",        ".config/dunst/dunstrc"],
         ["misc/gis_weather",    ".config/gis-weather/gw_config1.json"],
         ["misc/xinitrc",        ".xinitrc"],

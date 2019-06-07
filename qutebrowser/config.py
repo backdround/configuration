@@ -116,7 +116,7 @@ c.content.plugins = True
 # c.content.register_protocol_handler = 'ask'
 # c.content.ssl_strict = 'ask'
 
-c.downloads.location.directory = '~/Downloads'
+c.downloads.location.directory = '~/downloads'
 c.downloads.location.prompt = False
 c.downloads.location.suggestion = 'filename'
 c.editor.command = ['termite',

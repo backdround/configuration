@@ -2,7 +2,7 @@ set preview_images true
 default_linemode devicons
 set draw_borders true
 
-map gd cd ~/Downloads
+map gd cd ~/downloads
 map gD cd ~/rtorrent/downloads
 map gs cd ~/screens
 map go cd ~/other

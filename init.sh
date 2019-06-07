@@ -16,7 +16,7 @@ sudo pacman -Fy
 sudo pacman --needed --noconfirm -Syu base base-devel git
 
 # Create directory tree
-mkdir ~/Downloads
+mkdir ~/downloads
 mkdir ~/tmp
 mkdir ~/build
 mkdir ~/screens
@@ -29,7 +29,7 @@ cd ~/tmp/
 git clone https://aur.archlinux.org/trizen.git
 cd trizen/
 makepkg --install --noconfirm --syncdeps
-sed 's~^\(.*clone_dir.*\)".*"\(.*\)~\1"/home/vlad/.tmp/trizen"\2~' -i ~/.config/trizen/trizen.conf
+sed 's~^\(.*clone_dir.*\)".*"\(.*\)~\1"$ENV{HOME}/.tmp/trizen"\2~' -i ~/.config/trizen/trizen.conf
 
 # Install application with pacman
 cd ~/configuration
