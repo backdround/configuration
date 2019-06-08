@@ -150,6 +150,14 @@ snippet vout "cout << 'var: ' << var << endl;"
 cout << "$1: " << ${1:${VISUAL}} << endl;$0
 endsnippet
 
+snippet scout "std::cout << 'visual' << std::endl;"
+cout << "${1:${VISUAL}}" << endl;$0
+endsnippet
+
+snippet svout "std::cout << 'var: ' << var << std::endl;"
+std::cout << "$1: " << ${1:${VISUAL}} << std::endl;$0
+endsnippet
+
 # ------------------------------------------------------------------------------
 # Structures / Classes
 
@@ -193,10 +201,57 @@ snippet .c "const"
 const
 endsnippet
 
-snippet .df "default"
-default
+snippet def "= default;"
+= default;
 endsnippet
 
-snippet .dl "delete"
-delete
+snippet del "= delete;"
+= delete;
+endsnippet
+
+# ------------------------------------------------------------------------------
+# Google tests
+
+snippet t "test" b
+TEST(${1}) {
+	${2}
+}$0
+endsnippet
+
+snippet tf "test fixture" b
+TEST_F(${1}) {
+	${2}
+}$0
+endsnippet
+
+snippet tp "test parameterize" b
+TEST_P(${1}) {
+	${2}
+}$0
+endsnippet
+
+snippet tp "test parameterize" b
+TEST_P(${1}) {
+	${2}
+}$0
+endsnippet
+
+snippet casep "instantiate test case parameterize" b
+INSTANTIATE_TEST_CASE_P(${1:prefix}, ${2:fixture}, ${3:value});$0
+endsnippet
+
+snippet call "expect call" b
+EXPECT_CALL(${1})$0
+endsnippet
+
+snippet true "expect true" b
+EXPECT_TRUE(${1});$0
+endsnippet
+
+snippet false "expect false" b
+EXPECT_FALSE(${1});$0
+endsnippet
+
+snippet eq "expect equal" b
+EXPECT_EQ(${1});$0
 endsnippet
