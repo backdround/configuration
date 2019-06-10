@@ -199,6 +199,7 @@ if __name__ == '__main__':
 
     # misc
     misc_pairs = [
+        ["misc/user-dirs.dirs", ".config/user-dirs.dirs"],
         ["misc/compton.conf",   ".config/compton.conf"],
         ["misc/trizen.conf",    ".config/trizen/trizen.conf"],
         ["misc/dunstrc",        ".config/dunst/dunstrc"],

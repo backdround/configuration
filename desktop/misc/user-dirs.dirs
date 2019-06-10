@@ -1,0 +1,6 @@
+# my dirs
+XDG_DESKTOP_DIR="$HOME/.local/share/applications"
+XDG_DOWNLOAD_DIR="$HOME/downloads"
+XDG_DOCUMENTS_DIR="$HOME/docs"
+XDG_MUSIC_DIR="$HOME/rtorrent/downloads/music"
+XDG_VIDEOS_DIR="$HOME/rtorrent/downloads/videos"
