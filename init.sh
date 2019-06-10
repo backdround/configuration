@@ -1,13 +1,9 @@
 #!/bin/bash
+# Script setup my system on bare archlinux
 
-# Checks
+# Check
 if [ "$#" -lt 1 ]; then
   echo "couldn't get install type (work|home|note)"
-  exit 1
-fi
-
-if [ `sudo -v` ]; then
-  echo "couldn't get sudo rights"
   exit 1
 fi
 
@@ -28,10 +24,10 @@ mkdir -p ~/.tmp/trizen
 cd ~/tmp/
 git clone https://aur.archlinux.org/trizen.git
 cd trizen/
-makepkg --install --noconfirm --syncdeps
+makepkg --needed --install --noconfirm --syncdeps
 sed 's~^\(.*clone_dir.*\)".*"\(.*\)~\1"$ENV{HOME}/.tmp/trizen"\2~' -i ~/.config/trizen/trizen.conf
 
-# Install application with pacman
+# Install packages
 cd ~/configuration
 gpg --recv-keys 9B8450B91D1362C1
 sudo pacman --needed --noconfirm -S - < deps
@@ -42,6 +38,13 @@ sudo chsh "$USER" -s /bin/zsh
 gsettings set org.gnome.desktop.default-applications.terminal exec /usr/bin/termite
 gsettings set org.gnome.desktop.default-applications.terminal exec-arg "-x"
 ./deploy.py "$@"
+
+# Install dependencies
+/usr/share/qutebrowser/scripts/dictcli.py install en-US ru-RU
+pip install --user neovim
+pip install --user pyLanguagetool
+
+# Setup default services
 systemctl --user daemon-reload
 systemctl --user enable telegram.service
 systemctl --user enable ddterminal.service
@@ -50,6 +53,3 @@ systemctl --user enable ncmpcpp
 systemctl --user enable ranger
 sudo systemctl enable lightdm
 sudo systemctl enable tor
-/usr/share/qutebrowser/scripts/dictcli.py install en-US ru-RU
-pip install --user neovim
-pip install --user pyLanguagetool
