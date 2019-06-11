@@ -1,0 +1,14 @@
+[Unit]
+Description=Sync to remote drop every 5 minutes
+After=i3-gaps.target
+PartOf=i3-gaps.target
+
+[Timer]
+OnActiveSec=2
+OnUnitActiveSec=5m
+Unit=dropbox_sync.service
+Persistent=true
+AccuracySec=5
+
+[Install]
+WantedBy=i3-gaps.target

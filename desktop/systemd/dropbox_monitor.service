@@ -1,0 +1,13 @@
+[Unit]
+Description=Monitor any changes in 'notes' directory and sync to dropbox
+After=i3-gaps.target
+
+
+[Service]
+Type=simple
+ExecStart=/bin/bash -c "fswatch --event MovedTo --event MovedFrom --event Renamed --event Removed --event Updated --event Created -o -r %h/notes | xargs -i sh -c 'rclone sync %h/notes/ drop:'"
+RemainAfterExit=no
+
+[Install]
+WantedBy=i3-gaps.target
+

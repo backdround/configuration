@@ -12,6 +12,7 @@ sudo pacman -Fy
 sudo pacman --needed --noconfirm -Syu base base-devel git
 
 # Create directory tree
+mkdir ~/notes
 mkdir ~/downloads
 mkdir ~/tmp
 mkdir ~/build
@@ -51,5 +52,7 @@ systemctl --user enable ddterminal.service
 systemctl --user enable compton
 systemctl --user enable ncmpcpp
 systemctl --user enable ranger
+systemctl --user enable dropbox_monitor
+systemctl --user enable dropbox_sync.timer
 sudo systemctl enable lightdm
 sudo systemctl enable tor
