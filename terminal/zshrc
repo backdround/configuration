@@ -164,11 +164,6 @@ bindkey -M vicmd '\el' autosuggest-accept
 HISTORY_SUBSTRING_SEARCH_FUZZY=true
 HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=true
 
-bindkey -M vicmd '^P' history-substring-search-up
-bindkey -M viins '^P' history-substring-search-up
-bindkey -M vicmd '^N' history-substring-search-down
-bindkey -M viins '^N' history-substring-search-down
-
 ################################################################################
 #ALIASES
 #color aliases
@@ -229,17 +224,18 @@ alias tsf='trans :ru'
 alias se='~/.local/bin/spellchecker'
 alias sr='~/.local/bin/spellchecker_ru'
 alias lolclock='while true; do tput clear; date +"%H : %M : %S" | figlet ; sleep 1; done'
+# usage: fswatch-write ./file.txt echo "file was changed"
+fswatch-write() {
+eval "fswatch --event MovedTo --event MovedFrom --event Renamed --event Removed \
+  --event Updated --event Created -o -r $1 | xargs -i sh -c \"${@:2}\""
+}
 
 #ls aliases
-if  command -v colorls > /dev/null ; then
-  alias ls='colorls'
-else
-  alias ls='ls --color'
-fi
-alias l='ls '
-alias ll='ls -l'
-alias la='ls -A'
-alias lla='ls -lA'
+alias ls='ls --color'
+alias l='colorls '
+alias ll='colorls -l'
+alias la='colorls -A'
+alias lla='colorls -lA'
 
 #confirm aliases
 alias rm='rm -i'
