@@ -1,12 +1,12 @@
 [Unit]
-Description=Simple synchronize 'notes' directory to remote dropbox
+Description=Simple synchronize 'drop' directory to remote dropbox
 After=i3-gaps.target
 
 
 [Service]
 Type=oneshot
 Environment=DISPLAY=:0
-ExecStart=/bin/bash -c "rclone sync drop: %h/notes/"
+ExecStart=/bin/bash -c "%h/.local/bin/drop_sync.sh"
 RemainAfterExit=no
 
 [Install]

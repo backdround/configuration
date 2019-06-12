@@ -712,7 +712,9 @@ function! s:ConfigurePlugins()
         \ {'c': '~/configuration/nvim/init.vim'},
         \ {'z': '~/configuration/terminal/zshrc'},
         \ {'i': '~/configuration/desktop/i3/config_template'},
-        \ {'b': '~/configuration/desktop/i3blocks/config_template'}
+        \ {'b': '~/configuration/desktop/i3blocks/config_template'},
+        \ {'di': '~/drop/it'},
+        \ {'dw': '~/drop/work'},
         \ ]
 
   let g:startify_lists = [

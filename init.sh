@@ -12,7 +12,7 @@ sudo pacman -Fy
 sudo pacman --needed --noconfirm -Syu base base-devel git
 
 # Create directory tree
-mkdir ~/notes
+mkdir ~/drop
 mkdir ~/downloads
 mkdir ~/tmp
 mkdir ~/build
