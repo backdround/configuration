@@ -230,12 +230,6 @@ TEST_P(${1}) {
 }$0
 endsnippet
 
-snippet tp "test parameterize" b
-TEST_P(${1}) {
-	${2}
-}$0
-endsnippet
-
 snippet casep "instantiate test case parameterize" b
 INSTANTIATE_TEST_CASE_P(${1:prefix}, ${2:fixture}, ${3:value});$0
 endsnippet
