@@ -67,7 +67,7 @@ font-0 = FantasqueSansMono Nerd Font:size=11;2
 
 modules-left = memory cpu filesystem xkeyboard
 modules-center = i3
-modules-right = pulseaudio eth date powermenu
+modules-right = pulseaudio date powermenu
 
 tray-position = none
 tray-background = #0063ff

@@ -2,13 +2,9 @@
 
 pkill -SIGUSR1 dunst
 file1=$(mktemp --tmpdir i3lock-wrapper-XXXXXXXXXX.png)
-#file2=$(mktemp --tmpdir i3lock-wrapper-XXXXXXXXXX.png)
 
 scrot -z -d0  "$file1"
 convert "$file1" -blur 0x4 "$file1"
-#rm "$file1" # Remove for security
-
-#convert -compose Exclusion -composite -gravity center "$file2" ~/.local/bin/logo.png "$file2" 
 
 convert -spread 4 -swirl 5 -emboss 1  "$file1" "$file1"
 convert -spread 2 -composite -gravity center "$file1" ~/.local/bin/logo.png "$file1" 

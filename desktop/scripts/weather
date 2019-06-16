@@ -7,5 +7,3 @@ read TEMP PRESSURE HUMIDITY SPEED CLOUDS <<<$(echo $DATA)
 
 gdbus call --session --dest org.freedesktop.Notifications --object-path /org/freedesktop/Notifications --method org.freedesktop.Notifications.Notify \
 'weather' 0 0 "Погода" "Температура:\t$TEMP\nДавление:\t$PRESSURE\nВлажность:\t$HUMIDITY\nСкорость ветра:\t$SPEED\nОблачность:\t$CLOUDS" [] {} 15000 > /dev/null
-
-#echo $TEMP $PRESSURE $HUMIDITY $SPEED $CLOUDS

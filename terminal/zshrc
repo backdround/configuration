@@ -132,7 +132,6 @@ antigen bundle colorize
 antigen bundle command-not-found
 antigen bundle extract
 antigen bundle transfer
-#antigen bundle tmux # check this
 
 antigen bundle b4b4r07/enhancd
 antigen bundle djui/alias-tips

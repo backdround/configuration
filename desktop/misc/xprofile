@@ -18,7 +18,6 @@ setxkbmap -model pc105 -layout us,ru -variant altgr-intl, winkey -option termina
 xkbcomp -I$HOME/.config/xkb ~/.config/xkb/keymap/config $DISPLAY -w 0
 xset b off
 
-TOP="#50405a"
-BOT="#0a0a0a"
+COLOR=#6A6379
 
-hsetroot -addd "$TOP" 1 -addd "$BOT" 2 -gradient 1
+hsetroot -solid "$COLOR"

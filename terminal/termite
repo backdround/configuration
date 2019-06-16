@@ -24,7 +24,6 @@ urgent_on_bell = true
 [colors]
 cursor = #7BC992
 cursor_foreground = #000000
-#foreground_bold = #000000
 
 # if unset, will reverse foreground and background
 highlight = #555555
@@ -46,15 +45,5 @@ color13    = #FF92D0
 color6     = #8BE9FD
 color14    = #61afef
 color15    = #ffffff
-
-[hints]
-#foreground = #dcdccc
-#background = #3f3f3f
-#active_foreground = #e68080
-#active_background = #3f3f3f
-#padding = 2
-#border = #3f3f3f
-#border_width = 0.5
-#roundness = 2.0
 
 # vim: ft=dosini cms=#%s
