@@ -1,1 +1,9 @@
-![screenshot-2017-03-06_16-59-20.jpg](https://bitbucket.org/repo/MyEgk9/images/1767084712-screenshot-2017-03-06_16-59-20.jpg)backup
+My own dot repository  
+
+Preview:
+--
+![main preview screen](./images/main_preview.png )
+
+Neovim:
+--
+![neovim screen](./images/vim_preview.png )
