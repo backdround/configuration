@@ -715,6 +715,9 @@ function! s:ConfigurePlugins()
         \ {'b': '~/configuration/desktop/i3blocks/config_template'},
         \ {'di': '~/drop/it'},
         \ {'dw': '~/drop/work'},
+        \ {'dn': '~/drop/investment'},
+        \ {'dm': '~/drop/home'},
+        \ {'dh': '~/drop/health'},
         \ ]
 
   let g:startify_lists = [
