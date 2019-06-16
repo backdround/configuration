@@ -1,11 +1,23 @@
 [user]
   name = Vlad Chepaykyn
   email = backdround@yandex.ru
+
 [core]
   excludesfile = /home/vlad/.gitignore_global
+	pager = diff-so-fancy | less --tabs=4 -RFX
+
 [alias]
   st = status
   ch = checkout
   br = branch
   cm = commit
   logb = log --oneline --graph --all
+
+[diff-so-fancy]
+	markEmptyLines = false
+
+[color "diff"]
+	meta = yellow
+	frag = magenta bold
+	whitespace = red reverse
+  commit = magenta
