@@ -190,7 +190,8 @@ alias f='fd -IH'
 alias g='glances -0 -1 --disable-bg --fs-free-space'
 alias hdi='howdoi'
 alias gir='h $(git rev-parse --show-toplevel)'
-alias psc='pass show --clip'
+alias -g .ps='$(fd ".*gpg" ~/.password-store/ | sed "s$.*\.password-store/\(.*\)\.gpg$\1$" | fzf --preview="pass show {}")'
+alias psc='pass show --clip .ps'
 
 gr() { eval "grep -r \"$*\" ./" }
 sp() { eval "sudo pacman -$*" }
