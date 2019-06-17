@@ -199,7 +199,7 @@ function! s:BasicSettings()
   nnoremap <silent> <leader>h :call LoadWindow()<CR>
 
   "tab managment
-  nnoremap <silent> <leader>tn :tabnew<CR>
+  nnoremap <silent> <leader>tn :tabnew +Startify<CR>
   nnoremap <silent> <leader>tq :tabclose<CR>
   nnoremap <silent> <leader>tf :tabfirst<CR>
   nnoremap <silent> <leader>tl :tablast<CR>
@@ -266,6 +266,12 @@ function! s:BasicSettings()
   augroup LeaveInsertLanguage
     autocmd!
     autocmd InsertLeave * set iminsert=0
+  augroup END
+
+  " setup default toc (gO) height
+  augroup SetupDefaultTocHeight
+    autocmd!
+    autocmd FileType qf :res 15<CR>
   augroup END
 
 

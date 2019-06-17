@@ -399,6 +399,7 @@ config.bind('<Alt-k>', 'jseval -q var video = document.querySelectorAll(\'video\
 config.bind('<Alt-i>', 'jseval -q document.querySelectorAll(\'video\') [0].playbackRate = 1;')
 config.bind('<Alt-u>', 'jseval -q document.querySelectorAll(\'video\') [0].playbackRate -= 0.1;')
 config.bind('<Alt-o>', 'jseval -q document.querySelectorAll(\'video\') [0].playbackRate += 0.1;')
+config.bind('<Alt-a>', 'jseval -q document.querySelectorAll(\'video\') [0].playbackRate = 10;')
 config.bind('<Alt-s>', 'jseval -q document.querySelectorAll(\'video\') [0].currentTime = 0;')
 config.bind('<Alt-p>', 'jseval -q var video = document.querySelectorAll(\'video\') [0]; if (video.loop) { video.loop = 0;} else {video.loop = 1;}')
 

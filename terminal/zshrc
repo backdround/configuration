@@ -49,6 +49,8 @@ bindkey -v '^y' vi-yank-x-line
 
 #key fixes
 bindkey -M viins '^?' backward-delete-char
+bindkey -M viins '^P' up-line-or-search
+bindkey -M viins '^N' down-line-or-search
 
 #ranger
 bindkey -M vicmd -s '\em' '^[ddiranger\n'
