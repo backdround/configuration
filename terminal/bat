@@ -1,0 +1,6 @@
+# Set the theme to "TwoDark"
+--theme="TwoDark"
+
+--pager="less -FR"
+
+--map-syntax h:cpp

@@ -53,6 +53,7 @@ if __name__ == '__main__':
     # terminal
     terminal_pairs = (
         ["inputrc",            ".inputrc"],
+        ["bat",                ".config/bat/config"],
         ["tmux",               ".tmux.conf"],
         ["zshrc",              ".zshrc"],
         ["zaw-bookmarks",      ".zaw-bookmarks"],
