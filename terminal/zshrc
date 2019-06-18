@@ -59,8 +59,8 @@ bindkey -M viins -s '\em' '^[ddiranger\n'
 ################################################################################
 #ENV VARIABLES
 export PATH=~/.local/bin/:$PATH
-export EDITOR="nvim -u ~/.config/nvim/init_for_editing.vim"
-PAGER="nvim -u ~/.config/nvim/init_for_editing.vim -R"
+export EDITOR="nvim --cmd 'let g:editor = 1'"
+PAGER="nvim --cmd 'let g:editor = 1' -R"
 export MANPAGER="nvim -c 'set ft=man' -"
 
 #pass store

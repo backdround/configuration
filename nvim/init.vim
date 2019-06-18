@@ -20,55 +20,21 @@ function! s:LoadPlugins()
 
   " --------------------------------------------------------------------------
   " UI ENCHANTMENTS
-  Plug 'rafi/awesome-vim-colorschemes'   " COLORSCHEMES
-  Plug 'ap/vim-css-color'                " CSS HIGHLIGHTE
-  Plug 'sheerun/vim-polyglot'            " POLYGLOT
-  Plug 'ryanoasis/vim-devicons'          " DEVICONS
+  Plug 'rafi/awesome-vim-colorschemes' " COLORSCHEMES
+  Plug 'ap/vim-css-color'              " CSS HIGHLIGHTE
+  Plug 'sheerun/vim-polyglot'          " POLYGLOT
+  Plug 'ryanoasis/vim-devicons'        " DEVICONS
 
-  Plug 'vim-airline/vim-airline'         " AIRLINE
+  Plug 'vim-airline/vim-airline'       " AIRLINE
   Plug 'vim-airline/vim-airline-themes'
 
   " --------------------------------------------------------------------------
-  " FEATURES
-  Plug 'Chiel92/vim-autoformat'         " AUTOFORMAT
-  Plug 'fasterbru/ctrlsf.vim'           " CTRLSF
-  Plug 'ludovicchabant/vim-gutentags'   " GUTENTAGS
-  Plug 'xolox/vim-notes'                " NOTES
-  Plug 'airblade/vim-rooter'            " ROOTER
-  Plug 'markonm/traces.vim'             " TRACES
-  Plug 'tpope/vim-repeat'               " REPEAT
-  Plug 'junegunn/limelight.vim'         " LIMELIGHT
-  Plug 'junegunn/vim-peekaboo'          " PEEKABOO
-  Plug 'troydm/zoomwintab.vim'          " ZOOM WIN TAB
-  Plug 'machakann/vim-highlightedyank'  " HIGHLIGHTED YANK
-  Plug 'tyru/open-browser.vim'          " OPEN BROWSER
-  Plug 'kshenoy/vim-signature'          " SIGNATURE
-  Plug 'Valloric/ListToggle'            " LIST TOGGLE
-
-  Plug 'SirVer/ultisnips'               " SNIPPETS
-  Plug 'honza/vim-snippets'
-
-  Plug 'vim-scripts/DoxygenToolkit.vim' " DOXYGEN
-
-  Plug '/usr/share/vim/vimfiles'        " FZF (INSTALLED BY PACMAN)
-  Plug 'junegunn/fzf.vim'
-
-  Plug 'xolox/vim-misc'                 " SESSION
-  Plug 'xolox/vim-session'
-
-                                        " COMPLETE
-  Plug 'neoclide/coc.nvim', {'do': 'yes \| ./install.sh nightly'}
-
-  Plug 'mhinz/vim-signify'              " GIT
-  Plug 'tpope/vim-fugitive'
-
-  " --------------------------------------------------------------------------
   " WINDOW-BASED FEATURES
-  Plug 'mhinz/vim-startify'          " STARTIFY
-  Plug 'majutsushi/tagbar'           " TAG BAR
-  Plug 'mbbill/undotree'             " UNDOTREE
+  Plug 'mhinz/vim-startify'            " STARTIFY
+  Plug 'majutsushi/tagbar'             " TAG BAR
+  Plug 'mbbill/undotree'               " UNDOTREE
 
-  Plug 'scrooloose/nerdtree'         " NERDTREE
+  Plug 'scrooloose/nerdtree'           " NERDTREE
   Plug 'Xuyuanp/nerdtree-git-plugin'
 
   " --------------------------------------------------------------------------
@@ -80,23 +46,59 @@ function! s:LoadPlugins()
 
   " --------------------------------------------------------------------------
   " EDITORS
-  Plug 'scrooloose/nerdcommenter'     " NERDCOMMENTER
-  Plug 'junegunn/vim-easy-align'      " EASY-ALIGN
-  Plug 'tpope/vim-surround'           " SURROUND
-  Plug 'jiangmiao/auto-pairs'         " AUTO-PAIRS
-  Plug 'terryma/vim-multiple-cursors' " MULTIPLE-CURSORS
-  Plug 'AndrewRadev/sideways.vim'     " SIDEWAYS
-  Plug 'tommcdo/vim-exchange'         " EXCHANGE
-  Plug 'kana/vim-niceblock'           " NICEBLOCK
-  Plug 'matze/vim-move'               " MOVE
-  Plug 'AndrewRadev/splitjoin.vim'    " SPLITJOIN
+  Plug 'scrooloose/nerdcommenter'      " NERDCOMMENTER
+  Plug 'junegunn/vim-easy-align'       " EASY-ALIGN
+  Plug 'tpope/vim-surround'            " SURROUND
+  Plug 'jiangmiao/auto-pairs'          " AUTO-PAIRS
+  Plug 'terryma/vim-multiple-cursors'  " MULTIPLE-CURSORS
+  Plug 'AndrewRadev/sideways.vim'      " SIDEWAYS
+  Plug 'tommcdo/vim-exchange'          " EXCHANGE
+  Plug 'kana/vim-niceblock'            " NICEBLOCK
+  Plug 'matze/vim-move'                " MOVE
+  Plug 'AndrewRadev/splitjoin.vim'     " SPLITJOIN
 
   " --------------------------------------------------------------------------
-  "TEXT OBJECT
-  Plug 'gcmt/wildfire.vim'       " WILDFIRE
-  Plug 'wellle/targets.vim'      " TARGETS
-  Plug 'kana/vim-textobj-user'   " TEXTOBJ USER
-  Plug 'kana/vim-textobj-indent' " TEXTOBJ INDENT
+  " TEXT OBJECT
+  Plug 'gcmt/wildfire.vim'             " WILDFIRE
+  Plug 'wellle/targets.vim'            " TARGETS
+  Plug 'kana/vim-textobj-user'         " TEXTOBJ USER
+  Plug 'kana/vim-textobj-indent'       " TEXTOBJ INDENT
+
+  " --------------------------------------------------------------------------
+  " FEATURES
+  if !exists("g:editor")
+    Plug 'Chiel92/vim-autoformat'         " AUTOFORMAT
+    Plug 'fasterbru/ctrlsf.vim'           " CTRLSF
+    Plug 'ludovicchabant/vim-gutentags'   " GUTENTAGS
+    Plug 'xolox/vim-notes'                " NOTES
+    Plug 'airblade/vim-rooter'            " ROOTER
+    Plug 'markonm/traces.vim'             " TRACES
+    Plug 'tpope/vim-repeat'               " REPEAT
+    Plug 'junegunn/limelight.vim'         " LIMELIGHT
+    Plug 'junegunn/vim-peekaboo'          " PEEKABOO
+    Plug 'troydm/zoomwintab.vim'          " ZOOM WIN TAB
+    Plug 'machakann/vim-highlightedyank'  " HIGHLIGHTED YANK
+    Plug 'tyru/open-browser.vim'          " OPEN BROWSER
+    Plug 'kshenoy/vim-signature'          " SIGNATURE
+    Plug 'Valloric/ListToggle'            " LIST TOGGLE
+
+    Plug 'SirVer/ultisnips'               " SNIPPETS
+    Plug 'honza/vim-snippets'
+
+    Plug 'vim-scripts/DoxygenToolkit.vim' " DOXYGEN
+
+    Plug '/usr/share/vim/vimfiles'        " FZF (INSTALLED BY PACMAN)
+    Plug 'junegunn/fzf.vim'
+
+    Plug 'xolox/vim-misc'                 " SESSION
+    Plug 'xolox/vim-session'
+
+                                          " COMPLETE
+    Plug 'neoclide/coc.nvim', {'do': 'yes \| ./install.sh nightly'}
+
+    Plug 'mhinz/vim-signify'              " GIT
+    Plug 'tpope/vim-fugitive'
+  endif
 
   "INTERESTED
   "https://github.com/Shougo/defx.nvim
@@ -167,6 +169,10 @@ function! s:BasicSettings()
   set noequalalways
   set sessionoptions-=buffers
   set completeopt-=preview
+
+  if exists("g:editor")
+    set nobackup
+  endif
   " }}}
 
   " --------------------------------------------------------------------------
@@ -232,6 +238,9 @@ function! s:BasicSettings()
   nnoremap _ <esc>:w<CR>
   nnoremap <leader>k :tab Man<CR>
 
+  if exists("g:editor")
+    nnoremap z ZZ
+  endif
   " }}}
 
   " --------------------------------------------------------------------------
@@ -351,9 +360,9 @@ endfunction
 " ============================================================================
 
 " ============================================================================
-" Configure Plugins {{{
+" Common Plugins Configuration {{{
 
-function! s:ConfigurePlugins()
+function! s:ConfigureCommonPlugins()
 
   " **************************************************************************
   " UI ENCHANTMENTS
@@ -368,7 +377,10 @@ function! s:ConfigurePlugins()
   " --------------------------------------------------------------------------
   " airline
   let g:airline#extensions#disable_rtp_load = 1
-  let g:airline_extensions = ['tabline', 'branch', 'ycm', 'quickfix', 'tagbar', 'gutentags', 'undotree']
+  let g:airline_extensions = ['tabline', 'branch', 'quickfix', 'tagbar', 'gutentags', 'undotree']
+  if exists("g:editor")
+    let g:airline_extensions = []
+  endif
 
   let g:airline_highlighting_cache = 1
   let g:airline_inactive_collapse = 0
@@ -398,8 +410,243 @@ function! s:ConfigurePlugins()
 
 
   " **************************************************************************
-  " FEATURES
+  " WINDOW-BASED FEATURES
 
+  " --------------------------------------------------------------------------
+  " startify
+  let g:startify_change_to_dir = 0
+  let g:startify_change_to_vcs_root = 0
+  let g:startify_update_oldfiles = 1
+  let g:startify_fortune_use_unicode = 1
+  let g:startify_padding_left = 8
+  let g:startify_files_number = 5
+
+  let g:startify_bookmarks = [
+        \ {'c': '~/configuration/nvim/init.vim'},
+        \ {'z': '~/configuration/terminal/zshrc'},
+        \ {'i': '~/configuration/desktop/i3/config_template'},
+        \ {'b': '~/configuration/desktop/i3blocks/config_template'},
+        \ {'di': '~/drop/it'},
+        \ {'dw': '~/drop/work'},
+        \ {'dn': '~/drop/investment'},
+        \ {'dm': '~/drop/home'},
+        \ {'dh': '~/drop/health'},
+        \ ]
+
+  let g:startify_lists = [
+        \ { 'type':'sessions',  'header': ['Sessions']                                 },
+        \ { 'type':'bookmarks', 'header': ['Bookmarks']                                },
+        \ { 'type':'files',     'header': ['MRU'], 'indices': ['A', 'S', 'D', 'F','G'] },
+        \ ]
+
+  let g:startify_session_before_save = [
+        \ 'silent! NERDTreeClose',
+        \ 'silent! TagbarClose'
+        \ ]
+
+  let g:startify_session_dir = '~/.local/share/nvim/sessions/'
+  let g:startify_session_persistence = 1
+  let g:startify_session_sort = 1
+
+  " --------------------------------------------------------------------------
+  " tagbar
+  let g:tagbar_width = 30
+  let g:tagbar_zoomwidth = 100
+  let g:tagbar_hide_nonpublic = 1
+  let g:tagbar_silent = 1
+  let g:tagbar_map_showproto = "t" "remap showproto from <Space> to t
+  let g:tagbar_autoshowtag = 1
+  let g:tagbar_autofocus = 0
+  nnoremap <silent> <F2> :TagbarToggle<CR>
+  nnoremap <silent> <F14> :call SwitchWindowTo("__Tagbar__.*")<CR>
+
+  " --------------------------------------------------------------------------
+  " undotree
+  nnoremap <silent> <F4> :UndotreeToggle<CR>
+  nnoremap <silent> <F16> :call SwitchWindowTo("undotree_*")<CR>
+  let g:undotree_CustomUndotreeCmd  = 'topleft vertical 30 new'
+  let g:undotree_CustomDiffpanelCmd = 'botright 7 new'
+  let g:undotree_RelativeTimestamp = 1
+  let g:undotree_ShortIndicators = 1
+  let g:undotree_HelpLine = 0
+
+  " --------------------------------------------------------------------------
+  " nerdtree
+  let g:NERDTreeStatusline = 'Nerdtree'
+  let g:NERDTreeMapOpenSplit = 's'
+  let g:NERDTreeMapPreviewSplit = 'gs'
+  let g:NERDTreeMapOpenVSplit = 'v'
+  let g:NERDTreeMapPreviewVSplit = 'gv'
+  let g:NERDTreeMapMenu = 'a'
+  let g:NERDTreeWinSize = '29'
+
+  nnoremap <silent> <F3> :call NerdtreeToggle()<CR>
+  nnoremap <silent> <F15> :call SwitchWindowTo("NERD_tree_*")<CR>
+  nnoremap <silent> <leader>no :call NerdtreeToggle()<CR>
+  nnoremap <silent> <leader>nt :call SwitchWindowTo("NERD_tree_*")<CR>
+  nnoremap <silent> <leader>nr :NERDTreeRefreshRoot<CR>
+  nnoremap <silent> <leader>nf :NERDTreeFind<CR>
+  nnoremap <silent> <leader>nw :NERDTreeCWD<CR>
+
+  "my theme fix
+  augroup SetHighlightFunctionGroup
+    autocmd ColorScheme * highlight link NERDTreeDir Directory
+  augroup END
+
+
+  " **************************************************************************
+  " MOTIONS
+
+  " --------------------------------------------------------------------------
+  " easymotion
+  let g:EasyMotion_do_mapping = 0
+  let g:EasyMotion_smartcase = 1
+  let g:EasyMotion_use_smartsign_us = 1
+  let g:EasyMotion_use_upper = 1
+  let g:EasyMotion_keys = 'ASDGHKLQWERTYUIOPZXCVBNMFJ;'
+  let g:EasyMotion_space_jump_first = 1
+
+  map q <Plug>(easymotion-lineanywhere)
+
+  nmap ss <Plug>(easymotion-overwin-f2)
+  omap ss <Plug>(easymotion-s2)
+  xmap ss <Plug>(easymotion-s2)
+  map \ <Plug>(easymotion-sn)
+  map sf <Plug>(easymotion-f)
+  map sF <Plug>(easymotion-F)
+  map st <Plug>(easymotion-t)
+  map sT <Plug>(easymotion-T)
+  map sw <Plug>(easymotion-w)
+  map sW <Plug>(easymotion-W)
+  map sb <Plug>(easymotion-b)
+  map sB <Plug>(easymotion-B)
+  map se <Plug>(easymotion-e)
+  map sE <Plug>(easymotion-E)
+  map sg <Plug>(easymotion-ge)
+  map sG <Plug>(easymotion-gE)
+
+  map sj <Plug>(easymotion-j)
+  map sk <Plug>(easymotion-k)
+  map sJ <Plug>(easymotion-eol-j)
+  map sK <Plug>(easymotion-eol-k)
+  nmap sl <Plug>(easymotion-overwin-line)
+  omap sl <Plug>(easymotion-bd-jk)
+  xmap sl <Plug>(easymotion-bd-jk)
+  nmap so <Plug>(easymotion-overwin-w)
+  omap so <Plug>(easymotion-bd-w)
+  xmap so <Plug>(easymotion-bd-w)
+  nmap S <Plug>(easymotion-overwin-f)
+  omap sO <Plug>(easymotion-bd-f)
+  xmap sO <Plug>(easymotion-bd-f)
+  map sn <Plug>(easymotion-next)
+  map sp <Plug>(easymotion-prev)
+  map s/ <Plug>(easymotion-bd-n)
+  map sr <Plug>(easymotion-repeat)
+
+  " --------------------------------------------------------------------------
+  " comfortable-motion
+  let g:comfortable_motion_no_default_key_mappings = 1
+  let g:comfortable_motion_interval = 1000.0 / 60
+
+  let g:comfortable_motion_friction = 80.0
+  let g:comfortable_motion_air_drag = 6.5
+
+  let g:cm_impulse = 4
+
+  nnoremap <silent> <C-e> :call comfortable_motion#flick(g:cm_impulse * winheight(0) *  0.3 )<CR>
+  nnoremap <silent> <C-y> :call comfortable_motion#flick(g:cm_impulse * winheight(0) * -0.3 )<CR>
+  nnoremap <silent> <C-d> :call comfortable_motion#flick(g:cm_impulse * winheight(0) *    1 )<CR>
+  nnoremap <silent> <C-u> :call comfortable_motion#flick(g:cm_impulse * winheight(0) *   -1 )<CR>
+  nnoremap <silent> <C-f> :call comfortable_motion#flick(g:cm_impulse * winheight(0) *  1.8 )<CR>
+  nnoremap <silent> <C-b> :call comfortable_motion#flick(g:cm_impulse * winheight(0) * -1.8 )<CR>
+
+  " --------------------------------------------------------------------------
+  " wordmotion
+  let g:wordmotion_mappings = {
+        \ 'w'         :'mw',
+        \ 'b'         :'mb',
+        \ 'e'         :'me',
+        \ 'ge'        :'mge',
+        \ 'aw'        :'amw',
+        \ 'iw'        :'imw',
+        \ '<C-R><C-W>':'<C-R><C-W>'
+        \ }
+
+  " **************************************************************************
+  " EDITORS
+
+  " --------------------------------------------------------------------------
+  " nerdcommenter
+  let g:NERDRemoveExtraSpaces = 1
+  let g:NERDTrimTrailingWhitespace = 1
+  let g:NERDCompactSexyComs = 1
+  let g:NERDToggleCheckAllLines = 1
+
+  " --------------------------------------------------------------------------
+  " easy-align
+  nmap ga <Plug>(EasyAlign)
+  xmap ga <Plug>(EasyAlign)
+
+  nmap gl <Plug>(LiveEasyAlign)
+  xmap n <Plug>(LiveEasyAlign)
+
+  " --------------------------------------------------------------------------
+  " auto-pairs
+  let g:AutoPairsShortcutJump = '<M-q>'
+
+  " --------------------------------------------------------------------------
+  " sideways
+  let b:sideways_skip_syntax = []
+  nnoremap <silent> <Leader>, :SidewaysLeft<cr>
+  nnoremap <silent> <Leader>. :SidewaysRight<cr>
+
+  omap aa <Plug>SidewaysArgumentTextobjA
+  xmap aa <Plug>SidewaysArgumentTextobjA
+  omap ia <Plug>SidewaysArgumentTextobjI
+  xmap ia <Plug>SidewaysArgumentTextobjI
+
+  " --------------------------------------------------------------------------
+  " exchange
+  let g:exchange_no_mappings = 1
+  xmap x <Plug>(Exchange)
+  nmap cx <Plug>(Exchange)
+  nmap cxc <Plug>(ExchangeClear)
+  nmap cxl <Plug>(ExchangeLine)
+
+  " --------------------------------------------------------------------------
+  " niceblock
+  let g:niceblock_no_default_key_mappings = 1
+  xmap gI <Plug>(niceblock-I)
+  xmap gi <Plug>(niceblock-gI)
+  xmap gA <Plug>(niceblock-A)
+
+  " --------------------------------------------------------------------------
+  " splitjoin
+  let g:splitjoin_join_mapping = 'gj'
+  let g:splitjoin_split_mapping = 'gk'
+
+
+  " **************************************************************************
+  "TEXT OBJECT
+
+  " wildfire
+  let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "ip", "it", "i>"]
+
+  " textobj indent
+  let g:textobj_indent_no_default_key_mappings = 1
+  xmap gn <Plug>(textobj-indent-i)
+  xmap gN <Plug>(textobj-indent-a)
+  xmap gc <Plug>(textobj-indent-same-i)
+  xmap gC <Plug>(textobj-indent-same-a)
+
+endfunction
+" }}}
+" ============================================================================
+
+" ============================================================================
+" Feature Plugins Configuration {{{
+
+function! s:ConfigureFeaturePlugins()
   " --------------------------------------------------------------------------
   " terminal
 
@@ -700,240 +947,8 @@ function! s:ConfigurePlugins()
     autocmd CursorHoldI * SignifyRefresh
     autocmd FocusGained * SignifyRefresh
   augroup END
-
-
-  " **************************************************************************
-  " WINDOW-BASED FEATURES
-
-  " --------------------------------------------------------------------------
-  " startify
-  let g:startify_change_to_dir = 0
-  let g:startify_change_to_vcs_root = 0
-  let g:startify_update_oldfiles = 1
-  let g:startify_fortune_use_unicode = 1
-  let g:startify_padding_left = 8
-  let g:startify_files_number = 5
-
-  let g:startify_bookmarks = [
-        \ {'c': '~/configuration/nvim/init.vim'},
-        \ {'z': '~/configuration/terminal/zshrc'},
-        \ {'i': '~/configuration/desktop/i3/config_template'},
-        \ {'b': '~/configuration/desktop/i3blocks/config_template'},
-        \ {'di': '~/drop/it'},
-        \ {'dw': '~/drop/work'},
-        \ {'dn': '~/drop/investment'},
-        \ {'dm': '~/drop/home'},
-        \ {'dh': '~/drop/health'},
-        \ ]
-
-  let g:startify_lists = [
-        \ { 'type':'sessions',  'header': ['Sessions']                                 },
-        \ { 'type':'bookmarks', 'header': ['Bookmarks']                                },
-        \ { 'type':'files',     'header': ['MRU'], 'indices': ['A', 'S', 'D', 'F','G'] },
-        \ ]
-
-  let g:startify_session_before_save = [
-        \ 'silent! NERDTreeClose',
-        \ 'silent! TagbarClose'
-        \ ]
-
-  let g:startify_session_dir = '~/.local/share/nvim/sessions/'
-  let g:startify_session_persistence = 1
-  let g:startify_session_sort = 1
-
-  " --------------------------------------------------------------------------
-  " tagbar
-  let g:tagbar_width = 30
-  let g:tagbar_zoomwidth = 100
-  let g:tagbar_hide_nonpublic = 1
-  let g:tagbar_silent = 1
-  let g:tagbar_map_showproto = "t" "remap showproto from <Space> to t
-  let g:tagbar_autoshowtag = 1
-  let g:tagbar_autofocus = 0
-  nnoremap <silent> <F2> :TagbarToggle<CR>
-  nnoremap <silent> <F14> :call SwitchWindowTo("__Tagbar__.*")<CR>
-
-  " --------------------------------------------------------------------------
-  " undotree
-  nnoremap <silent> <F4> :UndotreeToggle<CR>
-  nnoremap <silent> <F16> :call SwitchWindowTo("undotree_*")<CR>
-  let g:undotree_CustomUndotreeCmd  = 'topleft vertical 30 new'
-  let g:undotree_CustomDiffpanelCmd = 'botright 7 new'
-  let g:undotree_RelativeTimestamp = 1
-  let g:undotree_ShortIndicators = 1
-  let g:undotree_HelpLine = 0
-
-  " --------------------------------------------------------------------------
-  " nerdtree
-  let g:NERDTreeStatusline = 'Nerdtree'
-  let g:NERDTreeMapOpenSplit = 's'
-  let g:NERDTreeMapPreviewSplit = 'gs'
-  let g:NERDTreeMapOpenVSplit = 'v'
-  let g:NERDTreeMapPreviewVSplit = 'gv'
-  let g:NERDTreeMapMenu = 'a'
-  let g:NERDTreeWinSize = '29'
-
-  nnoremap <silent> <F3> :call NerdtreeToggle()<CR>
-  nnoremap <silent> <F15> :call SwitchWindowTo("NERD_tree_*")<CR>
-  nnoremap <silent> <leader>no :call NerdtreeToggle()<CR>
-  nnoremap <silent> <leader>nt :call SwitchWindowTo("NERD_tree_*")<CR>
-  nnoremap <silent> <leader>nr :NERDTreeRefreshRoot<CR>
-  nnoremap <silent> <leader>nf :NERDTreeFind<CR>
-  nnoremap <silent> <leader>nw :NERDTreeCWD<CR>
-
-  "my theme fix
-  augroup SetHighlightFunctionGroup
-    autocmd ColorScheme * highlight link NERDTreeDir Directory
-  augroup END
-
-
-  " **************************************************************************
-  " MOTIONS
-
-  " --------------------------------------------------------------------------
-  " easymotion
-  let g:EasyMotion_do_mapping = 0
-  let g:EasyMotion_smartcase = 1
-  let g:EasyMotion_use_smartsign_us = 1
-  let g:EasyMotion_use_upper = 1
-  let g:EasyMotion_keys = 'ASDGHKLQWERTYUIOPZXCVBNMFJ;'
-  let g:EasyMotion_space_jump_first = 1
-
-  map q <Plug>(easymotion-lineanywhere)
-
-  nmap ss <Plug>(easymotion-overwin-f2)
-  omap ss <Plug>(easymotion-s2)
-  xmap ss <Plug>(easymotion-s2)
-  map \ <Plug>(easymotion-sn)
-  map sf <Plug>(easymotion-f)
-  map sF <Plug>(easymotion-F)
-  map st <Plug>(easymotion-t)
-  map sT <Plug>(easymotion-T)
-  map sw <Plug>(easymotion-w)
-  map sW <Plug>(easymotion-W)
-  map sb <Plug>(easymotion-b)
-  map sB <Plug>(easymotion-B)
-  map se <Plug>(easymotion-e)
-  map sE <Plug>(easymotion-E)
-  map sg <Plug>(easymotion-ge)
-  map sG <Plug>(easymotion-gE)
-
-  map sj <Plug>(easymotion-j)
-  map sk <Plug>(easymotion-k)
-  map sJ <Plug>(easymotion-eol-j)
-  map sK <Plug>(easymotion-eol-k)
-  nmap sl <Plug>(easymotion-overwin-line)
-  omap sl <Plug>(easymotion-bd-jk)
-  xmap sl <Plug>(easymotion-bd-jk)
-  nmap so <Plug>(easymotion-overwin-w)
-  omap so <Plug>(easymotion-bd-w)
-  xmap so <Plug>(easymotion-bd-w)
-  nmap S <Plug>(easymotion-overwin-f)
-  omap sO <Plug>(easymotion-bd-f)
-  xmap sO <Plug>(easymotion-bd-f)
-  map sn <Plug>(easymotion-next)
-  map sp <Plug>(easymotion-prev)
-  map s/ <Plug>(easymotion-bd-n)
-  map sr <Plug>(easymotion-repeat)
-
-  " --------------------------------------------------------------------------
-  " comfortable-motion
-  let g:comfortable_motion_no_default_key_mappings = 1
-  let g:comfortable_motion_interval = 1000.0 / 60
-
-  let g:comfortable_motion_friction = 80.0
-  let g:comfortable_motion_air_drag = 6.5
-
-  let g:cm_impulse = 4
-
-  nnoremap <silent> <C-e> :call comfortable_motion#flick(g:cm_impulse * winheight(0) *  0.3 )<CR>
-  nnoremap <silent> <C-y> :call comfortable_motion#flick(g:cm_impulse * winheight(0) * -0.3 )<CR>
-  nnoremap <silent> <C-d> :call comfortable_motion#flick(g:cm_impulse * winheight(0) *    1 )<CR>
-  nnoremap <silent> <C-u> :call comfortable_motion#flick(g:cm_impulse * winheight(0) *   -1 )<CR>
-  nnoremap <silent> <C-f> :call comfortable_motion#flick(g:cm_impulse * winheight(0) *  1.8 )<CR>
-  nnoremap <silent> <C-b> :call comfortable_motion#flick(g:cm_impulse * winheight(0) * -1.8 )<CR>
-
-  " --------------------------------------------------------------------------
-  " wordmotion
-  let g:wordmotion_mappings = {
-        \ 'w'         :'mw',
-        \ 'b'         :'mb',
-        \ 'e'         :'me',
-        \ 'ge'        :'mge',
-        \ 'aw'        :'amw',
-        \ 'iw'        :'imw',
-        \ '<C-R><C-W>':'<C-R><C-W>'
-        \ }
-
-  " **************************************************************************
-  " EDITORS
-
-  " --------------------------------------------------------------------------
-  " nerdcommenter
-  let g:NERDRemoveExtraSpaces = 1
-  let g:NERDTrimTrailingWhitespace = 1
-  let g:NERDCompactSexyComs = 1
-  let g:NERDToggleCheckAllLines = 1
-
-  " --------------------------------------------------------------------------
-  " easy-align
-  nmap ga <Plug>(EasyAlign)
-  xmap ga <Plug>(EasyAlign)
-
-  nmap gl <Plug>(LiveEasyAlign)
-  xmap n <Plug>(LiveEasyAlign)
-
-  " --------------------------------------------------------------------------
-  " auto-pairs
-  let g:AutoPairsShortcutJump = '<M-q>'
-
-  " --------------------------------------------------------------------------
-  " sideways
-  let b:sideways_skip_syntax = []
-  nnoremap <silent> <Leader>, :SidewaysLeft<cr>
-  nnoremap <silent> <Leader>. :SidewaysRight<cr>
-
-  omap aa <Plug>SidewaysArgumentTextobjA
-  xmap aa <Plug>SidewaysArgumentTextobjA
-  omap ia <Plug>SidewaysArgumentTextobjI
-  xmap ia <Plug>SidewaysArgumentTextobjI
-
-  " --------------------------------------------------------------------------
-  " exchange
-  let g:exchange_no_mappings = 1
-  xmap x <Plug>(Exchange)
-  nmap cx <Plug>(Exchange)
-  nmap cxc <Plug>(ExchangeClear)
-  nmap cxl <Plug>(ExchangeLine)
-
-  " --------------------------------------------------------------------------
-  " niceblock
-  let g:niceblock_no_default_key_mappings = 1
-  xmap gI <Plug>(niceblock-I)
-  xmap gi <Plug>(niceblock-gI)
-  xmap gA <Plug>(niceblock-A)
-
-  " --------------------------------------------------------------------------
-  " splitjoin
-  let g:splitjoin_join_mapping = 'gj'
-  let g:splitjoin_split_mapping = 'gk'
-
-
-  " **************************************************************************
-  "TEXT OBJECT
-
-  " wildfire
-  let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "ip", "it", "i>"]
-
-  " textobj indent
-  let g:textobj_indent_no_default_key_mappings = 1
-  xmap gn <Plug>(textobj-indent-i)
-  xmap gN <Plug>(textobj-indent-a)
-  xmap gc <Plug>(textobj-indent-same-i)
-  xmap gC <Plug>(textobj-indent-same-a)
-
-  call plug#end()
 endfunction
+
 " }}}
 " ============================================================================
 
@@ -1087,5 +1102,8 @@ endfunction
 
 call s:LoadPlugins()
 call s:BasicSettings()
-call s:ConfigurePlugins()
+call s:ConfigureCommonPlugins()
+if !exists("g:editor")
+  call s:ConfigureFeaturePlugins()
+endif
 call s:ConfigureView()

@@ -123,7 +123,7 @@ c.editor.command = ['termite',
                     '--class',
                     'qute_editor',
                     '-e',
-                    'nvim {file} -u ~/.config/nvim/init_for_editing.vim -c \'normal {line}G{column0}l\'']
+                    'nvim {file} --cmd \'let g:editor = 1\' -c \'normal {line}G{column0}l\'']
 
 both_hands_chars = 'asdghklqwertyuiopzxcvbnmfj;'
 left_hand_chars = 'asdgqwertzxcv'
