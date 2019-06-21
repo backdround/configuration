@@ -1,4 +1,35 @@
 {
+  // suggest
+  "suggest.maxPreviewWidth": 80,
+  "suggest.enablePreview": false,
+  "suggest.snippetIndicator": "⚡",
+
+  // diagnostic
+  "diagnostic.infoSign":    "ღ",
+  "diagnostic.hintSign":    "ஐ",
+  "diagnostic.warningSign": "⚠",
+  "diagnostic.errorSign":   "✖",
+  "diagnostic.level": "information",
+  "diagnostic.virtualText": true,
+  "diagnostic.enableMessage": "never",
+
+  // signature
+  "signature.enable": true,
+  "signature.target": "float",
+  "signature.maxWindowHeight": 10,
+
+  // list
+  "list.maxHeight": 15,
+  "list.autoResize": false,
+  "list.previewHighlightGroup": "CocHighlightText",
+
+  // preferences
+  "coc.preferences.hoverTarget": "float",
+
+  // plugins
+  "yank.highlight.duration": 200,
+
+  // language servers
   "languageserver": {
     "ccls": {
       "command": "ccls",
@@ -9,6 +40,12 @@
            "directory": ".ccls.cache"
          }
        }
+    },
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
     }
   }
 }

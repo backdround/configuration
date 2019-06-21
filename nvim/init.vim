@@ -7,7 +7,7 @@ function! s:LoadPlugins()
   if !filereadable(expand('~/.local/share/nvim/site/autoload/plug.vim'))
     echom 'Plugin manager: vim-plug has not been installed. Try to install...'
     exec 'silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs '.
-      \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+          \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     echom 'Installing vim-plug complete.'
 
     let l:first_init = 1
@@ -21,7 +21,6 @@ function! s:LoadPlugins()
   " --------------------------------------------------------------------------
   " UI ENCHANTMENTS
   Plug 'rafi/awesome-vim-colorschemes' " COLORSCHEMES
-  Plug 'ap/vim-css-color'              " CSS HIGHLIGHTE
   Plug 'sheerun/vim-polyglot'          " POLYGLOT
   Plug 'ryanoasis/vim-devicons'        " DEVICONS
 
@@ -77,7 +76,6 @@ function! s:LoadPlugins()
     Plug 'junegunn/limelight.vim'         " LIMELIGHT
     Plug 'junegunn/vim-peekaboo'          " PEEKABOO
     Plug 'troydm/zoomwintab.vim'          " ZOOM WIN TAB
-    Plug 'machakann/vim-highlightedyank'  " HIGHLIGHTED YANK
     Plug 'tyru/open-browser.vim'          " OPEN BROWSER
     Plug 'kshenoy/vim-signature'          " SIGNATURE
     Plug 'Valloric/ListToggle'            " LIST TOGGLE
@@ -94,16 +92,11 @@ function! s:LoadPlugins()
     Plug 'xolox/vim-session'
 
                                           " COMPLETE
-    Plug 'neoclide/coc.nvim', {'do': 'yes \| ./install.sh nightly'}
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
     Plug 'mhinz/vim-signify'              " GIT
     Plug 'tpope/vim-fugitive'
   endif
-
-  "INTERESTED
-  "https://github.com/Shougo/defx.nvim
-  "https://github.com/junegunn/gv.vim
-  "https://github.com/liuchengxu/vim-which-key
 
   call plug#end()
 
@@ -125,8 +118,6 @@ function! s:BasicSettings()
   "left column
   set number
   set relativenumber
-  "right column
-  "set colorcolumn=80
   "search
   set incsearch
   set hlsearch
@@ -147,9 +138,11 @@ function! s:BasicSettings()
   set iminsert=0
   set imsearch=0
   "misc
+  set updatetime=50
   set scrolloff=10
   set termencoding=utf8
   set showcmd
+  set cmdheight=2
   set ch=1
   set mouse=a
   set mousehide
@@ -168,7 +161,8 @@ function! s:BasicSettings()
   set notimeout " for leader key etc
   set noequalalways
   set sessionoptions-=buffers
-  set completeopt-=preview
+  set sessionoptions+=globals
+  set completeopt+=preview
 
   if exists("g:editor")
     set nobackup
@@ -206,6 +200,7 @@ function! s:BasicSettings()
 
   "tab managment
   nnoremap <silent> <leader>tn :tabnew +Startify<CR>
+  nnoremap <silent> <leader>t6 :buffer # \| tabnew +buffer #<CR>
   nnoremap <silent> <leader>tq :tabclose<CR>
   nnoremap <silent> <leader>tf :tabfirst<CR>
   nnoremap <silent> <leader>tl :tablast<CR>
@@ -330,8 +325,9 @@ function! s:ConfigureView()
   call s:SetHighlight("WarningMsg",   { 'mode': 'bold', 'bg': '#101010', 'fg': '#ff79c6'})
 
   "Pmenu
-  call s:SetHighlight("Pmenu",        { 'bg': '#103030', 'fg': '7bc992'})
-  call s:SetHighlight("PmenuSel",     { 'bg': 'black', 'fg': '#55ff88'})
+  call s:SetHighlight("Pmenu",        { 'bg': '#41495B', 'fg': '7bc992'})
+  call s:SetHighlight("PmenuSel",     { 'bg': '#4B536C', 'fg': '#55ff88'})
+  call s:SetHighlight("PmenuSbar",     { 'bg': 'black', 'fg': '#55ff88'})
 
   "Diffs
   call s:SetHighlight("DiffAdd",      { 'fg': '#55ff55'})
@@ -339,10 +335,10 @@ function! s:ConfigureView()
   call s:SetHighlight("DiffChange",   { 'fg': '#ff9955'})
 
   "Signs
-  call s:SetHighlight('ErrorSign',       {'mode': 'bold', 'bg': '#101010', 'fg': '#f43753'})
-  call s:SetHighlight('WarningSing',     {'mode': 'bold', 'bg': '#101010', 'fg': '#f4f453'})
-  call s:SetHighlight('InformationSign', {'mode': 'bold', 'bg': '#101010', 'fg': '#67f473'})
-  call s:SetHighlight('HintSing',        {'mode': 'bold', 'bg': '#101010', 'fg': '#f484f4'})
+  call s:SetHighlight('ErrorColor',       {'bg': '#101010', 'fg': '#f43753'})
+  call s:SetHighlight('WarningColor',     {'bg': '#101010', 'fg': '#f4f453'})
+  call s:SetHighlight('InfoColor', {'bg': '#101010', 'fg': '#67f473'})
+  call s:SetHighlight('HintColor',        {'bg': '#101010', 'fg': '#f484f4'})
 
   "Folded
   call s:SetHighlight("Folded",       { 'bg': '#302737'})
@@ -351,8 +347,31 @@ function! s:ConfigureView()
   call s:SetHighlight("ColorColumn",       { 'bg': '#232323'})
   call s:SetHighlight("VertSplit",       { 'bg': '#3E4550'})
 
-  "Directory
-  "call s:SetHighlight("Directory",   { 'fg': '#7bc992'})
+  "Coc highlight
+  call s:SetHighlight("CocHighlightText", { 'bg': '#555555', 'fg': '#ffffff'})
+  call s:SetHighlight("CocHighlightRead", { 'bg': '#555555', 'fg': '#60ff53'})
+  call s:SetHighlight("CocHighlightWrite", { 'bg': '#555555', 'fg': '#f484f4'})
+
+  hi! link CocErrorHighlight   ErrorColor
+  hi! link CocWarningHighlight WarningColor
+  hi! link CocInfoHighlight    InfoColor
+  hi! link CocHintHighlight    HintColor
+
+  hi! link CocErrorSign        ErrorColor
+  hi! link CocWarningSign      WarningColor
+  hi! link CocInfoSign         InfoColor
+  hi! link CocHintSign         HintColor
+
+  call s:SetHighlight("CocErrorLine", {'bg': '#151515'})
+  call s:SetHighlight("CocWarningLine", {'bg': '#151515'})
+  call s:SetHighlight("CocInfoLine", {'bg': '#151515'})
+  call s:SetHighlight("CocHintLine", {'bg': '#151515'})
+  call s:SetHighlight("CocCodeLens", {'fg': '#505050'})
+
+  "doc string / doc msg / signature
+  call s:SetHighlight("StatusLine", {'bg': '#383C49', 'fg': '#00fa90'})
+  call s:SetHighlight("CocFloating", {'bg': '#383C49', 'fg': '#00fa90'})
+  call s:SetHighlight("WildMenu", {'bg': '#E8E492', 'fg': '#383C49'})
   " }}}
 
 endfunction
@@ -377,7 +396,7 @@ function! s:ConfigureCommonPlugins()
   " --------------------------------------------------------------------------
   " airline
   let g:airline#extensions#disable_rtp_load = 1
-  let g:airline_extensions = ['tabline', 'branch', 'quickfix', 'tagbar', 'gutentags', 'undotree']
+  let g:airline_extensions = ['tabline', 'branch', 'quickfix', 'tagbar', 'gutentags', 'undotree', 'coc']
   if exists("g:editor")
     let g:airline_extensions = []
   endif
@@ -535,7 +554,7 @@ function! s:ConfigureCommonPlugins()
   nmap so <Plug>(easymotion-overwin-w)
   omap so <Plug>(easymotion-bd-w)
   xmap so <Plug>(easymotion-bd-w)
-  nmap S <Plug>(easymotion-overwin-f)
+  "nmap S <Plug>(easymotion-overwin-f)
   omap sO <Plug>(easymotion-bd-f)
   xmap sO <Plug>(easymotion-bd-f)
   map sn <Plug>(easymotion-next)
@@ -714,7 +733,7 @@ function! s:ConfigureFeaturePlugins()
   " limelight
   let g:limelight_conceal_guifg = '#446666'
   let g:limelight_paragraph_span = 2
-  nnoremap <Leader>fl :Limelight!!<CR>
+  nnoremap <Leader>vl :Limelight!!<CR>
 
   " --------------------------------------------------------------------------
   " peekaboo
@@ -723,10 +742,6 @@ function! s:ConfigureFeaturePlugins()
   " --------------------------------------------------------------------------
   " zoomwintab
   nnoremap <Leader>wo :ZoomWinTabToggle<CR>
-
-  " --------------------------------------------------------------------------
-  " highlightedyank
-  let g:highlightedyank_highlight_duration = 200
 
   " --------------------------------------------------------------------------
   " open-browser
@@ -767,42 +782,6 @@ function! s:ConfigureFeaturePlugins()
     autocmd!
     autocmd BufWritePost *.snippets call UltiSnips#RefreshSnippets()
   augroup END
-
-  xnoremap  <c-j> :call UltiSnips#SaveLastVisualSelection()<CR>gvs
-
-  " temporary workaround(LanguageClient - deoplete - UltiSnips)
-  " check https://github.com/autozimu/LanguageClient-neovim/issues/379
-  function! ExpandLspSnippet()
-    call UltiSnips#ExpandSnippetOrJump()
-    if !pumvisible() || empty(v:completed_item)
-      return ''
-    endif
-
-    " only expand Lsp if UltiSnips#ExpandSnippetOrJump not effect.
-    let l:value = v:completed_item['word']
-    let l:matched = len(l:value)
-    if l:matched <= 0
-      return ''
-    endif
-
-    " remove inserted chars before expand snippet
-    if col('.') == col('$')
-      let l:matched -= 1
-      exec 'normal! ' . l:matched . 'Xx'
-    else
-      exec 'normal! ' . l:matched . 'X'
-    endif
-
-    if col('.') == col('$') - 1
-      " move to $ if at the end of line.
-      call cursor(line('.'), col('$'))
-    endif
-
-    " expand snippet now.
-    call UltiSnips#Anon(l:value)
-    return ''
-  endfunction
-  imap <C-e> <C-R>=ExpandLspSnippet()<CR>
 
   " --------------------------------------------------------------------------
   " Doxygen Toolkit
@@ -916,22 +895,81 @@ function! s:ConfigureFeaturePlugins()
   let g:session_command_aliases = 1
 
   " --------------------------------------------------------------------------
-  " lsp
-  function! SetLSPHotkeys()
-    nnoremap <buffer> <silent> gi <Plug>(coc-diagnostic-info)
-    nnoremap <buffer> <silent> gD <Plug>(coc-declaration)
-    nnoremap <buffer> <silent> gd <Plug>(coc-definition)
-    nnoremap <buffer> <silent> gr <Plug>(coc-references)
-    nnoremap <buffer> <silent> gf <Plug>(coc-fix-current)
-    "nnoremap <buffer> <silent> gs :call LanguageClient#textDocument_documentSymbol()<CR>
-    "nnoremap <buffer> <silent> gn :call LanguageClient#textDocument_rename()<CR>
-    "nnoremap <buffer> <silent> gm :call LanguageClient_contextMenu()<CR>
+  " coc
+  nnoremap <silent> <leader>vc :CocRestart<CR>
+
+  " trigger complete
+  inoremap <silent><expr> <C-n>
+        \ pumvisible() ? "\<C-n>" :
+        \ coc#refresh()
+  inoremap <silent><expr> <C-p>
+        \ pumvisible() ? "\<C-p>" :
+        \ coc#refresh()
+
+  " confirm completion on ctrl-m
+	inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+
+  " remap keys for go to
+  nmap <silent> <leader>ft <Plug>(coc-type-definition)
+  nmap <silent> <leader>fi <Plug>(coc-implementation)
+  nmap <silent> <leader>fD <Plug>(coc-declaration)
+  nmap <silent> <leader>fd <Plug>(coc-definition)
+  nmap <silent> <leader>fr <Plug>(coc-references)
+  nmap <silent> <leader>fn <Plug>(coc-diagnostic-next)
+  nmap <silent> <leader>fp <Plug>(coc-diagnostic-prev)
+  nnoremap <silent> <leader>fs :<C-u>CocList -A outline<cr>
+  " doesn't work properly
+  nmap <silent> <leader>fl <Plug>(coc-openlink)
+
+  " do something
+  nmap <silent> <leader>ff <Plug>(coc-fix-current)
+  nmap <silent> <leader>fF <Plug>(coc-format)
+  xmap <silent> <leader>ff <Plug>(coc-format-selected)
+  xmap <silent> <leader>fg <Plug>(coc-codeaction-selected)
+  nmap <silent> <leader>fg <Plug>(coc-codeaction)
+  nmap <silent> <leader>fR <Plug>(coc-rename)
+
+  " CocLists
+  nnoremap <silent> <leader>fz :<C-u>CocList --normal diagnostics<cr>
+  nnoremap <silent> <leader>fL :<C-u>CocList links<cr>
+  nnoremap <silent> <leader>fs :<C-u>CocList -A outline<cr>
+  nnoremap <silent> <leader>fS :<C-u>CocList symbols<cr>
+
+  " get info
+  nnoremap <silent> S :call CocAction('showSignatureHelp')<CR>
+  nnoremap <silent> K :call <SID>show_documentation()<CR>
+  function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+      execute 'h '.expand('<cword>')
+    else
+      call CocAction('doHover')
+    endif
   endfunction
 
-  augroup LSPHotkeysForFiles
+  " lsp group
+  augroup LSPGroup
     autocmd!
-    autocmd FileType cpp,hpp,c,h call SetLSPHotkeys()
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+    autocmd User CocJumpPlaceholder call
+          \ CocActionAsync('showSignatureHelp')
+    autocmd FileType json syntax match Comment +\/\/.\+$+
   augroup END
+
+  " plugins
+  let g:coc_global_extensions = [
+        \ "coc-json",
+        \ "coc-ultisnips",
+        \ "coc-html",
+        \ "coc-css",
+        \ "coc-yaml",
+        \ "coc-python",
+        \ "coc-highlight",
+        \ "coc-git",
+        \ "coc-yank",
+        \ "coc-vimlsp"
+        \ ]
+  nnoremap <silent> <leader>fy :<C-u>CocList yank<cr>
+  nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
 
   " --------------------------------------------------------------------------
   "signify
