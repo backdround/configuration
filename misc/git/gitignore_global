@@ -3,3 +3,4 @@
 .gdb_history
 .ccls.cache
 compile_commands.json
+doxygen_conf
