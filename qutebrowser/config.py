@@ -119,11 +119,8 @@ c.content.plugins = True
 c.downloads.location.directory = '~/downloads'
 c.downloads.location.prompt = False
 c.downloads.location.suggestion = 'filename'
-c.editor.command = ['termite',
-                    '--class',
-                    'qute_editor',
-                    '-e',
-                    'nvim {file} --cmd \'let g:editor = 1\' -c \'normal {line}G{column0}l\'']
+editor_script = os.path.expanduser('~/.local/bin/qute_editor.sh')
+c.editor.command = [editor_script, '{} -c \'normal {line}G{column0}l\'']
 
 both_hands_chars = 'asdghklqwertyuiopzxcvbnmfj;'
 left_hand_chars = 'asdgqwertzxcv'

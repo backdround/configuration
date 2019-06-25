@@ -1,7 +1,11 @@
 import os
 
+
 def get_color(string):
-    return os.popen("xrdb -query | grep \"{}:\" | cut -f 2| tr -d '\n'".format(string)).read()
+    process = os.popen("xrdb -query | grep \"{}:\" | cut -f 2| tr -d '\n'".format(string))
+    color = process.read()
+    process.close()
+    return color
 
 def set_colors(c):
     palette = {}
