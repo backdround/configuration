@@ -12,5 +12,5 @@ map gt cd ~/tmp/
 
 map xx shell -fs termite
 map xt shell -fs thunar
-map xn shell -fs termite -e "zsh -c 'nvim %s; zsh -i'"
+map xn shell -fs termite -e "zsh -c 'sleep 0.06 && nvim %s; zsh -i'"
 map xd shell -fs dragon-drag-and-drop %p
