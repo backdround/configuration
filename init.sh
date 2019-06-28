@@ -11,15 +11,25 @@ fi
 sudo pacman -Fy
 sudo pacman --needed --noconfirm -Syu base base-devel git
 
-# Create directory tree
+# Create my directory tree
 mkdir ~/drop
-mkdir ~/downloads
 mkdir ~/tmp
 mkdir ~/build
-mkdir ~/screens
 mkdir ~/.nvimbk
 mkdir ~/.password-store
 mkdir -p ~/.tmp/trizen
+
+# create default dirs
+mkdir -p ~/.local/share/applications
+mkdir -p ~/.local/other
+mkdir -p ~/.local/bin
+mkdir ~/downloads
+mkdir ~/templates
+mkdir ~/docs
+mkdir ~/music
+mkdir ~/videos
+mkdir ~/books
+mkdir ~/screens
 
 # Install trizen
 cd ~/tmp/
