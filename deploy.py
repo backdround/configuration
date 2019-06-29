@@ -103,7 +103,6 @@ if __name__ == '__main__':
         ["cava",                     ".config/cava/config"],
         ["gpg",                      ".gnupg/gpgconf.conf"],
         ["mouse_index.theme",        ".icons/default/index.theme"],
-        ["rtorrent",                 ".rtorrent.rc"],
         ["git/gitconfig",            ".gitconfig"],
         ["git/gitignore_global",     ".gitignore_global"],
         ["gtk/gtk.css",              ".config/gtk-3.0/gtk.css"],
@@ -140,7 +139,6 @@ if __name__ == '__main__':
             "ncmpcpp":            ("50 485", "1266 250"),
             "dropdown":           ("5 5",     "1356 440"),
             "ranger":             ("5 5",     "1356 440"),
-            "rtorrent":           ("192 108", "1536 864"),
             "gis_weather":        ("10 10",   ""),
             "qutebrowser_editor": ("65 65",   "540 290"),
         }
@@ -150,7 +148,6 @@ if __name__ == '__main__':
             "ncmpcpp":            ("210 745", "1500 300"),
             "dropdown":           ("5 5",     "1910 532"),
             "ranger":             ("5 5",     "1910 486"),
-            "rtorrent":           ("192 108", "1536 864"),
             "gis_weather":        ("10 10",   ""),
             "qutebrowser_editor": ("65 65",   "675 336"),
         }

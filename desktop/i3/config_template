@@ -289,14 +289,6 @@ for_window [class="ranger-desktop"] move position --position-ranger--
 for_window [class="ranger-desktop"] resize set --size-ranger--
 for_window [class="ranger-desktop"] move scratchpad
 
-#rtorrent
-bindsym $mod+t [class="rtorrent-desktop"] scratchpad show
-for_window [class="rtorrent-desktop"] floating enable
-for_window [class="rtorrent-desktop"] sticky enable
-for_window [class="rtorrent-desktop"] move position --position-rtorrent--
-for_window [class="rtorrent-desktop"] resize set --size-rtorrent--
-for_window [class="rtorrent-desktop"] move scratchpad
-
 #gis weather
 bindsym $mod+w [class="Gis-weather.py"] scratchpad show
 for_window [class="Gis-weather.py"] floating enable

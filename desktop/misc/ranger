@@ -3,10 +3,10 @@ default_linemode devicons
 set draw_borders true
 
 map gd cd ~/downloads
-map gD cd ~/rtorrent/downloads
 map gs cd ~/screens
 map go cd ~/other
 map gC cd ~/.config
+map gl cd ~/.local
 map gp cd ~/build/
 map gt cd ~/tmp/
 
