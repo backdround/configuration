@@ -66,6 +66,8 @@ function! s:LoadPlugins()
   " --------------------------------------------------------------------------
   " FEATURES
   if !exists("g:editor")
+                                          " MARKDOWN PREVIEW
+    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
     Plug 'Chiel92/vim-autoformat'         " AUTOFORMAT
     Plug 'fasterbru/ctrlsf.vim'           " CTRLSF
     Plug 'ludovicchabant/vim-gutentags'   " GUTENTAGS
@@ -166,6 +168,7 @@ function! s:BasicSettings()
 
   if exists("g:editor")
     set nobackup
+    set noswapfile
   endif
   " }}}
 
@@ -199,6 +202,7 @@ function! s:BasicSettings()
   nnoremap <silent> <leader>h :call LoadWindow()<CR>
 
   "tab managment
+  nnoremap <silent> <leader>te :tabnew<CR>
   nnoremap <silent> <leader>tn :tabnew +Startify<CR>
   nnoremap <silent> <leader>t6 :buffer # \| tabnew +buffer #<CR>
   nnoremap <silent> <leader>tq :tabclose<CR>
@@ -667,6 +671,10 @@ endfunction
 
 function! s:ConfigureFeaturePlugins()
   " --------------------------------------------------------------------------
+  " markdown preview
+  let g:mkdp_auto_close = 0
+
+  " --------------------------------------------------------------------------
   " terminal
 
   tnoremap <silent> <C-o> <C-\><C-n>
@@ -896,6 +904,7 @@ function! s:ConfigureFeaturePlugins()
   " --------------------------------------------------------------------------
   " coc
   nnoremap <silent> <leader>vc :CocRestart<CR>
+  nnoremap <silent> <leader>vC :CocDisable<CR>
 
   " trigger complete
   inoremap <silent><expr> <C-n>
@@ -916,7 +925,6 @@ function! s:ConfigureFeaturePlugins()
   nmap <silent> <leader>fr <Plug>(coc-references)
   nmap <silent> <leader>fn <Plug>(coc-diagnostic-next)
   nmap <silent> <leader>fp <Plug>(coc-diagnostic-prev)
-  nnoremap <silent> <leader>fs :<C-u>CocList -A outline<cr>
   " doesn't work properly
   nmap <silent> <leader>fl <Plug>(coc-openlink)
 
