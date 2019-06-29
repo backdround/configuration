@@ -1,0 +1,41 @@
+#!/bin/bash
+PROJECT="$1"
+TEMPLATE="${2:-cpp_qmake}"
+TYPE="${3:-cpp}"
+
+# choose project name
+if [ -z "$PROJECT" ]; then
+  echo "Project name is required!"
+  exit 1
+fi
+
+PROJECT_DIRECTORY=$(realpath ~/tmp/$PROJECT)
+if [ -d "$PROJECT_DIRECTORY" ]; then
+  echo "$PROJECT_DIRECTORY - Project directory already exsist!"
+  exit 1
+fi
+
+# choose template project
+TEMPLATE_DIRECTORY=$(realpath ~/templates/$TEMPLATE)
+if [ ! -d "$TEMPLATE_DIRECTORY" ]; then
+  echo "$TEMPLATE_DIRECTORY - Template directory doesn't exsist!"
+  exit 1
+fi
+
+# choose type-specific working file and directory
+case $TYPE in
+  "cpp")
+    FIRST_PANE="$PROJECT_DIRECTORY"
+    SECOND_PANE="$PROJECT_DIRECTORY/build"
+    MAIN_FILE="main.cpp"
+    ;;
+  *)
+    echo "$TYPE - Unknown project type"
+    exit 1
+esac
+
+# create project
+cp -rf "$TEMPLATE_DIRECTORY" "$PROJECT_DIRECTORY"
+
+# open template project
+open_template_project "$FIRST_PANE" "$SECOND_PANE" "$1" "$MAIN_FILE"

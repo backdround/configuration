@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Script allow select template object with preview and open it
+
+# preview functions
+main_files="fd -tf --max-depth=1 '(\.cpp|\.pro|\.py|\.txt|\.md)'"
+preview_function="bat --color=always \$($main_files {})"
+ls_function="ls --color=always -l {}"
+
+# list of template projects
+template_projects=$(fd -td --max-depth 1 . ~/tmp)
+
+# select template project from list
+project=$(echo "$template_projects" | fzf --preview-window=right:65% --preview="$preview_function ; $ls_function")
+
+# get build directory if exist
+build_path=$(fd -td build $project | head -1)
+build_path="${build_path:-$project}"
+
+# get main file
+#main_file=$($main_files | head -1)
+#val=$($main_files $project)
+#echo $val
+
+main_file=$(fd -tf --max-depth=1 '(\.cpp|\.pro|\.py|\.txt|\.md)' $project | head -1)
+
+# open project
+open_template_project "$project" "$build_path" "$(basename $project)" "$main_file"
