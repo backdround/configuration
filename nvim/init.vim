@@ -712,7 +712,6 @@ function! s:ConfigureFeaturePlugins()
 
   " --------------------------------------------------------------------------
   " gutentags
-  let g:gutentags_exclude_project_root = ['/home/vlad']
   let g:gutentags_add_default_project_roots = 0
   let g:gutentags_project_root = ['.git', '.gutMark']
   let g:gutentags_cache_dir = '~/.local/share/nvim/tags'
@@ -769,8 +768,8 @@ function! s:ConfigureFeaturePlugins()
   " ultisnips
   let g:UltiSnipsUsePythonVersion = 3
   let g:UltiSnipsEditSplit = 'normal'
-  let g:UltiSnipsSnippetDirectories = ['/home/vlad/.local/share/nvim/UltiSnips']
-  let g:UltiSnipsSnippetsDir = '/home/vlad/.local/share/nvim/UltiSnips'
+  let g:UltiSnipsSnippetDirectories = [expand("~/").'.local/share/nvim/UltiSnips']
+  "let g:UltiSnipsSnippetDirectories = ['/home/vlad/.local/share/nvim/UltiSnips']
   let g:UltiSnipsEnableSnipMate = 0
 
   let g:UltiSnipsListSnippets = '<M-t>'
