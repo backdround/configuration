@@ -217,3 +217,9 @@ if __name__ == '__main__':
     config_prefix = os.path.join(project_root, "desktop/")
     symlink_prefix = os.path.expanduser("~/")
     utils.create_list_of_symlink(misc_pairs, config_prefix, symlink_prefix, force)
+
+    # --------------------------------------------------------------------------
+    # templates
+    templates_directory = os.path.join(project_root, "templates")
+    symlink_path = os.path.expanduser("~/templates")
+    utils.create_symlink(templates_directory, symlink_path, force)

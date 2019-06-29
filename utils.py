@@ -2,23 +2,28 @@ import os
 import fileinput
 
 
-def create_symlink(file, symlink_file, force = False):
+def _create_symlink(file, symlink_file, force = False):
     # check values
     if not os.path.isabs(file):
         raise ValueError(file," isn't absolute path")
     if not os.path.isabs(symlink_file):
         raise ValueError(symlink_file," isn't absolute path")
-    if not os.path.isfile(file):
+    if not (os.path.isfile(file) or os.path.isdir(file)):
         raise ValueError(file, " is not a file")
 
     # make nested dirs
     destination_dir = os.path.dirname(symlink_file)
     os.makedirs(destination_dir, mode = 0o755, exist_ok = True)
 
-    # remove symlink/file(force) if exist
-    if os.path.isfile(symlink_file):
-        if force or os.path.islink(symlink_file):
+    # remove symlink or file/dir(force) if exist
+    if os.path.isfile(symlink_file) or os.path.isdir(symlink_file):
+        if os.path.islink(symlink_file):
             os.remove(symlink_file)
+        elif force:
+            if os.path.isfile(symlink_file):
+                os.remove(symlink_file)
+            elif os.path.isdir(symlink_file):
+                os.rmdir(symlink_file)
         else:
             print("file {} is exist".format(symlink_file))
             return 0
@@ -31,13 +36,21 @@ def create_list_of_symlink(symlink_pairs, config_prefix, symlink_prefix, force =
     make_absolute_path(symlink_pairs, config_prefix, symlink_prefix)
     ret_val = True
     for config, symlink in symlink_pairs:
-        if create_symlink(config, symlink, force):
+        if _create_symlink(config, symlink, force):
             print("{}: symlink was succesfully created".format(config))
         else:
             print("{}: symlink wasn't created".format(config))
             ret_val = False
 
     return ret_val
+
+def create_symlink(file, symlink, force = False):
+    if _create_symlink(file, symlink, force):
+        print("{}: symlink was succesfully created".format(symlink))
+        return True
+    else:
+        print("{}: symlink wasn't created".format(symlink))
+        return False
 
 def make_absolute_path(pairs, config_prefix, symlink_prefix):
     config_prefix = os.path.abspath(config_prefix)

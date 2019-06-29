@@ -24,7 +24,6 @@ mkdir -p ~/.local/share/applications
 mkdir -p ~/.local/other
 mkdir -p ~/.local/bin
 mkdir ~/downloads
-mkdir ~/templates
 mkdir ~/docs
 mkdir ~/music
 mkdir ~/videos
