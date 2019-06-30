@@ -320,6 +320,27 @@ function! s:ConfigureView()
 
   " --------------------------------------------------------------------------
   " highlight colors {{{
+
+  "Terminal colors
+  let g:terminal_color_0  = "#17121e"
+  let g:terminal_color_1  = "#ff2d5e"
+  let g:terminal_color_2  = "#3fe097"
+  let g:terminal_color_3  = "#fdf2a2"
+  let g:terminal_color_4  = "#BD93F9"
+  let g:terminal_color_5  = "#db0088"
+  let g:terminal_color_6  = "#8BE9FD"
+  let g:terminal_color_7  = "#e4e0ed"
+  let g:terminal_color_8  = "#343439"
+  let g:terminal_color_9  = "#FF6E67"
+  let g:terminal_color_10 = "#00fa90"
+  let g:terminal_color_11 = "#F4F99D"
+  let g:terminal_color_12 = "#CAA9FA"
+  let g:terminal_color_13 = "#FF92D0"
+  let g:terminal_color_14 = "#61afef"
+  let g:terminal_color_15 = "#ffffff"
+  let g:terminal_color_16 = "#222222"
+  let g:terminal_color_17 = "#777777"
+
   "CursorLine
   call s:SetHighlight("CursorLine",   { 'bg': '#232323'})
   call s:SetHighlight("CursorLineNr", { 'mode': 'bold', 'fg': '#7bc992', 'bg': '#191919'})
