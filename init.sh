@@ -54,6 +54,8 @@ gsettings set org.gnome.desktop.default-applications.terminal exec-arg "-x"
 pip install --user neovim
 pip install --user pyLanguagetool
 
+yarn global add browser-sync
+
 # Setup default services
 systemctl --user daemon-reload
 systemctl --user enable telegram.service

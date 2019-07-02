@@ -58,10 +58,11 @@ bindkey -M viins -s '\em' '^[ddiranger\n'
 
 ################################################################################
 #ENV VARIABLES
+export PATH="$(yarn global bin):$PATH"
 export PATH=~/.local/bin/:$PATH
 export EDITOR="editor.sh"
 PAGER="editor.sh -R"
-export MANPAGER="editor.sh -c 'set ft=man' -"
+export MANPAGER="nvim -c 'set ft=man' -"
 
 #pass store
 PASSWORD_STORE_CLIP_TIME=15
