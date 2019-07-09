@@ -2,5 +2,5 @@
 
 DESTDIR="$(dirname "$0")/build"
 cd "$DESTDIR"
-qmake ../main.pro && make && ./main
+qmake ../main.pro && bear make && ./main
 
