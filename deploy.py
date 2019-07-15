@@ -155,8 +155,8 @@ if __name__ == '__main__':
     replaces.extend([("--inner-gaps--", "19")])
 
     if instance == "home":
-        replaces.extend([("--primary--", "DVI-1")])
-        replaces.extend([("--secondary--", "HDMI-0")])
+        replaces.extend([("--primary--", "DVI-D-1")])
+        replaces.extend([("--secondary--", "HDMI-1")])
     elif instance == "work":
         replaces.extend([("--primary--", "DP-1")])
         replaces.extend([("--secondary--", "HDMI-2")])
@@ -196,6 +196,7 @@ if __name__ == '__main__':
 
     # misc
     misc_pairs = [
+        ["misc/pulse",          ".config/pulseaudio-ctl/config"],
         ["misc/user-dirs.dirs", ".config/user-dirs.dirs"],
         ["misc/compton.conf",   ".config/compton.conf"],
         ["misc/trizen.conf",    ".config/trizen/trizen.conf"],
