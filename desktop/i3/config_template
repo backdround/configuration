@@ -303,7 +303,6 @@ for_window [class="mpv"] move position 727 30
 
 #qutebrowser editor
 for_window [class="qute_editor"] floating enable
-for_window [class="qute_editor"] move position --position-qutebrowser_editor--
 for_window [class="qute_editor"] resize set --size-qutebrowser_editor--
 
 #translate

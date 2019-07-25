@@ -139,7 +139,7 @@ if __name__ == '__main__':
             "dropdown":           ("5 5",     "1356 440"),
             "ranger":             ("5 5",     "1356 440"),
             "gis_weather":        ("10 10",   ""),
-            "qutebrowser_editor": ("65 65",   "540 290"),
+            "qutebrowser_editor": ("",        "540 290"),
         }
     else:
         position_size = {
@@ -148,7 +148,7 @@ if __name__ == '__main__':
             "dropdown":           ("5 5",     "1910 532"),
             "ranger":             ("5 5",     "1910 486"),
             "gis_weather":        ("10 10",   ""),
-            "qutebrowser_editor": ("65 65",   "675 336"),
+            "qutebrowser_editor": ("",        "675 336"),
         }
     replaces =      [('--position-{}--'.format(key), val1) for key, (val1, _) in position_size.items()]
     replaces.extend([('--size-{}--'.format(key), val2) for key, (_, val2) in position_size.items()])
