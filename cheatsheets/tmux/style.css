@@ -1,0 +1,31 @@
+:root {
+  --main: #39b099;
+  --element-border: #295366;
+  --prefixless: #4D9D8C;
+}
+
+body {
+  background-color: #131416;
+}
+
+.container {
+  column-gap: 0px;
+}
+
+@media only screen and (min-width: 550px) {
+  .container {
+    column-count: 1;
+  }
+}
+
+@media only screen and (min-width: 1050px) {
+  .container {
+    column-count: 2;
+  }
+}
+
+@media only screen and (min-width: 1650px) {
+  .container {
+    column-count: 3;
+  }
+}

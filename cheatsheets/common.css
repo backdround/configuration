@@ -1,0 +1,101 @@
+header {
+  display: flex;
+  flex: 100%;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #292B2E;
+  color: var(--main);
+  font-size: 3.2em;
+  text-shadow: 4px 5px #000;
+  margin: 10px;
+}
+
+/* block with list */
+ul {
+  display: inline-block;
+  list-style-type: none;
+  font-family: Monospace;
+  color: #fff;
+  background-color: var(--background-alt);
+  border: 2px solid var(--main);
+  margin: 10px;
+  padding: 5px;
+}
+
+ul > li {
+  margin: 7px;
+}
+
+/* block header */
+ul > li:first-child {
+  color: #B3FECA;
+  background-color: #222D3A;
+  text-align: center;
+  font-size: 1.2em;
+
+  margin-top: 1px;
+  margin-bottom: 10px;
+  padding: 7px;
+}
+
+/* hotkeys in block */
+li:nth-child(n+2) {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(70px, 1fr)) 7fr;
+  align-items: center;
+
+  background-color: #1A232D;
+  border: 1px solid var(--element-border);
+  padding: 5px 1px;
+}
+
+li.local-header {
+  display: block;
+  text-align: center;
+  border: none;
+  color: var(--main);
+}
+
+/* without prefix style */
+li.prefix-less {
+  border-color: var(--prefixless);
+}
+
+/* hotkeys */
+li > div:nth-child(-n+2) {
+  text-align:  left;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+/* first hotkey */
+li > div:nth-child(1) {
+  color: var(--main);
+  margin-left: 10px;
+}
+
+/* secont hotkey */
+li > div:nth-child(2) {
+  color: #888;
+}
+
+/* description */
+li > div:nth-child(3) {
+  margin-left: 10px;
+}
+
+/* in-use style */
+li > div.in-use {
+  color: var(--main);
+}
+
+/* reset style */
+li > div.reset {
+  color: #888;
+}
+
+/* overriden style */
+li > div.override {
+  color: #f68;
+}

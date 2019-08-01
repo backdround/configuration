@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title> Tmux cheatsheet! </title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href='../common.css' />
+  </head>
+
+  <body>
+    <header>
+      <div>Tmux cheatsheet!</div>
+    </header>
+    <div class="container">
+      <ul>
+        <li>
+          Main
+        </li>
+
+        <li class="prefix-less">
+          <div>~</div>
+          <div>C-b</div>
+          <div>- Prefix</div>
+        </li>
+
+        <li>
+          <div>s</div>
+          <div>"</div>
+          <div>- Vertical split</div>
+        </li>
+
+        <li>
+          <div>v</div>
+          <div>%</div>
+          <div>- Horizontal split</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">x</div>
+          <div>- Close current pane </div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">c</div>
+          <div>- Create new window</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">&</div>
+          <div>- Close current window </div>
+        </li>
+
+        <li class="prefix-less">
+          <div>M-H</div>
+          <div>left</div>
+          <div>- Move focus left </div>
+        </li>
+
+        <li class="prefix-less">
+          <div>M-L</div>
+          <div>right</div>
+          <div>- Move focus right </div>
+        </li>
+
+        <li class="prefix-less">
+          <div>M-K</div>
+          <div>up</div>
+          <div>- Move focus up </div>
+        </li>
+
+        <li class="prefix-less">
+          <div>M-J</div>
+          <div>down</div>
+          <div>- Move focus down </div>
+        </li>
+      </ul>
+
+
+      <ul>
+        <li>
+          Pane manipulations
+        </li>
+
+        <li>
+          <div>z</div>
+          <div>f</div>
+          <div>- Toggle fullscreen for pane</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">C-o</div>
+          <div>- Rotate panes forward</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">M-o</div>
+          <div>- Rotate panes backward</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">!</div>
+          <div>- Break pane to new window</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">;</div>
+          <div>- Focus previous active pane</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">o</div>
+          <div>- Rotate focus</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">q</div>
+          <div>- Display pane indexes</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">m</div>
+          <div>- Toggle mark pane</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">M</div>
+          <div>- Clear marked pane</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">{</div>
+          <div>- Swap pane with previous</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">}</div>
+          <div>- Swap pane with next</div>
+        </li>
+      </ul>
+
+
+      <ul>
+        <li>
+          Misc
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">:</div>
+          <div>- Enter to command prompt</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">[</div>
+          <div>- Enter to copy mode</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">Page up</div>
+          <div>- Enter copy mode and scroll up one page</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">?</div>
+          <div>- List all key bindings</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">r</div>
+          <div>- Force redraw clients</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">t</div>
+          <div>- Show time</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">~</div>
+          <div>- Show previous messages from tmux</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">C-z</div>
+          <div>- Suspend client</div>
+        </li>
+
+        <li class="local-header">
+          Buffers:
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">#</div>
+          <div>- List all buffers</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">-</div>
+          <div>- Delete most resently copied buffer</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">]</div>
+          <div>- Paste most resently copied buffer</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">=</div>
+          <div>- Interactively select paste buffer</div>
+        </li>
+      </ul>
+
+
+      <ul>
+        <li>
+          Resize panes
+        </li>
+
+        <li class="local-header">
+          One cell/row:
+        </li>
+        <li class="prefix-less">
+          <div>M-Y</div>
+          <div>C-left</div>
+          <div>- Resize to left</div>
+        </li>
+
+        <li class="prefix-less">
+          <div>M-U</div>
+          <div>C-down</div>
+          <div>- Resize to down</div>
+        </li>
+
+        <li class="prefix-less">
+          <div>M-I</div>
+          <div>C-up</div>
+          <div>- Resize to up</div>
+        </li>
+
+        <li class="prefix-less">
+          <div>M-O</div>
+          <div>C-right</div>
+          <div>- Resize to right</div>
+        </li>
+
+        <li class="local-header">
+          Five cell/row:
+        </li>
+        <li class="prefix-less">
+          <div>M-N</div>
+          <div>M-left</div>
+          <div>- Resize to left</div>
+        </li>
+
+        <li class="prefix-less">
+          <div>M-M</div>
+          <div>M-down</div>
+          <div>- Resize to down</div>
+        </li>
+
+        <li class="prefix-less">
+          <div>M-<</div>
+          <div>M-up</div>
+          <div>- Resize to up</div>
+        </li>
+
+        <li class="prefix-less">
+          <div>M-></div>
+          <div>M-right</div>
+          <div>- Resize to right</div>
+        </li>
+      </ul>
+
+
+      <ul>
+        <li>
+          Session manipulations
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">$</div>
+          <div>- Rename session</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">(</div>
+          <div>- Switch client to previous session.</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">)</div>
+          <div>- Switch client to next session.</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">L</div>
+          <div>- Switch client to last session</div>
+        </li>
+
+        <li>
+          <div>S</div>
+          <div class="override">s</div>
+          <div>- Interactively select attached session</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">d</div>
+          <div>- Detach from current session</div>
+        </li>
+      </ul>
+
+
+      <ul>
+        <li>
+          Window manipulations
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">,</div>
+          <div>- Rename window</div>
+
+          <li>
+            <div class="reset">-</div>
+            <div class="in-use">.</div>
+            <div>- Get index to window move</div>
+
+            <li class="prefix-less">
+              <div class="reset">M-{0-9}</div>
+              <div class="in-use">{0-9}</div>
+              <div>- Select {0-9} window</div>
+            </li>
+
+            <li>
+              <div class="reset">-</div>
+              <div class="in-use">w</div>
+              <div>- Interactively select window</div>
+            </li>
+
+            <li>
+              <div class="reset">-</div>
+              <div class="in-use">i</div>
+              <div>- Display information about window</div>
+            </li>
+
+            <li>
+              <div class="reset">-</div>
+              <div class="in-use">l</div>
+              <div>- Select previously selected window</div>
+            </li>
+
+            <li>
+              <div class="reset">-</div>
+              <div class="in-use">n</div>
+              <div>- Select next window</div>
+            </li>
+
+            <li>
+              <div class="reset">-</div>
+              <div class="in-use">p</div>
+              <div>- Select previous window</div>
+            </li>
+
+            <li>
+              <div class="reset">-</div>
+              <div class="in-use">M-n</div>
+              <div>- Select next window with a bell/marker</div>
+            </li>
+
+            <li>
+              <div class="reset">-</div>
+              <div class="in-use">M-p</div>
+              <div>- Select previous window with a bell/marker</div>
+            </li>
+
+            <li>
+              <div class="reset">-</div>
+              <div class="in-use">space</div>
+              <div>- Select next preset layout</div>
+            </li>
+
+            <li>
+              <div class="reset">-</div>
+              <div class="override">M-{1-5}</div>
+              <div>- Select {1-5} preset layout</div>
+            </li>
+      </ul>
+
+
+      <ul>
+        <li>
+          Plagin manager
+        </li>
+
+        <li>
+          <div>I</div>
+          <div>-</div>
+          <div>- Install plugins</div>
+        </li>
+
+        <li>
+          <div>U</div>
+          <div>-</div>
+          <div>- Uninstall plugins</div>
+        </li>
+
+        <li>
+          <div>M-u</div>
+          <div>-</div>
+          <div>- update plugins</div>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

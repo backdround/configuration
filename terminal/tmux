@@ -152,8 +152,8 @@ set -g @resurrect-save-shell-history 'on'
 
 # PLUGIN MANAGER
 # prefix + I     - install plugins
-# prefix + U     - uninstall plugins
-# prefix + alt-u - update plugins
+# prefix + U     - update plugins
+# prefix + alt-u - uninstall plugins
 
 # IF tpm isn't install, then install and run, else just run.
 run '\
