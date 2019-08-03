@@ -6,19 +6,20 @@
     <title> Tmux cheatsheet! </title>
     <link rel="stylesheet" type="text/css" href="style.css" />
     <link rel="stylesheet" type="text/css" href='../common.css' />
+    <link href="https://fonts.googleapis.com/css?family=Itim&display=swap" rel="stylesheet">
   </head>
 
   <body>
-    <header>
+    <header class="responsive">
       <div>Tmux cheatsheet!</div>
     </header>
-    <div class="container">
+    <div class="column-container responsive">
       <ul>
         <li>
           Main
         </li>
 
-        <li class="prefix-less">
+        <li class="special">
           <div>~</div>
           <div>C-b</div>
           <div>- Prefix</div>
@@ -54,25 +55,25 @@
           <div>- Close current window </div>
         </li>
 
-        <li class="prefix-less">
+        <li class="special">
           <div>M-H</div>
           <div>left</div>
           <div>- Move focus left </div>
         </li>
 
-        <li class="prefix-less">
+        <li class="special">
           <div>M-L</div>
           <div>right</div>
           <div>- Move focus right </div>
         </li>
 
-        <li class="prefix-less">
+        <li class="special">
           <div>M-K</div>
           <div>up</div>
           <div>- Move focus up </div>
         </li>
 
-        <li class="prefix-less">
+        <li class="special">
           <div>M-J</div>
           <div>down</div>
           <div>- Move focus down </div>
@@ -244,25 +245,25 @@
         <li class="local-header">
           One cell/row:
         </li>
-        <li class="prefix-less">
+        <li class="special">
           <div>M-Y</div>
           <div>C-left</div>
           <div>- Resize to left</div>
         </li>
 
-        <li class="prefix-less">
+        <li class="special">
           <div>M-U</div>
           <div>C-down</div>
           <div>- Resize to down</div>
         </li>
 
-        <li class="prefix-less">
+        <li class="special">
           <div>M-I</div>
           <div>C-up</div>
           <div>- Resize to up</div>
         </li>
 
-        <li class="prefix-less">
+        <li class="special">
           <div>M-O</div>
           <div>C-right</div>
           <div>- Resize to right</div>
@@ -271,25 +272,25 @@
         <li class="local-header">
           Five cell/row:
         </li>
-        <li class="prefix-less">
+        <li class="special">
           <div>M-N</div>
           <div>M-left</div>
           <div>- Resize to left</div>
         </li>
 
-        <li class="prefix-less">
+        <li class="special">
           <div>M-M</div>
           <div>M-down</div>
           <div>- Resize to down</div>
         </li>
 
-        <li class="prefix-less">
+        <li class="special">
           <div>M-<</div>
           <div>M-up</div>
           <div>- Resize to up</div>
         </li>
 
-        <li class="prefix-less">
+        <li class="special">
           <div>M-></div>
           <div>M-right</div>
           <div>- Resize to right</div>
@@ -349,71 +350,73 @@
           <div class="reset">-</div>
           <div class="in-use">,</div>
           <div>- Rename window</div>
+        </li>
 
-          <li>
-            <div class="reset">-</div>
-            <div class="in-use">.</div>
-            <div>- Get index to window move</div>
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">.</div>
+          <div>- Get index to window move</div>
+        </li>
 
-            <li class="prefix-less">
-              <div class="reset">M-{0-9}</div>
-              <div class="in-use">{0-9}</div>
-              <div>- Select {0-9} window</div>
-            </li>
+        <li class="special">
+          <div class="reset">M-[0-9]</div>
+          <div class="in-use">[0-9]</div>
+          <div>- Select [0-9] window</div>
+        </li>
 
-            <li>
-              <div class="reset">-</div>
-              <div class="in-use">w</div>
-              <div>- Interactively select window</div>
-            </li>
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">w</div>
+          <div>- Interactively select window</div>
+        </li>
 
-            <li>
-              <div class="reset">-</div>
-              <div class="in-use">i</div>
-              <div>- Display information about window</div>
-            </li>
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">i</div>
+          <div>- Display information about window</div>
+        </li>
 
-            <li>
-              <div class="reset">-</div>
-              <div class="in-use">l</div>
-              <div>- Select previously selected window</div>
-            </li>
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">l</div>
+          <div>- Select previously selected window</div>
+        </li>
 
-            <li>
-              <div class="reset">-</div>
-              <div class="in-use">n</div>
-              <div>- Select next window</div>
-            </li>
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">n</div>
+          <div>- Select next window</div>
+        </li>
 
-            <li>
-              <div class="reset">-</div>
-              <div class="in-use">p</div>
-              <div>- Select previous window</div>
-            </li>
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">p</div>
+          <div>- Select previous window</div>
+        </li>
 
-            <li>
-              <div class="reset">-</div>
-              <div class="in-use">M-n</div>
-              <div>- Select next window with a bell/marker</div>
-            </li>
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">M-n</div>
+          <div>- Select next window with a bell/marker</div>
+        </li>
 
-            <li>
-              <div class="reset">-</div>
-              <div class="in-use">M-p</div>
-              <div>- Select previous window with a bell/marker</div>
-            </li>
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">M-p</div>
+          <div>- Select previous window with a bell/marker</div>
+        </li>
 
-            <li>
-              <div class="reset">-</div>
-              <div class="in-use">space</div>
-              <div>- Select next preset layout</div>
-            </li>
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">space</div>
+          <div>- Select next preset layout</div>
+        </li>
 
-            <li>
-              <div class="reset">-</div>
-              <div class="override">M-{1-5}</div>
-              <div>- Select {1-5} preset layout</div>
-            </li>
+        <li>
+          <div class="reset">-</div>
+          <div class="override">M-[1-5]</div>
+          <div>- Select [1-5] preset layout</div>
+        </li>
       </ul>
 
 

@@ -1,53 +1,70 @@
+/*//////////////////////////////////////////////////////////////////////*/
+/* main */
+body {
+  background-color: var(--external-background);
+}
+
 header {
+  color: var(--main);
   display: flex;
-  flex: 100%;
   align-items: center;
   justify-content: center;
 
-  background-color: #292B2E;
-  color: var(--main);
   font-size: 3.2em;
   text-shadow: 4px 5px #000;
-  margin: 10px;
+
+  min-height: 80px;
 }
 
-/* block with list */
+.responsive {
+  background-color: var(--internal-background);
+
+  width: 90%;
+  padding: 10px;
+  margin: 20px auto;
+  transition: 0.3s;
+}
+
+.column-container {
+  column-gap: 0px;
+}
+
+/*//////////////////////////////////////////////////////////////////////*/
+/* lists */
 ul {
   display: inline-block;
+  column-width: 100vw;
+
   list-style-type: none;
-  font-family: Monospace;
   color: #fff;
-  background-color: var(--background-alt);
+  background-color: var(--list-background);
   border: 2px solid var(--main);
   margin: 10px;
-  padding: 5px;
+  padding: 10px;
 }
 
-ul > li {
-  margin: 7px;
-}
-
-/* block header */
+/* header */
 ul > li:first-child {
-  color: #B3FECA;
-  background-color: #222D3A;
+  color: var(--list-header);
+  background-color: var(--list-header-background);
   text-align: center;
   font-size: 1.2em;
 
-  margin-top: 1px;
-  margin-bottom: 10px;
   padding: 7px;
+  transition: 0.3s;
 }
 
-/* hotkeys in block */
+/* element */
 li:nth-child(n+2) {
   display: grid;
   grid-template-columns: repeat(2, minmax(70px, 1fr)) 7fr;
   align-items: center;
 
-  background-color: #1A232D;
+  background-color: var(--element-background);
   border: 1px solid var(--element-border);
+
   padding: 5px 1px;
+  margin-top: 7px;
 }
 
 li.local-header {
@@ -57,11 +74,11 @@ li.local-header {
   color: var(--main);
 }
 
-/* without prefix style */
-li.prefix-less {
-  border-color: var(--prefixless);
+li.special {
+  border-color: var(--special-border);
 }
 
+/*//////////////////////////////////////////////////////////////////////*/
 /* hotkeys */
 li > div:nth-child(-n+2) {
   text-align:  left;
