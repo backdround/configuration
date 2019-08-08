@@ -14,8 +14,8 @@
       <div>Tmux cheatsheet!</div>
     </header>
     <div class="column-container responsive">
-      <ul>
-        <li>
+      <ul class="list double">
+        <li class="header">
           Main
         </li>
 
@@ -81,14 +81,14 @@
       </ul>
 
 
-      <ul>
-        <li>
+      <ul class="list double">
+        <li class="header">
           Pane manipulations
         </li>
 
         <li>
-          <div>z</div>
           <div>f</div>
+          <div>z</div>
           <div>- Toggle fullscreen for pane</div>
         </li>
 
@@ -154,152 +154,8 @@
       </ul>
 
 
-      <ul>
-        <li>
-          Misc
-        </li>
-
-        <li>
-          <div class="reset">-</div>
-          <div class="in-use">:</div>
-          <div>- Enter to command prompt</div>
-        </li>
-
-        <li>
-          <div class="reset">-</div>
-          <div class="in-use">[</div>
-          <div>- Enter to copy mode</div>
-        </li>
-
-        <li>
-          <div class="reset">-</div>
-          <div class="in-use">Page up</div>
-          <div>- Enter copy mode and scroll up one page</div>
-        </li>
-
-        <li>
-          <div class="reset">-</div>
-          <div class="in-use">?</div>
-          <div>- List all key bindings</div>
-        </li>
-
-        <li>
-          <div class="reset">-</div>
-          <div class="in-use">r</div>
-          <div>- Force redraw clients</div>
-        </li>
-
-        <li>
-          <div class="reset">-</div>
-          <div class="in-use">t</div>
-          <div>- Show time</div>
-        </li>
-
-        <li>
-          <div class="reset">-</div>
-          <div class="in-use">~</div>
-          <div>- Show previous messages from tmux</div>
-        </li>
-
-        <li>
-          <div class="reset">-</div>
-          <div class="in-use">C-z</div>
-          <div>- Suspend client</div>
-        </li>
-
-        <li class="local-header">
-          Buffers:
-        </li>
-
-        <li>
-          <div class="reset">-</div>
-          <div class="in-use">#</div>
-          <div>- List all buffers</div>
-        </li>
-
-        <li>
-          <div class="reset">-</div>
-          <div class="in-use">-</div>
-          <div>- Delete most resently copied buffer</div>
-        </li>
-
-        <li>
-          <div class="reset">-</div>
-          <div class="in-use">]</div>
-          <div>- Paste most resently copied buffer</div>
-        </li>
-
-        <li>
-          <div class="reset">-</div>
-          <div class="in-use">=</div>
-          <div>- Interactively select paste buffer</div>
-        </li>
-      </ul>
-
-
-      <ul>
-        <li>
-          Resize panes
-        </li>
-
-        <li class="local-header">
-          One cell/row:
-        </li>
-        <li class="special">
-          <div>M-Y</div>
-          <div>C-left</div>
-          <div>- Resize to left</div>
-        </li>
-
-        <li class="special">
-          <div>M-U</div>
-          <div>C-down</div>
-          <div>- Resize to down</div>
-        </li>
-
-        <li class="special">
-          <div>M-I</div>
-          <div>C-up</div>
-          <div>- Resize to up</div>
-        </li>
-
-        <li class="special">
-          <div>M-O</div>
-          <div>C-right</div>
-          <div>- Resize to right</div>
-        </li>
-
-        <li class="local-header">
-          Five cell/row:
-        </li>
-        <li class="special">
-          <div>M-N</div>
-          <div>M-left</div>
-          <div>- Resize to left</div>
-        </li>
-
-        <li class="special">
-          <div>M-M</div>
-          <div>M-down</div>
-          <div>- Resize to down</div>
-        </li>
-
-        <li class="special">
-          <div>M-<</div>
-          <div>M-up</div>
-          <div>- Resize to up</div>
-        </li>
-
-        <li class="special">
-          <div>M-></div>
-          <div>M-right</div>
-          <div>- Resize to right</div>
-        </li>
-      </ul>
-
-
-      <ul>
-        <li>
+      <ul class="list double">
+        <li class="header">
           Session manipulations
         </li>
 
@@ -341,8 +197,8 @@
       </ul>
 
 
-      <ul>
-        <li>
+      <ul class="list double">
+        <li class="header">
           Window manipulations
         </li>
 
@@ -359,8 +215,8 @@
         </li>
 
         <li class="special">
-          <div class="reset">M-[0-9]</div>
-          <div class="in-use">[0-9]</div>
+          <div>M-[0-9]</div>
+          <div>[0-9]</div>
           <div>- Select [0-9] window</div>
         </li>
 
@@ -420,29 +276,468 @@
       </ul>
 
 
-      <ul>
-        <li>
-          Plagin manager
+      <ul class="list double">
+        <li class="header">
+          Resize panes
+        </li>
+
+        <li class="local-header">
+          One cell/row:
+        </li>
+        <li class="special">
+          <div>M-Y</div>
+          <div>C-left</div>
+          <div>- Resize to left</div>
+        </li>
+
+        <li class="special">
+          <div>M-U</div>
+          <div>C-down</div>
+          <div>- Resize to down</div>
+        </li>
+
+        <li class="special">
+          <div>M-I</div>
+          <div>C-up</div>
+          <div>- Resize to up</div>
+        </li>
+
+        <li class="special">
+          <div>M-O</div>
+          <div>C-right</div>
+          <div>- Resize to right</div>
+        </li>
+
+        <li class="local-header">
+          Five cell/row:
+        </li>
+        <li class="special">
+          <div>M-N</div>
+          <div>M-left</div>
+          <div>- Resize to left</div>
+        </li>
+
+        <li class="special">
+          <div>M-M</div>
+          <div>M-down</div>
+          <div>- Resize to down</div>
+        </li>
+
+        <li class="special">
+          <div>M-<</div>
+          <div>M-up</div>
+          <div>- Resize to up</div>
+        </li>
+
+        <li class="special">
+          <div>M-></div>
+          <div>M-right</div>
+          <div>- Resize to right</div>
+        </li>
+      </ul>
+
+
+      <ul class="list solo">
+        <li class="header">
+          Pugins
         </li>
 
         <li>
           <div>I</div>
-          <div>-</div>
           <div>- Install plugins</div>
         </li>
 
         <li>
           <div>U</div>
-          <div>-</div>
           <div>- Uninstall plugins</div>
         </li>
 
         <li>
           <div>M-u</div>
-          <div>-</div>
           <div>- update plugins</div>
         </li>
+
+        <li class="local-header">
+          Yank (to primary)
+        </li>
+
+        <li>
+          <div>mouse</div>
+          <div>- Instant copy</div>
+        </li>
+
+        <li class="special">
+          <div>y</div>
+          <div>- Copy</div>
+        </li>
+
+        <li class="special">
+          <div>Y</div>
+          <div>- Instant paste</div>
+        </li>
+
+        <li>
+          <div>Y</div>
+          <div>- Copy cwd</div>
+        </li>
+
+
+        <li class="local-header">
+          Fingers
+        </li>
+
+        <li>
+          <div>h</div>
+          <div>- Enter finger mod</div>
+        </li>
+
+        <li>
+          <div>[a-z]</div>
+          <div>- Select to copy</div>
+        </li>
+
+        <li>
+          <div>[A-Z]</div>
+          <div>- Select to instant paste</div>
+        </li>
+
+
+        <li class="local-header">
+          Resurrect
+        </li>
+
+        <li>
+          <div>C-s</div>
+          <div>- Save session</div>
+        </li>
+
+        <li>
+          <div>C-r</div>
+          <div>- Restore session</div>
+        </li>
       </ul>
+
+
+      <ul class="list double">
+        <li class="header">
+          Copy mode
+        </li>
+
+        <li>
+          <div>-</div>
+          <div class="in-use">[</div>
+          <div>- Enter copy mode</div>
+        </li>
+
+        <li>
+          <div>v</div>
+          <div>Space</div>
+          <div>- Start selection</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">q</div>
+          <div>- Exit copy mode</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">Esc</div>
+          <div>- Clear selection</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">V</div>
+          <div>- Line selection</div>
+        </li>
+
+        <li>
+          <div>C-v</div>
+          <div class="override">v</div>
+          <div>- Rectangular selection</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">o</div>
+          <div>- Switch to other end</div>
+        </li>
+
+        <li class="local-header">
+          Copy
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">Enter</div>
+          <div>- Copy selection and exit</div>
+        </li>
+
+        <li>
+          <div>a</div>
+          <div>-</div>
+          <div>- Append selection</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">A</div>
+          <div>- Append selection and exit</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">D</div>
+          <div>- Copy to end of line</div>
+        </li>
+
+        <li>
+          <div>C-y</div>
+          <div>-</div>
+          <div>Copy line</div>
+        </li>
+      </ul>
+
+
+      <ul class="list double">
+        <li class="header">
+          Scrolling (vi)
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">C-f</div>
+          <div>- Page down</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="override">C-b</div>
+          <div>- Page up</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">C-e</div>
+          <div>- One line down</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="override">C-y</div>
+          <div>- One line up</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">G</div>
+          <div>- History bottom</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">g</div>
+          <div>- History top</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">:</div>
+          <div>- Go to  &ltline&gt</div>
+        </li>
+      </ul>
+
+
+      <ul class="list solo">
+        <li class="header">
+          Interactive
+        </li>
+
+        <li> <div>j/k</div> <div>- Move down/up</div> </li>
+        <li> <div>C-s</div> <div>- Search by name</div> </li>
+        <li> <div>n</div>   <div>- Repeat last search</div> </li>
+        <li> <div>C-t</div> <div>- Tag only all interactive &ltitems&gt</div> </li>
+        <li> <div>t</div>   <div>- Toggle tag</div> </li>
+        <li> <div>T</div>   <div>- Clear tags</div> </li>
+        <li> <div>O</div>   <div>- Change sort order</div> </li>
+        <li> <div>v</div>   <div>- Toggle preview</div> </li>
+        <li> <div>q</div>   <div>- Exit mode</div> </li>
+
+        <li class="local-header">
+          Interactive client
+        </li>
+
+        <li class="special"> <div>C</div> <div>- Enter to clients mode</div> </li>
+        <li> <div>d</div> <div>- Detach selected client</div> </li>
+        <li> <div>D</div> <div>- Detach tagged clients</div> </li>
+
+        <li class="local-header">
+          Interactive tree
+        </li>
+
+        <li class="special"> <div>T</div> <div>- Enter to tree mode</div> </li>
+        <li> <div>x</div> <div>- Kill selected item</div> </li>
+        <li> <div>X</div> <div>- Kill tagged item</div> </li>
+
+        <li class="local-header">
+          Interactive buffer
+        </li>
+
+        <li class="special"> <div>B</div> <div>- Enter to buffer mode</div> </li>
+        <li> <div>P</div> <div>- Paste tagged buffers</div> </li>
+        <li> <div>d</div> <div>- Delete selected buffer</div> </li>
+        <li> <div>D</div> <div>- Delete tagged buffers</div> </li>
+      </ul>
+
+
+      <ul class="list double">
+        <li class="double-header">
+          <div>vi</div>
+          <div>emacs</div>
+          <div>Command line</div>
+        </li>
+
+        <li>
+          <div>Esc</div>
+          <div>-</div>
+          <div>- Enter mode</div>
+        </li>
+
+        <li>
+          <div>C-c</div>
+          <div>Esc</div>
+          <div>- Cancel command line</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">C-w</div>
+          <div>- Delete current word</div>
+        </li>
+
+        <li>
+          <div>d</div>
+          <div>C-u</div>
+          <div>- Delete entrie command</div>
+        </li>
+
+        <li>
+          <div>D</div>
+          <div>C-k</div>
+          <div>- Delete from cursor to end</div>
+        </li>
+
+        <li>
+          <div>j</div>
+          <div>Down</div>
+          <div>- Next command</div>
+        </li>
+
+        <li>
+          <div>k</div>
+          <div>Up</div>
+          <div>- Previous command</div>
+        </li>
+
+        <li>
+          <div>p</div>
+          <div>C-y</div>
+          <div>- Paste last buffer</div>
+        </li>
+
+        <li>
+          <div>Tab</div>
+          <div>Tab</div>
+          <div>- Look for completions</div>
+        </li>
+      </ul>
+
+
+      <ul class="list double">
+        <li class="header">
+          Misc
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">:</div>
+          <div>- Enter to command prompt</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">Page up</div>
+          <div>- Enter copy mode and scroll up one page</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">?</div>
+          <div>- List all key bindings</div>
+        </li>
+
+        <li>
+          <div>r</div>
+          <div>-</div>
+          <div>- Reload config</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="override">r</div>
+          <div>- Force redraw clients</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">t</div>
+          <div>- Show time</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="override">~</div>
+          <div>- Show previous messages from tmux</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">C-z</div>
+          <div>- Suspend client</div>
+        </li>
+
+        <li class="local-header">
+          Buffers:
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">#</div>
+          <div>- List all buffers</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">-</div>
+          <div>- Delete most resently copied buffer</div>
+        </li>
+
+        <li>
+          <div class="reset">-</div>
+          <div class="in-use">]</div>
+          <div>- Paste most resently copied buffer</div>
+        </li>
+
+        <li>
+          <div>B</div>
+          <div class="in-use">=</div>
+          <div>- Interactively select paste buffer</div>
+        </li>
+      </ul>
+
+
     </div>
   </body>
 </html>

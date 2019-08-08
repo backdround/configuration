@@ -13,6 +13,7 @@ aspell-ru
 awesome-terminal-fonts
 bash
 bash-completion
+bash-language-server
 binutils
 compton
 coreutils

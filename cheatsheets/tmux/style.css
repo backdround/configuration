@@ -19,7 +19,7 @@ body {
   font-family: 'Itim', cursive;
 }
 
-@media only screen and (min-width: 400px) {
+@media only screen and (max-width: 1200px) {
   .column-container {
     column-count: 1;
   }
@@ -48,4 +48,3 @@ body {
     max-width: 1750px;
   }
 }
-

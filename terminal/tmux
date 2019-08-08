@@ -2,6 +2,7 @@
 set -s escape-time 1
 set -g base-index 1
 set -g mode-keys vi
+set -g status-keys vi
 set -g display-time 5000
 set -g mouse on
 set -g renumber-windows on
@@ -10,14 +11,25 @@ set -g monitor-activity off
 # BINDS
 set -g prefix2 `
 
-bind r source-file ~/.tmux.conf
 bind ` send-prefix -2
 
+bind r source-file ~/.tmux.conf
+bind f resize-pane -Z
+bind < swap-window -t -1
+bind > swap-window -t +1
+bind C choose-client -Z
+bind B choose-buffer -Z
+bind T choose-tree -Z
+
+
 # vim like copy paste
-bind -T copy-mode-vi Escape send -X cancel
 bind -T copy-mode-vi 'v' send -X begin-selection
 bind -T copy-mode-vi 'y' send -X copy-selection-and-cancel
 
+# selection bindings
+bind -T copy-mode-vi 'a' send -X append-selection
+bind -T copy-mode-vi 'C-y' send -X copy-line
+bind -T copy-mode-vi 'C-v' send -X rectangle-toggle
 
 # pane manipulation
 bind -n M-H select-pane -L
@@ -48,11 +60,6 @@ bind -n M-6 select-window -t 6
 bind -n M-7 select-window -t 7
 bind -n M-8 select-window -t 8
 bind -n M-9 select-window -t 9
-
-bind f resize-pane -Z
-
-bind < swap-window -t -1
-bind > swap-window -t +1
 
 
 # VISUAL
