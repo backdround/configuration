@@ -195,6 +195,7 @@ alias hdi='howdoi'
 alias gir='h $(git rev-parse --show-toplevel)'
 alias -g .ps='$(fd ".*gpg" ~/.password-store/ | sed "s$.*\.password-store/\(.*\)\.gpg$\1$" | fzf --preview="pass show {}")'
 alias psc='pass show --clip .ps'
+alias cheat='fd -tf index.html ~/configuration/cheatsheets | fzf | xargs -i xdg-open {}'
 
 gr() { eval "grep -r \"$*\" ./" }
 sp() { eval "sudo pacman -$*" }

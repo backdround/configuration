@@ -134,7 +134,7 @@ set $cust1 customization 1
 set $cust2 customization 2
 set $cust3 customization 3
 
-bindsym $mod+n mode "$cust1"
+bindsym $mod+n mode "$cust3"
 mode "$cust1" {
   bindsym 1 mode "$cust1"
   bindsym 2 mode "$cust2"
@@ -236,6 +236,8 @@ mode "launcher" {
   bindsym $mod+s layout stacking
   bindsym $mod+t layout tabbed
   bindsym $mod+e layout toggle split
+  bindsym $mod+p focus parent
+  bindsym $mod+c focus child
 
   # change focus
   bindsym h focus left
@@ -312,7 +314,7 @@ bindsym $mod+z exec --no-startup-id .local/bin/translate_notify
 bindsym --release Print exec --no-startup-id flameshot screen -c -p ~/screens
 bindsym --release $mod+Print exec --no-startup-id flameshot gui -p ~/screens
 bindsym --release Control+Print exec --no-startup-id flameshot full -c -p ~/screens
-bindsym --release $mod+Shift+Print exec --no-startup-id ~/.local/bin/screenshot_area
+bindsym --release $mod+Shift+Print exec --no-startup-id ~/.local/bin/screenshot_window
 
 #volume
 bindsym Group2+XF86AudioRaiseVolume exec --no-startup-id pulseaudio-ctl up

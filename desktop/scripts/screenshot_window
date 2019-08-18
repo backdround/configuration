@@ -3,7 +3,7 @@ NAME=screen-$(date +%d:%m:%y-%H:%M:%S).png
 FILE=$HOME/screens/$NAME
 
 # do screenshot
-import -quality 100 $FILE
+scrot -u -q 100  $FILE
 
 # copy to clipboard
 xclip -selection clipboard -t `file -b --mime-type $FILE` -i $FILE

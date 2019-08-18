@@ -156,7 +156,7 @@ if __name__ == '__main__':
 
     if instance == "home":
         replaces.extend([("--primary--", "DVI-D-1")])
-        replaces.extend([("--secondary--", "HDMI-1")])
+        replaces.extend([("--secondary--", "DP-1")])
     elif instance == "work":
         replaces.extend([("--primary--", "DP-1")])
         replaces.extend([("--secondary--", "HDMI-2")])
