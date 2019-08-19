@@ -33,6 +33,11 @@ case $TEMPLATE in
     SECOND_PANE="$PROJECT_DIRECTORY/build"
     MAIN_FILE="main.cpp"
     ;;
+  "html")
+    FIRST_PANE="$PROJECT_DIRECTORY"
+    SECOND_PANE="$PROJECT_DIRECTORY"
+    MAIN_FILE="index.html"
+    ;;
   *)
     echo "$TEMPLATE - Unknown project type"
     exit 1

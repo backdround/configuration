@@ -1,0 +1,42 @@
+:root {
+  /* main */
+  --main: #39b099;
+  --external-background: #131416;
+  --internal-background: #23282F;
+
+  /* list */
+  --list-background: #18191B;
+  --list-header: #6DCAC4;
+  --list-header-background: #222D3A;
+
+  /* list elemnts colors*/
+  --element-border: #295366;
+  --special-border: #4D9D8C;
+  --element-background: #1C242D;
+}
+
+header {
+  color: var(--main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 3.2em;
+  text-shadow: 4px 5px #000;
+
+  min-height: 80px;
+}
+
+body {
+  font-family: 'Itim', cursive;
+  background-color: var(--external-background);
+}
+
+.responsive {
+  background-color: var(--internal-background);
+
+  width: 90%;
+  padding: 10px;
+  margin: 20px auto;
+  transition: 0.3s;
+}
