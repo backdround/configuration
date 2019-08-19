@@ -1,7 +1,6 @@
 #!/bin/bash
 PROJECT="$1"
-TEMPLATE="${2:-cpp_qmake}"
-TYPE="${3:-cpp}"
+TEMPLATE="${2:-qt}"
 
 # choose project name
 if [ -z "$PROJECT" ]; then
@@ -9,7 +8,7 @@ if [ -z "$PROJECT" ]; then
   exit 1
 fi
 
-PROJECT_DIRECTORY=$(realpath ~/tmp/$PROJECT)
+PROJECT_DIRECTORY=$(realpath ~/tmp/${TEMPLATE}_$PROJECT)
 if [ -d "$PROJECT_DIRECTORY" ]; then
   echo "$PROJECT_DIRECTORY - Project directory already exsist!"
   exit 1
@@ -23,14 +22,19 @@ if [ ! -d "$TEMPLATE_DIRECTORY" ]; then
 fi
 
 # choose type-specific working file and directory
-case $TYPE in
+case $TEMPLATE in
+  "qt")
+    FIRST_PANE="$PROJECT_DIRECTORY"
+    SECOND_PANE="$PROJECT_DIRECTORY/build"
+    MAIN_FILE="main.cpp"
+    ;;
   "cpp")
     FIRST_PANE="$PROJECT_DIRECTORY"
     SECOND_PANE="$PROJECT_DIRECTORY/build"
     MAIN_FILE="main.cpp"
     ;;
   *)
-    echo "$TYPE - Unknown project type"
+    echo "$TEMPLATE - Unknown project type"
     exit 1
 esac
 
