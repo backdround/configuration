@@ -1,3 +1,4 @@
+breeze-hacked-cursor-theme
 i3lock-fancy-multimonitor-git
 bear
 pulseaudio-ctl
@@ -20,6 +21,7 @@ powerline-fonts-git
 ruby-colorls
 trizen
 ttf-fantasque-sans
+terminus-font-ttf
 ttf-font-awesome-4
 ttf-font-icons
 ufetch
