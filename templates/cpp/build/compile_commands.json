@@ -1,0 +1,14 @@
+[
+    {
+        "arguments": [
+            "/usr/bin/c++",
+            "-c",
+            "-std=gnu++17",
+            "-o",
+            "CMakeFiles/app.dir/main.cpp.o",
+            "../main.cpp"
+        ],
+        "directory": "/home/vlad/configuration/templates/cpp/build",
+        "file": "../main.cpp"
+    }
+]
