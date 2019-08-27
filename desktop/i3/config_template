@@ -216,7 +216,7 @@ mode "launcher" {
   bindsym Return exec --no-startup-id i3-sensible-terminal; mode "default"
 
   #qutebrowser
-  bindsym q exec --no-startup-id dex ~/.local/share/applications/qute_link.desktop; mode "default"
+  bindsym q exec --no-startup-id ~/.local/bin/qute_do.sh; mode "default"
 
   #chromium
   bindsym c exec --no-startup-id chromium; mode "default"
