@@ -9,6 +9,7 @@ HISTFILE="$HOME/.zsh_history"
 HISTSIZE=50000
 SAVEHIST=10000
 
+setopt extended_glob
 setopt hist_expire_dups_first
 setopt hist_ignore_dups
 setopt hist_ignore_space
@@ -17,7 +18,6 @@ setopt inc_append_history
 setopt share_history
 
 #completion
-#fpath+=/.zfunc
 autoload -U compinit && compinit
 zmodload -i zsh/complist
 
@@ -37,6 +37,43 @@ zstyle ':completion:*:commands' list-colors "=(#b)*(-- [a-zA-Z0-9]*)=32=36"
 setopt correct
 setopt auto_cd
 
+#insert movement
+bindkey -M viins '\eb' backward-char
+bindkey -M viins '\ef' forward-char
+bindkey -M viins '^j'  backward-word
+bindkey -M viins '^k'  forward-word
+bindkey -M viins '^a'  beginning-of-line
+bindkey -M viins '^e'  end-of-line
+
+bindkey -M viins '^f'  vi-find-next-char
+bindkey -M viins '^F'  vi-find-prev-char
+bindkey -M viins '^t'  vi-find-next-char-skip
+bindkey -M viins '^T'  vi-find-prev-char-skip
+
+#insert delete
+bindkey -M viins '\ej' backward-kill-word
+bindkey -M viins '\ek' kill-word
+bindkey -M viins '^u'  kill-whole-line
+bindkey -M viins '^o'  kill-line
+bindkey -M viins '\eo' vi-kill-line
+
+#insert history
+bindkey -M viins '^n' down-history
+bindkey -M viins '^p' up-history
+
+#insert completion
+bindkey -M viins '\en' menu-complete
+bindkey -M viins '\ep' reverse-menu-complete
+bindkey -M viins '\ei' send-break
+
+#insert useful
+bindkey -M viins '\es' undo
+bindkey -M viins '\e_' redo
+bindkey -M viins '\ey' yank
+bindkey -M viins '\er' overwrite-mode
+bindkey -M viins '\et' transpose-words
+bindkey -M viins '\ew' which-command
+
 #copy whole line
 vi-yank-x-line () {
   print -rn -- $BUFFER | xsel -i -p;
@@ -46,15 +83,12 @@ zle -N vi-yank-x-line
 bindkey -M vicmd '^y' vi-yank-x-line
 bindkey -v '^y' vi-yank-x-line
 
+#ranger
+bindkey -M vicmd -s '\em' '^[ddiranger\r'
+bindkey -M viins -s '\em' '^[ddiranger\r'
 
 #key fixes
 bindkey -M viins '^?' backward-delete-char
-bindkey -M viins '^P' up-line-or-search
-bindkey -M viins '^N' down-line-or-search
-
-#ranger
-bindkey -M vicmd -s '\em' '^[ddiranger\n'
-bindkey -M viins -s '\em' '^[ddiranger\n'
 
 ################################################################################
 #ENV VARIABLES
@@ -129,7 +163,6 @@ source /usr/share/zsh/share/antigen.zsh
 antigen bundle zdharma/fast-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
-antigen bundle zsh-users/zaw
 
 antigen bundle colorize
 antigen bundle command-not-found
@@ -151,16 +184,11 @@ source /usr/share/fzf/key-bindings.zsh
 ################################################################################
 #PLUGINS CONFIG POST
 
-#zaw
-bindkey -M viins '\eu' zaw-bookmark-add-buffer
-bindkey -M vicmd '\eu' zaw-bookmark-add-buffer
-
-bindkey -M viins '\eb' zaw-bookmark
-bindkey -M vicmd '\eb' zaw-bookmark
-
 #autosuggest
 bindkey -M viins '\el' autosuggest-accept
 bindkey -M vicmd '\el' autosuggest-accept
+bindkey -M viins '\ee' autosuggest-execute
+bindkey -M vicmd '\ee' autosuggest-execute
 
 #substring search
 HISTORY_SUBSTRING_SEARCH_FUZZY=true
@@ -187,17 +215,13 @@ alias ranger='ranger --choosedir=/tmp/.rangerdir; LASTDIR=`cat /tmp/.rangerdir`;
 alias n='nvim'
 e() { eval "$EDITOR $*" }
 alias p='python'
-alias r='rustup'
-alias c='cargo'
 alias f='fd -IH'
-alias g='glances -0 -1 --disable-bg --fs-free-space'
 alias hdi='howdoi'
 alias gir='h $(git rev-parse --show-toplevel)'
 alias -g .ps='$(fd ".*gpg" ~/.password-store/ | sed "s$.*\.password-store/\(.*\)\.gpg$\1$" | fzf --preview="pass show {}")'
 alias psc='pass show --clip .ps'
 alias cheat='fd -tf index.html ~/configuration/cheatsheets | fzf | xargs -i xdg-open {}'
 
-gr() { eval "grep -r \"$*\" ./" }
 sp() { eval "sudo pacman -$*" }
 S() { eval "sudo pacman -S $*" }
 Ss() { eval "sudo pacman -Ss $*" }
@@ -221,9 +245,8 @@ hd() {
 }
 
 #my scripts aliases
-t() { echo "$*" | ~/.local/bin/new_word.py }
-ts() { trans :ru -b "$*" }
-tse() { trans :en -b "$*" }
+t() { trans en:ru "$*" }
+tr() { trans ru:en "$*" }
 alias tsf='trans :ru'
 alias se='~/.local/bin/spellchecker'
 alias sr='~/.local/bin/spellchecker_ru'
@@ -252,4 +275,3 @@ alias -g .l='| less'
 alias -g .c="| column -t"
 alias -g .p="| $PAGER"
 alias -g .stn='| tr " " "\n"'
-alias -g .sources='--include=\*.h --include=\*.hpp --include=\*.cpp --include=\*.c'

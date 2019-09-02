@@ -56,7 +56,6 @@ if __name__ == '__main__':
         ["bat",                ".config/bat/config"],
         ["tmux",               ".tmux.conf"],
         ["zshrc",              ".zshrc"],
-        ["zaw-bookmarks",      ".zaw-bookmarks"],
         ["termite",            ".config/termite/config"],
     )
 

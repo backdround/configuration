@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title> Zsh cheatsheet! </title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href='../common.css' />
+    <link href="https://fonts.googleapis.com/css?family=Itim&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+    <header class="responsive">
+      <div>Zsh cheatsheet!</div>
+    </header>
+
+    <div class="column-container responsive">
+      <ul class="list solo">
+        <li class="header"> Movement </li>
+        <li><div> M-b </div><div> Backward char </div></li>
+        <li><div> M-f </div><div> Forward char </div></li>
+        <li><div> C-j </div><div> Backward word </div></li>
+        <li><div> C-k </div><div> Forward word </div></li>
+        <li><div> C-a </div><div> Begin of line </div></li>
+        <li><div> C-e </div><div> End of line </div></li>
+
+        <li><div> C-f </div><div> Find next char </div></li>
+        <li><div> C-F </div><div> Find prev char </div></li>
+        <li><div> C-t </div><div> Find pre next char </div></li>
+        <li><div> C-T </div><div> Find pre prev char </div></li>
+      </ul>
+
+      <ul class="list solo">
+        <li class="header"> Deletion </li>
+        <li><div> M-j </div><div> Delete prev word </div></li>
+        <li><div> M-k </div><div> Delete next word </div></li>
+        <li><div> C-u </div><div> Delete whole line </div></li>
+        <li><div> C-o </div><div> Delete line to end </div></li>
+        <li><div> M-o </div><div> Delete line to begin  </div></li>
+      </ul>
+
+      <ul class="list solo">
+        <li class="header"> History </li>
+        <li><div> C-n </div><div> Down history </div></li>
+        <li><div> C-p </div><div> Up history </div></li>
+      </ul>
+
+      <ul class="list solo">
+        <li class="header"> Completion </li>
+        <li><div> M-n </div><div> Next selection </div></li>
+        <li><div> M-p </div><div> Previous selection </div></li>
+        <li><div> M-i </div><div> Remove menu changes </div></li>
+      </ul>
+
+      <ul class="list solo">
+        <li class="header"> Misc </li>
+        <li><div> M-e </div><div> Undo </div></li>
+        <li><div> M-_ </div><div> Redo </div></li>
+        <li><div> M-y </div><div> Paste buffer (deleted) </div></li>
+        <li><div> M-r </div><div> Overwrite mode </div></li>
+        <li><div> M-t </div><div> Swap previous 2 words </div></li>
+        <li><div> M-w </div><div> Show 'which-command' </div></li>
+      </ul>
+
+      <ul class="list solo">
+        <li class="header"> Plugins </li>
+        <li><div> M-m </div><div> Ranger </div></li>
+        <li><div> M-l </div><div> Autosuggest history accept </div></li>
+        <li><div> M-e </div><div> Autosuggest history execute </div></li>
+        <li class="local-header"> fzf </li>
+        <li><div> C-r </div><div> History </div></li>
+        <li><div> M-c </div><div> Find directories </div></li>
+        <li><div> M-t </div><div> Find files </div></li>
+      </ul>
+
+      <ul class="list solo">
+        <li class="header"> Plugin commands </li>
+        <li><div> x        </div><div> Decompress archive </div></li>
+        <li><div> transfer </div><div> Load file/directory to cloud </div></li>
+        <li><div> calc     </div><div> Calculate expression </div></li>
+        <li class="local-header"> Enhancd </li>
+        <li><div> h        </div><div> Move to visited directory </div></li>
+        <li><div> h ..     </div><div> Select one of parent directories </div></li>
+        <li><div> hd       </div><div> Interactive move </div></li>
+      </ul>
+
+      <ul class="list solo">
+        <li class="header"> Hack aliases </li>
+        <li><div> e     </div><div> Editor </div></li>
+        <li><div> p     </div><div> Python </div></li>
+        <li><div> f     </div><div> fd all (-HI) </div></li>
+        <li><div> gir   </div><div> Go to git root </div></li>
+        <li><div> psc   </div><div> Copy to interactively choosed pass </div></li>
+        <li><div> cheat </div><div> Interactively open cheatsheet </div></li>
+        <li><div> lolclock </div><div> Lol its clock </div></li>
+      </ul>
+
+      <ul class="list solo">
+        <li class="header"> Useful </li>
+        <li><div> t   </div><div> Translate from english to russian </div></li>
+        <li><div> tr  </div><div> Translate from russian to english  </div></li>
+        <li><div> se  </div><div> Spellcheck english  </div></li>
+        <li><div> sr  </div><div> Spellcheck russian </div></li>
+        <li><div> hdi </div><div> howdoi </div></li>
+        <li><div> uw  </div><div> Add unknown word </div></li>
+      </ul>
+
+      <ul class="list solo">
+        <li class="header"> Pacman </li>
+        <li><div> sp </div><div> sudo pacman </div></li>
+        <li><div> S  </div><div> sudo pacman -S </div></li>
+        <li><div> Ss </div><div> sudo pacman -Ss </div></li>
+      </ul>
+
+      <ul class="list solo">
+        <li class="header"> Global aliases </li>
+        <li><div> .c   </div><div> Align by tabs </div></li>
+        <li><div> .p   </div><div> Pager </div></li>
+        <li><div> .stn </div><div> String to \n </div></li>
+      </ul>
+
+      <ul class="list solo">
+        <li class="header"> Filename expansion </li>
+        <li><div> *      </div><div> Any string </div></li>
+        <li><div> ?      </div><div> Any character </div></li>
+        <li><div> [a-c]  </div><div> Any enclosed character (abc) </div></li>
+        <li><div> [^abc] </div><div> Not enclosed character (not abc) </div></li>
+        <li><div> <2-5>  </div><div> Range 2-5 </div></li>
+        <li><div> ()     </div><div> Grouping </div></li>
+        <li><div> x|y    </div><div> Pattern x or y </div></li>
+        <li><div> ^x     </div><div> Not x pattern </div></li>
+      </ul>
+
+    </div>
+  </body>
+</html>

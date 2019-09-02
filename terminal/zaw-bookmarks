@@ -1,5 +1,0 @@
-mpc\ load\ soundcloud://url/soundcloud.com/fasterbru/likes
-redshift\ -x\ \;\ seq\ 6\ \|\ xargs\ -i\ bash\ -c\ \"redshift\ -O\ 4900\ \;\ redshift\ -O\ 10000\"
-sudo\ bash\ -c\ \"echo\ 3\ \>\ /proc/sys/vm/drop_caches\"
-xclip\ -o\ primary\ \|\ xclip\ -i\ -selection\ clipboard
-xrandr\ --output\ DVI-0\ --mode\ 1920x1080

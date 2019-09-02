@@ -12,6 +12,7 @@ set -g monitor-activity off
 set -g prefix2 `
 
 bind ` send-prefix -2
+unbind C-b
 
 bind r source-file ~/.tmux.conf
 bind f resize-pane -Z
@@ -28,7 +29,7 @@ bind -T copy-mode-vi 'y' send -X copy-selection-and-cancel
 
 # selection bindings
 bind -T copy-mode-vi 'a' send -X append-selection
-bind -T copy-mode-vi 'C-y' send -X copy-line
+bind -T copy-mode-vi 'C-a' send -X copy-line
 bind -T copy-mode-vi 'C-v' send -X rectangle-toggle
 
 # pane manipulation
