@@ -185,15 +185,11 @@ c.bindings.default['passthrough'] = {}
 ## normal mode
 
 # download
-config.bind('Dp', 'download')
-config.bind('DP', 'set-cmd-text -s :download {url}')
+config.bind('Dp', 'download --mhtml')
 config.bind('Ds', 'download-cancel')
-#config.bind('DS', 'set-cmd-text -s :download-cancel')#doesn't work!!
 config.bind('Dc', 'download-clear')
 config.bind('Dd', 'download-delete')
-#config.bind('DD', 'set-cmd-text -s :download-delete')#doesn't work!!
 config.bind('Do', 'download-open')
-#config.bind('DO', 'set-cmd-text -s :download-open')#doesn't work!!
 config.bind('Dr', 'download-retry')
 
 # yanks
@@ -203,23 +199,23 @@ config.bind('yp', 'yank pretty-url')
 config.bind('yP', 'yank pretty-url -s')
 config.bind('yt', 'yank title')
 config.bind('yT', 'yank title -s')
-config.bind('yy', 'yank')
-config.bind('yY', 'yank -s')
+config.bind('yy', 'yank selection')
+config.bind('yY', 'yank seleciion -s')
+config.bind('yl', 'hint links yank')
+config.bind('yL', 'hint links yank-primary')
 
 # hints
 config.bind(';h', 'hint all hover')
 config.bind(';i', 'hint inputs --first')
 config.bind(';I', 'hint inputs')
-config.bind(';o', 'hint links fill :open {hint-url}')
-config.bind(';O', 'hint links fill :open -t {hint-url}')
-config.bind(';p', 'hint images')
-config.bind(';P', 'hint images tab')
-config.bind(';f', 'hint all tab-bg')
+config.bind(';m', 'hint images')
+config.bind(';M', 'hint images tab')
+config.bind(';b', 'hint all tab-bg')
 config.bind(';r', 'hint --rapid links tab-bg')
 config.bind(';w', 'hint all window')
-config.bind(';y', 'hint links yank')
-config.bind(';Y', 'hint links yank-primary')
 config.bind(';d', 'hint links download')
+config.bind('f',  'hint')
+config.bind('F',  'hint all tab')
 
 # tabs
 for i in range(1, 10):
@@ -248,7 +244,6 @@ config.bind('gt', 'tab-focus')
 config.bind('gT', 'tab-prev')
 config.bind('go', 'set-cmd-text -s :buffer ')
 config.bind('g4', 'tab-focus -1')
-config.bind('g0', 'tab-focus 1')
 
 # open in background/new/current tab or new window
 commands_with_prefix = [
@@ -268,8 +263,8 @@ commands_with_prefix = [
     ('Q', 'open {} qute://bookmarks'),
 
     #other
-    ('y', 'open {} -- {{clipboard}}'),
-    ('Y', 'open {} -- {{primary}}'),
+    ('y', 'open {} {{clipboard}}'),
+    ('Y', 'open {} {{primary}}'),
     ('e', 'edit-url {}'),
     ('o', 'open {}'),
     ('m', 'messages {}'),
@@ -291,18 +286,18 @@ config.bind(ways_to_open[0][0] + 'f', 'hint all current')
 config.bind(ways_to_open[1][0] + 'f', 'hint all tab-fg')
 config.bind(ways_to_open[2][0] + 'f', 'hint all tab-bg')
 config.bind(ways_to_open[3][0] + 'f', 'hint all window')
-config.bind(ways_to_open[3][0] + 'O', 'set-cmd-text -s :open --window')
 
 # navigate on page
 config.bind('h', 'scroll-page -0.06 0')
 config.bind('l', 'scroll-page 0.06 0')
-config.bind('<Ctrl-h>', 'scroll left')
-config.bind('<Ctrl-l>', 'scroll right')
-
 config.bind('j', 'scroll-page 0 0.12')
 config.bind('k', 'scroll-page 0 -0.12')
+
+config.bind('<Ctrl-h>', 'scroll left')
+config.bind('<Ctrl-l>', 'scroll right')
 config.bind('<Ctrl-j>', 'run-with-count 3 scroll down')
 config.bind('<Ctrl-k>', 'run-with-count 3 scroll up')
+
 config.bind('s', 'scroll-page 0 0.12')
 config.bind('w', 'scroll-page 0 -0.12')
 
@@ -327,53 +322,45 @@ config.bind('v', 'enter-mode caret')
 from string import ascii_letters, digits
 for i in ascii_letters + digits:
     config.bind('<Ctrl-o>{}'.format(i), 'fake-key ' + i)
-# for i in range(0, 10):
-    # config.bind('<Ctrl-o>{}'.format(i), 'fake-key {}'.format(i))
 config.bind('<Alt-Return>', 'fake-key <Return>')
 config.bind('<Alt-Backspace>', 'fake-key <Backspace>')
 config.bind('<Alt-Escape>', 'fake-key <Escape>')
 
 # main
 clear_script = "jseval -q -f ~/.config/qutebrowser/my_scripts/clear.js"
-config.bind('<Escape>', 'clear-keychain ;; search ;; fullscreen --leave ;; ' + clear_script)
-config.bind("'", 'enter-mode jump_mark')
-config.bind('m', 'enter-mode set_mark')
-config.bind('+', 'zoom-in')
-config.bind('-', 'zoom-out')
-config.bind('=', 'zoom')
-config.bind('.', 'repeat-command')
-config.bind('.', 'set-cmd-text /')
-config.bind(',', 'set-cmd-text ?')
-config.bind('/', 'set-cmd-text /')
-config.bind('?', 'set-cmd-text ?')
-config.bind(':', 'set-cmd-text :')
-config.bind('<Ctrl-Return>', 'follow-selected -t')
-config.bind('<Return>', 'follow-selected')
-config.bind('r', 'reload')
-config.bind('R', 'reload -f')
-config.bind('x', 'tab-close')
-config.bind('X', 'undo')
-# config.bind(' 2', 'run-macro')
-# config.bind('q', 'record-macro')
-config.bind('q', 'set-cmd-text -s :quickmark-load --tab'),
-config.bind('Q', 'set-cmd-text -s :bookmark-load --tab'),
-config.bind('n', 'search-next')
-config.bind('N', 'search-prev')
-config.bind('f', 'hint')
-config.bind('F', 'hint all tab')
-config.bind('p', 'tab-pin')
-config.bind('o', 'set-cmd-text -s :open')
-config.bind('O', 'set-cmd-text -s :open -t')
+config.bind('<Escape>',       'clear-keychain ;; search ;; fullscreen --leave ;; ' + clear_script)
+config.bind("'",              'enter-mode jump_mark')
+config.bind('m',              'enter-mode set_mark')
+config.bind('+',              'zoom-in')
+config.bind('-',              'zoom-out')
+config.bind('=',              'zoom')
+config.bind('.',              'set-cmd-text /')
+config.bind(',',              'set-cmd-text ?')
+config.bind('/',              'set-cmd-text /')
+config.bind('?',              'set-cmd-text ?')
+config.bind(':',              'set-cmd-text :')
+config.bind('<Ctrl-Return>',  'follow-selected -t')
+config.bind('<Return>',       'follow-selected')
+config.bind('r',              'reload')
+config.bind('R',              'reload -f')
+config.bind('x',              'tab-close')
+config.bind('X',              'undo')
+config.bind('q',              'set-cmd-text -s :quickmark-load --tab'),
+config.bind('Q',              'set-cmd-text -s :bookmark-load --tab'),
+config.bind('<Ctrl-/>',       'search {primary}')
+config.bind('<Ctrl-Shift-?>', 'search --reverse {primary}')
+config.bind('n',              'search-next')
+config.bind('N',              'search-prev')
+config.bind('p',              'tab-pin')
+config.bind('o',              'set-cmd-text -s :open')
+config.bind('O',              'set-cmd-text -s :open -t')
 config.bind('<Ctrl-Shift-n>', 'set-cmd-text -s :open -p')
-config.bind('<Ctrl-s>', 'stop')
-config.bind('<Ctrl-c>', 'yank selection')
-config.bind('<Alt-r>', 'config-cycle --temp hints.chars {} {}'.format(both_hands_chars, left_hand_chars))
-
-config.bind('<Alt-n>', 'jseval -q -f /usr/share/qutebrowser/scripts/cycle-inputs.js')
+config.bind('<Ctrl-s>',       'stop')
+config.bind('<Ctrl-c>',       'yank selection')
+config.bind('<Alt-r>',        'config-cycle --temp hints.chars {} {}'.format(both_hands_chars, left_hand_chars))
 
 # Session
 config.bind('Ss', 'set-cmd-text -s :session-save --only-active-window')
-# config.bind('Sw', 'session-save --current --only-active-window')#does'n work the way i want
 config.bind('Sl', 'set-cmd-text -s :session-load')
 config.bind('Sn', 'set-cmd-text -s :session-load --clear')
 config.bind('Sd', 'set-cmd-text -s :session-delete')
@@ -385,7 +372,7 @@ config.bind('zq', 'set-cmd-text -s :quickmark-add {url}')
 config.bind('zD', 'set-cmd-text -s :quickmark-del')
 config.bind('zm', 'tab-mute')
 config.bind('zc', 'clear-messages')
-config.bind('zr', 'config-source --clear')
+config.bind('zr', 'config-source')
 config.bind('ze', 'config-edit')
 config.bind('zs', 'view-source')
 config.bind('ZQ', 'quit')
@@ -403,68 +390,74 @@ config.bind('<Alt-p>', 'jseval -q var video = document.querySelectorAll(\'video\
 
 #  *****************************************************************************
 ## caret mode
-config.bind('4', 'move-to-end-of-line', mode='caret')
-config.bind('0', 'move-to-start-of-line', mode='caret')
-config.bind('<Ctrl-Space>', 'drop-selection', mode='caret')
-config.bind('<Escape>', 'leave-mode', mode='caret')
-config.bind('<Return>', 'yank selection', mode='caret')
-config.bind('<Space>', 'toggle-selection', mode='caret')
-config.bind('G', 'move-to-end-of-document', mode='caret')
-config.bind('H', 'scroll left', mode='caret')
-config.bind('J', 'scroll down', mode='caret')
-config.bind('K', 'scroll up', mode='caret')
-config.bind('L', 'scroll right', mode='caret')
-config.bind('Y', 'yank selection -s', mode='caret')
-config.bind('[', 'move-to-start-of-prev-block', mode='caret')
-config.bind(']', 'move-to-start-of-next-block', mode='caret')
-config.bind('b', 'move-to-prev-word', mode='caret')
-config.bind('c', 'enter-mode normal', mode='caret')
-config.bind('e', 'move-to-end-of-word', mode='caret')
-config.bind('gg', 'move-to-start-of-document', mode='caret')
-config.bind('h', 'move-to-prev-char', mode='caret')
-config.bind('j', 'move-to-next-line', mode='caret')
-config.bind('k', 'move-to-prev-line', mode='caret')
-config.bind('l', 'move-to-next-char', mode='caret')
-config.bind('v', 'toggle-selection', mode='caret')
-config.bind('w', 'move-to-next-word', mode='caret')
-config.bind('y', 'yank selection ;; yank selection -s', mode='caret')
-config.bind('{', 'move-to-end-of-prev-block', mode='caret')
-config.bind('}', 'move-to-end-of-next-block', mode='caret')
+config.bind('4',            'move-to-end-of-line',                 mode='caret')
+config.bind('0',            'move-to-start-of-line',               mode='caret')
+config.bind('<Ctrl-Space>', 'drop-selection',                      mode='caret')
+config.bind('<Escape>',     'leave-mode',                          mode='caret')
+config.bind('<Return>',     'yank selection',                      mode='caret')
+config.bind('<Space>',      'toggle-selection',                    mode='caret')
+config.bind('G',            'move-to-end-of-document',             mode='caret')
+config.bind('H',            'scroll left',                         mode='caret')
+config.bind('J',            'scroll down',                         mode='caret')
+config.bind('K',            'scroll up',                           mode='caret')
+config.bind('L',            'scroll right',                        mode='caret')
+config.bind('Y',            'yank selection -s',                   mode='caret')
+config.bind('[',            'move-to-start-of-prev-block',         mode='caret')
+config.bind(']',            'move-to-start-of-next-block',         mode='caret')
+config.bind('b',            'move-to-prev-word',                   mode='caret')
+config.bind('c',            'enter-mode normal',                   mode='caret')
+config.bind('e',            'move-to-end-of-word',                 mode='caret')
+config.bind('gg',           'move-to-start-of-document',           mode='caret')
+config.bind('h',            'move-to-prev-char',                   mode='caret')
+config.bind('j',            'move-to-next-line',                   mode='caret')
+config.bind('k',            'move-to-prev-line',                   mode='caret')
+config.bind('l',            'move-to-next-char',                   mode='caret')
+config.bind('v',            'toggle-selection',                    mode='caret')
+config.bind('w',            'move-to-next-word',                   mode='caret')
+config.bind('y',            'yank selection ;; yank selection -s', mode='caret')
+config.bind('{',            'move-to-end-of-prev-block',           mode='caret')
+config.bind('}',            'move-to-end-of-next-block',           mode='caret')
 
 #  *****************************************************************************
 ## Bindings for command mode
-config.bind('<Alt-B>', 'rl-backward-word', mode='command')
-config.bind('<Alt-Backspace>', 'rl-backward-kill-word', mode='command')
-config.bind('<Alt-D>', 'rl-kill-word', mode='command')
-config.bind('<Alt-F>', 'rl-forward-word', mode='command')
-config.bind('<Ctrl-?>', 'rl-delete-char', mode='command')
-config.bind('<Ctrl-A>', 'rl-beginning-of-line', mode='command')
-config.bind('<Ctrl-B>', 'rl-backward-char', mode='command')
-config.bind('<Ctrl-C>', 'completion-item-yank', mode='command')
-config.bind('<Ctrl-D>', 'completion-item-del', mode='command')
-config.bind('<Ctrl-4>', 'rl-end-of-line', mode='command')
-config.bind('<Ctrl-F>', 'rl-forward-char', mode='command')
-config.bind('<Ctrl-H>', 'rl-backward-delete-char', mode='command')
-config.bind('<Ctrl-Return>', 'command-accept --rapid', mode='command')
-config.bind('<Ctrl-Shift-C>', 'completion-item-yank --sel', mode='command')
-config.bind('<Ctrl-Shift-Tab>', 'completion-item-focus prev-category', mode='command')
-config.bind('<Ctrl-Tab>', 'completion-item-focus next-category', mode='command')
-config.bind('<Ctrl-U>', 'rl-unix-line-discard', mode='command')
-config.bind('<Ctrl-W>', 'rl-unix-word-rubout', mode='command')
-config.bind('<Ctrl-Y>', 'rl-yank', mode='command')
-config.bind('<Down>', 'completion-item-focus --history next', mode='command')
-config.bind('<Escape>', 'leave-mode', mode='command')
-config.bind('<Return>', 'command-accept', mode='command')
-config.bind('<Shift-Delete>', 'completion-item-del', mode='command')
-config.bind('<Shift-Tab>', 'completion-item-focus prev', mode='command')
-config.bind('<Tab>', 'completion-item-focus next', mode='command')
-config.bind('<Up>', 'completion-item-focus --history prev', mode='command')
 
-config.bind('<Ctrl-J>', 'command-history-next', mode='command')
-config.bind('<Ctrl-K>', 'command-history-prev', mode='command')
-config.bind('<Ctrl-N>', 'completion-item-focus next', mode='command')
-config.bind('<Ctrl-P>', 'completion-item-focus prev', mode='command')
-config.bind('<Ctrl-E>', 'edit-command', mode='command')
+config.bind('<Alt-F>',  'rl-forward-word',                             mode='command')
+config.bind('<Alt-B>',  'rl-backward-word',                            mode='command')
+config.bind('<Ctrl-A>', 'rl-beginning-of-line',                        mode='command')
+config.bind('<Ctrl-4>', 'rl-end-of-line',                              mode='command')
+config.bind('<Ctrl-F>', 'rl-forward-char',                             mode='command')
+config.bind('<Ctrl-B>', 'rl-backward-char',                            mode='command')
+
+config.bind('<Alt-D>',          'rl-kill-word',                        mode='command')
+config.bind('<Alt-Backspace>',  'rl-backward-kill-word',               mode='command')
+config.bind('<Ctrl-?>',         'rl-delete-char',                      mode='command')
+config.bind('<Ctrl-H>',         'rl-backward-delete-char',             mode='command')
+config.bind('<Ctrl-U>',         'rl-unix-line-discard',                mode='command')
+config.bind('<Ctrl-W>',         'rl-unix-word-rubout',                 mode='command')
+
+config.bind('<Shift-Delete>',   'completion-item-del',                 mode='command')
+config.bind('<Ctrl-C>',         'completion-item-yank',                mode='command')
+config.bind('<Ctrl-D>',         'completion-item-del',                 mode='command')
+config.bind('<Ctrl-Shift-C>',   'completion-item-yank --sel',          mode='command')
+config.bind('<Ctrl-Alt-N>',     'completion-item-focus next-category', mode='command')
+config.bind('<Ctrl-Alt-P>',     'completion-item-focus prev-category', mode='command')
+config.bind('<Ctrl-N>',         'completion-item-focus next',          mode='command')
+config.bind('<Ctrl-P>',         'completion-item-focus prev',          mode='command')
+
+config.bind('<Ctrl-J>', 'command-history-next',                        mode='command')
+config.bind('<Ctrl-K>', 'command-history-prev',                        mode='command')
+config.bind('<Ctrl-E>', 'edit-command',                                mode='command')
+config.bind('<Ctrl-Y>', 'rl-yank',                                     mode='command')
+
+config.bind('<Up>',          'completion-item-focus --history prev',   mode='command')
+config.bind('<Down>',        'completion-item-focus --history next',   mode='command')
+config.bind('<Escape>',      'leave-mode',                             mode='command')
+config.bind('<Ctrl-Return>', 'command-accept --rapid',                 mode='command')
+config.bind('<Return>',      'command-accept',                         mode='command')
+config.bind('<Shift-Tab>',   'completion-item-focus prev',             mode='command')
+config.bind('<Tab>',         'completion-item-focus next',             mode='command')
+config.bind('<Ctrl-Shift-Tab>', 'completion-item-focus prev-category', mode='command')
+config.bind('<Ctrl-Tab>',       'completion-item-focus next-category', mode='command')
 
 #  *****************************************************************************
 ## Bindings for hint mode

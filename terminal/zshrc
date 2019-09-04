@@ -38,21 +38,23 @@ setopt correct
 setopt auto_cd
 
 #insert movement
-bindkey -M viins '\eb' backward-char
-bindkey -M viins '\ef' forward-char
+bindkey -M viins '^w'  backward-char
+bindkey -M viins '^d'  forward-char
 bindkey -M viins '^j'  backward-word
 bindkey -M viins '^k'  forward-word
+bindkey -M viins '\ej' vi-backward-word
+bindkey -M viins '\ek' vi-forward-word
 bindkey -M viins '^a'  beginning-of-line
 bindkey -M viins '^e'  end-of-line
 
 bindkey -M viins '^f'  vi-find-next-char
-bindkey -M viins '^F'  vi-find-prev-char
+bindkey -M viins '\ef' vi-find-prev-char
 bindkey -M viins '^t'  vi-find-next-char-skip
-bindkey -M viins '^T'  vi-find-prev-char-skip
+bindkey -M viins '\et' vi-find-prev-char-skip
 
 #insert delete
-bindkey -M viins '\ej' backward-kill-word
-bindkey -M viins '\ek' kill-word
+bindkey -M viins '\ew' backward-kill-word
+bindkey -M viins '\ed' kill-word
 bindkey -M viins '^u'  kill-whole-line
 bindkey -M viins '^o'  kill-line
 bindkey -M viins '\eo' vi-kill-line
@@ -71,8 +73,8 @@ bindkey -M viins '\es' undo
 bindkey -M viins '\e_' redo
 bindkey -M viins '\ey' yank
 bindkey -M viins '\er' overwrite-mode
-bindkey -M viins '\et' transpose-words
-bindkey -M viins '\ew' which-command
+bindkey -M viins '\ez' transpose-words
+bindkey -M viins '\ea' which-command
 
 #copy whole line
 vi-yank-x-line () {

@@ -1,0 +1,50 @@
+:root {
+  /* main */
+  --main: #919CB6;
+  --external-background: #131416;
+  --internal-background: #23282F;
+
+  /* list */
+  --list-background: #151515;
+  --list-header: #9D8AD0;
+  --list-header-background: #222D3A;
+
+  /* list elemnts colors*/
+  --element-border: #282929;
+  --special-border: #658D9F;
+  --element-background: #1D222A;
+}
+
+body {
+  font-family: 'Itim', cursive;
+}
+
+@media only screen and (max-width: 1200px) {
+  .column-container {
+    column-count: 1;
+  }
+  .responsive {
+    min-width: 500px;
+    max-width: 650px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .column-container {
+    column-count: 2;
+  }
+  .responsive {
+    min-width: 1000px;
+    max-width: 1250px;
+  }
+}
+
+@media only screen and (min-width: 1625px) {
+  .column-container {
+    column-count: 3;
+  }
+  .responsive {
+    min-width: 1500px;
+    max-width: 1750px;
+  }
+}
