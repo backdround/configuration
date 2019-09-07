@@ -86,8 +86,25 @@ bindkey -M vicmd '^y' vi-yank-x-line
 bindkey -v '^y' vi-yank-x-line
 
 #ranger
-bindkey -M vicmd -s '\em' '^[ddiranger\r'
-bindkey -M viins -s '\em' '^[ddiranger\r'
+run_ranger () {
+    echo
+    ranger --choosedir=$HOME/.rangerdir < $TTY
+    LASTDIR=`cat $HOME/.rangerdir`
+    cd "$LASTDIR"
+    zle reset-prompt
+}
+zle -N run_ranger
+bindkey -M vicmd '\em' run_ranger
+bindkey -M viins '\em' run_ranger
+
+run_enhancd () {
+    echo
+    __enhancd::cd
+    zle reset-prompt
+}
+zle -N run_enhancd
+bindkey -M vicmd '\eh' run_enhancd
+bindkey -M viins '\eh' run_enhancd
 
 #key fixes
 bindkey -M viins '^?' backward-delete-char

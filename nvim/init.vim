@@ -466,10 +466,16 @@ function! s:ConfigureCommonPlugins()
   let g:startify_files_number = 5
 
   let g:startify_bookmarks = [
-        \ {'c': '~/configuration/nvim/init.vim'},
-        \ {'z': '~/configuration/terminal/zshrc'},
-        \ {'i': '~/configuration/desktop/i3/config_template'},
-        \ {'b': '~/configuration/desktop/i3blocks/config_template'},
+        \ {'cv': '~/configuration/nvim/init.vim'},
+        \ {'cz': '~/configuration/terminal/zshrc'},
+        \ {'ci': '~/configuration/desktop/i3/config_template'},
+        \ {'cp': '~/configuration/desktop/polybar/config'},
+        \ {'cm': '~/configuration/terminal/tmux'},
+        \ {'ct': '~/configuration/terminal/termite'},
+        \ {'cc': '~/configuration/desktop/misc/compton.conf'},
+        \ {'cx': '~/configuration/desktop/misc/xprofile'},
+        \ {'cr': '~/configuration/desktop/misc/Xresources'},
+        \ {'cd': '~/configuration/desktop/misc/dunstrc'},
         \ {'di': '~/drop/it'},
         \ {'dw': '~/drop/work'},
         \ {'dn': '~/drop/investment'},
