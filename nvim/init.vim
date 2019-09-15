@@ -748,9 +748,10 @@ function! s:ConfigureFeaturePlugins()
   " --------------------------------------------------------------------------
   " gutentags
   let g:gutentags_add_default_project_roots = 0
-  let g:gutentags_project_root = ['.git', '.gutMark']
-  let g:gutentags_cache_dir = '~/.local/share/nvim/tags'
-  let g:gutentags_file_list_command = 'fd --hidden --no-ignore --type file'
+  let g:gutentags_project_root              = ['.git', '.gutMark']
+  let g:gutentags_cache_dir                 = '~/.local/share/nvim/tags'
+  let g:gutentags_exclude_project_root      = ['/usr']
+  let g:gutentags_file_list_command         = 'fd --type file'
 
   " --------------------------------------------------------------------------
   " notes
