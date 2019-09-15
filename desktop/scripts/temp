@@ -38,6 +38,11 @@ case $TEMPLATE in
     SECOND_PANE="$PROJECT_DIRECTORY"
     MAIN_FILE="index.html"
     ;;
+  "qml")
+    FIRST_PANE="$PROJECT_DIRECTORY"
+    SECOND_PANE="$PROJECT_DIRECTORY"
+    MAIN_FILE="main.qml"
+    ;;
   *)
     echo "$TEMPLATE - Unknown project type"
     exit 1
