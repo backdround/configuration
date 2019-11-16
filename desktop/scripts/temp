@@ -26,12 +26,12 @@ case $TEMPLATE in
   "qt")
     FIRST_PANE="$PROJECT_DIRECTORY"
     SECOND_PANE="$PROJECT_DIRECTORY/build"
-    MAIN_FILE="main.cpp"
+    MAIN_FILE="src/main.cpp"
     ;;
   "cpp")
     FIRST_PANE="$PROJECT_DIRECTORY"
     SECOND_PANE="$PROJECT_DIRECTORY/build"
-    MAIN_FILE="main.cpp"
+    MAIN_FILE="src/main.cpp"
     ;;
   "html")
     FIRST_PANE="$PROJECT_DIRECTORY"
@@ -41,7 +41,7 @@ case $TEMPLATE in
   "qml")
     FIRST_PANE="$PROJECT_DIRECTORY"
     SECOND_PANE="$PROJECT_DIRECTORY"
-    MAIN_FILE="main.qml"
+    MAIN_FILE="resources/main.qml"
     ;;
   *)
     echo "$TEMPLATE - Unknown project type"

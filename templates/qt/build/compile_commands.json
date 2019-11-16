@@ -1,42 +1,32 @@
 [
-    {
-        "arguments": [
-            "g++",
-            "-c",
-            "-pipe",
-            "-O2",
-            "-march=x86-64",
-            "-mtune=generic",
-            "-O2",
-            "-pipe",
-            "-fno-plt",
-            "-Wall",
-            "-W",
-            "-D_REENTRANT",
-            "-fPIC",
-            "-DQT_NO_DEBUG",
-            "-DQT_WIDGETS_LIB",
-            "-DQT_GUI_LIB",
-            "-DQT_CORE_LIB",
-            "-I../../qt",
-            "-I.",
-            "-isystem",
-            "/usr/include/qt",
-            "-isystem",
-            "/usr/include/qt/QtWidgets",
-            "-isystem",
-            "/usr/include/qt/QtGui",
-            "-isystem",
-            "/usr/include/qt/QtCore",
-            "-I.",
-            "-isystem",
-            "/usr/include/libdrm",
-            "-I/usr/lib/qt/mkspecs/linux-g++",
-            "-o",
-            "main.o",
-            "../main.cpp"
-        ],
-        "directory": "/home/vlad/configuration/templates/qt/build",
-        "file": "../main.cpp"
-    }
+{
+  "directory": "/home/vlad/tmp/qt_template/build/src",
+  "command": "/usr/bin/c++  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/vlad/tmp/qt_template/build/src/main_lib_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui    -fPIC -std=gnu++17 -o CMakeFiles/main_lib.dir/main_lib_autogen/mocs_compilation.cpp.o -c /home/vlad/tmp/qt_template/build/src/main_lib_autogen/mocs_compilation.cpp",
+  "file": "/home/vlad/tmp/qt_template/build/src/main_lib_autogen/mocs_compilation.cpp"
+},
+{
+  "directory": "/home/vlad/tmp/qt_template/build/src",
+  "command": "/usr/bin/c++  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/vlad/tmp/qt_template/build/src/main_lib_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui    -fPIC -std=gnu++17 -o CMakeFiles/main_lib.dir/main.cpp.o -c /home/vlad/tmp/qt_template/src/main.cpp",
+  "file": "/home/vlad/tmp/qt_template/src/main.cpp"
+},
+{
+  "directory": "/home/vlad/tmp/qt_template/build/src",
+  "command": "/usr/bin/c++  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/vlad/tmp/qt_template/build/src/app_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui    -fPIC -std=gnu++17 -o CMakeFiles/app.dir/app_autogen/mocs_compilation.cpp.o -c /home/vlad/tmp/qt_template/build/src/app_autogen/mocs_compilation.cpp",
+  "file": "/home/vlad/tmp/qt_template/build/src/app_autogen/mocs_compilation.cpp"
+},
+{
+  "directory": "/home/vlad/tmp/qt_template/build/src",
+  "command": "/usr/bin/c++  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/vlad/tmp/qt_template/build/src/app_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui    -fPIC -std=gnu++17 -o CMakeFiles/app.dir/main.cpp.o -c /home/vlad/tmp/qt_template/src/main.cpp",
+  "file": "/home/vlad/tmp/qt_template/src/main.cpp"
+},
+{
+  "directory": "/home/vlad/tmp/qt_template/build/tests",
+  "command": "/usr/bin/c++  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_TESTCASE_BUILDDIR=\\\"/home/vlad/tmp/qt_template/build\\\" -DQT_TESTLIB_LIB -DQT_WIDGETS_LIB -I/home/vlad/tmp/qt_template/build/tests/example_test_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtTest    -fPIC -std=gnu++17 -o CMakeFiles/example_test.dir/example_test_autogen/mocs_compilation.cpp.o -c /home/vlad/tmp/qt_template/build/tests/example_test_autogen/mocs_compilation.cpp",
+  "file": "/home/vlad/tmp/qt_template/build/tests/example_test_autogen/mocs_compilation.cpp"
+},
+{
+  "directory": "/home/vlad/tmp/qt_template/build/tests",
+  "command": "/usr/bin/c++  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_TESTCASE_BUILDDIR=\\\"/home/vlad/tmp/qt_template/build\\\" -DQT_TESTLIB_LIB -DQT_WIDGETS_LIB -I/home/vlad/tmp/qt_template/build/tests/example_test_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtTest    -fPIC -std=gnu++17 -o CMakeFiles/example_test.dir/example_test.cpp.o -c /home/vlad/tmp/qt_template/tests/example_test.cpp",
+  "file": "/home/vlad/tmp/qt_template/tests/example_test.cpp"
+}
 ]

@@ -2,5 +2,5 @@
 
 DESTDIR="$(dirname "$0")/build"
 cd "$DESTDIR"
-cmake ../ && bear make && ./app
 
+cmake .. && cmake --build . -j5 && ./bin/app
