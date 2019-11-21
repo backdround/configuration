@@ -35,6 +35,8 @@ foreground-alt = ${xrdb:color15   }
 primary        = ${xrdb:color2    }
 secondary      = ${xrdb:color4    }
 urgent         = ${xrdb:color5    }
+orange         = ${xrdb:color9    }
+red            = ${xrdb:color1    }
 gray           = ${xrdb:color8    }
 gray-alt       = ${xrdb:color17   }
 
@@ -65,7 +67,8 @@ module-margin-right = 2
 
 font-0 = FantasqueSansMono Nerd Font:size=11;2
 
-modules-left = memory cpu filesystem xkeyboard
+
+modules-left = memory cpu filesystem xbacklight battery xkeyboard
 modules-center = i3
 modules-right = pulseaudio date powermenu
 
@@ -136,6 +139,27 @@ format-muted-padding           = ${self.format-padding}
 format-muted-margin            = ${self.format-margin}
 format-muted-underline         = ${self.format-underline}
 
+format-charging-prefix-foreground = ${self.format-prefix-foreground}
+format-charging-foreground        = ${self.format-foreground}
+format-charging-background        = ${self.format-background}
+format-charging-padding           = ${self.format-padding}
+format-charging-margin            = ${self.format-margin}
+format-charging-underline         = ${self.format-underline}
+
+format-discharging-prefix-foreground = ${self.format-prefix-foreground}
+format-discharging-foreground        = ${self.format-foreground}
+format-discharging-background        = ${self.format-background}
+format-discharging-padding           = ${self.format-padding}
+format-discharging-margin            = ${self.format-margin}
+format-discharging-underline         = ${self.format-underline}
+
+format-full-prefix-foreground = ${self.format-prefix-foreground}
+format-full-foreground        = ${self.format-foreground}
+format-full-background        = ${self.format-background}
+format-full-padding           = ${self.format-padding}
+format-full-margin            = ${self.format-margin}
+format-full-underline         = ${self.format-underline}
+
 
 [module/i3]
 inherit = label/base
@@ -178,6 +202,46 @@ label-urgent-underline  = ${colors.foreground}
 label-urgent-padding = 2
 
 label-separator = |
+
+[module/battery]
+inherit = label/base
+
+type = internal/battery
+battery = BAT0
+adapter = AC0
+
+full-at = 99
+poll-interval = 10
+
+; charging
+format-charging-prefix    = " "
+format-charging-prefix-foreground = ${colors.primary}
+format-charging    = <label-charging>
+label-charging    = %percentage%%
+
+; discharging
+format-discharging = <ramp-capacity> <label-discharging>
+label-discharging = %percentage%%
+
+ramp-capacity-0-foreground = ${colors.red}
+ramp-capacity-1-foreground = ${colors.orange}
+ramp-capacity-2-foreground = ${colors.primary}
+ramp-capacity-3-foreground = ${colors.primary}
+ramp-capacity-4-foreground = ${colors.primary}
+
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+; full
+format-full-prefix    = " "
+format-full-prefix-foreground = ${colors.primary}
+format-full           = <label-full>
+label-full            = %percentage%%
+label-full-foreground = ${colors.primary}
 
 
 [module/xkeyboard]
@@ -249,13 +313,13 @@ label-muted = "  muted"
 label-muted-foreground = #666
 
 bar-volume-width = 10
-bar-volume-foreground-0 = #3fe097
-bar-volume-foreground-1 = #3fe097
-bar-volume-foreground-2 = #3fe097
-bar-volume-foreground-3 = #3fe097
-bar-volume-foreground-4 = #3fe097
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
+bar-volume-foreground-0 = ${colors.primary}
+bar-volume-foreground-1 = ${colors.primary}
+bar-volume-foreground-2 = ${colors.primary}
+bar-volume-foreground-3 = ${colors.primary}
+bar-volume-foreground-4 = ${colors.primary}
+bar-volume-foreground-5 = ${colors.orange}
+bar-volume-foreground-6 = ${colors.red}
 bar-volume-gradient = false
 bar-volume-indicator = ●
 bar-volume-indicator-font = 1

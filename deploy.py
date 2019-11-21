@@ -131,24 +131,14 @@ if __name__ == '__main__':
     shutil.copyfile(template_file, instance_file)
 
     # make replace pairs
-    if instance == "note":
-        position_size = {
-            "telegram":           ("400 560", "931 35"),
-            "ncmpcpp":            ("50 485", "1266 250"),
-            "dropdown":           ("5 5",     "1356 440"),
-            "ranger":             ("5 5",     "1356 440"),
-            "gis_weather":        ("10 10",   ""),
-            "qutebrowser_editor": ("",        "540 290"),
-        }
-    else:
-        position_size = {
-            "telegram":           ("525 700", "1348 96"),
-            "ncmpcpp":            ("210 745", "1500 300"),
-            "dropdown":           ("5 5",     "1910 532"),
-            "ranger":             ("5 5",     "1910 486"),
-            "gis_weather":        ("10 10",   ""),
-            "qutebrowser_editor": ("",        "675 336"),
-        }
+    position_size = {
+        "telegram":           ("525 700", "1348 96"),
+        "ncmpcpp":            ("210 745", "1500 300"),
+        "dropdown":           ("5 5",     "1910 532"),
+        "ranger":             ("5 5",     "1910 486"),
+        "gis_weather":        ("10 10",   ""),
+        "qutebrowser_editor": ("",        "675 336"),
+    }
     replaces =      [('--position-{}--'.format(key), val1) for key, (val1, _) in position_size.items()]
     replaces.extend([('--size-{}--'.format(key), val2) for key, (_, val2) in position_size.items()])
     replaces.extend([("--inner-gaps--", "19")])
