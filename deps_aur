@@ -1,5 +1,5 @@
 breeze-hacked-cursor-theme
-i3lock-fancy-multimonitor-git
+i3lock-fancy-dualmonitors-git
 bear
 pulseaudio-ctl
 fswatch
@@ -13,18 +13,16 @@ gis-weather
 gotop-bin
 howdoi-git
 i3-gaps-next-git
-inotify-tool
 j4-dmenu-desktop
 papirus-icon-theme-git
 polybar
 powerline-fonts-git
 ruby-colorls
 trizen
-ttf-fantasque-sans
 terminus-font-ttf
 ttf-font-awesome-4
 ttf-font-icons
-ufetch
+ufetch-git
 universal-ctags-git
 antigen-git
 nerd-fonts-complete
