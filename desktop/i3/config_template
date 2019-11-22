@@ -320,6 +320,12 @@ bindsym --release $mod+Shift+Print exec --no-startup-id ~/.local/bin/screenshot_
 bindsym Group2+XF86AudioRaiseVolume exec --no-startup-id pulseaudio-ctl up
 bindsym Group2+XF86AudioMute exec --no-startup-id pulseaudio-ctl mute
 bindsym Group2+XF86AudioLowerVolume exec --no-startup-id pulseaudio-ctl down
+bindsym XF86AudioRaiseVolume exec --no-startup-id pulseaudio-ctl up
+bindsym XF86AudioMute exec --no-startup-id pulseaudio-ctl mute
+bindsym XF86AudioLowerVolume exec --no-startup-id pulseaudio-ctl down
+
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 2
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 2
 
 #other
 bindsym $mod+v exec --no-startup-id ~/.local/bin/dragon_screen ~/screens
