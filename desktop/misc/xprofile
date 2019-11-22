@@ -1,6 +1,7 @@
 #!/bin/sh
 
 export TERMINAL=termite
+export GCC_COLORS=true
 export LC_ALL=en_US.UTF-8
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
@@ -9,7 +10,7 @@ if grep -q home ~/.instance; then
 fi
 
 if grep -q work ~/.instance; then
-  xrandr --output HDMI-2 --primary --output DP-1 --left-of HDMI-2
+  xrandr --output HDMI-2 --output DP-1 --primary --left-of HDMI-2
 fi
 
 xset m 1/1 0
