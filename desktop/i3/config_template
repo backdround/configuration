@@ -107,7 +107,7 @@ client.background       #ffffff
 exec_always --no-startup-id $HOME/.config/polybar/startup
 
 #font
-font pango:xos4 Terminus Semi-Condensed 8
+font pango:FantasqueSansMono Nerd Font 12
 
 #session
 mode "session" {
