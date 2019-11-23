@@ -29,6 +29,7 @@ mkdir ~/music
 mkdir ~/videos
 mkdir ~/books
 mkdir ~/screens
+mkdir ~/.ssh && chmod 700 ~/.ssh
 
 # Install trizen
 cd ~/tmp/
@@ -63,6 +64,7 @@ systemctl --user enable ddterminal.service
 systemctl --user enable compton
 systemctl --user enable ncmpcpp
 systemctl --user enable ranger
+systemctl --user enable ssh-agent
 systemctl --user enable dropbox_monitor
 systemctl --user enable dropbox_sync.timer
 sudo systemctl enable lightdm
