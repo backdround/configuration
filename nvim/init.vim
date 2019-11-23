@@ -833,7 +833,8 @@ function! s:ConfigureFeaturePlugins()
   " fzf
   " options {{{
   let $FZF_DEFAULT_OPTS = '--multi --no-mouse --inline-info'
-  let $FZF_DEFAULT_COMMAND = 'fd --hidden --exclude .git/ --type file'
+  let $FZF_DEFAULT_COMMAND = 'fd --hidden  --type file
+        \ --exclude .git/ --exclude .ccls.cache/ --exclude build/'
 
   let g:fzf_action = {
         \ 'ctrl-t': 'tab split',

@@ -200,8 +200,8 @@ mode "gaps" {
 }
 
 #border
-default_border pixel 2
-default_floating_border pixel 2
+default_border pixel 1
+default_floating_border pixel 1
 bindsym $mod+b border toggle
 
 
