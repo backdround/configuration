@@ -1,0 +1,37 @@
+#!/bin/bash
+INPUT_CLASS_NAME="$1"
+OUTPUT_CLASS_NAME="$2"
+
+# Input class name exist check
+if [ -z "$INPUT_CLASS_NAME" ]; then
+  echo "Input class name is required!"
+  exit 1
+fi
+
+# Output class name exist check
+if [ -z "$OUTPUT_CLASS_NAME" ]; then
+  echo "Output class name is required!"
+  exit 1
+fi
+
+INPUT_LOWER=$(echo "${INPUT_CLASS_NAME}" | tr '[:upper:]' '[:lower:]')
+OUTPUT_LOWER=$(echo "${OUTPUT_CLASS_NAME}" | tr '[:upper:]' '[:lower:]')
+
+# Move header file
+INPUT_HEADER_FILE=$(fd ${INPUT_LOWER}\.h ./)
+if [ -z "$INPUT_HEADER_FILE" ]; then
+  echo "Input header file not found!"
+  exit 1
+fi
+rename ${INPUT_LOWER} ${OUTPUT_LOWER} ${INPUT_HEADER_FILE}
+
+# Move source file if exist
+INPUT_SOURCE_FILE=$(fd ${INPUT_LOWER}\.cpp ./)
+if [ -z "$INPUT_SOURCE_FILE" ]; then
+  echo "Input source file not found!"
+else
+  rename ${INPUT_LOWER} ${OUTPUT_LOWER} ${INPUT_SOURCE_FILE}
+fi
+
+fd . -e h -e cpp ./ | xargs -i sed -i "s/\<${INPUT_CLASS_NAME}\>/${OUTPUT_CLASS_NAME}/g" {}
+fd . -e h -e cpp ./ | xargs -i sed -i "s/\<${INPUT_LOWER}\.h\>/${OUTPUT_LOWER}\.h/g" {}

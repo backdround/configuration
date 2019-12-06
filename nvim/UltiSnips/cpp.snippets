@@ -214,6 +214,16 @@ snippet del "= delete;"
 endsnippet
 
 # ------------------------------------------------------------------------------
+# Debug
+snippet id "#include <QDebug> // DEBUG ONLY" b
+#include <QDebug> // DEBUG ONLY${0}
+endsnippet
+
+snippet d "qDebug() << 'var: ' << var; // DEBUG ONLY"
+qDebug() << "`!p snip.rv = t[1].replace('"','\\"')`: " << ${1:${VISUAL}} << endl;$0 // DEBUG ONLY
+endsnippet
+
+# ------------------------------------------------------------------------------
 # Google tests
 
 snippet t "test" b
