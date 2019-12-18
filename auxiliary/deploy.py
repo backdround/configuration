@@ -25,7 +25,7 @@ def get_arguments():
             error_exit("unknown option")
 
     # get instance name
-    instance = re.match("^(home|work|note)$", sys.argv[1])
+    instance = re.match("^(home|work|note|server)$", sys.argv[1])
     if not instance:
         error_exit("unknown instance")
 
@@ -80,6 +80,11 @@ if __name__ == '__main__':
     )
     deployer.create_list_of_symlink(minimal_config_pairs)
 
+    deployer.symlink_all_files_in_dir("scripts/",  "~/.local/bin/")
+
+    if instance == "server":
+        sys.exit(0)
+
     # --------------------------------------------------------------------------
     # Desktop confis
     desktop_config_pairs = (
@@ -130,7 +135,7 @@ if __name__ == '__main__':
     instance_file = os.path.expanduser("~/.config/i3/config")
 
     # create config instance
-    if os.path.isfile(instance_file):
+    if os.path.exists(instance_file) or os.path.islink(instance_file):
         os.remove(instance_file)
     shutil.copyfile(template_file, instance_file)
 
@@ -159,7 +164,6 @@ if __name__ == '__main__':
 
     # --------------------------------------------------------------------------
     # other desktop
-    deployer.symlink_all_files_in_dir("scripts/",  "~/.local/bin/")
     deployer.symlink_all_files_in_dir("services/", "~/.config/systemd/user")
     deployer.symlink_all_files_in_dir("links/",    "~/.local/share/applications")
     deployer.create_list_of_symlink([["templates", "~/templates"]])

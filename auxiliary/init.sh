@@ -2,8 +2,9 @@
 # Script setup on bare archlinux
 
 # Check
-if [ "$#" -lt 1 ]; then
-  echo "couldn't get install type (work|home|note)"
+INSTANCES="^(home|work|note|server)$"
+if [[ ! "$1" =~ $INSTANCES ]]; then
+  echo "couldn't get install type (work|home|note|server)"
   exit 1
 fi
 
@@ -11,14 +12,66 @@ fi
 SCRIPT_PATH=$(dirname "$0")
 PROJECT_ROOT=$(realpath "${SCRIPT_PATH}/..")
 
-# Preparation
-sudo pacman -Fy
-sudo pacman --needed --noconfirm -Syu base base-devel git
+
+############################################################
+# Start of common preset intall
+
+# Install base / trizen / common packages
+
+cd "$PROJECT_ROOT"
+if [[ "$1" == "server"  ]]; then
+  # Update
+  pacman -Fy
+  pacman --needed --noconfirm -Syu base base-devel git
+
+  # Create not root user (trizen)
+  ./auxiliary/server_user.sh "$@"
+
+  # Install trizen
+  sudo -u trizen ./auxiliary/trizen.sh "$@"
+
+  # Install packages
+  sudo -u trizen sh -c "trizen --needed --noconfirm -S - < ./dependencies/common_packets"
+else
+  # Update
+  sudo pacman -Fy
+  sudo pacman --needed --noconfirm -Syu base base-devel git
+
+  # Install trizen
+  ./auxiliary/trizen.sh "$@"
+
+  # Install packages
+  trizen --needed --noconfirm -S - < ./dependencies/common_packets
+fi
+
 
 # Create directory tree
+mkdir ~/.nvimbk
+mkdir -p ~/.local/share/applications
+mkdir -p ~/.local/other
+mkdir -p ~/.local/bin
+
+
+# Install configuration
+sudo chsh "$USER" -s /bin/zsh
+./auxiliary/deploy.py "$@"
+pip install --user neovim
+
+
+# End of common install
+if [ "$1" == "server" ]; then
+  exit 0
+fi
+
+
+
+############################################################
+# Start of desktop preset intall
+
+# Create directory tree
+mkdir ~/tmp
 mkdir ~/drop
 mkdir ~/downloads
-mkdir ~/tmp
 mkdir ~/build
 
 mkdir -p ~/other/videos
@@ -27,40 +80,28 @@ mkdir -p ~/other/books
 mkdir -p ~/other/screens
 mkdir -p ~/other/docs
 
-mkdir -p ~/.local/share/applications
-mkdir -p ~/.local/other
-mkdir -p ~/.local/bin
-
-mkdir ~/.nvimbk
 mkdir ~/.password-store
 mkdir -p ~/.tmp/trizen
 mkdir ~/.ssh && chmod 700 ~/.ssh
 
-# Install trizen
-cd ~/tmp/
-git clone https://aur.archlinux.org/trizen.git
-cd trizen/
-makepkg --needed --install --noconfirm --syncdeps
-sed 's~^\(.*clone_dir.*\)".*"\(.*\)~\1"$ENV{HOME}/.tmp/trizen"\2~' -i ~/.config/trizen/trizen.conf
 
 # Install packages
-cd "$PROJECT_ROOT"
 gpg --recv-keys 9B8450B91D1362C1
-sudo pacman --needed --noconfirm -S - < deps
-trizen --needed --noconfirm -S - < deps_aur
+sudo pacman --needed --noconfirm -S - < dependencies/packets
+trizen --needed --noconfirm -S - < dependencies/aur_packets
 
-# Install configuration
-sudo chsh "$USER" -s /bin/zsh
+
+# Add desktop configurations
 gsettings set org.gnome.desktop.default-applications.terminal exec /usr/bin/termite
 gsettings set org.gnome.desktop.default-applications.terminal exec-arg "-x"
-./auxiliary/deploy.py "$@"
+
 
 # Install dependencies
-/usr/share/qutebrowser/scripts/dictcli.py install en-US ru-RU
-pip install --user neovim
 pip install --user pyLanguagetool
+/usr/share/qutebrowser/scripts/dictcli.py install en-US ru-RU
 
 yarn global add browser-sync
+
 
 # Setup default services
 systemctl --user daemon-reload
