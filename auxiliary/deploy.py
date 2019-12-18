@@ -47,68 +47,87 @@ if __name__ == '__main__':
     deployer = utils.Deployer(project_root, force)
 
     # --------------------------------------------------------------------------
-    # terminal
-    terminal_pairs = (
-        ["terminal/inputrc",            "~/.inputrc"],
-        ["terminal/bat",                "~/.config/bat/config"],
-        ["terminal/tmux",               "~/.tmux.conf"],
-        ["terminal/zshrc",              "~/.zshrc"],
-        ["terminal/termite",            "~/.config/termite/config"],
+    # Minimals shared configs
+    minimal_config_pairs = (
+        # Terminal
+        ["configs/terminal/inputrc",                 "~/.inputrc"],
+        ["configs/terminal/bat",                     "~/.config/bat/config"],
+        ["configs/terminal/tmux",                    "~/.tmux.conf"],
+        ["configs/terminal/zshrc",                   "~/.zshrc"],
+        ["configs/terminal/termite",                 "~/.config/termite/config"],
+        ["configs/terminal/ranger",                  "~/.config/ranger/rc.conf"],
+
+        # Git
+        ["configs/git/gitconfig",                    "~/.gitconfig"],
+        ["configs/git/gitignore_global",             "~/.gitignore_global"],
+
+        # Nvim
+        ["configs/nvim/init.vim",                    "~/.config/nvim/init.vim"],
+        ["configs/nvim/coc-settings.json",           "~/.config/nvim/coc-settings.json"],
+
+        ["configs/nvim/notes/plugin_hotkeys",        "~/.local/share/nvim/notes/plugin_hotkeys"],
+        ["configs/nvim/notes/qute_hotkeys",          "~/.local/share/nvim/notes/qute_hotkeys"],
+        ["configs/nvim/notes/vim_useful_hotkeys",    "~/.local/share/nvim/notes/vim_useful_hotkeys"],
+
+        ["configs/nvim/UltiSnips/all.snippets",      "~/.local/share/nvim/UltiSnips/all.snippets"],
+        ["configs/nvim/UltiSnips/cpp.snippets",      "~/.local/share/nvim/UltiSnips/cpp.snippets"],
+        ["configs/nvim/UltiSnips/snippets.snippets", "~/.local/share/nvim/UltiSnips/snippets.snippets"],
+
+        # Misc
+        ["configs/misc/trizen.conf",                 "~/.config/trizen/trizen.conf"],
+        ["configs/misc/xprofile",                    "~/.xprofile"],
+        ["configs/misc/Xresources",                  "~/.Xresources"],
     )
-    deployer.create_list_of_symlink(terminal_pairs)
+    deployer.create_list_of_symlink(minimal_config_pairs)
 
     # --------------------------------------------------------------------------
-    # qutebrowser
-    qutebrowser_pairs = (
-        ["qutebrowser/config.py",           "~/.config/qutebrowser/config.py"],
-        ["qutebrowser/theme/draw.py",       "~/.config/qutebrowser/theme/draw.py"],
-        ["qutebrowser/quickmarks",          "~/.config/qutebrowser/quickmarks"],
-        ["qutebrowser/my_scripts/clear.js", "~/.config/qutebrowser/my_scripts/clear.js"],
+    # Desktop confis
+    desktop_config_pairs = (
+        # Qutebrowser
+        ["configs/qutebrowser/config.py",           "~/.config/qutebrowser/config.py"],
+        ["configs/qutebrowser/theme/draw.py",       "~/.config/qutebrowser/theme/draw.py"],
+        ["configs/qutebrowser/quickmarks",          "~/.config/qutebrowser/quickmarks"],
+        ["configs/qutebrowser/my_scripts/clear.js", "~/.config/qutebrowser/my_scripts/clear.js"],
+
+        # Polybar
+        ["configs/polybar/config",                  "~/.config/polybar/config"],
+        ["configs/polybar/startup",                 "~/.config/polybar/startup"],
+
+        # Keyboard
+        ["configs/keyboard/keymap/config",          "~/.config/xkb/keymap/config"],
+        ["configs/keyboard/symbols/nums",           "~/.config/xkb/symbols/nums"],
+        ["configs/keyboard/symbols/special",        "~/.config/xkb/symbols/special"],
+
+        # Gtk
+        ["configs/gtk/gtk.css",                     "~/.config/gtk-3.0/gtk.css"],
+        ["configs/gtk/settings.ini",                "~/.config/gtk-3.0/settings.ini"],
+        ["configs/gtk/gtkrc-2.0",                   "~/.gtkrc-2.0"],
+
+        # Music
+        ["configs/music/mpd",                       "~/.config/mpd/mpd.conf"],
+        ["configs/music/ncmpcpp",                   "~/.ncmpcpp/config"],
+        ["configs/music/ncmpcpp_bindings",          "~/.ncmpcpp/bindings"],
+
+        # Desktop
+        ["configs/desktop/compton.conf",            "~/.config/compton.conf"],
+        ["configs/desktop/dunstrc",                 "~/.config/dunst/dunstrc"],
+        ["configs/desktop/mouse_index.theme",       "~/.icons/default/index.theme"],
+        ["configs/desktop/user-dirs.dirs",          "~/.config/user-dirs.dirs"],
+        ["configs/desktop/mimeapps.list",           "~/.config/mimeapps.list"],
+
+        # Misc
+        ["configs/misc/gis_weather",                "~/.config/gis-weather/gw_config1.json"],
+        ["configs/misc/gpg",                        "~/.gnupg/gpgconf.conf"],
+        ["configs/misc/pulse",                      "~/.config/pulseaudio-ctl/config"],
     )
-    deployer.create_list_of_symlink(qutebrowser_pairs)
-
-    # --------------------------------------------------------------------------
-    # nvim
-    nvim_pairs = [
-        ["nvim/init.vim",                    "~/.config/nvim/init.vim"],
-        ["nvim/coc-settings.json",           "~/.config/nvim/coc-settings.json"],
-
-        ["nvim/notes/plugin_hotkeys",        "~/.local/share/nvim/notes/plugin_hotkeys"],
-        ["nvim/notes/qute_hotkeys",          "~/.local/share/nvim/notes/qute_hotkeys"],
-        ["nvim/notes/vim_useful_hotkeys",    "~/.local/share/nvim/notes/vim_useful_hotkeys"],
-
-        ["nvim/UltiSnips/all.snippets",      "~/.local/share/nvim/UltiSnips/all.snippets"],
-        ["nvim/UltiSnips/cpp.snippets",      "~/.local/share/nvim/UltiSnips/cpp.snippets"],
-        ["nvim/UltiSnips/snippets.snippets", "~/.local/share/nvim/UltiSnips/snippets.snippets"],
-    ]
-    deployer.create_list_of_symlink(nvim_pairs)
-
-    # --------------------------------------------------------------------------
-    # misc
-    misc_pairs = (
-        ["misc/cava",                     "~/.config/cava/config"],
-        ["misc/gpg",                      "~/.gnupg/gpgconf.conf"],
-        ["misc/mouse_index.theme",        "~/.icons/default/index.theme"],
-        ["misc/git/gitconfig",            "~/.gitconfig"],
-        ["misc/git/gitignore_global",     "~/.gitignore_global"],
-        ["misc/gtk/gtk.css",              "~/.config/gtk-3.0/gtk.css"],
-        ["misc/gtk/settings.ini",         "~/.config/gtk-3.0/settings.ini"],
-        ["misc/gtk/gtkrc-2.0",            "~/.gtkrc-2.0"],
-        ["misc/mcabber/mcabber",          "~/.config/mcabber/mcabberrc"],
-        ["misc/mcabber/notify.mp3",       "~/.config/mcabber/notify.mp3"],
-        ["misc/mcabber/notify2.mp3",      "~/.config/mcabber/notify2.mp3"],
-        ["misc/music/mpd",                "~/.config/mpd/mpd.conf"],
-        ["misc/music/ncmpcpp",            "~/.ncmpcpp/config"],
-        ["misc/music/ncmpcpp_bindings",   "~/.ncmpcpp/bindings"],
-    )
-    deployer.create_list_of_symlink(misc_pairs)
+    deployer.create_list_of_symlink(desktop_config_pairs)
 
     # --------------------------------------------------------------------------
     # i3 template
 
     # generate config
-    template_file = os.path.join(project_root, "desktop/i3/config_template")
-    instance_file = os.path.join(project_root, "desktop/i3/config")
+    template_file = os.path.join(project_root, "configs/desktop/i3_template")
+    instance_file = os.path.expanduser("~/.config/i3/config")
 
     # create config instance
     if os.path.isfile(instance_file):
@@ -138,44 +157,9 @@ if __name__ == '__main__':
     # make replaces
     utils.replace_in_file(instance_file, replaces)
 
-    # create symlink
-    i3_pair = [["desktop/i3/config", "~/.config/i3/config"]]
-    deployer.create_list_of_symlink(i3_pair)
-
     # --------------------------------------------------------------------------
     # other desktop
-
-    # scripts
-    deployer.symlink_all_files_in_dir("desktop/scripts/", "~/.local/bin/")
-
-    # systemd
-    deployer.symlink_all_files_in_dir("desktop/systemd/", "~/.config/systemd/user")
-
-    # desktop links
-    deployer.symlink_all_files_in_dir("desktop/applications/", "~/.local/share/applications")
-
-
-    # misc
-    misc_pairs = [
-        ["desktop/misc/pulse",          "~/.config/pulseaudio-ctl/config"],
-        ["desktop/misc/user-dirs.dirs", "~/.config/user-dirs.dirs"],
-        ["desktop/misc/compton.conf",   "~/.config/compton.conf"],
-        ["desktop/misc/trizen.conf",    "~/.config/trizen/trizen.conf"],
-        ["desktop/misc/dunstrc",        "~/.config/dunst/dunstrc"],
-        ["desktop/misc/gis_weather",    "~/.config/gis-weather/gw_config1.json"],
-        ["desktop/misc/xinitrc",        "~/.xinitrc"],
-        ["desktop/misc/xprofile",       "~/.xprofile"],
-        ["desktop/misc/Xresources",     "~/.Xresources"],
-        ["desktop/misc/mimeapps.list",  "~/.config/mimeapps.list"],
-        ["desktop/i3/config",           "~/.config/i3/config"],
-        ["desktop/polybar/config",      "~/.config/polybar/config"],
-        ["desktop/polybar/startup",     "~/.config/polybar/startup"],
-        ["desktop/misc/ranger",         "~/.config/ranger/rc.conf"],
-        ["desktop/xkb/keymap/config",   "~/.config/xkb/keymap/config"],
-        ["desktop/xkb/symbols/nums",    "~/.config/xkb/symbols/nums"],
-        ["desktop/xkb/symbols/special", "~/.config/xkb/symbols/special"],
-    ]
-    deployer.create_list_of_symlink(misc_pairs)
-
-    # templates
+    deployer.symlink_all_files_in_dir("scripts/",  "~/.local/bin/")
+    deployer.symlink_all_files_in_dir("services/", "~/.config/systemd/user")
+    deployer.symlink_all_files_in_dir("links/",    "~/.local/share/applications")
     deployer.create_list_of_symlink([["templates", "~/templates"]])

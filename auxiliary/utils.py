@@ -49,6 +49,11 @@ class Deployer:
                 print("{}: symlink wasn't created".format(config))
 
     def symlink_all_files_in_dir(self, source_directory, destination_directory):
+        source_directory = os.path.join(self.project_root, source_directory)
+        source_directory = os.path.abspath(source_directory)
+        destination_directory = os.path.expanduser(destination_directory)
+        destination_directory = os.path.abspath(destination_directory)
+
         files = os.listdir(source_directory)
 
         pairs = []
