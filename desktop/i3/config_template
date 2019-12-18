@@ -311,9 +311,9 @@ for_window [class="qute_editor"] resize set --size-qutebrowser_editor--
 bindsym $mod+z exec --no-startup-id .local/bin/translate_notify
 
 #screenshots
-bindsym --release Print exec --no-startup-id flameshot screen -c -p ~/screens
-bindsym --release $mod+Print exec --no-startup-id flameshot gui -p ~/screens
-bindsym --release Control+Print exec --no-startup-id flameshot full -c -p ~/screens
+bindsym --release Print exec --no-startup-id flameshot screen -c -p ~/other/screens
+bindsym --release $mod+Print exec --no-startup-id flameshot gui -p ~/other/screens
+bindsym --release Control+Print exec --no-startup-id flameshot full -c -p ~/other/screens
 bindsym --release $mod+Shift+Print exec --no-startup-id ~/.local/bin/screenshot_window
 
 #volume
@@ -328,6 +328,6 @@ bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 2
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 2
 
 #other
-bindsym $mod+v exec --no-startup-id ~/.local/bin/dragon_screen ~/screens
+bindsym $mod+v exec --no-startup-id ~/.local/bin/dragon_screen ~/other/screens
 
 # vim: set ft=i3:

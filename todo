@@ -1,5 +1,0 @@
-set-sink 1!
-remove unable
-lightdm
-fzf
-pulse
