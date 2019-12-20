@@ -68,7 +68,7 @@ module-margin-right = 2
 font-0 = FantasqueSansMono Nerd Font:size=11;2
 
 
-modules-left = memory cpu filesystem xbacklight battery xkeyboard
+modules-left = memory cpu filesystem xbacklight battery xkeyboard vpn
 modules-center = i3
 modules-right = pulseaudio date powermenu
 
@@ -282,6 +282,16 @@ type = internal/cpu
 interval = 2
 format-prefix = " "
 label = %percentage:2%%
+
+[module/vpn]
+inherit = label/base
+type = custom/script
+
+format-prefix-foreground = ${colors.urgent}
+format-prefix = "賓 "
+exec-if = "pgrep openvpn"
+exec = "curl -s https://api.myip.com | jq '.cc' | tr -d '"'"
+interval = 10
 
 
 [module/date]
