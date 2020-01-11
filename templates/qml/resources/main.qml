@@ -1,22 +1,23 @@
 import QtQuick 2.13
 import QtQuick.Window 2.13
+import QtQuick.Controls 2.13
+import QtQuick.Controls.Material 2.13
 
 Window {
-  id: main_window
   width: 620
   height: 380
   visible: true
-  //flags: Qt.FramelessWindowHint | Qt.X11BypassWindowManagerHint
   flags: Qt.FramelessWindowHint | Qt.Dialog
-  color: "transparent"
 
+  Material.background: Material.color(Material.Grey, Material.Shade300)
 
-  Rectangle {
-    id: background
+  Pane {
     anchors.fill: parent
-    visible: true
-    color: "#A4A4A4FF"
-    border.color: "#D9CED6"
-    border.width: 2
+    Page {
+      anchors.fill: parent
+      Material.background: Material.color(Material.Grey, Material.Shade200)
+
+      header: Custom_header {}
+    }
   }
 }
