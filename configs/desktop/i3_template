@@ -307,6 +307,13 @@ for_window [class="mpv"] move position 727 30
 for_window [class="qute_editor"] floating enable
 for_window [class="qute_editor"] resize set --size-qutebrowser_editor--
 
+#tiling ignore
+for_window [class="octa"] floating enable
+for_window [class="chart_manager_test"] floating enable
+for_window [class="app"] floating enable
+for_window [class="qmllivebench"] floating enable
+for_window [class="QML Live Bench"] floating enable
+
 #translate
 bindsym $mod+z exec --no-startup-id .local/bin/translate_notify
 
