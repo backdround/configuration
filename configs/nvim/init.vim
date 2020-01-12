@@ -142,7 +142,6 @@ function! s:BasicSettings()
   "misc
   set updatetime=50
   set scrolloff=10
-  set termencoding=utf8
   set showcmd
   set cmdheight=2
   set ch=1
@@ -466,16 +465,16 @@ function! s:ConfigureCommonPlugins()
   let g:startify_files_number = 5
 
   let g:startify_bookmarks = [
-        \ {'cv': '~/configuration/nvim/init.vim'},
-        \ {'cz': '~/configuration/terminal/zshrc'},
-        \ {'ci': '~/configuration/desktop/i3/config_template'},
-        \ {'cp': '~/configuration/desktop/polybar/config'},
-        \ {'cm': '~/configuration/terminal/tmux'},
-        \ {'ct': '~/configuration/terminal/termite'},
-        \ {'cc': '~/configuration/desktop/misc/compton.conf'},
-        \ {'cx': '~/configuration/desktop/misc/xprofile'},
-        \ {'cr': '~/configuration/desktop/misc/Xresources'},
-        \ {'cd': '~/configuration/desktop/misc/dunstrc'},
+        \ {'cv': '~/configuration/configs/nvim/init.vim'},
+        \ {'cz': '~/configuration/configs/terminal/zshrc'},
+        \ {'ci': '~/configuration/configs/desktop/i3_template'},
+        \ {'cp': '~/configuration/configs/polybar/config'},
+        \ {'cm': '~/configuration/configs/terminal/tmux'},
+        \ {'ct': '~/configuration/configs/terminal/termite'},
+        \ {'cc': '~/configuration/configs/desktop/compton.conf'},
+        \ {'cx': '~/configuration/configs/misc/xprofile'},
+        \ {'cr': '~/configuration/configs/misc/Xresources'},
+        \ {'cd': '~/configuration/configs/desktop/dunstrc'},
         \ {'di': '~/drop/it'},
         \ {'dw': '~/drop/work'},
         \ {'dn': '~/drop/investment'},

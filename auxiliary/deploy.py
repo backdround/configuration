@@ -71,6 +71,7 @@ if __name__ == '__main__':
 
         ["configs/nvim/UltiSnips/all.snippets",      "~/.local/share/nvim/UltiSnips/all.snippets"],
         ["configs/nvim/UltiSnips/cpp.snippets",      "~/.local/share/nvim/UltiSnips/cpp.snippets"],
+        ["configs/nvim/UltiSnips/qml.snippets",      "~/.local/share/nvim/UltiSnips/qml.snippets"],
         ["configs/nvim/UltiSnips/snippets.snippets", "~/.local/share/nvim/UltiSnips/snippets.snippets"],
 
         # Misc

@@ -1,0 +1,92 @@
+# ------------------------------------------------------------------------------
+# Print
+snippet cout "Component complete print"
+Component.onCompleted: {
+	print("`!p snip.rv = t[1].replace('"','\\"')`: " + ${1:${VISUAL}})$0
+}
+endsnippet
+
+snippet out "print"
+print("$1")$0
+endsnippet
+
+snippet vout "print('var: ' + var)"
+print("`!p snip.rv = t[1].replace('"','\\"')`: " + ${1:${VISUAL}})$0
+endsnippet
+
+snippet tout "timer out"
+Timer {
+	interval: 200
+	running: true
+	repeat: false
+	onTriggered: {
+		print($0)
+	}
+}
+endsnippet
+
+# ------------------------------------------------------------------------------
+# Auxiliary
+snippet co "Component onCompleted"
+Component.onCompleted: {
+	$0
+}
+endsnippet
+
+snippet timer "one shot timer"
+Timer {
+	interval: 200
+	running: true
+	repeat: false
+	onTriggered: {
+		$0
+	}
+}
+endsnippet
+
+snippet mouse "MouseArea"
+MouseArea {
+	anchors.fill: parent
+	onClicked: {
+		${1}
+	}
+}
+endsnippet
+
+snippet loader "Loader with source component"
+Loader {
+	sourceComponent: ${1}
+}
+endsnippet
+
+snippet comp "Component"
+Component {
+	id: ${1}
+}
+endsnippet
+
+snippet cpl "Component.onCompleted"
+Component.onCompleted: {
+	$0
+}
+endsnippet
+
+# ------------------------------------------------------------------------------
+# Placing
+snippet fip "fill in parent"
+anchors.fill: parent
+endsnippet
+
+snippet wp "width: parent.width"
+width: parent.width
+endsnippet
+
+snippet cip "center in parent"
+anchors.centerIn: parent
+endsnippet
+
+snippet text_center "text align in center"
+horizontalAlignment: Text.AlignHCenter
+verticalAlignment: Text.AlignVCenter
+endsnippet
+
