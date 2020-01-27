@@ -33,6 +33,11 @@ case $TEMPLATE in
     SECOND_PANE="$PROJECT_DIRECTORY/build"
     MAIN_FILE="src/main.cpp"
     ;;
+  "task")
+    FIRST_PANE="$PROJECT_DIRECTORY"
+    SECOND_PANE="$PROJECT_DIRECTORY"
+    MAIN_FILE="src/test.cpp"
+    ;;
   "html")
     FIRST_PANE="$PROJECT_DIRECTORY"
     SECOND_PANE="$PROJECT_DIRECTORY"
