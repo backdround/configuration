@@ -2,16 +2,7 @@ import os
 import theme.draw
 
 theme.draw.set_colors(c)
-theme.draw.set_style(c, {
-    'spacing': {
-        'vertical': 3,
-        'horizontal': 8
-    },
-    'font': {
-        'family': '"xos4 Terminus", Monospace',
-        'size': 12
-    }
-})
+theme.draw.set_style(c)
 
 c.aliases = {'w': 'session-save', 'q': 'quit', 'wq': 'quit --save', 'x': 'quit --save'}
 c.auto_save.interval = 15000

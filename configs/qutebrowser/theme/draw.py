@@ -28,8 +28,8 @@ def set_colors(c):
         # tabs
         'tabs-bg': palette['rock-light'],
         'tabs-fg': palette['cloud-dark'],
-        'tabs-selected-bg': palette['gray'],
-        'tabs-selected-fg': palette['green'],
+        'tabs-selected-bg': "#454554",
+        'tabs-selected-fg': palette['cyan'],
 
         # url
         'url-fg': palette['cloud-light'],
@@ -224,27 +224,14 @@ def set_colors(c):
     c.colors.webpage.bg = palette['cloud-dark']
 
 
-def set_style(c, options = {}):
+def set_style(c):
 
-    spacing = options.get('spacing', {
-        'vertical': 5,
-        'horizontal': 5
-    })
-
-    padding = options.get('padding', {
-        'top': spacing['vertical'],
-        'right': spacing['horizontal'],
-        'bottom': spacing['vertical'],
-        'left': spacing['horizontal']
-    })
-
-    font = options.get('font', {
-        'family': 'Menlo, "xos4 Terminus", Terminus, Monospace, Monaco, "Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace, Consolas, Terminal',
-        'size': 10
-    })
-
-    monospace = font.get('family', 'Menlo, "xos4 Terminus", Terminus, Monospace, Monaco, "Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace, Consolas, Terminal')
-    font_size = font.get('size', 10)
+    padding = {
+        'left': 8,
+        'right': 8,
+        'bottom': 4,
+        'top': 4,
+    }
 
     c.statusbar.padding = padding
 
@@ -254,10 +241,10 @@ def set_style(c, options = {}):
     c.tabs.favicons.scale = 1
 
     # Fonts
-    font_size_str = str(font_size) + 'pt'
-    font_size_small_str = str(font_size - 1) + 'pt'
+    font_size_str = '11pt'
+    font_size_small_str = '9pt'
 
-    c.fonts.monospace = monospace
+    c.fonts.default_family = 'Menlo, "xos4 Terminus", Terminus, Monospace, Monaco, "Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace, Consolas, Terminal'
     c.fonts.completion.entry = font_size_small_str + ' monospace'
     c.fonts.completion.category = 'bold'
     c.fonts.debug_console = font_size_str + ' monospace' 
