@@ -249,7 +249,7 @@ inherit = label/base
 type = internal/xkeyboard
 blacklist-0 = num lock
 
-format-prefix = " "
+format-prefix = "  "
 format =  <label-layout> <label-indicator>
 
 label-indicator = 
@@ -261,7 +261,7 @@ type = internal/fs
 
 mount-0 = /
 
-format-mounted-prefix = " "
+format-mounted-prefix = "  "
 
 label-mounted =  %percentage_used%%
 label-unmounted = %mountpoint%
@@ -272,7 +272,7 @@ label-unmounted-foreground = ${colors.urgent}
 inherit = label/base
 type = internal/memory
 interval = 2
-format-prefix = " "
+format-prefix = "  "
 label = %percentage_used%%
 
 
@@ -299,9 +299,9 @@ inherit = label/base
 type = internal/date
 interval = 5
 
-format-prefix = "  "
+format-prefix = "   "
 # maintain color manualy :c
-time = "  %{F#3fe097}%{F-} %H:%M"
+time = "  %{F#3fe097} %{F-}%H:%M"
 time-alt =
 date = %d/%m
 date-alt = %A
