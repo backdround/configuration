@@ -106,6 +106,8 @@ client.background       #ffffff
 
 exec_always --no-startup-id $HOME/.config/polybar/startup
 
+exec_always --no-startup-id pkill unclutter ; unclutter --timeout 1 --jitter 30 --ignore-scrolling &
+
 #font
 font pango:FantasqueSansMono Nerd Font 12
 
