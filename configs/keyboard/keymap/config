@@ -55,7 +55,7 @@ xkb_keymap {
 
     replace key <AB07> {
       type = "LOCAL_TYPE",
-      symbols[Group2] = [ SetGroup(group=+1) ],
+      actions[Group2] = [ SetGroup(group=+1) ],
       symbols[Group1] = [ m,                 M,                 NoSymbol ],
       symbols[Group4] = [ Cyrillic_softsign, Cyrillic_SOFTSIGN, NoSymbol ],
       actions[Group1] = [ NoAction(), NoAction(), RedirectKey(key=<RTRN>,clearmods=Control)],
