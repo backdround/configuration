@@ -38,6 +38,9 @@
       "initializationOptions": {
          "cache": {
            "directory": ".ccls.cache"
+         },
+         "highlight" : {
+           "lsRanges" : true
          }
        }
     },

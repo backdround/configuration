@@ -96,6 +96,9 @@ function! s:LoadPlugins()
                                           " COMPLETE
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+                                          " LSP HIGHLIGHT
+    Plug 'jackguo380/vim-lsp-cxx-highlight'
+
     Plug 'mhinz/vim-signify'              " GIT
     Plug 'tpope/vim-fugitive'
   endif
