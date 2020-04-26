@@ -17,7 +17,7 @@ xkb_symbols "keys" {
   key <AD11> {	[ bracketleft,	braceleft	]	};
   key <AD12> {	[ bracketright,	braceright	]	};
 
-  key <AC01> {	[	  a,	A 		]	};
+  key <AC01> {	[	  a,	A 	]	};
   key <AC02> {	[	  s,	S		]	};
   key <AC03> {	[	  d,	D		]	};
   key <AC04> {	[	  f,	F		]	};
@@ -41,4 +41,5 @@ xkb_symbols "keys" {
   key <AB10> {	[     slash,	question	]	};
 
   key <BKSL> {	[ backslash,         bar	]	};
+
 };

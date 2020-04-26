@@ -4,41 +4,42 @@ xkb_symbols "keys" {
   name[Group1]= "Special keys";
   include "us"
 
-  key <AD01> { [ minus                ] };
+  key.type = "Alt_type";
+  key <AD01> { [ NoSymbol, NoSymbol, minus                ] };
 
-  key <AD02> { [ plus                 ] };
-  key <AD03> { [ equal                ] };
-  key <AD04> { [ ampersand            ] };
-  key <AD05> { [ asterisk             ] };
+  key <AD02> { [ NoSymbol, NoSymbol, plus                 ] };
+  key <AD03> { [ NoSymbol, NoSymbol, equal                ] };
+  key <AD04> { [ NoSymbol, NoSymbol, ampersand            ] };
+  key <AD05> { [ NoSymbol, NoSymbol, asterisk             ] };
 
-  key <AD06> { [ dollar               ] };
-  key <AD07> { [ XF86AudioRaiseVolume ] };
-  key <AD08> { [ XF86AudioMute        ] };
-  key <AD09> { [ XF86AudioLowerVolume ] };
-  key <AD10> { [ asciitilde           ] };
-
-
-  key <AC01> { [ numbersign           ] };
-  key <AC02> { [ underscore           ] };
-  key <AC03> { [ parenleft            ] };
-  key <AC04> { [ parenright           ] };
-  key <AC05> { [ bar                  ] };
-
-  key <AC06> { [ Tab                  ] };
-  key <AC07> { [ Return               ] };
-  key <AC08> { [ Escape               ] };
-  key <AC09> { [ BackSpace            ] };
+  key <AD06> { [ NoSymbol, NoSymbol, dollar               ] };
+  key <AD07> { [ NoSymbol, NoSymbol, XF86AudioRaiseVolume ] };
+  key <AD08> { [ NoSymbol, NoSymbol, XF86AudioMute        ] };
+  key <AD09> { [ NoSymbol, NoSymbol, XF86AudioLowerVolume ] };
+  key <AD10> { [ NoSymbol, NoSymbol, asciitilde           ] };
 
 
-  key <AB01> { [ bracketleft          ] };
-  key <AB02> { [ bracketright         ] };
-  key <AB03> { [ braceleft            ] };
-  key <AB04> { [ braceright           ] };
-  key <AB05> { [ backslash            ] };
+  key <AC01> { [ NoSymbol, NoSymbol, numbersign           ] };
+  key <AC02> { [ NoSymbol, NoSymbol, underscore           ] };
+  key <AC03> { [ NoSymbol, NoSymbol, parenleft            ] };
+  key <AC04> { [ NoSymbol, NoSymbol, parenright           ] };
+  key <AC05> { [ NoSymbol, NoSymbol, bar                  ] };
 
-  key <AB06> { [ percent              ] };
-  key <AB07> { [ quotedbl             ] };
-  key <AB08> { [ apostrophe           ] };
-  key <AB09> { [ exclam               ] };
-  key <AB10> { [ asciicircum          ] };
+  key <AC06> { [ NoSymbol, NoSymbol, Tab                  ] };
+  key <AC07> { [ NoSymbol, NoSymbol, Return               ] };
+  key <AC08> { [ NoSymbol, NoSymbol, Escape               ] };
+  key <AC09> { [ NoSymbol, NoSymbol, BackSpace            ] };
+
+
+  key <AB01> { [ NoSymbol, NoSymbol, bracketleft          ] };
+  key <AB02> { [ NoSymbol, NoSymbol, bracketright         ] };
+  key <AB03> { [ NoSymbol, NoSymbol, braceleft            ] };
+  key <AB04> { [ NoSymbol, NoSymbol, braceright           ] };
+  key <AB05> { [ NoSymbol, NoSymbol, backslash            ] };
+
+  key <AB06> { [ NoSymbol, NoSymbol, percent              ] };
+  key <AB07> { [ NoSymbol, NoSymbol, quotedbl             ] };
+  key <AB08> { [ NoSymbol, NoSymbol, apostrophe           ] };
+  key <AB09> { [ NoSymbol, NoSymbol, exclam               ] };
+  key <AB10> { [ NoSymbol, NoSymbol, asciicircum          ] };
 };

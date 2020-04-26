@@ -46,66 +46,33 @@ xkb_keymap {
       action= LockGroup(group=2);
     };
 
-    //interpret ISO_Level3_Latch {
-    //  action= LockGroup(group=4);
-    //};
-
-    interpret ISO_Group_Latch {
-      action = setGroup(group=4, clearLocks);
+    interpret ISO_Level3_Shift {
+      action= SetMods(modifiers=Mod5);
     };
   };
 
   xkb_symbols {
 
     include "pc+dvp"
+    include "keys"
+
+    include "keys:2"
     include "us:2"
+
+    include "keys:3"
     include "ru:3"
-    include "keys:4"
 
     include "inet(evdev)"
     include "terminate(ctrl_alt_bksp)"
-
-
-    //////////////////////////////////////////////////
-    // Layouts Switch
 
     replace key <CAPS> {
       type = "Ctrl_type",
       [ ISO_First_Group, ISO_Last_Group, Hyper_R ]
     };
 
-
-    replace key <RALT> {
-      symbols[Group1] = [ ISO_Group_Latch ],
-      symbols[Group2] = [ ISO_Group_Latch ],
-      symbols[Group3] = [ ISO_Group_Latch ],
-      symbols[Group4] = [ ISO_Group_Latch ],
-
-      actions[Group1] = [ SetGroup(group=+3) ],
-      actions[Group2] = [ SetGroup(group=+2) ],
-      actions[Group3] = [ SetGroup(group=+1) ]
-    };
-    replace key <TAB> {
-      symbols[Group1] = [ ISO_Group_Latch ],
-      symbols[Group2] = [ ISO_Group_Latch ],
-      symbols[Group3] = [ ISO_Group_Latch ],
-      symbols[Group4] = [ ISO_Group_Latch ],
-
-      actions[Group1] = [ SetGroup(group=+3) ],
-      actions[Group2] = [ SetGroup(group=+2) ],
-      actions[Group3] = [ SetGroup(group=+1) ]
-    };
-
-
-    //////////////////////////////////////////////////
-    // Ctrl-h => Backspace
-    key <AC06> {
-      type = "Ctrl_type",
-      actions[Group1] = [ NoAction(), NoAction(), RedirectKey(key=<BKSP>,clearmods=Control)],
-      actions[Group2] = [ NoAction(), NoAction(), RedirectKey(key=<BKSP>,clearmods=Control)],
-      actions[Group3] = [ NoAction(), NoAction(), RedirectKey(key=<BKSP>,clearmods=Control)]
-    };
-
+    replace key <RALT> { [ISO_Level3_Shift ] };
+    replace key <TAB> { [ISO_Level3_Shift ] };
+    modifier_map Mod5 { ISO_Level3_Shift };
   };
 
   xkb_geometry  { include "pc(pc105)" };
