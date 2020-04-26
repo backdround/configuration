@@ -101,7 +101,7 @@ if __name__ == '__main__':
 
         # Keyboard
         ["configs/keyboard/keymap/config",          "~/.config/xkb/keymap/config"],
-        ["configs/keyboard/symbols/dvp",            "~/.config/xkb/symbols/dvp"],
+        ["configs/keyboard/symbols/dv",             "~/.config/xkb/symbols/dv"],
         ["configs/keyboard/symbols/keys",           "~/.config/xkb/symbols/keys"],
 
         # Gtk

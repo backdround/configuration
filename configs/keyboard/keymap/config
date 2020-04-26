@@ -53,8 +53,8 @@ xkb_keymap {
 
   xkb_symbols {
 
-    include "pc+dvp"
     include "keys"
+    include "pc+dv"
 
     include "keys:2"
     include "us:2"
