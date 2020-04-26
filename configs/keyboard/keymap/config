@@ -1,9 +1,12 @@
 xkb_keymap {
-  xkb_keycodes { include "evdev+aliases(qwerty)" };
-  xkb_types    {
-    include "complete"
+  xkb_keycodes { include "evdev" };
 
-    type "LOCAL_TYPE" {
+  xkb_types {
+    include "basic"
+    include "pc"
+    include "numpad"
+
+    type "Ctrl_type" {
       modifiers = Control+Shift;
       map[None] = Level1;
       map[Shift] = Level2;
@@ -12,66 +15,98 @@ xkb_keymap {
       level_name[Level2] = "Shift";
       level_name[Level3] = "Ctrl";
     };
+
+    type "Alt_type" {
+      modifiers = Shift+Mod5;
+      map[None] = Level1;
+      map[Shift] = Level2;
+      map[Mod5] = Level3;
+      level_name[Level1] = "Base";
+      level_name[Level2] = "Shift";
+      level_name[Level3] = "AltGr";
+    };
+
   };
 
   xkb_compat {
-    include "complete"
+    include "basic"
     include "ledscroll(group_lock)"
+    augment "misc"
+    augment "xfree86"
 
     interpret ISO_First_Group {
       action= LockGroup(group=1);
     };
 
     interpret ISO_Last_Group {
-      action= LockGroup(group=-1);
+      action= LockGroup(group=3);
     };
 
+    interpret Hyper_R {
+      action= LockGroup(group=2);
+    };
+
+    //interpret ISO_Level3_Latch {
+    //  action= LockGroup(group=4);
+    //};
+
+    interpret ISO_Group_Latch {
+      action = setGroup(group=4, clearLocks);
+    };
   };
 
   xkb_symbols {
-    include "pc+us+special:2+nums:3+ru:4+inet(evdev)"
 
-    //include "pc+us"
-    //include "special:2"
-    //include "nums:3"
-    //include "ru:4"
-    //include "inet(evdev)"
+    include "pc+dvp"
+    include "us:2"
+    include "ru:3"
+    include "keys:4"
 
-    include "compose(menu)"
+    include "inet(evdev)"
     include "terminate(ctrl_alt_bksp)"
-    include "level5(rwin_switch_lock)"
+
+
+    //////////////////////////////////////////////////
+    // Layouts Switch
 
     replace key <CAPS> {
-      symbols[Group1] = [ VoidSymbol, ISO_Last_Group ],
-      symbols[Group2] = [ VoidSymbol, VoidSymbol ],
-      symbols[Group3] = [ VoidSymbol, VoidSymbol ],
-      symbols[Group4] = [ ISO_First_Group, VoidSymbol ]
+      type = "Ctrl_type",
+      [ ISO_First_Group, ISO_Last_Group, Hyper_R ]
     };
+
 
     replace key <RALT> {
-      actions[Group1] = [ SetGroup(group=+1) ],
-      actions[Group4] = [ SetGroup(group=+2) ]
+      symbols[Group1] = [ ISO_Group_Latch ],
+      symbols[Group2] = [ ISO_Group_Latch ],
+      symbols[Group3] = [ ISO_Group_Latch ],
+      symbols[Group4] = [ ISO_Group_Latch ],
+
+      actions[Group1] = [ SetGroup(group=+3) ],
+      actions[Group2] = [ SetGroup(group=+2) ],
+      actions[Group3] = [ SetGroup(group=+1) ]
+    };
+    replace key <TAB> {
+      symbols[Group1] = [ ISO_Group_Latch ],
+      symbols[Group2] = [ ISO_Group_Latch ],
+      symbols[Group3] = [ ISO_Group_Latch ],
+      symbols[Group4] = [ ISO_Group_Latch ],
+
+      actions[Group1] = [ SetGroup(group=+3) ],
+      actions[Group2] = [ SetGroup(group=+2) ],
+      actions[Group3] = [ SetGroup(group=+1) ]
     };
 
-    replace key <AB07> {
-      type = "LOCAL_TYPE",
-      actions[Group2] = [ SetGroup(group=+1) ],
-      symbols[Group1] = [ m,                 M,                 NoSymbol ],
-      symbols[Group4] = [ Cyrillic_softsign, Cyrillic_SOFTSIGN, NoSymbol ],
-      actions[Group1] = [ NoAction(), NoAction(), RedirectKey(key=<RTRN>,clearmods=Control)],
-      actions[Group4] = [ NoAction(), NoAction(), RedirectKey(key=<RTRN>,clearmods=Control)]
-    };
 
-    replace key <AC06> {
-      type = "LOCAL_TYPE",
-      symbols[Group1] = [ h,           H,           BackSpace ],
-      symbols[Group4] = [ Cyrillic_er, Cyrillic_ER, BackSpace ],
+    //////////////////////////////////////////////////
+    // Ctrl-h => Backspace
+    key <AC06> {
+      type = "Ctrl_type",
       actions[Group1] = [ NoAction(), NoAction(), RedirectKey(key=<BKSP>,clearmods=Control)],
-      actions[Group4] = [ NoAction(), NoAction(), RedirectKey(key=<BKSP>,clearmods=Control)]
+      actions[Group2] = [ NoAction(), NoAction(), RedirectKey(key=<BKSP>,clearmods=Control)],
+      actions[Group3] = [ NoAction(), NoAction(), RedirectKey(key=<BKSP>,clearmods=Control)]
     };
 
   };
 
   xkb_geometry  { include "pc(pc105)" };
 };
-

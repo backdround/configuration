@@ -1,0 +1,44 @@
+partial default modifier_keys
+xkb_symbols "keys" {
+
+  name[Group1]= "Special keys";
+  include "us"
+
+  key <AD01> { [ minus                ] };
+
+  key <AD02> { [ plus                 ] };
+  key <AD03> { [ equal                ] };
+  key <AD04> { [ ampersand            ] };
+  key <AD05> { [ asterisk             ] };
+
+  key <AD06> { [ dollar               ] };
+  key <AD07> { [ XF86AudioRaiseVolume ] };
+  key <AD08> { [ XF86AudioMute        ] };
+  key <AD09> { [ XF86AudioLowerVolume ] };
+  key <AD10> { [ asciitilde           ] };
+
+
+  key <AC01> { [ numbersign           ] };
+  key <AC02> { [ underscore           ] };
+  key <AC03> { [ parenleft            ] };
+  key <AC04> { [ parenright           ] };
+  key <AC05> { [ bar                  ] };
+
+  key <AC06> { [ Tab                  ] };
+  key <AC07> { [ Return               ] };
+  key <AC08> { [ Escape               ] };
+  key <AC09> { [ BackSpace            ] };
+
+
+  key <AB01> { [ bracketleft          ] };
+  key <AB02> { [ bracketright         ] };
+  key <AB03> { [ braceleft            ] };
+  key <AB04> { [ braceright           ] };
+  key <AB05> { [ backslash            ] };
+
+  key <AB06> { [ percent              ] };
+  key <AB07> { [ quotedbl             ] };
+  key <AB08> { [ apostrophe           ] };
+  key <AB09> { [ exclam               ] };
+  key <AB10> { [ asciicircum          ] };
+};
