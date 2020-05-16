@@ -18,17 +18,16 @@ set $wsright3 "7: >"
 set $wsright4 "8: Right"
 
 # monitors
-set $primary --primary--
-set $secondary --secondary--
-workspace $wsleft1  output $primary
-workspace $wsleft2  output $primary
-workspace $wsleft3  output $primary
-workspace $wsleft4  output $primary
-workspace $wsright1 output $secondary
-workspace $wsright2 output $secondary
-workspace $wsright3 output $secondary
-workspace $wsright4 output $secondary
-exec_always --no-startup-id i3-msg focus output $primary
+set $left_monitor --left_monitor--
+set $right_monitor --right_monitor--
+workspace $wsleft1  output $left_monitor
+workspace $wsleft2  output $left_monitor
+workspace $wsleft3  output $left_monitor
+workspace $wsleft4  output $left_monitor
+workspace $wsright1 output $right_monitor
+workspace $wsright2 output $right_monitor
+workspace $wsright3 output $right_monitor
+workspace $wsright4 output $right_monitor
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -264,8 +263,8 @@ bindsym $mod+plus scratchpad show
 #telegram messenger
 bindsym $mod+F1 [class="TelegramDesktop"] scratchpad show
 for_window [class="TelegramDesktop"] floating enable
-for_window [class="TelegramDesktop"] resize set --position-telegram--
-for_window [class="TelegramDesktop"] move position --size-telegram--
+for_window [class="TelegramDesktop"] move position --position-telegram--
+for_window [class="TelegramDesktop"] resize set --size-telegram--
 for_window [class="TelegramDesktop"] sticky enable
 for_window [class="TelegramDesktop"] move scratchpad
 
@@ -326,9 +325,9 @@ bindsym --release Control+Print exec --no-startup-id flameshot full -c -p ~/othe
 bindsym --release $mod+Shift+Print exec --no-startup-id ~/.local/bin/screenshot_window
 
 #volume
-bindsym Group4+XF86AudioRaiseVolume exec --no-startup-id pulseaudio-ctl up
-bindsym Group4+XF86AudioMute exec --no-startup-id pulseaudio-ctl mute
-bindsym Group4+XF86AudioLowerVolume exec --no-startup-id pulseaudio-ctl down
+bindsym Mod5+XF86AudioRaiseVolume exec --no-startup-id pulseaudio-ctl up
+bindsym Mod5+XF86AudioMute exec --no-startup-id pulseaudio-ctl mute
+bindsym Mod5+XF86AudioLowerVolume exec --no-startup-id pulseaudio-ctl down
 bindsym XF86AudioRaiseVolume exec --no-startup-id pulseaudio-ctl up
 bindsym XF86AudioMute exec --no-startup-id pulseaudio-ctl mute
 bindsym XF86AudioLowerVolume exec --no-startup-id pulseaudio-ctl down

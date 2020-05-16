@@ -149,16 +149,22 @@ if __name__ == '__main__':
         "gis_weather":        ("10 10",   ""),
         "qutebrowser_editor": ("",        "675 336"),
     }
+
+    if instance == "home":
+        position_size["dropdown"] = ("979 348", "1882 500")
+        position_size["ranger"] = ("979 348", "1882 500")
+        position_size["telegram"] = ("2872 468", "580 740")
+
     replaces =      [('--position-{}--'.format(key), val1) for key, (val1, _) in position_size.items()]
     replaces.extend([('--size-{}--'.format(key), val2) for key, (_, val2) in position_size.items()])
     replaces.extend([("--inner-gaps--", "19")])
 
     if instance == "home":
-        replaces.extend([("--primary--", "DP-1")])
-        replaces.extend([("--secondary--", "DVI-D-1")])
+        replaces.extend([("--left_monitor--", "DP-1")])
+        replaces.extend([("--right_monitor--", "DVI-D-1")])
     elif instance == "work":
-        replaces.extend([("--primary--", "DP-1")])
-        replaces.extend([("--secondary--", "HDMI-2")])
+        replaces.extend([("--left_monitor--", "DP-1")])
+        replaces.extend([("--right_monitor--", "HDMI-2")])
 
     # make replaces
     utils.replace_in_file(instance_file, replaces)
