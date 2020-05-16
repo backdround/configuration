@@ -122,7 +122,6 @@ if __name__ == '__main__':
         ["configs/desktop/mimeapps.list",           "~/.config/mimeapps.list"],
 
         # Misc
-        ["configs/misc/gis_weather",                "~/.config/gis-weather/gw_config1.json"],
         ["configs/misc/gpg",                        "~/.gnupg/gpgconf.conf"],
         ["configs/misc/pulse",                      "~/.config/pulseaudio-ctl/config"],
     )
@@ -146,7 +145,6 @@ if __name__ == '__main__':
         "ncmpcpp":            ("210 745", "1500 300"),
         "dropdown":           ("5 5",     "1910 532"),
         "ranger":             ("5 5",     "1910 486"),
-        "gis_weather":        ("10 10",   ""),
         "qutebrowser_editor": ("",        "675 336"),
     }
 

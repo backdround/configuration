@@ -209,9 +209,6 @@
 [translater]
     appname = "translater"
     urgency = low
-[weather]
-    appname = "weather"
-    urgency = normal
 
 #[signed_on]
 #    appname = Pidgin

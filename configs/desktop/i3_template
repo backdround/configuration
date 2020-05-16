@@ -228,9 +228,6 @@ mode "launcher" {
   #pulse audio
   bindsym p exec pavucontrol; mode "default"
 
-  #weather
-  bindsym w exec --no-startup-id .local/bin/weather; mode "default"
-
   # change layout
   bindsym $mod+h split h
   bindsym $mod+v split v
@@ -291,13 +288,6 @@ for_window [class="ranger-desktop"] sticky enable
 for_window [class="ranger-desktop"] move position --position-ranger--
 for_window [class="ranger-desktop"] resize set --size-ranger--
 for_window [class="ranger-desktop"] move scratchpad
-
-#gis weather
-bindsym $mod+w [class="Gis-weather.py"] scratchpad show
-for_window [class="Gis-weather.py"] floating enable
-for_window [class="Gis-weather.py"] sticky enable
-for_window [class="Gis-weather.py"] move position --position-gis_weather--
-for_window [class="Gis-weather.py"] move scratchpad
 
 #floating mpv
 for_window [class="mpv"] floating enable
