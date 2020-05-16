@@ -108,7 +108,6 @@ systemctl --user daemon-reload
 systemctl --user enable telegram.service
 systemctl --user enable ddterminal.service
 systemctl --user enable compton
-systemctl --user enable ncmpcpp
 systemctl --user enable ranger
 systemctl --user enable ssh-agent
 systemctl --user enable dropbox_monitor

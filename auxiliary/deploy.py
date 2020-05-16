@@ -109,11 +109,6 @@ if __name__ == '__main__':
         ["configs/gtk/settings.ini",                "~/.config/gtk-3.0/settings.ini"],
         ["configs/gtk/gtkrc-2.0",                   "~/.gtkrc-2.0"],
 
-        # Music
-        ["configs/music/mpd",                       "~/.config/mpd/mpd.conf"],
-        ["configs/music/ncmpcpp",                   "~/.ncmpcpp/config"],
-        ["configs/music/ncmpcpp_bindings",          "~/.ncmpcpp/bindings"],
-
         # Desktop
         ["configs/desktop/compton.conf",            "~/.config/compton.conf"],
         ["configs/desktop/dunstrc",                 "~/.config/dunst/dunstrc"],
@@ -142,7 +137,6 @@ if __name__ == '__main__':
     # make replace pairs
     position_size = {
         "telegram":           ("525 700", "1348 96"),
-        "ncmpcpp":            ("210 745", "1500 300"),
         "dropdown":           ("5 5",     "1910 532"),
         "ranger":             ("5 5",     "1910 486"),
         "qutebrowser_editor": ("",        "675 336"),

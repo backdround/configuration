@@ -265,14 +265,6 @@ for_window [class="TelegramDesktop"] resize set --size-telegram--
 for_window [class="TelegramDesktop"] sticky enable
 for_window [class="TelegramDesktop"] move scratchpad
 
-#ncmpcpp
-bindsym $mod+m [class="ncmpcpp-desktop"] scratchpad show
-for_window [class="ncmpcpp-desktop"] floating enable
-for_window [class="ncmpcpp-desktop"] sticky enable
-for_window [class="ncmpcpp-desktop"] move position --position-ncmpcpp--
-for_window [class="ncmpcpp-desktop"] resize set --size-ncmpcpp--
-for_window [class="ncmpcpp-desktop"] move scratchpad
-
 #drop down terminal
 bindsym $mod+d [class="ddterminal-desktop"] scratchpad show
 for_window [class="ddterminal-desktop"] floating enable
@@ -288,11 +280,6 @@ for_window [class="ranger-desktop"] sticky enable
 for_window [class="ranger-desktop"] move position --position-ranger--
 for_window [class="ranger-desktop"] resize set --size-ranger--
 for_window [class="ranger-desktop"] move scratchpad
-
-#floating mpv
-for_window [class="mpv"] floating enable
-for_window [class="mpv"] resize set 400 225
-for_window [class="mpv"] move position 727 30
 
 #qutebrowser editor
 for_window [class="qute_editor"] floating enable
