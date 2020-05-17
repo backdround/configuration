@@ -1,13 +1,76 @@
-#focus_follows_mouse no
-
 set $mod Mod4
 
-# general config
+
+############################################################
+# General config
+
 floating_modifier $mod
 popup_during_fullscreen smart
 force_focus_wrapping yes
+font pango:FantasqueSansMono Nerd Font 12
 
-# name workspaces
+
+#  I3
+exec_always --no-startup-id systemctl --user start i3-gaps.target
+#  Polybar
+exec_always --no-startup-id $HOME/.config/polybar/startup
+#  Mouse hider
+exec_always --no-startup-id pkill unclutter ; unclutter --timeout 1 --jitter 30 --ignore-scrolling &
+
+
+# Main binds
+bindcode $mod+Shift+24 kill
+bindcode $mod+41 fullscreen toggle
+bindcode $mod+46 exec --no-startup-id ~/.local/bin/screen_switcher.py
+
+# Floating
+bindcode $mod+54 floating toggle
+bindcode $mod+55 focus mode_toggle
+
+# Scratchpad
+bindcode $mod+20 move scratchpad
+bindcode $mod+21 scratchpad show
+
+# I3
+bindcode $mod+52 reload
+bindcode $mod+53 restart
+
+
+
+############################################################
+# CUSTOM BINDS
+
+#  Translate
+bindcode $mod+38 exec --no-startup-id .local/bin/translate_notify
+#  D&D screens
+bindcode $mod+39 exec --no-startup-id ~/.local/bin/dragon_screen ~/other/screens
+#  Dmenu
+bindcode $mod+40 exec --no-startup-id j4-dmenu-desktop --no-generic  --dmenu='dmenu -i -l 20 -dim 1 -fn 8'
+
+# Screenshots
+bindsym --release Print exec --no-startup-id flameshot screen -c -p ~/other/screens
+bindsym --release $mod+Print exec --no-startup-id flameshot gui -p ~/other/screens
+bindsym --release Control+Print exec --no-startup-id flameshot full -c -p ~/other/screens
+bindsym --release $mod+Shift+Print exec --no-startup-id ~/.local/bin/screenshot_window
+
+# Volume
+bindsym Mod5+XF86AudioRaiseVolume exec --no-startup-id pulseaudio-ctl up
+bindsym Mod5+XF86AudioMute exec --no-startup-id pulseaudio-ctl mute
+bindsym Mod5+XF86AudioLowerVolume exec --no-startup-id pulseaudio-ctl down
+bindsym XF86AudioRaiseVolume exec --no-startup-id pulseaudio-ctl up
+bindsym XF86AudioMute exec --no-startup-id pulseaudio-ctl mute
+bindsym XF86AudioLowerVolume exec --no-startup-id pulseaudio-ctl down
+
+# Brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 2
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 2
+
+
+
+############################################################
+# Workspaces
+
+# Workspace names
 set $wsleft1  "1: Web"
 set $wsleft2  "2: Build"
 set $wsleft3  "3: <"
@@ -17,7 +80,7 @@ set $wsright2 "6: Other"
 set $wsright3 "7: >"
 set $wsright4 "8: Right"
 
-# monitors
+# Monitors
 set $left_monitor --left_monitor--
 set $right_monitor --right_monitor--
 workspace $wsleft1  output $left_monitor
@@ -29,59 +92,43 @@ workspace $wsright2 output $right_monitor
 workspace $wsright3 output $right_monitor
 workspace $wsright4 output $right_monitor
 
-# kill focused window
-bindsym $mod+Shift+q kill
+# Switch to workspace
+bindcode $mod+44 workspace $wsleft1
+bindcode $mod+59 workspace $wsleft2
+bindcode $mod+57 workspace $wsleft3
+bindcode $mod+10 workspace $wsleft4
+bindcode $mod+45 workspace $wsright1
+bindcode $mod+60 workspace $wsright2
+bindcode $mod+58 workspace $wsright3
+bindcode $mod+11 workspace $wsright4
 
-# change focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+# Move focused container to workspace
+bindcode $mod+Shift+44 move container to workspace $wsleft1
+bindcode $mod+Shift+59 move container to workspace $wsleft2
+bindcode $mod+Shift+57 move container to workspace $wsleft3
+bindcode $mod+Shift+10 move container to workspace $wsleft4
+bindcode $mod+Shift+45 move container to workspace $wsright1
+bindcode $mod+Shift+60 move container to workspace $wsright2
+bindcode $mod+Shift+58 move container to workspace $wsright3
+bindcode $mod+Shift+11 move container to workspace $wsright4
 
-# move focused window
-bindsym $mod+Shift+h move left 50px
-bindsym $mod+Shift+j move down 50px
-bindsym $mod+Shift+k move up 50px
-bindsym $mod+Shift+l move right 50px
+# Focus keys
+bindcode $mod+29 focus left
+bindcode $mod+30 focus down
+bindcode $mod+31 focus up
+bindcode $mod+32 focus right
 
-# enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+# Move focused window
+bindcode $mod+Shift+29 move left 50px
+bindcode $mod+Shift+30 move down 50px
+bindcode $mod+Shift+31 move up 50px
+bindcode $mod+Shift+32 move right 50px
 
-# change focused layout
-bindsym $mod+p focus parent
-bindsym $mod+c focus child
 
-# toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
 
-# change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+############################################################
+# Colors
 
-# switch to workspace
-bindsym $mod+comma workspace  $wsleft1
-bindsym $mod+u workspace      $wsleft2
-bindsym $mod+1 workspace      $wsleft3
-bindsym $mod+3 workspace      $wsleft4
-bindsym $mod+period workspace $wsright1
-bindsym $mod+i workspace      $wsright2
-bindsym $mod+2 workspace      $wsright3
-bindsym $mod+4 workspace      $wsright4
-bindsym $mod+o exec --no-startup-id ~/.local/bin/screen_switcher.py
-
-# move focused container to workspace
-bindsym $mod+Shift+comma  move container to workspace $wsleft1
-bindsym $mod+Shift+u      move container to workspace $wsleft2
-bindsym $mod+Shift+1      move container to workspace $wsleft3
-bindsym $mod+Shift+3      move container to workspace $wsleft4
-bindsym $mod+Shift+period move container to workspace $wsright1
-bindsym $mod+Shift+i      move container to workspace $wsright2
-bindsym $mod+Shift+2      move container to workspace $wsright3
-bindsym $mod+Shift+4      move container to workspace $wsright4
-
-bindsym $mod+Shift+c reload
-bindsym $mod+Shift+r restart
-
-#colors
 set_from_resource  $black  i3wm.color0  #17121e
 set_from_resource  $red    i3wm.color1  #ff2d5e
 set_from_resource  $green  i3wm.color10 #00fa90
@@ -103,216 +150,117 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 client.background       #ffffff
 
-exec_always --no-startup-id $HOME/.config/polybar/startup
 
-exec_always --no-startup-id pkill unclutter ; unclutter --timeout 1 --jitter 30 --ignore-scrolling &
 
-#font
-font pango:FantasqueSansMono Nerd Font 12
+############################################################
+# Customization
 
-#session
-mode "session" {
-  bindsym e exec --no-startup-id systemctl --user stop i3-gaps.target; exec i3-msg exit ; mode "default"
-  bindsym l exec --no-startup-id i3lock-fancy; mode "default"
-  bindsym s exec --no-startup-id "systemctl --user stop i3-gaps.target; sleep 0.5; systemctl poweroff"; mode "default"
-  bindsym r exec --no-startup-id "systemctl --user stop i3-gaps.target; sleep 0.5; systemctl reboot"; mode "default"
-
-  bindsym q mode "default"
-  bindsym Escape mode "default"
-  bindsym Return mode "default"
-}
-bindsym $mod+Shift+e mode "session"
-
-#gaps
+# Gaps
 set $outer 0
-set $inner --inner-gaps--
+set $inner 19
 
-#smart_gaps off
 gaps outer $outer
 gaps inner $inner
 
-set $cust1 customization 1
-set $cust2 customization 2
-set $cust3 customization 3
+bindcode $mod+18 gaps inner current set $inner
+bindcode $mod+19 gaps inner current set 5
 
-bindsym $mod+n mode "$cust3"
-mode "$cust1" {
-  bindsym 1 mode "$cust1"
-  bindsym 2 mode "$cust2"
-  bindsym 3 mode "$cust3"
-
-  bindsym h resize grow width 5 px or 1 ppt
-  bindsym j resize grow height 5 px or 1 ppt
-  bindsym k resize shrink height 5 px or 1 ppt
-  bindsym l resize shrink width 5 px or 1 ppt
-
-  bindsym $mod+Shift+h move left 10px
-  bindsym $mod+Shift+j move down 10px
-  bindsym $mod+Shift+k move up 10px
-  bindsym $mod+Shift+l move right 10px
-
-  bindsym Escape mode "default"
-  bindsym q mode "default"
-}
-mode "$cust2" {
-  bindsym 1 mode "$cust1"
-  bindsym 2 mode "$cust2"
-  bindsym 3 mode "$cust3"
-
-  bindsym h resize grow width 15 px or 4 ppt
-  bindsym j resize grow height 15 px or 4 ppt
-  bindsym k resize shrink height 15 px or 4 ppt
-  bindsym l resize shrink width 15 px or 4 ppt
-
-  bindsym $mod+Shift+h move left 25px
-  bindsym $mod+Shift+j move down 25px
-  bindsym $mod+Shift+k move up 25px
-  bindsym $mod+Shift+l move right 25px
-
-  bindsym Escape mode "default"
-  bindsym q mode "default"
-}
-mode "$cust3" {
-  bindsym 1 mode "$cust1"
-  bindsym 2 mode "$cust2"
-  bindsym 3 mode "$cust3"
-
-  bindsym h resize grow width 60 px or 20 ppt
-  bindsym j resize grow height 60 px or 20 ppt
-  bindsym k resize shrink height 60 px or 20 ppt
-  bindsym l resize shrink width 60 px or 20 ppt
-
-  bindsym $mod+Shift+h move left 60px
-  bindsym $mod+Shift+j move down 60px
-  bindsym $mod+Shift+k move up 60px
-  bindsym $mod+Shift+l move right 60px
-
-  bindsym Escape mode "default"
-  bindsym q mode "default"
-}
-
-bindsym $mod+Shift+n mode "gaps"
-mode "gaps" {
-  bindsym 1 gaps inner current set $inner
-  bindsym 0 gaps inner current set 5
-
-  bindsym Escape mode "default"
-  bindsym q mode "default"
-}
-
-#border
+# Border
 default_border pixel 1
 default_floating_border pixel 1
-bindsym $mod+b border toggle
+bindcode $mod+17 border toggle
 
 
-#launcher
-mode "launcher" {
-  bindsym F1 exec --no-startup-id telegram-desktop -- %u; mode "default"
 
-  #dmenu
-  bindsym d exec --no-startup-id j4-dmenu-desktop --no-generic  --dmenu='dmenu -i -l 20 -dim 1 -fn 8';mode "default"
+############################################################
+# Session
 
-  #terminal
-  bindsym Return exec --no-startup-id i3-sensible-terminal; mode "default"
-
-  #qutebrowser
-  bindsym q exec --no-startup-id ~/.local/bin/qute_do.sh; mode "default"
-
-  #chromium
-  bindsym c exec --no-startup-id chromium; mode "default"
-
-  #firefox
-  bindsym f exec firefox; mode "default"
-
-  #pulse audio
-  bindsym p exec pavucontrol; mode "default"
-
-  # change layout
-  bindsym $mod+h split h
-  bindsym $mod+v split v
-  bindsym $mod+s layout stacking
-  bindsym $mod+t layout tabbed
-  bindsym $mod+e layout toggle split
-  bindsym $mod+p focus parent
-  bindsym $mod+c focus child
-
-  # change focus
-  bindsym h focus left
-  bindsym j focus down
-  bindsym k focus up
-  bindsym l focus right
+bindcode $mod+24 mode "session"
+mode "session" {
+  bindcode 24 exec --no-startup-id systemctl --user stop i3-gaps.target; exec i3-msg exit ; mode "default"
+  bindcode 25 exec --no-startup-id i3lock-fancy; mode "default"
+  bindcode 26 exec --no-startup-id "systemctl --user stop i3-gaps.target; sleep 0.5; systemctl poweroff"; mode "default"
+  bindcode 27 exec --no-startup-id "systemctl --user stop i3-gaps.target; sleep 0.5; systemctl reboot"; mode "default"
 
   bindsym Escape mode "default"
+  bindsym Mod5+Escape mode "default"
 }
-bindsym $mod+x mode "launcher"
 
-#start i3
-exec_always --no-startup-id systemctl --user start i3-gaps.target
 
-# create ui-keydriven interface for unit managment
-# start/stop service
 
-#scratchpad
-bindsym $mod+minus move scratchpad
-bindsym $mod+plus scratchpad show
+############################################################
+# Launcher
 
-#telegram messenger
-bindsym $mod+F1 [class="TelegramDesktop"] scratchpad show
+bindcode $mod+25 mode "launcher"
+mode "launcher" {
+  #terminal
+  bindcode 44 exec --no-startup-id i3-sensible-terminal; mode "default"
+
+  #qutebrowser
+  bindcode 45 exec --no-startup-id ~/.local/bin/qute_do.sh; mode "default"
+
+  #google-chrome
+  bindcode 46 exec --no-startup-id google-chrome-unstable; mode "default"
+
+  #pulse audio
+  bindcode 47 exec pavucontrol; mode "default"
+
+  # change layout
+  bindcode $mod+43 split h
+  bindcode $mod+44 split v
+  bindcode $mod+45 layout stacking
+  bindcode $mod+46 layout tabbed
+  bindcode $mod+59 focus child
+  bindcode $mod+60 focus parent
+
+  # change focus
+  bindcode 29 focus left
+  bindcode 30 focus down
+  bindcode 31 focus up
+  bindcode 32 focus right
+
+  bindsym Escape mode "default"
+  bindsym Mod5+Escape mode "default"
+}
+
+
+
+############################################################
+# Windows
+
+# Telegram
+bindcode $mod+47 [class="TelegramDesktop"] scratchpad show
 for_window [class="TelegramDesktop"] floating enable
 for_window [class="TelegramDesktop"] move position --position-telegram--
 for_window [class="TelegramDesktop"] resize set --size-telegram--
 for_window [class="TelegramDesktop"] sticky enable
 for_window [class="TelegramDesktop"] move scratchpad
 
-#drop down terminal
-bindsym $mod+d [class="ddterminal-desktop"] scratchpad show
+# Dropdown terminal
+bindcode $mod+43 [class="ddterminal-desktop"] scratchpad show
 for_window [class="ddterminal-desktop"] floating enable
 for_window [class="ddterminal-desktop"] sticky enable
 for_window [class="ddterminal-desktop"] move position --position-dropdown--
 for_window [class="ddterminal-desktop"] resize set --size-dropdown--
 for_window [class="ddterminal-desktop"] move scratchpad
 
-#ranger file manager
-bindsym $mod+r [class="ranger-desktop"] scratchpad show
+# Ranger
+bindcode $mod+42 [class="ranger-desktop"] scratchpad show
 for_window [class="ranger-desktop"] floating enable
 for_window [class="ranger-desktop"] sticky enable
 for_window [class="ranger-desktop"] move position --position-ranger--
 for_window [class="ranger-desktop"] resize set --size-ranger--
 for_window [class="ranger-desktop"] move scratchpad
 
-#qutebrowser editor
+# Qutebrowser editor
 for_window [class="qute_editor"] floating enable
 for_window [class="qute_editor"] resize set --size-qutebrowser_editor--
 
-#tiling ignore
+# Tiling ignore
 for_window [class="octa"] floating enable
 for_window [class="chart_manager_test"] floating enable
 for_window [class="app"] floating enable
 for_window [class="qmllivebench"] floating enable
 for_window [class="QML Live Bench"] floating enable
-
-#translate
-bindsym $mod+z exec --no-startup-id .local/bin/translate_notify
-
-#screenshots
-bindsym --release Print exec --no-startup-id flameshot screen -c -p ~/other/screens
-bindsym --release $mod+Print exec --no-startup-id flameshot gui -p ~/other/screens
-bindsym --release Control+Print exec --no-startup-id flameshot full -c -p ~/other/screens
-bindsym --release $mod+Shift+Print exec --no-startup-id ~/.local/bin/screenshot_window
-
-#volume
-bindsym Mod5+XF86AudioRaiseVolume exec --no-startup-id pulseaudio-ctl up
-bindsym Mod5+XF86AudioMute exec --no-startup-id pulseaudio-ctl mute
-bindsym Mod5+XF86AudioLowerVolume exec --no-startup-id pulseaudio-ctl down
-bindsym XF86AudioRaiseVolume exec --no-startup-id pulseaudio-ctl up
-bindsym XF86AudioMute exec --no-startup-id pulseaudio-ctl mute
-bindsym XF86AudioLowerVolume exec --no-startup-id pulseaudio-ctl down
-
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 2
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 2
-
-#other
-bindsym $mod+v exec --no-startup-id ~/.local/bin/dragon_screen ~/other/screens
 
 # vim: set ft=i3:

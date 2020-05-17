@@ -1,6 +1,6 @@
 #!/bin/bash
 NAME=screen-$(date +%d:%m:%y-%H:%M:%S).png
-FILE=$HOME/screens/$NAME
+FILE=$HOME/other/screens/$NAME
 
 # do screenshot
 scrot -u -q 100  $FILE
