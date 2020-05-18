@@ -229,7 +229,7 @@ mode "launcher" {
 # Windows
 
 # Telegram
-bindcode $mod+47 [class="TelegramDesktop"] scratchpad show
+bindcode $mod+26 [class="TelegramDesktop"] scratchpad show
 for_window [class="TelegramDesktop"] floating enable
 for_window [class="TelegramDesktop"] move position --position-telegram--
 for_window [class="TelegramDesktop"] resize set --size-telegram--
@@ -245,7 +245,7 @@ for_window [class="ddterminal-desktop"] resize set --size-dropdown--
 for_window [class="ddterminal-desktop"] move scratchpad
 
 # Ranger
-bindcode $mod+42 [class="ranger-desktop"] scratchpad show
+bindcode $mod+47 [class="ranger-desktop"] scratchpad show
 for_window [class="ranger-desktop"] floating enable
 for_window [class="ranger-desktop"] sticky enable
 for_window [class="ranger-desktop"] move position --position-ranger--
