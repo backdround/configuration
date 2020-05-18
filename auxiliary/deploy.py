@@ -136,7 +136,7 @@ if __name__ == '__main__':
 
     # make replace pairs
     position_size = {
-        "telegram":           ("525 700", "1348 96"),
+        "telegram":           ("1348 96", "525 700"),
         "dropdown":           ("5 5",     "1910 532"),
         "ranger":             ("5 5",     "1910 486"),
         "qutebrowser_editor": ("",        "675 336"),
