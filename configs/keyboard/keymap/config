@@ -11,6 +11,7 @@ xkb_keymap {
       map[None] = Level1;
       map[Shift] = Level2;
       map[Control] = Level3;
+
       level_name[Level1] = "Base";
       level_name[Level2] = "Shift";
       level_name[Level3] = "Ctrl";
@@ -52,15 +53,9 @@ xkb_keymap {
   };
 
   xkb_symbols {
-
-    include "keys"
-    include "pc+dv"
-
-    include "keys:2"
-    include "us:2"
-
-    include "keys:3"
-    include "ru:3"
+    include "pc+dv_layout"
+    include "us_layout:2"
+    include "ru_layout:3"
 
     include "inet(evdev)"
     include "terminate(ctrl_alt_bksp)"
@@ -70,8 +65,8 @@ xkb_keymap {
       [ ISO_First_Group, ISO_Last_Group, Hyper_R ]
     };
 
-    replace key <RALT> { [ISO_Level3_Shift ] };
-    replace key <TAB> { [ISO_Level3_Shift ] };
+    replace key <RALT> { [ ISO_Level3_Shift ] };
+    replace key <TAB> { [ ISO_Level3_Shift ] };
     modifier_map Mod5 { ISO_Level3_Shift };
   };
 

@@ -250,7 +250,7 @@ type = internal/xkeyboard
 blacklist-0 = num lock
 
 format-prefix = " "
-label-layout = %layout:3%
+label-layout = %name:3%
 format =  <label-layout><label-indicator>
 
 label-indicator = 
