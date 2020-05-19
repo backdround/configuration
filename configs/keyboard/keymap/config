@@ -65,8 +65,12 @@ xkb_keymap {
       [ ISO_First_Group, ISO_Last_Group, Hyper_R ]
     };
 
-    replace key <RALT> { [ ISO_Level3_Shift ] };
-    replace key <TAB> { [ ISO_Level3_Shift ] };
+    replace key <RALT> {
+      [ ISO_Level3_Shift, Caps_Lock ]
+    };
+    replace key <TAB> {
+      [ ISO_Level3_Shift, Tab ]
+    };
     modifier_map Mod5 { ISO_Level3_Shift };
   };
 
