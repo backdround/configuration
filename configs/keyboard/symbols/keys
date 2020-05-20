@@ -41,5 +41,5 @@ xkb_symbols "keys" {
   key <AB07> { [ NoSymbol, NoSymbol, quotedbl             ] };
   key <AB08> { [ NoSymbol, NoSymbol, apostrophe           ] };
   key <AB09> { [ NoSymbol, NoSymbol, exclam               ] };
-  key <AB10> { [ NoSymbol, NoSymbol, asciicircum          ] };
+  key <AB10> { [ NoSymbol, NoSymbol, grave                ] };
 };
