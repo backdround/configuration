@@ -6,26 +6,9 @@ xkb_symbols "keys" {
 
   name[Group1] = "dv";
 
-  key<TLDE> { [ dollar,       asciitilde ] };
-  key<AE01> { [ ampersand,    percent    ] };
-  key<AE02> { [ bracketleft,  7          ] };
-  key<AE03> { [ braceleft,    5          ] };
-  key<AE04> { [ braceright,   3          ] };
-  key<AE05> { [ parenleft,    1          ] };
-  key<AE06> { [ equal,        9          ] };
-
-  key<AE07> { [ asterisk,     0          ] };
-  key<AE08> { [ parenright,   2          ] };
-  key<AE09> { [ plus,         4          ] };
-  key<AE10> { [ bracketright, 6          ] };
-  key<AE11> { [ exclam,       8          ] };
-  key<AE12> { [ numbersign,   grave      ] };
-  key<BKSP> { [ BackSpace,    BackSpace  ] };
-
-
   key<AD01> { [ w,            W          ] };
   key<AD02> { [ v,            V          ] };
-  key<AD03> { [ z,            Z          ] };
+  key<AD03> { [ s,            S          ] };
   key<AD04> { [ p,            P          ] };
   key<AD05> { [ y,            Y          ] };
   key<AD06> { [ f,            F          ] };
@@ -34,8 +17,6 @@ xkb_symbols "keys" {
   key<AD08> { [ c,            C          ] };
   key<AD09> { [ r,            R          ] };
   key<AD10> { [ l,            L          ] };
-  key<AD11> { [ minus,        underscore ] };
-  key<AD12> { [ equal,        plus       ] };
 
 
   key<AC01> { [ a,            A          ] };
@@ -48,11 +29,11 @@ xkb_symbols "keys" {
   key<AC07> { [ h,            H          ] };
   key<AC08> { [ t,            T          ] };
   key<AC09> { [ n,            N          ] };
-  key<AC10> { [ s,            S          ] };
+  key<AC10> { [ semicolon,    colon      ] };
   key<AC11> { [ apostrophe,   quotedbl   ] };
 
 
-  key<AB01> { [ semicolon,    colon      ] };
+  key<AB01> { [ z,            Z          ] };
   key<AB02> { [ q,            Q          ] };
   key<AB03> { [ j,            J          ] };
   key<AB04> { [ k,            K          ] };
