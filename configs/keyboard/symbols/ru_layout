@@ -24,19 +24,19 @@ xkb_symbols "common" {
 
     key <TLDE> { [       Cyrillic_io,       Cyrillic_IO  ] };
     key <AD01> { [   Cyrillic_shorti,   Cyrillic_SHORTI  ] };
-    key <AD02> { [      Cyrillic_tse,      Cyrillic_TSE  ] };
+    key <AD02> { [ Cyrillic_hardsign, Cyrillic_HARDSIGN  ] };
     key <AD03> { [        Cyrillic_u,        Cyrillic_U  ] };
     key <AD04> { [       Cyrillic_ka,       Cyrillic_KA  ] };
     key <AD05> { [       Cyrillic_ie,       Cyrillic_IE  ] };
     key <AD06> { [       Cyrillic_en,       Cyrillic_EN  ] };
     key <AD07> { [      Cyrillic_ghe,      Cyrillic_GHE  ] };
-    key <AD08> { [      Cyrillic_sha,      Cyrillic_SHA  ] };
-    key <AD09> { [    Cyrillic_shcha,    Cyrillic_SHCHA  ] };
+    key <AD08> { [       Cyrillic_be,       Cyrillic_BE  ] };
+    key <AD09> { [       Cyrillic_ha,       Cyrillic_HA  ] };
     key <AD10> { [       Cyrillic_ze,       Cyrillic_ZE  ] };
-    key <AD11> { [       Cyrillic_ha,       Cyrillic_HA  ] };
-    key <AD12> { [ Cyrillic_hardsign, Cyrillic_HARDSIGN  ] };
+    key <AD11> { [    Cyrillic_shcha,    Cyrillic_SHCHA  ] };
+    key <AD12> { [      Cyrillic_tse,      Cyrillic_TSE  ] };
 
-    key <AC01> { [       Cyrillic_ef,       Cyrillic_EF  ] };
+    key <AC01> { [      Cyrillic_zhe,      Cyrillic_ZHE  ] };
     key <AC02> { [     Cyrillic_yeru,     Cyrillic_YERU  ] };
     key <AC03> { [       Cyrillic_ve,       Cyrillic_VE  ] };
     key <AC04> { [        Cyrillic_a,        Cyrillic_A  ] };
@@ -45,7 +45,7 @@ xkb_symbols "common" {
     key <AC07> { [        Cyrillic_o,        Cyrillic_O  ] };
     key <AC08> { [       Cyrillic_el,       Cyrillic_EL  ] };
     key <AC09> { [       Cyrillic_de,       Cyrillic_DE  ] };
-    key <AC10> { [      Cyrillic_zhe,      Cyrillic_ZHE  ] };
+    key <AC10> { [       Cyrillic_ef,       Cyrillic_EF  ] };
     key <AC11> { [        Cyrillic_e,        Cyrillic_E  ] };
 
     key <AB01> { [       Cyrillic_ya,       Cyrillic_YA  ] };
@@ -55,7 +55,7 @@ xkb_symbols "common" {
     key <AB05> { [        Cyrillic_i,        Cyrillic_I  ] };
     key <AB06> { [       Cyrillic_te,       Cyrillic_TE  ] };
     key <AB07> { [ Cyrillic_softsign, Cyrillic_SOFTSIGN  ] };
-    key <AB08> { [       Cyrillic_be,       Cyrillic_BE  ] };
+    key <AB08> { [      Cyrillic_sha,      Cyrillic_SHA  ] };
     key <AB09> { [       Cyrillic_yu,       Cyrillic_YU  ] };
 
     include "kpdl(comma)"
