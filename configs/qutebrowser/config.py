@@ -8,76 +8,6 @@ c.aliases = {'w': 'session-save', 'q': 'quit', 'wq': 'quit --save', 'x': 'quit -
 c.auto_save.interval = 15000
 c.auto_save.session = False
 
-c.bindings.key_mappings = {
-    'Й': 'Q', 'й': 'q',
-    'Ц': 'W', 'ц': 'w',
-    'У': 'E', 'у': 'e',
-    'К': 'R', 'к': 'r',
-    'Е': 'T', 'е': 't',
-    'Н': 'Y', 'н': 'y',
-    'Г': 'U', 'г': 'u',
-    'Ш': 'I', 'ш': 'i',
-    'Щ': 'O', 'щ': 'o',
-    'З': 'P', 'з': 'p',
-    'Х': '{', 'х': '[',
-    'Ъ': '}', 'ъ': ']',
-    'Ф': 'A', 'ф': 'a',
-    'Ы': 'S', 'ы': 's',
-    'В': 'D', 'в': 'd',
-    'А': 'F', 'а': 'f',
-    'П': 'G', 'п': 'g',
-    'Р': 'H', 'р': 'h',
-    'О': 'J', 'о': 'j',
-    'Л': 'K', 'л': 'k',
-    'Д': 'L', 'д': 'l',
-    'Ж': ':', 'ж': ';',
-    'Э': '"', 'э': '\'',
-    'Я': 'Z', 'я': 'z',
-    'Ч': 'X', 'ч': 'x',
-    'С': 'C', 'с': 'c',
-    'М': 'V', 'м': 'v',
-    'И': 'B', 'и': 'b',
-    'Т': 'N', 'т': 'n',
-    'Ь': 'M', 'ь': 'm',
-    'Б': '<', 'б': ',',
-    'Ю': '>', 'ю': '.',
-    ',': '?', '.': '/',
-
-    '<Alt-й>': '<Alt-q>',
-    '<Alt-ц>': '<Alt-w>',
-    '<Alt-у>': '<Alt-e>',
-    '<Alt-к>': '<Alt-r>',
-    '<Alt-е>': '<Alt-t>',
-    '<Alt-н>': '<Alt-y>',
-    '<Alt-г>': '<Alt-u>',
-    '<Alt-ш>': '<Alt-i>',
-    '<Alt-щ>': '<Alt-o>',
-    '<Alt-з>': '<Alt-p>',
-    '<Alt-х>': '<Alt-[>',
-    '<Alt-ъ>': '<Alt-]>',
-    '<Alt-ф>': '<Alt-a>',
-    '<Alt-ы>': '<Alt-s>',
-    '<Alt-в>': '<Alt-d>',
-    '<Alt-а>': '<Alt-f>',
-    '<Alt-п>': '<Alt-g>',
-    '<Alt-р>': '<Alt-h>',
-    '<Alt-о>': '<Alt-j>',
-    '<Alt-л>': '<Alt-k>',
-    '<Alt-д>': '<Alt-l>',
-    '<Alt-ж>': '<Alt-;>',
-    '<Alt-э>': '<Alt-\'>',
-    '<Alt-я>': '<Alt-z>',
-    '<Alt-ч>': '<Alt-x>',
-    '<Alt-с>': '<Alt-c>',
-    '<Alt-м>': '<Alt-v>',
-    '<Alt-и>': '<Alt-b>',
-    '<Alt-т>': '<Alt-n>',
-    '<Alt-ь>': '<Alt-m>',
-    '<Alt-б>': '<Alt-,>',
-    '<Alt-ю>': '<Alt-.>',
-    '<Alt-.>': '<Alt-/>'
-}
-
 c.completion.cmd_history_max_items = 400
 c.completion.delay = 10
 c.completion.height = '65%'
@@ -114,8 +44,8 @@ c.downloads.location.suggestion = 'filename'
 editor_script = os.path.expanduser('~/.local/bin/qute_editor.sh')
 c.editor.command = [editor_script, '{} -c \'normal {line}G{column0}l\'']
 
-both_hands_chars = 'asdghklqwertyuiopzxcvbnmfj;'
-left_hand_chars = 'asdgqwertzxcv'
+both_hands_chars = 'wvspyaoeuizqjkxfgcrldhtnbm'
+left_hand_chars = 'wvspyaoeuizqjkx'
 c.hints.chars = '{}'.format(both_hands_chars)
 c.hints.dictionary = '/usr/share/dict/words'
 
@@ -173,69 +103,70 @@ c.bindings.default['command'] = {}
 c.bindings.default['hint'] = {}
 c.bindings.default['insert'] = {}
 c.bindings.default['passthrough'] = {}
+
+
 #  *****************************************************************************
 ## normal mode
 
-# download
-config.bind('Dp', 'download --mhtml')
-config.bind('Ds', 'download-cancel')
-config.bind('Dc', 'download-clear')
-config.bind('Dd', 'download-delete')
-config.bind('Do', 'download-open')
-config.bind('Dr', 'download-retry')
+clear_script = "jseval -q -f ~/.config/qutebrowser/my_scripts/clear.js"
 
-# yanks
-config.bind('yd', 'yank domain')
-config.bind('yD', 'yank domain -s')
-config.bind('yp', 'yank pretty-url')
-config.bind('yP', 'yank pretty-url -s')
-config.bind('yt', 'yank title')
-config.bind('yT', 'yank title -s')
-config.bind('yy', 'yank selection')
-config.bind('yY', 'yank seleciion -s')
-config.bind('yl', 'hint links yank')
-config.bind('yL', 'hint links yank-primary')
+# Navigation
+config.bind('a', 'run-with-count 7 scroll left')
+config.bind('o', 'run-with-count 7 scroll right')
+config.bind('e', 'run-with-count 7 scroll down')
+config.bind('u', 'run-with-count 7 scroll up')
 
-# hints
-config.bind(';h', 'hint all hover')
-config.bind(';i', 'hint inputs --first')
-config.bind(';I', 'hint inputs')
-config.bind(';m', 'hint images')
-config.bind(';M', 'hint images tab')
-config.bind(';b', 'hint all tab-bg')
-config.bind(';r', 'hint --rapid links tab-bg')
-config.bind(';w', 'hint all window')
-config.bind(';d', 'hint links download')
-config.bind('f',  'hint')
-config.bind('F',  'hint all tab')
+config.bind('s', 'run-with-count 14 scroll down')
+config.bind('p', 'run-with-count 14 scroll up')
 
-# tabs
+config.bind('W', 'scroll-to-perc')
+config.bind('w', 'scroll-to-perc 0')
+
+# Main
+config.bind('i', 'hint')
+config.bind('E', 'back')
+config.bind('U', 'forward')
+
+config.bind('<Escape>', 'clear-keychain ;; search ;; fullscreen --leave ;; ' + clear_script)
+
+# Tabs
 for i in range(1, 10):
     config.bind('<Alt-{}>'.format(i), 'tab-focus {}'.format(i))
 config.bind('<Alt-0>', 'tab-focus -1')
 
-config.bind('H', 'back')
-config.bind('L', 'forward')
-config.bind('J', 'tab-prev')
-config.bind('K', 'tab-next')
+config.bind('vq', 'tab-close')
+config.bind('vv', 'undo')
 
-config.bind('<', 'tab-move -')
-config.bind('>', 'tab-move +')
+config.bind('ve', 'tab-prev')
+config.bind('vu', 'tab-next')
 
-# tab managment
-config.bind('To', 'tab-only')
-config.bind('Tc', 'tab-clone --bg')
-config.bind('TC', 'tab-clone --window')
-config.bind('Tg', 'tab-give')
-config.bind('TG', 'set-cmd-text -s :tab-give')
-config.bind('Tt', 'set-cmd-text -s :tab-take')
-config.bind('TT', 'set-cmd-text -s :tab-take --keep')
+config.bind('vs', 'tab-move -')
+config.bind('vp', 'tab-move +')
 
-# choose tab(go to)
-config.bind('gt', 'tab-focus')
-config.bind('gT', 'tab-prev')
-config.bind('go', 'set-cmd-text -s :buffer ')
-config.bind('g4', 'tab-focus -1')
+config.bind('vy', 'reload')
+config.bind('vY', 'reload -f')
+
+
+# Other
+config.bind('+',              'zoom-in')
+config.bind('-',              'zoom-out')
+config.bind('=',              'zoom')
+config.bind('/',              'set-cmd-text /')
+config.bind('?',              'set-cmd-text ?')
+config.bind(':',              'set-cmd-text :')
+config.bind('<Ctrl-Return>',  'follow-selected -t')
+config.bind('<Return>',       'follow-selected')
+config.bind('<Ctrl-/>',       'search {primary}')
+config.bind('<Ctrl-Shift-?>', 'search --reverse {primary}')
+config.bind(']',              'search-next')
+config.bind('[',              'search-prev')
+config.bind('<Ctrl-Shift-b>', 'set-cmd-text -s :open -p')
+config.bind('<Alt-r>',        'config-cycle --temp hints.chars {} {}'.format(both_hands_chars, left_hand_chars))
+
+config.bind('g', 'enter-mode insert')
+config.bind('c', 'enter-mode passthrough')
+config.bind('r', 'enter-mode caret')
+
 
 # open in background/new/current tab or new window
 commands_with_prefix = [
@@ -244,9 +175,9 @@ commands_with_prefix = [
     ('d', 'navigate decrement {}'),
     ('p', 'navigate prev {}'),
     ('n', 'navigate next {}'),
-    ('u', 'navigate up {}'),
-    ('h', 'back {}'),
-    ('l', 'forward {}'),
+    ('t', 'navigate up {}'),
+    ('e', 'back {}'),
+    ('u', 'forward {}'),
 
     #quickmarks/bockmarks
     ('b', 'set-cmd-text -s :bookmark-load {}'),
@@ -257,16 +188,17 @@ commands_with_prefix = [
     #other
     ('y', 'open {} {{clipboard}}'),
     ('Y', 'open {} {{primary}}'),
-    ('e', 'edit-url {}'),
-    ('o', 'open {}'),
+    ('c', 'edit-url {}'),
+    ('o', 'set-cmd-text -s :open {}'),
+    ('O', 'open {}'),
     ('m', 'messages {}'),
-    ('H', 'open {} qute://history')
+    ('h', 'open {} qute://history')
 ]
 ways_to_open = [
-    ('c', ''),
-    ('t', '--tab'),
-    ('b', '--bg'),
-    ('W', '--window')
+    ('j', ''),
+    ('k', '--tab'),
+    ('q', '--bg'),
+    ('z', '--window')
 ]
 for way in ways_to_open:
     for command in commands_with_prefix:
@@ -274,41 +206,14 @@ for way in ways_to_open:
         cmd = command[1].format(way[1])
         config.bind(keychain, cmd)
 
-config.bind(ways_to_open[0][0] + 'f', 'hint all current')
-config.bind(ways_to_open[1][0] + 'f', 'hint all tab-fg')
-config.bind(ways_to_open[2][0] + 'f', 'hint all tab-bg')
-config.bind(ways_to_open[3][0] + 'f', 'hint all window')
+config.bind(ways_to_open[0][0] + 'i', 'hint all current')
+config.bind(ways_to_open[1][0] + 'i', 'hint all tab-fg')
+config.bind(ways_to_open[2][0] + 'i', 'hint all tab-bg')
+config.bind(ways_to_open[3][0] + 'i', 'hint all window')
 
-# navigate on page
-config.bind('h', 'scroll-page -0.06 0')
-config.bind('l', 'scroll-page 0.06 0')
-config.bind('j', 'scroll-page 0 0.12')
-config.bind('k', 'scroll-page 0 -0.12')
 
-config.bind('<Ctrl-h>', 'scroll left')
-config.bind('<Ctrl-l>', 'scroll right')
-config.bind('<Ctrl-j>', 'run-with-count 3 scroll down')
-config.bind('<Ctrl-k>', 'run-with-count 3 scroll up')
-
-config.bind('s', 'scroll-page 0 0.12')
-config.bind('w', 'scroll-page 0 -0.12')
-
-config.bind('<Ctrl-B>', 'scroll-page 0 -1')
-config.bind('<Ctrl-F>', 'scroll-page 0 1')
-
-config.bind('u', 'scroll-page 0 -0.5')
-config.bind('d', 'scroll-page 0 0.5')
-config.bind('<Ctrl-n>', 'run-with-count 9 scroll down')
-config.bind('<Ctrl-p>', 'run-with-count 9 scroll up')
-
-config.bind('G', 'scroll-to-perc')
-config.bind('gg', 'scroll-to-perc 0')
-
-# into other modes
-config.bind('I', 'enter-mode insert')
-config.bind('i', 'enter-mode passthrough')
-config.bind('<Ctrl-i>', 'enter-mode passthrough')
-config.bind('v', 'enter-mode caret')
+#  ******************
+#  OTHER
 
 # like vim <Ctrl-o>
 from string import ascii_letters, digits
@@ -318,38 +223,45 @@ config.bind('<Alt-Return>', 'fake-key <Return>')
 config.bind('<Alt-Backspace>', 'fake-key <Backspace>')
 config.bind('<Alt-Escape>', 'fake-key <Escape>')
 
-# main
-clear_script = "jseval -q -f ~/.config/qutebrowser/my_scripts/clear.js"
-config.bind('<Escape>',       'clear-keychain ;; search ;; fullscreen --leave ;; ' + clear_script)
-config.bind("'",              'enter-mode jump_mark')
-config.bind('m',              'enter-mode set_mark')
-config.bind('+',              'zoom-in')
-config.bind('-',              'zoom-out')
-config.bind('=',              'zoom')
-config.bind('.',              'set-cmd-text /')
-config.bind(',',              'set-cmd-text ?')
-config.bind('/',              'set-cmd-text /')
-config.bind('?',              'set-cmd-text ?')
-config.bind(':',              'set-cmd-text :')
-config.bind('<Ctrl-Return>',  'follow-selected -t')
-config.bind('<Return>',       'follow-selected')
-config.bind('r',              'reload')
-config.bind('R',              'reload -f')
-config.bind('x',              'tab-close')
-config.bind('X',              'undo')
-config.bind('q',              'set-cmd-text -s :quickmark-load --tab'),
-config.bind('Q',              'set-cmd-text -s :bookmark-load --tab'),
-config.bind('<Ctrl-/>',       'search {primary}')
-config.bind('<Ctrl-Shift-?>', 'search --reverse {primary}')
-config.bind('n',              'search-next')
-config.bind('N',              'search-prev')
-config.bind('p',              'tab-pin')
-config.bind('o',              'set-cmd-text -s :open')
-config.bind('O',              'set-cmd-text -s :open -t')
-config.bind('<Ctrl-Shift-n>', 'set-cmd-text -s :open -p')
-config.bind('<Ctrl-s>',       'stop')
-config.bind('<Ctrl-c>',       'yank selection')
-config.bind('<Alt-r>',        'config-cycle --temp hints.chars {} {}'.format(both_hands_chars, left_hand_chars))
+# download
+config.bind('dp', 'download --mhtml')
+config.bind('ds', 'download-cancel')
+config.bind('dc', 'download-clear')
+config.bind('dd', 'download-delete')
+config.bind('do', 'download-open')
+config.bind('dr', 'download-retry')
+
+# yanks
+config.bind('fd', 'yank domain')
+config.bind('fD', 'yank domain -s')
+config.bind('fp', 'yank pretty-url')
+config.bind('fP', 'yank pretty-url -s')
+config.bind('ft', 'yank title')
+config.bind('fT', 'yank title -s')
+config.bind('fy', 'yank selection')
+config.bind('fY', 'yank seleciion -s')
+config.bind('fl', 'hint links yank')
+config.bind('fL', 'hint links yank-primary')
+
+# hints
+config.bind('hh', 'hint all hover')
+config.bind('hi', 'hint inputs --first')
+config.bind('hI', 'hint inputs')
+config.bind('hm', 'hint images')
+config.bind('hM', 'hint images tab')
+config.bind('hb', 'hint all tab-bg')
+config.bind('hr', 'hint --rapid links tab-bg')
+config.bind('hw', 'hint all window')
+config.bind('hd', 'hint links download')
+
+# tab managment
+config.bind('to', 'tab-only')
+config.bind('tc', 'tab-clone --bg')
+config.bind('tC', 'tab-clone --window')
+config.bind('tg', 'tab-give')
+config.bind('tG', 'set-cmd-text -s :tab-give')
+config.bind('tt', 'set-cmd-text -s :tab-take')
+config.bind('tT', 'set-cmd-text -s :tab-take --keep')
 
 # Session
 config.bind('Ss', 'set-cmd-text -s :session-save --only-active-window')
@@ -358,26 +270,26 @@ config.bind('Sn', 'set-cmd-text -s :session-load --clear')
 config.bind('Sd', 'set-cmd-text -s :session-delete')
 
 # other
-config.bind('zb', 'set-cmd-text -s :bookmark-add {url}')
-config.bind('zd', 'set-cmd-text -s :bookmark-del')
-config.bind('zq', 'set-cmd-text -s :quickmark-add {url}')
-config.bind('zD', 'set-cmd-text -s :quickmark-del')
-config.bind('zm', 'tab-mute')
-config.bind('zc', 'clear-messages')
-config.bind('zr', 'config-source')
-config.bind('ze', 'config-edit')
-config.bind('zs', 'view-source')
-config.bind('ZQ', 'quit')
+config.bind('tb', 'set-cmd-text -s :bookmark-add {url}')
+config.bind('td', 'set-cmd-text -s :bookmark-del')
+config.bind('tq', 'set-cmd-text -s :quickmark-add {url}')
+config.bind('tD', 'set-cmd-text -s :quickmark-del')
+config.bind('tm', 'tab-mute')
+config.bind('tc', 'clear-messages')
+config.bind('tr', 'config-source')
+config.bind('te', 'config-edit')
+config.bind('ts', 'view-source')
+config.bind('tQ', 'quit')
 
-config.bind('<Alt-j>', 'jseval -q document.querySelectorAll(\'video\') [0].currentTime -= 7;')
-config.bind('<Alt-l>', 'jseval -q document.querySelectorAll(\'video\') [0].currentTime += 7;')
-config.bind('<Alt-k>', 'jseval -q var video = document.querySelectorAll(\'video\') [0]; if (video.paused) { video.play();} else {video.pause();}')
-config.bind('<Alt-i>', 'jseval -q document.querySelectorAll(\'video\') [0].playbackRate = 1;')
-config.bind('<Alt-u>', 'jseval -q document.querySelectorAll(\'video\') [0].playbackRate -= 0.1;')
-config.bind('<Alt-o>', 'jseval -q document.querySelectorAll(\'video\') [0].playbackRate += 0.1;')
+config.bind('<Alt-h>', 'jseval -q document.querySelectorAll(\'video\') [0].currentTime -= 7;')
+config.bind('<Alt-n>', 'jseval -q document.querySelectorAll(\'video\') [0].currentTime += 7;')
+config.bind('<Alt-t>', 'jseval -q var video = document.querySelectorAll(\'video\') [0]; if (video.paused) { video.play();} else {video.pause();}')
+config.bind('<Alt-c>', 'jseval -q document.querySelectorAll(\'video\') [0].playbackRate = 1;')
+config.bind('<Alt-g>', 'jseval -q document.querySelectorAll(\'video\') [0].playbackRate -= 0.1;')
+config.bind('<Alt-r>', 'jseval -q document.querySelectorAll(\'video\') [0].playbackRate += 0.1;')
 config.bind('<Alt-a>', 'jseval -q document.querySelectorAll(\'video\') [0].playbackRate = 10;')
-config.bind('<Alt-s>', 'jseval -q document.querySelectorAll(\'video\') [0].currentTime = 0;')
-config.bind('<Alt-p>', 'jseval -q var video = document.querySelectorAll(\'video\') [0]; if (video.loop) { video.loop = 0;} else {video.loop = 1;}')
+config.bind('<Alt-m>', 'jseval -q document.querySelectorAll(\'video\') [0].currentTime = 0;')
+config.bind('<Alt-l>', 'jseval -q var video = document.querySelectorAll(\'video\') [0]; if (video.loop) { video.loop = 0;} else {video.loop = 1;}')
 
 
 #  *****************************************************************************

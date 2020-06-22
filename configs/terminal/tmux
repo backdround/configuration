@@ -14,10 +14,13 @@ set -g prefix2 `
 bind ` send-prefix -2
 unbind C-b
 
-bind r source-file ~/.tmux.conf
+bind r rotate-window
+bind R source-file ~/.tmux.conf
 bind f resize-pane -Z
 bind < swap-window -t -1
 bind > swap-window -t +1
+bind q kill-pane
+
 bind C choose-client -Z
 bind B choose-buffer -Z
 bind T choose-tree -Z
@@ -33,24 +36,20 @@ bind -T copy-mode-vi 'C-a' send -X copy-line
 bind -T copy-mode-vi 'C-v' send -X rectangle-toggle
 
 # pane manipulation
-bind -n M-H select-pane -L
-bind -n M-J select-pane -D
-bind -n M-K select-pane -U
-bind -n M-L select-pane -R
+bind -n M-D select-pane -L
+bind -n M-H select-pane -D
+bind -n M-T select-pane -U
+bind -n M-N select-pane -R
 
-bind -n M-Y resize-pane -L 5
-bind -n M-U resize-pane -D 5
-bind -n M-I resize-pane -U 5
-bind -n M-O resize-pane -R 5
-
-bind -n M-N resize-pane -L 1
-bind -n M-M resize-pane -D 1
-bind -n M-< resize-pane -U 1
-bind -n M-> resize-pane -R 1
+bind -n M-F resize-pane -L 5
+bind -n M-G resize-pane -D 5
+bind -n M-C resize-pane -U 5
+bind -n M-R resize-pane -R 5
 
 bind S choose-tree -s
-bind s split-window
-bind v split-window -h
+bind e split-window
+bind u split-window -h
+bind i new-window
 
 bind -n M-1 select-window -t 1
 bind -n M-2 select-window -t 2
