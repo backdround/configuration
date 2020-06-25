@@ -65,10 +65,6 @@ if __name__ == '__main__':
         ["configs/nvim/init.vim",                    "~/.config/nvim/init.vim"],
         ["configs/nvim/coc-settings.json",           "~/.config/nvim/coc-settings.json"],
 
-        ["configs/nvim/notes/plugin_hotkeys",        "~/.local/share/nvim/notes/plugin_hotkeys"],
-        ["configs/nvim/notes/qute_hotkeys",          "~/.local/share/nvim/notes/qute_hotkeys"],
-        ["configs/nvim/notes/vim_useful_hotkeys",    "~/.local/share/nvim/notes/vim_useful_hotkeys"],
-
         ["configs/nvim/UltiSnips/all.snippets",      "~/.local/share/nvim/UltiSnips/all.snippets"],
         ["configs/nvim/UltiSnips/cpp.snippets",      "~/.local/share/nvim/UltiSnips/cpp.snippets"],
         ["configs/nvim/UltiSnips/qml.snippets",      "~/.local/share/nvim/UltiSnips/qml.snippets"],

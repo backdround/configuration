@@ -58,48 +58,47 @@ function! s:LoadPlugins()
   " --------------------------------------------------------------------------
   " TEXT OBJECT
   Plug 'gcmt/wildfire.vim'             " WILDFIRE
-  "Plug 'wellle/targets.vim'            " TARGETS
-  "Plug 'kana/vim-textobj-user'         " TEXTOBJ USER
-  "Plug 'kana/vim-textobj-indent'       " TEXTOBJ INDENT
+  Plug 'wellle/targets.vim'            " TARGETS
+  Plug 'kana/vim-textobj-user'         " TEXTOBJ USER
+  Plug 'kana/vim-textobj-indent'       " TEXTOBJ INDENT
 
   " --------------------------------------------------------------------------
   " FEATURES
   if !exists("g:editor")
-    " MARKDOWN PREVIEW
-    "Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
-    "Plug 'Chiel92/vim-autoformat'         " AUTOFORMAT
-    "Plug 'fasterbru/ctrlsf.vim'           " CTRLSF
-    "Plug 'ludovicchabant/vim-gutentags'   " GUTENTAGS
-    "Plug 'xolox/vim-notes'                " NOTES
-    "Plug 'airblade/vim-rooter'            " ROOTER
-    "Plug 'markonm/traces.vim'             " TRACES
-    "Plug 'tpope/vim-repeat'               " REPEAT
-    "Plug 'junegunn/limelight.vim'         " LIMELIGHT
-    "Plug 'junegunn/vim-peekaboo'          " PEEKABOO
-    "Plug 'troydm/zoomwintab.vim'          " ZOOM WIN TAB
-    "Plug 'tyru/open-browser.vim'          " OPEN BROWSER
+    Plug 'xolox/vim-misc'
+
+                                          " MARKDOWN PREVIEW
+    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+    Plug 'Chiel92/vim-autoformat'         " AUTOFORMAT
+    Plug 'backdround/ctrlsf.vim'          " CTRLSF
+    Plug 'ludovicchabant/vim-gutentags'   " GUTENTAGS
+    Plug 'xolox/vim-notes'                " NOTES
+    Plug 'airblade/vim-rooter'            " ROOTER
+    Plug 'markonm/traces.vim'             " TRACES
+    Plug 'backdround/vim-repeat'          " REPEAT
+    Plug 'junegunn/limelight.vim'         " LIMELIGHT
+    Plug 'junegunn/goyo.vim'              " GOYO
+    Plug 'tyru/open-browser.vim'          " OPEN BROWSER
     "Plug 'kshenoy/vim-signature'          " SIGNATURE
-    "Plug 'Valloric/ListToggle'            " LIST TOGGLE
 
-    "Plug 'SirVer/ultisnips'               " SNIPPETS
-    "Plug 'honza/vim-snippets'
+    Plug 'SirVer/ultisnips'               " SNIPPETS
+    Plug 'honza/vim-snippets'
 
-    "Plug 'vim-scripts/DoxygenToolkit.vim' " DOXYGEN
+    Plug 'vim-scripts/DoxygenToolkit.vim' " DOXYGEN
 
     Plug '/usr/share/vim/vimfiles'        " FZF (INSTALLED BY PACMAN)
     Plug 'junegunn/fzf.vim'
 
-    "Plug 'xolox/vim-misc'                 " SESSION
-    "Plug 'xolox/vim-session'
+    Plug 'xolox/vim-session'             " SESSION
 
     " COMPLETE
-    "Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
     " LSP HIGHLIGHT
     Plug 'jackguo380/vim-lsp-cxx-highlight'
 
     "Plug 'mhinz/vim-signify'              " GIT
-    "Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-fugitive'
   endif
 
   call plug#end()
@@ -243,6 +242,7 @@ function! s:BasicSettings()
   nnoremap <silent> iE <Cmd>split +Startify<CR>
   nnoremap <silent> iu <Cmd>vsplit<CR>
   nnoremap <silent> iU <Cmd>vsplit +Startify<CR>
+  nnoremap <silent> io <Cmd>Startify<CR>
 
   nnoremap <silent> iq <Cmd>quit<CR>
   nnoremap <silent> iQ <Cmd>quit!<CR>
@@ -333,11 +333,10 @@ function! s:BasicSettings()
   vnoremap m gu
   vnoremap M gU
 
-  vnoremap g a
-  onoremap g a
+  noremap <Plug>(virtual-visual-a) a
+  noremap <Plug>(virtual-visual-i) i
+
   vnoremap G I
-  vnoremap c i
-  onoremap c i
   vnoremap C A
 
   vnoremap r o
@@ -355,13 +354,14 @@ function! s:BasicSettings()
 
   " vim
   nnoremap <silent> <leader>r :source ~/.config/nvim/init.vim<CR>
-  nnoremap <silent> <leader>h :call LoadWindow()<CR>
 
   " other
   set pastetoggle=<F8>
   inoremap <M-c> <C-^>
   vnoremap / y/<C-R>"<CR>
   nnoremap _ <esc>:w<CR>
+  nnoremap <silent> xh <C-]>
+  nnoremap <silent> xt gd
   "nnoremap <leader>k :tab Man<CR>
 
 
@@ -374,21 +374,27 @@ function! s:BasicSettings()
   " autocomands {{{
 
   "clear highlight function autoloads
-  "augroup SetHighlightFunctionGroup
-    "autocmd!
-  "augroup END
+  augroup SetHighlightFunctionGroup
+    autocmd!
+  augroup END
 
-  ""disabling autocommenting
-  "augroup DisablingAutocommenting
-    "autocmd!
-    "autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-  "augroup END
+  "disabling autocommenting
+  augroup DisablingAutocommenting
+    autocmd!
+    autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+  augroup END
 
-  ""change indention to 4 spaces
-  "augroup IdentionInCppLanguage
-    "autocmd!
-    "autocmd FileType cpp,c,hpp,h setlocal shiftwidth=4
-  "augroup END
+  "change indention to 4 spaces
+  augroup IdentionInCppLanguage
+    autocmd!
+    autocmd FileType cpp,c,hpp,h setlocal shiftwidth=4
+  augroup END
+
+  "set engligsh language when leave insert mode
+  augroup LeaveInsertLanguage
+    autocmd!
+    autocmd InsertLeave * set iminsert=0
+  augroup END
 
   ""remap q in Man page
   "augroup ManPageQuit
@@ -396,12 +402,6 @@ function! s:BasicSettings()
     "autocmd FileType man nunmap <buffer> q
     "autocmd FileType man map <buffer> q <Plug>(easymotion-lineanywhere)
     "autocmd FileType man nnoremap <buffer> z :vnew \| bd # \| :q<CR>
-  "augroup END
-
-  ""set engligsh language when leave insert mode
-  "augroup LeaveInsertLanguage
-    "autocmd!
-    "autocmd InsertLeave * set iminsert=0
   "augroup END
 
   "" setup default toc (gO) height
@@ -589,6 +589,24 @@ function! s:ConfigureCommonPlugins()
   " WINDOW-BASED FEATURES
 
   " --------------------------------------------------------------------------
+  " terminal
+  tnoremap <silent> <C-t> <C-\><C-n>
+
+  " toggle
+  nnoremap <silent> <F1> :call TerminalToggle()<CR>
+  tnoremap <silent> <F1> <C-\><C-n>:call TerminalToggle()<CR>
+  nnoremap <silent> <F13> :call SwitchWindowTo("Terminal")<CR>
+  tnoremap <silent> <F13> <C-\><C-n>:call SwitchWindowTo("Terminal")<CR>
+
+  " insert mode in terminal by default
+  augroup TerminalInsertMode
+    autocmd!
+    autocmd BufWinEnter,WinEnter Terminal startinsert
+    autocmd BufLeave Terminal stopinsert
+  augroup END
+
+
+  " --------------------------------------------------------------------------
   " startify
   let g:startify_change_to_dir = 0
   let g:startify_change_to_vcs_root = 0
@@ -629,6 +647,7 @@ function! s:ConfigureCommonPlugins()
   let g:startify_session_dir = '~/.local/share/nvim/sessions/'
   let g:startify_session_persistence = 1
   let g:startify_session_sort = 1
+  let g:startify_session_number = 9
 
   " --------------------------------------------------------------------------
   " tagbar
@@ -644,36 +663,37 @@ function! s:ConfigureCommonPlugins()
 
   " --------------------------------------------------------------------------
   " undotree
-  nnoremap <silent> <F4> :UndotreeToggle<CR>
-  nnoremap <silent> <F16> :call SwitchWindowTo("undotree_*")<CR>
   let g:undotree_CustomUndotreeCmd  = 'topleft vertical 30 new'
   let g:undotree_CustomDiffpanelCmd = 'botright 7 new'
   let g:undotree_RelativeTimestamp = 1
   let g:undotree_ShortIndicators = 1
   let g:undotree_HelpLine = 0
+  nnoremap <silent> <F4> :UndotreeToggle<CR>
+  nnoremap <silent> <F16> :call SwitchWindowTo("undotree_*")<CR>
 
   " --------------------------------------------------------------------------
   " nerdtree
   let g:NERDTreeStatusline = 'Nerdtree'
-  let g:NERDTreeMapOpenSplit = 's'
+  let g:NERDTreeMapOpenInTab = '<C-i>'
+  let g:NERDTreeMapOpenSplit = 'e'
+  let g:NERDTreeMapOpenVSplit = 'u'
   let g:NERDTreeMapPreviewSplit = 'gs'
-  let g:NERDTreeMapOpenVSplit = 'v'
   let g:NERDTreeMapPreviewVSplit = 'gv'
   let g:NERDTreeMapMenu = 'a'
   let g:NERDTreeWinSize = '29'
 
   nnoremap <silent> <F3> :call NerdtreeToggle()<CR>
   nnoremap <silent> <F15> :call SwitchWindowTo("NERD_tree_*")<CR>
-  nnoremap <silent> <leader>no :call NerdtreeToggle()<CR>
-  nnoremap <silent> <leader>nt :call SwitchWindowTo("NERD_tree_*")<CR>
-  nnoremap <silent> <leader>nr :NERDTreeRefreshRoot<CR>
-  nnoremap <silent> <leader>nf :NERDTreeFind<CR>
-  nnoremap <silent> <leader>nw :NERDTreeCWD<CR>
+  nnoremap <silent> <leader>,n :NERDTreeRefreshRoot<CR>
+  nnoremap <silent> <leader>,t :NERDTreeFind<CR>
+  nnoremap <silent> <leader>,h :NERDTreeCWD<CR>
 
   "my theme fix
   augroup SetHighlightFunctionGroup
     autocmd ColorScheme * highlight link NERDTreeDir Directory
   augroup END
+
+  nnoremap <silent> F10 :call LoadWindow()<CR>
 
 
   " **************************************************************************
@@ -771,10 +791,10 @@ function! s:ConfigureCommonPlugins()
 
   " --------------------------------------------------------------------------
   " auto-pairs
-  let g:AutoPairsShortcutToggle = '<M-w'
-  let g:AutoPairsShortcutJump = '<M-v>'
-  let g:AutoPairsShortcutFastWrap = '<M-s>'
-  let g:AutoPairsShortcutBackInsert = '<M-p>'
+  let g:AutoPairsShortcutToggle = '<M-a>'
+  let g:AutoPairsShortcutJump = '<M-o>'
+  let g:AutoPairsShortcutFastWrap = '<M-e>'
+  let g:AutoPairsShortcutBackInsert = '<M-u>'
 
   let g:AutoPairsFlyMode = 1
   let g:AutoPairsMultilineClose = 1
@@ -786,10 +806,10 @@ function! s:ConfigureCommonPlugins()
   nmap <silent> x, <Cmd>SidewaysJumpLeft<Cr>
   nmap <silent> x. <Cmd>SidewaysJumpRight<Cr>
 
-	"omap ga <Plug>SidewaysArgumentTextobjA
-	"xmap ga <Plug>SidewaysArgumentTextobjA
-	"omap ca <Plug>SidewaysArgumentTextobjI
-	"xmap ca <Plug>SidewaysArgumentTextobjI
+  omap <Plug>(virtual-visual-a)a <Plug>SidewaysArgumentTextobjA
+  xmap <Plug>(virtual-visual-a)a <Plug>SidewaysArgumentTextobjA
+  omap <Plug>(virtual-visual-i)a <Plug>SidewaysArgumentTextobjI
+  xmap <Plug>(virtual-visual-i)a <Plug>SidewaysArgumentTextobjI
 
   " --------------------------------------------------------------------------
   " exchange
@@ -829,16 +849,17 @@ function! s:ConfigureCommonPlugins()
   let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "ip", "it", "i>"]
 
   " targets
-  "let g:targets_aiAI = ['a', 'i', '<Space>g', '<Space>c']
-  "let g:targets_mapped_aiAI = ['g', 'c', '<Space>g', '<Space>c']
-  "let g:targets_nl = 'th'
+
+  let g:targets_aiAI        = 'gc  '
+  let g:targets_mapped_aiAI = ['<Plug>(virtual-visual-i)', '<Plug>(virtual-visual-a)', '', '']
+  let g:targets_nl = 'th'
 
   " textobj indent
   let g:textobj_indent_no_default_key_mappings = 1
-  "xmap gn <Plug>(textobj-indent-i)
-  "xmap gN <Plug>(textobj-indent-a)
-  "xmap gc <Plug>(textobj-indent-same-i)
-  "xmap gC <Plug>(textobj-indent-same-a)
+  xmap <Plug>(virtual-visual-a)i <Plug>(textobj-indent-a)
+  xmap <Plug>(virtual-visual-i)i <Plug>(textobj-indent-i)
+  xmap <Plug>(virtual-visual-a)s <Plug>(textobj-indent-same-a)
+  xmap <Plug>(virtual-visual-i)s <Plug>(textobj-indent-same-i)
 
 endfunction
 " }}}
@@ -851,50 +872,30 @@ function! s:ConfigureFeaturePlugins()
   " --------------------------------------------------------------------------
   " markdown preview
   let g:mkdp_auto_close = 0
-
-  " --------------------------------------------------------------------------
-  " terminal
-
-  tnoremap <silent> <C-o> <C-\><C-n>
-
-  " toggle
-  nnoremap <silent> <F1> :call TerminalToggle()<CR>
-  tnoremap <silent> <F1> <C-\><C-n>:call TerminalToggle()<CR>
-  nnoremap <silent> <F13> :call SwitchWindowTo("Terminal")<CR>
-  tnoremap <silent> <F13> <C-\><C-n>:call SwitchWindowTo("Terminal")<CR>
-
-  "insert mode in terminal by default
-  augroup TerminalInsertMode
-    autocmd!
-    "autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif
-    autocmd BufWinEnter,WinEnter Terminal startinsert
-    autocmd BufLeave Terminal stopinsert
-  augroup END
-
+  nmap <silent> <leader>m <Plug>MarkdownPreview
 
   " --------------------------------------------------------------------------
   " autoformat
-  noremap <Leader>j :Autoformat<CR>
+  noremap <Leader>b :Autoformat<CR>
 
   " --------------------------------------------------------------------------
   " ctrlsf
   let g:ctrlsf_auto_focus = {"at" : "start"}
   let g:ctrlsf_context = '-A 5 -B 2'
-  "let g:ctrlsf_default_root = 'project+fw'
-  "let g:ctrlsf_populate_qflist = 1
+  let g:ctrlsf_default_root = 'project+wf'
   let g:ctrlsf_default_view_mode = 'normal'
   let g:ctrlsf_position = 'bottom'
-  "let g:ctrlsf_position = 'left'
   let g:ctrlsf_winsize = '70%'
   let g:ctrlsf_indent = 2
   let g:ctrlsf_mapping = {
-        \ "split"   : "<C-s>",
-        \ "vsplit"  : "<C-v>",
+        \ "split"  : "<C-e>",
+        \ "vsplit" : "<C-u>",
+        \ "tab"    : "<C-i>",
         \ }
 
-  "nmap <Leader>i <Plug>CtrlSFCCwordExec
-  "nmap <Leader>I <Plug>CtrlSFCwordExec
-  "vmap <Leader>i <Plug>CtrlSFVwordExec
+  nmap <Leader>g <Plug>CtrlSFCCwordExec
+  nmap <Leader>G <Plug>CtrlSFCwordExec
+  vmap <Leader>g <Plug>CtrlSFVwordExec
 
   " --------------------------------------------------------------------------
   " gutentags
@@ -906,7 +907,7 @@ function! s:ConfigureFeaturePlugins()
 
   " --------------------------------------------------------------------------
   " notes
-  let g:notes_directories = ['~/.local/share/nvim/notes']
+  let g:notes_directories = ['~/drop']
   let g:notes_title_sync = 'rename_file'
 
   " --------------------------------------------------------------------------
@@ -916,23 +917,32 @@ function! s:ConfigureFeaturePlugins()
   let g:rooter_patterns = ['.git/', '.git', '_darcs/', '.hg/', '.bzr/', '.svn/']
 
   " --------------------------------------------------------------------------
+  " repeat
+  let g:repeat_no_default_key_mappings = 1
+  nmap . <Plug>(RepeatDot)
+  nmap m <Plug>(RepeatUndo)
+  nmap M <Plug>(RepeatRedo)
+
+  " --------------------------------------------------------------------------
   " limelight
   let g:limelight_conceal_guifg = '#446666'
   let g:limelight_paragraph_span = 2
-  nnoremap <Leader>vl :Limelight!!<CR>
 
   " --------------------------------------------------------------------------
-  " peekaboo
-  let g:peekaboo_window = "vert bo 50new"
+  " Goyo
+  let g:goyo_width = '170'
+  nnoremap <Leader>. <Cmd>Goyo<CR>
 
-  " --------------------------------------------------------------------------
-  " zoomwintab
-  nnoremap <Leader>wo :ZoomWinTabToggle<CR>
+  augroup GoyoMode
+    autocmd!
+    autocmd User GoyoEnter Limelight
+    autocmd User GoyoLeave Limelight!
+  augroup END
 
   " --------------------------------------------------------------------------
   " open-browser
-  "nmap gx <Plug>(openbrowser-smart-search)
-  "vmap gx <Plug>(openbrowser-smart-search)
+  nmap <leader>/ <Plug>(openbrowser-smart-search)
+  vmap <leader>/ <Plug>(openbrowser-smart-search)
 
   " --------------------------------------------------------------------------
   " signature
@@ -956,18 +966,18 @@ function! s:ConfigureFeaturePlugins()
   let g:UltiSnipsUsePythonVersion = 3
   let g:UltiSnipsEditSplit = 'normal'
   let g:UltiSnipsSnippetDirectories = [expand("~/").'.local/share/nvim/UltiSnips']
-  "let g:UltiSnipsSnippetDirectories = ['/home/vlad/.local/share/nvim/UltiSnips']
   let g:UltiSnipsEnableSnipMate = 0
 
-  let g:UltiSnipsListSnippets = '<M-t>'
-  let g:UltiSnipsExpandTrigger = '<c-j>'
-  let g:UltiSnipsJumpForwardTrigger = '<c-j>'
-  let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 
-  "augroup ReloadSnippetsOnSave
-    "autocmd!
-    "autocmd BufWritePost *.snippets call UltiSnips#RefreshSnippets()
-  "augroup END
+  let g:UltiSnipsListSnippets = '<M-q>'
+  let g:UltiSnipsExpandTrigger = '<M-j>'
+  let g:UltiSnipsJumpForwardTrigger = '<M-j>'
+  let g:UltiSnipsJumpBackwardTrigger = '<M-k>'
+
+  augroup ReloadSnippetsOnSave
+    autocmd!
+    autocmd BufWritePost *.snippets call UltiSnips#RefreshSnippets()
+  augroup END
 
   " --------------------------------------------------------------------------
   " Doxygen Toolkit
@@ -1085,48 +1095,51 @@ function! s:ConfigureFeaturePlugins()
 
   " --------------------------------------------------------------------------
   " coc
-  "nnoremap <silent> <leader>vc :CocRestart<CR>
-  "nnoremap <silent> <leader>vC :CocDisable<CR>
+  nnoremap <silent> <leader>z :CocRestart<CR>
+  nnoremap <silent> <leader>Z :CocDisable<CR>
 
-  "" trigger complete
-  "inoremap <silent><expr> <C-n>
-  "      \ pumvisible() ? "\<C-n>" :
-  "      \ coc#refresh()
-  "inoremap <silent><expr> <C-p>
-  "      \ pumvisible() ? "\<C-p>" :
-  "      \ coc#refresh()
+  " trigger complete
+  inoremap <silent><expr> <Down>
+       \ pumvisible() ? "\<Down>" :
+       \ coc#refresh()
+  inoremap <silent><expr> <Up>
+       \ pumvisible() ? "\<Up>" :
+       \ coc#refresh()
 
-  "" confirm completion on ctrl-m
-  "inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+  " confirm completion
+  inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
-  "" remap keys for go to
-  "nmap <silent> <leader>ft <Plug>(coc-type-definition)
-  "nmap <silent> <leader>fi <Plug>(coc-implementation)
-  "nmap <silent> <leader>fD <Plug>(coc-declaration)
-  "nmap <silent> <leader>fd <Plug>(coc-definition)
-  "nmap <silent> <leader>fr <Plug>(coc-references)
-  "nmap <silent> <leader>fn <Plug>(coc-diagnostic-next)
-  "nmap <silent> <leader>fp <Plug>(coc-diagnostic-prev)
-  "" doesn't work properly
-  "nmap <silent> <leader>fl <Plug>(coc-openlink)
+  " remap keys for go to
+  nmap <silent> <leader>uo <Cmd>call CocAction('jumpDefinition', 'edit')<Cr>
+  nmap <silent> <leader>ue <Cmd>call CocAction('jumpDefinition', 'split')<Cr>
+  nmap <silent> <leader>uu <Cmd>call CocAction('jumpDefinition', 'vsplit')<Cr>
+  nmap <silent> <leader>ui <Cmd>call CocAction('jumpDefinition', 'tab drop')<Cr>
+  nmap <silent> <leader>e <Plug>(coc-references)
+  "nmap <silent> <leader>ut <Plug>(coc-type-definition)
+  "nmap <silent> <leader>ui <Plug>(coc-implementation)
+  "nmap <silent> <leader>uD <Plug>(coc-declaration)
+  "nmap <silent> <leader>un <Plug>(coc-diagnostic-next)
+  "nmap <silent> <leader>up <Plug>(coc-diagnostic-prev)
+  "" doesn't work properlu
+  "nmap <silent> <leader>ul <Plug>(coc-openlink)
 
   "" do something
-  "nmap <silent> <leader>ff <Plug>(coc-fix-current)
-  "nmap <silent> <leader>fF <Plug>(coc-format)
-  "xmap <silent> <leader>ff <Plug>(coc-format-selected)
-  "xmap <silent> <leader>fg <Plug>(coc-codeaction-selected)
-  "nmap <silent> <leader>fg <Plug>(coc-codeaction)
-  "nmap <silent> <leader>fR <Plug>(coc-rename)
+  "nmap <silent> <leader>uf <Plug>(coc-fix-current)
+  "nmap <silent> <leader>uF <Plug>(coc-format)
+  "xmap <silent> <leader>uf <Plug>(coc-format-selected)
+  "xmap <silent> <leader>ug <Plug>(coc-codeaction-selected)
+  "nmap <silent> <leader>ug <Plug>(coc-codeaction)
+  "nmap <silent> <leader>uR <Plug>(coc-rename)
 
   "" CocLists
-  "nnoremap <silent> <leader>fz :<C-u>CocList --normal diagnostics<cr>
-  "nnoremap <silent> <leader>fL :<C-u>CocList links<cr>
-  "nnoremap <silent> <leader>fs :<C-u>CocList -A outline<cr>
-  "nnoremap <silent> <leader>fS :<C-u>CocList symbols<cr>
+  "nnoremap <silent> <leader>uz :<C-u>CocList --normal diagnostics<cr>
+  "nnoremap <silent> <leader>uL :<C-u>CocList links<cr>
+  "nnoremap <silent> <leader>us :<C-u>CocList -A outline<cr>
+  "nnoremap <silent> <leader>uS :<C-u>CocList symbols<cr>
 
   " get info
-  "nnoremap <silent> S :call CocAction('showSignatureHelp')<CR>
-  "nnoremap <silent> K :call <SID>show_documentation()<CR>
+  nnoremap <silent> B :call CocAction('showSignatureHelp')<CR>
+  nnoremap <silent> D :call <SID>show_documentation()<CR>
   function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
       execute 'h '.expand('<cword>')
@@ -1136,13 +1149,13 @@ function! s:ConfigureFeaturePlugins()
   endfunction
 
   " lsp group
-  "augroup LSPGroup
-    "autocmd!
-    "autocmd CursorHold * silent call CocActionAsync('highlight')
-    "autocmd User CocJumpPlaceholder call
-          "\ CocActionAsync('showSignatureHelp')
-    "autocmd FileType json syntax match Comment +\/\/.\+$+
-  "augroup END
+  augroup LSPGroup
+    autocmd!
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+    autocmd User CocJumpPlaceholder call
+          \ CocActionAsync('showSignatureHelp')
+    autocmd FileType json syntax match Comment +\/\/.\+$+
+  augroup END
 
   " plugins
   let g:coc_global_extensions = [
@@ -1157,8 +1170,8 @@ function! s:ConfigureFeaturePlugins()
         \ "coc-yank",
         \ "coc-vimlsp"
         \ ]
-  "nnoremap <silent> <leader>fy :<C-u>CocList yank<cr>
-  "nnoremap <silent> <leader>g  :<C-u>CocList --normal gstatus<CR>
+  "nnoremap <silent> <leader>uy :<C-u>CocList yank<cr>
+  "nnoremap <silent> <leader>us  :<C-u>CocList --normal gstatus<CR>
 
   " --------------------------------------------------------------------------
   "signify
@@ -1320,7 +1333,7 @@ endfunction
 " NERDTreeToggle renumber windows
 function! NerdtreeToggle()
   let l:buffer_number = winbufnr(t:saved_window)
-  NERDTreeToggle
+  NERDTreeToggleVCS
   let t:saved_window = bufwinnr(l:buffer_number)
   call LoadWindow()
 endfunction
