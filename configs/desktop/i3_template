@@ -219,6 +219,9 @@ mode "launcher" {
   bindcode 31 focus up
   bindcode 32 focus right
 
+  # close window
+  bindcode 53 kill; mode "default"
+
   bindsym Escape mode "default"
   bindsym Mod5+Escape mode "default"
 }

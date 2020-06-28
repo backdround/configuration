@@ -1,6 +1,4 @@
-################################################################################
-#CONFIG
-#vi mode
+# vi mode
 bindkey -v
 export KEYTIMEOUT=1
 
@@ -9,7 +7,6 @@ HISTFILE="$HOME/.zsh_history"
 HISTSIZE=50000
 SAVEHIST=10000
 
-setopt extended_glob
 setopt hist_expire_dups_first
 setopt hist_ignore_dups
 setopt hist_ignore_space
@@ -18,6 +15,7 @@ setopt inc_append_history
 setopt share_history
 
 #completion
+setopt extended_glob
 autoload -U compinit && compinit
 zmodload -i zsh/complist
 
@@ -103,8 +101,8 @@ run_enhancd () {
     zle reset-prompt
 }
 zle -N run_enhancd
-bindkey -M vicmd '\eh' run_enhancd
-bindkey -M viins '\eh' run_enhancd
+#bindkey -M vicmd '\eh' run_enhancd
+#bindkey -M viins '\eh' run_enhancd
 
 #key fixes
 bindkey -M viins '^?' backward-delete-char
@@ -200,6 +198,7 @@ antigen bundle hlissner/zsh-autopair
 antigen theme bhilburn/powerlevel9k
 
 antigen apply
+
 #FZF
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
@@ -280,19 +279,19 @@ eval "fswatch --event MovedTo --event MovedFrom --event Renamed --event Removed 
   --event Updated --event Created -o -r $1 | xargs -i sh -c \"${@:2}\""
 }
 
-#ls aliases
+# ls aliases
 alias ls='ls --color'
 alias l='colorls '
 alias ll='colorls -l'
 alias la='colorls -A'
 alias lla='colorls -lA'
 
-#confirm aliases
+# confirm aliases
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
-#global aliases
+# global aliases
 alias -g .g='| grep'
 alias -g .l='| less'
 alias -g .c="| column -t"

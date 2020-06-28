@@ -20,6 +20,7 @@ bind f resize-pane -Z
 bind < swap-window -t -1
 bind > swap-window -t +1
 bind q kill-pane
+bind z kill-window
 
 bind C choose-client -Z
 bind B choose-buffer -Z
@@ -36,15 +37,15 @@ bind -T copy-mode-vi 'C-a' send -X copy-line
 bind -T copy-mode-vi 'C-v' send -X rectangle-toggle
 
 # pane manipulation
-bind -n M-D select-pane -L
-bind -n M-H select-pane -D
-bind -n M-T select-pane -U
-bind -n M-N select-pane -R
+bind -n M-F select-pane -L
+bind -n M-G select-pane -D
+bind -n M-C select-pane -U
+bind -n M-R select-pane -R
 
-bind -n M-F resize-pane -L 5
-bind -n M-G resize-pane -D 5
-bind -n M-C resize-pane -U 5
-bind -n M-R resize-pane -R 5
+bind -n M-D resize-pane -L 5
+bind -n M-H resize-pane -D 5
+bind -n M-T resize-pane -U 5
+bind -n M-N resize-pane -R 5
 
 bind S choose-tree -s
 bind e split-window
