@@ -66,7 +66,6 @@ function! s:LoadPlugins()
   " FEATURES
   if !exists("g:editor")
     Plug 'xolox/vim-misc'
-
                                           " MARKDOWN PREVIEW
     Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
     Plug 'Chiel92/vim-autoformat'         " AUTOFORMAT
@@ -84,17 +83,17 @@ function! s:LoadPlugins()
     Plug 'SirVer/ultisnips'               " SNIPPETS
     Plug 'honza/vim-snippets'
 
-    Plug 'vim-scripts/DoxygenToolkit.vim' " DOXYGEN
+    Plug 'backdround/DoxygenToolkit.vim'  " DOXYGEN
 
     Plug '/usr/share/vim/vimfiles'        " FZF (INSTALLED BY PACMAN)
     Plug 'junegunn/fzf.vim'
 
-    Plug 'xolox/vim-session'             " SESSION
+    Plug 'xolox/vim-session'              " SESSION
 
-    " COMPLETE
+                                          " COMPLETE
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-    " LSP HIGHLIGHT
+                                          " LSP HIGHLIGHT
     Plug 'jackguo380/vim-lsp-cxx-highlight'
 
     "Plug 'mhinz/vim-signify'              " GIT
@@ -206,9 +205,9 @@ function! s:BasicSettings()
 
   " symbol find
   noremap k f
-  noremap K F
+  noremap K t
 
-  noremap j t
+  noremap j F
   noremap J T
 
   noremap ) ;
@@ -221,14 +220,16 @@ function! s:BasicSettings()
   nnoremap Q <C-i>
 
   " tab managment
-  nnoremap <silent> yw <Cmd>tabnew<CR>
-  nnoremap <silent> yv <Cmd>buffer # \| tabnew +buffer #<CR>
-  nnoremap <silent> ys <Cmd>tabnew +Startify<CR>
+  nnoremap <silent> yo <Cmd>Startify<CR>
+  nnoremap <silent> ye <Cmd>split +Startify<CR>
+  nnoremap <silent> yu <Cmd>vsplit +Startify<CR>
+  nnoremap <silent> yi <Cmd>tabnew +Startify<CR>
+  nnoremap <silent> yI <Cmd>buffer # \| tabnew +buffer #<CR>
 
-  nnoremap <silent> yp <Cmd>tabfirst<CR>
-  nnoremap <silent> yy <Cmd>tablast<CR>
-  nnoremap <silent> ye <Cmd>tabprev<CR>
-  nnoremap <silent> yu <Cmd>tabnext<CR>
+  nnoremap <silent> ys <Cmd>tabfirst<CR>
+  nnoremap <silent> yp <Cmd>tablast<CR>
+  nnoremap <silent> yv <Cmd>tabprev<CR>
+  nnoremap <silent> yy <Cmd>tabnext<CR>
 
   nnoremap <silent> yq <Cmd>tabclose<CR>
   nnoremap <silent> yz <Cmd>quitall<CR>
@@ -239,10 +240,8 @@ function! s:BasicSettings()
 
   " split managment
   nnoremap <silent> ie <Cmd>split<CR>
-  nnoremap <silent> iE <Cmd>split +Startify<CR>
   nnoremap <silent> iu <Cmd>vsplit<CR>
-  nnoremap <silent> iU <Cmd>vsplit +Startify<CR>
-  nnoremap <silent> io <Cmd>Startify<CR>
+  nnoremap <silent> ii <Cmd>tabnew<CR>
 
   nnoremap <silent> iq <Cmd>quit<CR>
   nnoremap <silent> iQ <Cmd>quit!<CR>
@@ -257,7 +256,7 @@ function! s:BasicSettings()
   nnoremap iP <C-w>K
   nnoremap iY <C-w>L
 
-  nnoremap ii <C-w>=
+  nnoremap ix <C-w>=
   nnoremap i+ <C-w>+
   nnoremap i- <C-w>-
   nnoremap i< <C-w><
@@ -285,11 +284,13 @@ function! s:BasicSettings()
   nnoremap F y$
   noremap <leader>f "+y
   noremap <leader>F "*y
+  noremap xf "sy
 
   noremap l p
   noremap L P
   noremap <leader>l "+p
   noremap <leader>L "*p
+  noremap xl "sp
 
   " find
   nnoremap ! <Cmd>let @/ = expand('<cword>') \| set hlsearch<Cr>
@@ -324,6 +325,7 @@ function! s:BasicSettings()
 
   noremap " J
   noremap ; =
+  noremap ^ "
 
   " visual mode
   nnoremap n v
@@ -341,18 +343,22 @@ function! s:BasicSettings()
 
   vnoremap r o
 
-  nnoremap <leader>z gN
-  onoremap <leader>z gN
-  vnoremap z gN
-  nnoremap <leader>q gn
-  onoremap <leader>q gn
-  vnoremap q gn
-  nnoremap <leader>i gv
-  onoremap <leader>i gv
+  nnoremap xi gv
+  onoremap xi gv
   vnoremap i gv
 
 
   " vim
+  nnoremap bu :%s/<C-r>s//g<Left><Left>
+  vnoremap bu :s/<C-r>s//g<Left><Left>
+  nnoremap bU :%s/<C-r>s//gc<Left><Left><Left>
+  vnoremap bU :s/<C-r>s//gc<Left><Left><Left>
+
+  nnoremap be :%s/\<<C-r>s\>//g<Left><Left>
+  vnoremap be :s/\<<C-r>s\>//g<Left><Left>
+  nnoremap bE :%s/\<<C-r>s\>//gc<Left><Left><Left>
+  vnoremap bE :s/\<<C-r>s\>//gc<Left><Left><Left>
+
   nnoremap <silent> <leader>r :source ~/.config/nvim/init.vim<CR>
 
   " other
@@ -553,7 +559,7 @@ function! s:ConfigureCommonPlugins()
   " --------------------------------------------------------------------------
   " airline
   let g:airline#extensions#disable_rtp_load = 1
-  let g:airline_extensions = ['tabline', 'branch', 'quickfix', 'tagbar', 'gutentags', 'undotree', 'coc']
+  let g:airline_extensions = ['tabline', 'quickfix', 'tagbar', 'gutentags', 'undotree', 'coc']
   if exists("g:editor")
     let g:airline_extensions = []
   endif
@@ -562,23 +568,23 @@ function! s:ConfigureCommonPlugins()
   let g:airline_inactive_collapse = 0
   let g:airline_powerline_fonts = 1
 
-  let g:airline#extensions#ctrlp#color_template = 'visual'
-  let g:airline#extensions#ctrlp#show_adjacent_modes = 0
-
   let g:airline#extensions#tabline#enabled = 1
-  let g:airline#extensions#tabline#show_buffers = 0
-  let g:airline#extensions#tabline#show_tabs = 1
-  let g:airline#extensions#tabline#show_splits = 0
   let g:airline#extensions#tabline#show_close_button = 0
   let g:airline#extensions#tabline#tab_nr_type = 1
-  let g:airline#extensions#tabline#fnamemod = ':t'
-  "let g:airline#extensions#tabline#tab_min_count = 2
+  let g:airline#extensions#tabline#fnamemod = ':t:m'
+
+  let g:airline#extensions#tabline#show_buffers = 0
+  let g:airline#extensions#tabline#show_splits = 1
+  let g:airline#extensions#tabline#show_tab_count = 0
 
   function! AirlineInit()
-    let g:airline_section_b = airline#section#create(['branch'])
+    let g:airline_section_b = ''
+    let g:airline_section_y = ''
+    let g:airline_section_x = '%y'
     let g:airline_section_c = '%t%m'
     let g:airline_section_z = '%#__accent_bold#%p%% %l/%L%#__restore__#'
   endfunction
+
   augroup AAInit
     autocmd!
     autocmd User AirlineAfterInit call AirlineInit()
@@ -658,8 +664,8 @@ function! s:ConfigureCommonPlugins()
   let g:tagbar_map_showproto = "t" "remap showproto from <Space> to t
   let g:tagbar_autoshowtag = 1
   let g:tagbar_autofocus = 0
-  nnoremap <silent> <F2> :TagbarToggle<CR>
-  nnoremap <silent> <F14> :call SwitchWindowTo("__Tagbar__.*")<CR>
+  nnoremap <silent> yh :TagbarToggle<CR>
+  nnoremap <silent> ih :call SwitchWindowTo("__Tagbar__.*")<CR>
 
   " --------------------------------------------------------------------------
   " undotree
@@ -668,8 +674,8 @@ function! s:ConfigureCommonPlugins()
   let g:undotree_RelativeTimestamp = 1
   let g:undotree_ShortIndicators = 1
   let g:undotree_HelpLine = 0
-  nnoremap <silent> <F4> :UndotreeToggle<CR>
-  nnoremap <silent> <F16> :call SwitchWindowTo("undotree_*")<CR>
+  nnoremap <silent> yn :UndotreeToggle<CR>
+  nnoremap <silent> in :call SwitchWindowTo("undotree_*")<CR>
 
   " --------------------------------------------------------------------------
   " nerdtree
@@ -682,8 +688,8 @@ function! s:ConfigureCommonPlugins()
   let g:NERDTreeMapMenu = 'a'
   let g:NERDTreeWinSize = '29'
 
-  nnoremap <silent> <F3> :call NerdtreeToggle()<CR>
-  nnoremap <silent> <F15> :call SwitchWindowTo("NERD_tree_*")<CR>
+  nnoremap <silent> yt :call NerdtreeToggle()<CR>
+  nnoremap <silent> it :call SwitchWindowTo("NERD_tree_*")<CR>
   nnoremap <silent> <leader>,n :NERDTreeRefreshRoot<CR>
   nnoremap <silent> <leader>,t :NERDTreeFind<CR>
   nnoremap <silent> <leader>,h :NERDTreeCWD<CR>
@@ -693,7 +699,7 @@ function! s:ConfigureCommonPlugins()
     autocmd ColorScheme * highlight link NERDTreeDir Directory
   augroup END
 
-  nnoremap <silent> F10 :call LoadWindow()<CR>
+  nnoremap <silent> i, :call LoadWindow()<CR>
 
 
   " **************************************************************************
@@ -744,13 +750,20 @@ function! s:ConfigureCommonPlugins()
 
   " --------------------------------------------------------------------------
   " wordmotion
+  let g:wordmotion_spaces = '()\[\]<>{}' . ',./%@^!?;:$~`"\#_|-+=&*' . "'"
   let g:wordmotion_mappings = {
         \ 'w'         :'<M-s>',
         \ 'b'         :'<M-w>',
         \ 'e'         :'<M-p>',
         \ 'ge'        :'<M-v>',
+        \ 'W'         :'<M-S>',
+        \ 'B'         :'<M-W>',
+        \ 'E'         :'<M-P>',
+        \ 'gE'        :'<M-V>',
         \ 'aw'        :'g<M-w>',
         \ 'iw'        :'c<M-w>',
+        \ 'aW'        :'g<M-W>',
+        \ 'iW'        :'c<M-W>',
         \ '<C-R><C-W>':'<C-R><C-M>'
   \ }
 
@@ -793,8 +806,8 @@ function! s:ConfigureCommonPlugins()
   " auto-pairs
   let g:AutoPairsShortcutToggle = '<M-a>'
   let g:AutoPairsShortcutJump = '<M-o>'
-  let g:AutoPairsShortcutFastWrap = '<M-e>'
-  let g:AutoPairsShortcutBackInsert = '<M-u>'
+  let g:AutoPairsShortcutFastWrap = '<M-u>'
+  let g:AutoPairsShortcutBackInsert = '<M-e>'
 
   let g:AutoPairsFlyMode = 1
   let g:AutoPairsMultilineClose = 1
@@ -970,9 +983,9 @@ function! s:ConfigureFeaturePlugins()
 
 
   let g:UltiSnipsListSnippets = '<M-q>'
-  let g:UltiSnipsExpandTrigger = '<M-j>'
-  let g:UltiSnipsJumpForwardTrigger = '<M-j>'
-  let g:UltiSnipsJumpBackwardTrigger = '<M-k>'
+  let g:UltiSnipsExpandTrigger = '<M-k>'
+  let g:UltiSnipsJumpForwardTrigger = '<M-k>'
+  let g:UltiSnipsJumpBackwardTrigger = '<M-j>'
 
   augroup ReloadSnippetsOnSave
     autocmd!
@@ -1005,7 +1018,7 @@ function! s:ConfigureFeaturePlugins()
   let g:fzf_history_dir = '~/.local/share/fzf-history'
   let g:fzf_command_prefix='Fzf'
 
-  "autoclose statusline
+  " autoclose statusline
   augroup CustomFzfView
     autocmd!
     autocmd  FileType fzf set laststatus=0 noshowmode relativenumber!
@@ -1099,12 +1112,7 @@ function! s:ConfigureFeaturePlugins()
   nnoremap <silent> <leader>Z :CocDisable<CR>
 
   " trigger complete
-  inoremap <silent><expr> <Down>
-       \ pumvisible() ? "\<Down>" :
-       \ coc#refresh()
-  inoremap <silent><expr> <Up>
-       \ pumvisible() ? "\<Up>" :
-       \ coc#refresh()
+  inoremap <silent> <expr> <M-s> coc#refresh()
 
   " confirm completion
   inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
