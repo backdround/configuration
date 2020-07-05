@@ -1,8 +1,13 @@
+################################################################################
+# GENERAL
+
 # vi mode
 bindkey -v
 export KEYTIMEOUT=1
 
-#history
+stty -ixon
+
+# history
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=50000
 SAVEHIST=10000
@@ -14,12 +19,9 @@ setopt hist_verify
 setopt inc_append_history
 setopt share_history
 
-#completion
-setopt extended_glob
+# completion
 autoload -U compinit && compinit
 zmodload -i zsh/complist
-
-bindkey -M menuselect '^O' accept-and-infer-next-history
 
 eval "$(dircolors)"
 zstyle ':completion:*' menu select
@@ -31,99 +33,30 @@ zstyle ':completion:*' format "%B--- %F{magenta}%d%f ---%b"
 zstyle ':completion:*:options' list-colors "=(#b)*(-- [a-zA-Z0-9]*)=32=36"
 zstyle ':completion:*:commands' list-colors "=(#b)*(-- [a-zA-Z0-9]*)=32=36"
 
-#options
+# options
 setopt correct
 setopt auto_cd
-
-#insert movement
-bindkey -M viins '^w'  backward-char
-bindkey -M viins '^d'  forward-char
-bindkey -M viins '^j'  backward-word
-bindkey -M viins '^k'  forward-word
-bindkey -M viins '\ej' vi-backward-word
-bindkey -M viins '\ek' vi-forward-word
-bindkey -M viins '^a'  beginning-of-line
-bindkey -M viins '^e'  end-of-line
-
-bindkey -M viins '^f'  vi-find-next-char
-bindkey -M viins '\ef' vi-find-prev-char
-bindkey -M viins '^t'  vi-find-next-char-skip
-bindkey -M viins '\et' vi-find-prev-char-skip
-
-#insert delete
-bindkey -M viins '\ew' backward-kill-word
-bindkey -M viins '\ed' kill-word
-bindkey -M viins '^u'  kill-whole-line
-bindkey -M viins '^o'  kill-line
-bindkey -M viins '\eo' vi-kill-line
-
-#insert history
-bindkey -M viins '^n' down-history
-bindkey -M viins '^p' up-history
-
-#insert completion
-bindkey -M viins '\en' menu-complete
-bindkey -M viins '\ep' reverse-menu-complete
-bindkey -M viins '\ei' send-break
-
-#insert useful
-bindkey -M viins '\es' undo
-bindkey -M viins '\e_' redo
-bindkey -M viins '\ey' yank
-bindkey -M viins '\er' overwrite-mode
-bindkey -M viins '\ez' transpose-words
-bindkey -M viins '\ea' which-command
-
-#copy whole line
-vi-yank-x-line () {
-  print -rn -- $BUFFER | xsel -i -p;
-  print -rn -- $BUFFER | xsel -i -b;
-}
-zle -N vi-yank-x-line
-bindkey -M vicmd '^y' vi-yank-x-line
-bindkey -v '^y' vi-yank-x-line
-
-#ranger
-run_ranger () {
-    echo
-    ranger --choosedir=$HOME/.rangerdir < $TTY
-    LASTDIR=`cat $HOME/.rangerdir`
-    cd "$LASTDIR"
-    zle reset-prompt
-}
-zle -N run_ranger
-bindkey -M vicmd '\em' run_ranger
-bindkey -M viins '\em' run_ranger
-
-run_enhancd () {
-    echo
-    __enhancd::cd
-    zle reset-prompt
-}
-zle -N run_enhancd
-#bindkey -M vicmd '\eh' run_enhancd
-#bindkey -M viins '\eh' run_enhancd
-
-#key fixes
-bindkey -M viins '^?' backward-delete-char
+setopt extended_glob
 
 ################################################################################
-#ENV VARIABLES
+# VARIABLES
+
 export PATH="$(yarn global bin):$PATH"
 export PATH=~/.local/bin/:$PATH
 export EDITOR="editor.sh"
 PAGER="editor.sh -R"
 export MANPAGER="nvim -c 'set ft=man' -"
 
-#pass store
+# pass store
 PASSWORD_STORE_CLIP_TIME=15
 PASSWORD_STORE_GENERATED_LENGTH=17
 
-#termite ssh fix
+# termite ssh fix
 export TERM=xterm-256color
 
 ################################################################################
-#PLUGINS CONFIG PRE
+# PLUGIN CONFIGS
+
 ENHANCD_COMMAND=h
 ENHANCD_DOT_SHOW_FULLPATH=1
 ENHANCD_HOOK_AFTER_CD='ls'
@@ -153,6 +86,8 @@ POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND='11'
 POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND='black'
 POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND='13'
 POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND='black'
+POWERLEVEL9K_VI_MODE_VISUAL_BACKGROUND='7'
+POWERLEVEL9K_VI_MODE_VISUAL_FOREGROUND='black'
 
 POWERLEVEL9K_USER_DEFAULT_BACKGROUND='8'
 POWERLEVEL9K_USER_DEFAULT_FOREGROUND='10'
@@ -178,12 +113,14 @@ POWERLEVEL9K_SSH_ICON='SSH'
 zstyle ':filter-select' case-insensitive yes
 
 ################################################################################
-#PLUGINS
+# PLUGINS
+
 source /usr/share/zsh/share/antigen.zsh
 
 antigen bundle zdharma/fast-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
+antigen bundle backdround/zsh-vimode-visual
 
 antigen bundle colorize
 antigen bundle command-not-found
@@ -195,30 +132,339 @@ antigen bundle djui/alias-tips
 antigen bundle arzzen/calc.plugin.zsh
 antigen bundle hlissner/zsh-autopair
 
-antigen theme bhilburn/powerlevel9k
+antigen theme backdround/powerlevel9k
 
 antigen apply
 
-#FZF
+# fzf
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
 
 ################################################################################
-#PLUGINS CONFIG POST
+# ZLE
 
-#autosuggest
-bindkey -M viins '\el' autosuggest-accept
-bindkey -M vicmd '\el' autosuggest-accept
-bindkey -M viins '\ee' autosuggest-execute
-bindkey -M vicmd '\ee' autosuggest-execute
+# x11 copy wrapping
+function x11-copy-wrap-widgets() {
+  for widget in $@; do
+    eval "
+    function _x11-copy-wrap-$widget() {
+      zle .$widget
+      xclip -in -selection clipboard <<<\$CUTBUFFER
+    }"
+    zle -N $widget _x11-copy-wrap-$widget
+  done
+}
+local copy_widgets=(
+  vi-yank vi-yank-eol
+)
+x11-copy-wrap-widgets $copy_widgets
 
-#substring search
-HISTORY_SUBSTRING_SEARCH_FUZZY=true
-HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=true
+
+# x11 paste wrapping
+function x11-paste-wrap-widgets() {
+  for widget in $@; do
+    eval "
+    function _x11-paste-wrap-$widget() {
+        CUTBUFFER=\$(xclip -out -selection clipboard)
+        zle .$widget
+    }"
+    zle -N $widget _x11-paste-wrap-$widget
+  done
+}
+local paste_widgets=(
+  vi-put-{before,after}
+)
+x11-paste-wrap-widgets $paste_widgets
+
+
+# x11 copy whole line
+vi-yank-x-line () {
+  print -rn -- $BUFFER | xsel -i -p;
+  print -rn -- $BUFFER | xsel -i -b;
+}
+zle -N vi-yank-x-line
+
+
+# ranger
+run_ranger () {
+    echo
+    ranger --choosedir=$HOME/.rangerdir < $TTY
+    LASTDIR=`cat $HOME/.rangerdir`
+    cd "$LASTDIR"
+    zle reset-prompt
+}
+zle -N run_ranger
+
+
+# enhancd
+run_enhancd () {
+    echo
+    __enhancd::cd
+    zle reset-prompt
+}
+zle -N run_enhancd
+
+# clear screen if c
+my-accept-line () {
+if [[ "$BUFFER" == ('c '*|'c') ]]; then
+    zle clear-screen
+  fi
+  zle .accept-line
+}
+zle -N accept-line my-accept-line
+
+
+vi_bind() {
+  bindkey -M vicmd $@
+  bindkey -M viins $@
+}
 
 ################################################################################
-#ALIASES
-#color aliases
+# KEYBINDINGS
+
+########################################
+# KEY FIXES
+#        Backspace
+vi_bind '^?'    backward-delete-char
+#        Delete
+vi_bind "^[[3~" delete-char
+#        Home
+vi_bind "^[[H"  beginning-of-line
+#        End
+vi_bind "^[[F"  end-of-line
+#        Page down
+vi_bind "[6~" end-of-buffer-or-history
+#        Page up
+vi_bind "[5~" beginning-of-buffer-or-history
+#        Insert
+vi_bind "[2~" vi-insert
+#        Shift-tab
+vi_bind "[Z"  reverse-menu-complete
+
+########################################
+# VISUAL KEYBINDINGS
+
+bindkey -r -M vivis 'jj'
+bindkey -r -M vivis 'o'
+
+# movements
+bindkey -M vivis 'w' vi-visual-backward-word
+bindkey -M vivis 'v' vi-visual-backward-word-end
+bindkey -M vivis 's' vi-visual-forward-word
+bindkey -M vivis 'p' vi-visual-forward-word-end
+
+bindkey -M vivis 'W' vi-visual-backward-blank-word
+bindkey -M vivis 'V' vi-visual-backward-blank-word-end
+bindkey -M vivis 'S' vi-visual-forward-blank-word
+bindkey -M vivis 'P' vi-visual-forward-blank-word-end
+
+bindkey -M vivis 'j' vi-visual-find-prev-char
+bindkey -M vivis 'J' vi-visual-find-prev-char-skip
+bindkey -M vivis 'k' vi-visual-find-next-char
+bindkey -M vivis 'K' vi-visual-find-next-char-skip
+bindkey -M vivis ')' vi-visual-repeat-find
+bindkey -M vivis '(' vi-visual-rev-repeat-find
+
+bindkey -M vivis 'on' vi-visual-eol
+bindkey -M vivis 'od' vi-visual-bol
+bindkey -M vivis 'oh' vi-visual-goto-line
+bindkey -M vivis 'ot' vi-visual-goto-first-line
+
+# editing
+bindkey -M vivis 'g' vi-visual-insert-bol
+bindkey -M vivis 'G' vi-visual-insert-bol
+bindkey -M vivis 'h' vi-visual-change
+bindkey -M vivis 'H' vi-visual-change
+bindkey -M vivis "'" vi-visual-kill-and-vicmd
+bindkey -M vivli 't' vi-vlines-kill-and-vicmd
+bindkey -M vivli 'T' vi-vlines-kill-and-vicmd
+bindkey -M vivis ',' vi-visual-replace-region
+
+bindkey -M vivis 'm' vi-visual-lowercase-region
+bindkey -M vivis 'M' vi-visual-uppercase-region
+
+bindkey -M vivis '^M' vi-visual-yank
+bindkey -M vivis 'f'  vi-visual-yank
+bindkey -M vivis 'l'  vi-visual-put
+
+# misc
+bindkey -M vivis "n'" vi-visual-surround-squote
+bindkey -M vivis 'n ' vi-visual-surround-space
+bindkey -M vivis 'n"' vi-visual-surround-dquote
+bindkey -M vivis 'n(' vi-visual-surround-parenthesis
+bindkey -M vivis 'n)' vi-visual-surround-parenthesis
+
+bindkey -M vivis '^[' vi-visual-exit
+bindkey -M vivis 'N'  vi-visual-exit-to-vlines
+bindkey -M vivis 'r'  vi-visual-exchange-points
+bindkey -M vivis '"'  vi-visual-join
+
+
+# visual line
+bindkey -r -M vivli 'o'
+
+bindkey -M vivli 'oh' vi-vlines-goto-line
+bindkey -M vivli 'ot' vi-vlines-goto-first-line
+
+bindkey -M vivli 'r' vi-vlines-exchange-points
+
+bindkey -M vivli 'l' vi-vlines-put
+bindkey -M vivli 'L' vi-vlines-put
+
+bindkey -M vivli 'j' vi-vlines-down-line
+bindkey -M vivli 'k' vi-vlines-up-line
+bindkey -M vivli 'n' vi-vlines-exit-to-visual
+
+########################################
+# INSERT KEYBINDINGS
+
+# movements
+bindkey -v '^w' vi-backward-word
+bindkey -v '^v' vi-backward-word-end
+bindkey -v '^s' vi-forward-word
+bindkey -v '^p' vi-forward-word-end
+
+bindkey -v '^a' vi-backward-blank-word
+bindkey -v '^o' vi-backward-blank-word-end
+bindkey -v '^e' vi-forward-blank-word
+bindkey -v '^u' vi-forward-blank-word-end
+
+bindkey -v '^k' vi-find-next-char
+bindkey -v '^j' vi-find-prev-char
+
+# editing
+bindkey -v '^d' vi-backward-kill-word
+bindkey -v '^t' kill-word
+
+
+########################################
+# NORMAL KEYBINDINGS
+
+bindkey -a -r 'o'
+bindkey -a -r 'gg'
+
+# movement
+bindkey -a 'w' vi-backward-word
+bindkey -a 'v' vi-backward-word-end
+bindkey -a 's' vi-forward-word
+bindkey -a 'p' vi-forward-word-end
+
+bindkey -a 'W' vi-backward-blank-word
+bindkey -a 'V' vi-backward-blank-word-end
+bindkey -a 'S' vi-forward-blank-word
+bindkey -a 'P' vi-forward-blank-word-end
+
+bindkey -a 'od' beginning-of-line
+bindkey -a 'on' end-of-line
+bindkey -a 'oh' end-of-buffer-or-history
+bindkey -a 'ot' beginning-of-buffer-or-history
+
+bindkey -a 'k' vi-find-next-char
+bindkey -a 'K' vi-find-next-char-skip
+bindkey -a 'j' vi-find-prev-char
+bindkey -a 'J' vi-find-prev-char-skip
+
+
+# editing
+bindkey -a 'g' vi-insert
+bindkey -a 'G' vi-insert-bol
+bindkey -a 'c' vi-add-next
+bindkey -a 'C' vi-add-eol
+
+bindkey -a 'h' vi-change
+bindkey -a 'H' vi-change-eol
+bindkey -a 't' vi-delete
+bindkey -a 'T' vi-kill-eol
+bindkey -a 'n' vi-visual-mode
+bindkey -a 'N' vi-vlines-mode
+
+bindkey -a 'm' undo
+bindkey -a 'M' redo
+
+bindkey -a 'f' vi-yank
+bindkey -a 'F' vi-yank-eol
+bindkey -a 'l' vi-put-after
+bindkey -a 'L' vi-put-before
+
+bindkey -a '"' vi-join
+bindkey -a "'" vi-delete-char
+bindkey -a ',' vi-replace-chars
+
+# text object
+bindkey -a 'gW' select-a-blank-word
+bindkey -a 'gw' select-a-word
+bindkey -a 'cW' select-in-blank-word
+bindkey -a 'cw' select-in-word
+
+########################################
+# CUSTOM KEYBINDINGS
+
+# misc
+stty intr "^C"
+stty eof "^G"
+vi_bind '^h' kill-whole-line
+vi_bind '^b' vi-quoted-insert
+vi_bind '^r' clear-screen
+vi_bind '^n' which-command
+
+# copy / paste
+vi_bind '^f' vi-yank-x-line
+vi_bind '^l' vi-put-after
+
+# applications
+vi_bind '\em' run_ranger
+vi_bind '\eb' run_enhancd
+
+################################################################################
+# ALIASES
+
+# hacks
+alias sudo='sudo '
+alias ranger='ranger --choosedir=/tmp/.rangerdir; LASTDIR=`cat /tmp/.rangerdir`; cd "$LASTDIR"'
+alias n='nvim'
+e() { eval "$EDITOR $*" }
+alias p='python'
+alias f='fd -IH'
+alias hdi='howdoi'
+alias gr='c $(git rev-parse --show-toplevel)'
+alias -g .ps='$(fd ".*gpg" ~/.password-store/ | sed "s$.*\.password-store/\(.*\)\.gpg$\1$" | fzf --preview="pass show {}")'
+alias psc='pass show --clip .ps'
+alias cheat='fd -tf index.html ~/configuration/cheatsheets | fzf | xargs -i xdg-open {}'
+
+sp() { eval "sudo pacman -$*" }
+S() { eval "sudo pacman -S $*" }
+Ss() { eval "sudo pacman -Ss $*" }
+uw() { xclip -o | tr -s '\n' ' ' | sed "s/$/\n/" >> unknown_sentences }
+
+c() {
+  if [[ "$*" == "" ]] ; then
+    eval "h ~"
+  else
+    eval "h $*"
+  fi
+}
+
+# scripts
+t() { trans en:ru "$*" }
+tr() { trans ru:en "$*" }
+alias se='~/.local/bin/spellchecker'
+alias sr='~/.local/bin/spellchecker_ru'
+alias lolclock='while true; do tput clear; date +"%H : %M : %S" | figlet ; sleep 1; done'
+
+# usage: fswatch-write ./file.txt echo "file was changed"
+fswatch-write() {
+eval "fswatch --event MovedTo --event MovedFrom --event Renamed --event Removed \
+  --event Updated --event Created -o -r $1 | xargs -i sh -c \"${@:2}\""
+}
+
+# global
+alias -g .g='| grep'
+alias -g .l='| less'
+alias -g .c="| column -t"
+alias -g .p="| $PAGER"
+alias -g .stn='| tr " " "\n"'
+
+# color
 alias less='less -R'
 alias diff='diff --color=always'
 alias watch='watch --color'
@@ -231,69 +477,14 @@ alias egrep='egrep --color=always'
 alias gcc='gcc -fdiagnostics-color=always'
 alias tldr='tldr -c'
 
-#hacks alias
-alias sudo='sudo '
-alias ranger='ranger --choosedir=/tmp/.rangerdir; LASTDIR=`cat /tmp/.rangerdir`; cd "$LASTDIR"'
-alias n='nvim'
-e() { eval "$EDITOR $*" }
-alias p='python'
-alias f='fd -IH'
-alias hdi='howdoi'
-alias gir='h $(git rev-parse --show-toplevel)'
-alias -g .ps='$(fd ".*gpg" ~/.password-store/ | sed "s$.*\.password-store/\(.*\)\.gpg$\1$" | fzf --preview="pass show {}")'
-alias psc='pass show --clip .ps'
-alias cheat='fd -tf index.html ~/configuration/cheatsheets | fzf | xargs -i xdg-open {}'
-
-sp() { eval "sudo pacman -$*" }
-S() { eval "sudo pacman -S $*" }
-Ss() { eval "sudo pacman -Ss $*" }
-uw() { xclip -o | tr -s '\n' ' ' | sed "s/$/\n/" >> unknown_sentences }
-
-
-my-accept-line () {
-if [[ "$BUFFER" == ('hd '*|'hd') ]]; then
-    zle clear-screen
-  fi
-  zle .accept-line
-}
-zle -N accept-line my-accept-line
-
-hd() {
-  if [[ "$*" == "" ]] ; then
-    eval "h ~"
-  else
-    eval "h $*"
-  fi
-}
-
-#my scripts aliases
-t() { trans en:ru "$*" }
-tr() { trans ru:en "$*" }
-alias tsf='trans :ru'
-alias se='~/.local/bin/spellchecker'
-alias sr='~/.local/bin/spellchecker_ru'
-alias lolclock='while true; do tput clear; date +"%H : %M : %S" | figlet ; sleep 1; done'
-# usage: fswatch-write ./file.txt echo "file was changed"
-fswatch-write() {
-eval "fswatch --event MovedTo --event MovedFrom --event Renamed --event Removed \
-  --event Updated --event Created -o -r $1 | xargs -i sh -c \"${@:2}\""
-}
-
-# ls aliases
+# ls
 alias ls='ls --color'
 alias l='colorls '
 alias ll='colorls -l'
 alias la='colorls -A'
 alias lla='colorls -lA'
 
-# confirm aliases
+# confirm
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
-
-# global aliases
-alias -g .g='| grep'
-alias -g .l='| less'
-alias -g .c="| column -t"
-alias -g .p="| $PAGER"
-alias -g .stn='| tr " " "\n"'
