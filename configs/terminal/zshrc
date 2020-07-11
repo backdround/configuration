@@ -57,15 +57,11 @@ export TERM=xterm-256color
 ################################################################################
 # PLUGIN CONFIGS
 
-ENHANCD_COMMAND=h
-ENHANCD_DOT_SHOW_FULLPATH=1
-ENHANCD_HOOK_AFTER_CD='ls'
-
 FZF_TMUX_HEIGHT=40%
-FZF_DEFAULT_OPTS='-m --no-mouse --cycle --reverse --border --color=bg:233 --history=.fzf_history'
-FZF_DEFAULT_COMMAND='fd --hidden --no-ignore --type file'
+FZF_DEFAULT_OPTS='--no-mouse --cycle --reverse --border --color=bg:233'
+FZF_DEFAULT_COMMAND='fd --type file'
 FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-FZF_ALT_C_COMMAND='fd --hidden --no-ignore --type directory'
+FZF_ALT_C_COMMAND='fd --type directory'
 
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#778077'
@@ -122,14 +118,11 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 antigen bundle backdround/zsh-vimode-visual
 
-antigen bundle colorize
 antigen bundle command-not-found
 antigen bundle extract
 antigen bundle transfer
 
-antigen bundle b4b4r07/enhancd
 antigen bundle djui/alias-tips
-antigen bundle arzzen/calc.plugin.zsh
 antigen bundle hlissner/zsh-autopair
 
 antigen theme backdround/powerlevel9k
@@ -185,33 +178,61 @@ vi-yank-x-line () {
 zle -N vi-yank-x-line
 
 
-# ranger
-run_ranger () {
-    echo
-    ranger --choosedir=$HOME/.rangerdir < $TTY
-    LASTDIR=`cat $HOME/.rangerdir`
-    cd "$LASTDIR"
-    zle reset-prompt
-}
-zle -N run_ranger
-
-
-# enhancd
-run_enhancd () {
-    echo
-    __enhancd::cd
-    zle reset-prompt
-}
-zle -N run_enhancd
-
-# clear screen if c
-my-accept-line () {
-if [[ "$BUFFER" == ('c '*|'c') ]]; then
-    zle clear-screen
+# cd
+function cd-project-root() {
+  local root_directory="$(git rev-parse --show-toplevel 2> /dev/null)"
+  if [ $? ]; then
+    cd "$root_directory" > /dev/null && zle reset-prompt
   fi
-  zle .accept-line
 }
-zle -N accept-line my-accept-line
+function cd-home() { cd ~ > /dev/null && zle reset-prompt }
+function cd-up() { cd .. > /dev/null && zle reset-prompt }
+function cd-back() { cd - > /dev/null && zle reset-prompt }
+zle -N cd-project-root
+zle -N cd-home
+zle -N cd-up
+zle -N cd-back
+
+
+# fzf wrappers
+function fzf-cd-project() {
+  zle -I
+  FZF_ALT_C_COMMAND='fd -H -d6 -E"tmp" -td -tf "^.git$" | sed "s$\(.*\).git$\1$"' fzf-cd-widget
+  zle reset-prompt
+}
+zle -N fzf-cd-project
+
+function fzf-cd-widget-wrapper() {
+  FZF_ALT_C_COMMAND='fd -I --type directory' FZF_DEFAULT_OPTS="--height 40% --reverse $FZF_DEFAULT_OPTS" fzf-cd-widget
+}
+zle -N fzf-cd-widget-wrapper
+
+
+fzf-cd-file() {
+  zle -I
+  setopt localoptions pipefail no_aliases 2> /dev/null
+
+  # Choose root directory
+  local root_directory="$(git rev-parse --show-toplevel 2> /dev/null)"
+  if [ -z "$root_directory" ]; then
+    local root_directory=~
+  fi
+
+  # Find file
+  local file="$(fd -tf . "$root_directory" | FZF_DEFAULT_OPTS="--height 40% --reverse $FZF_DEFAULT_OPTS" $(__fzfcmd))"
+  if [[ -z "$file" ]]; then
+    zle redisplay
+    return 0
+  fi
+
+  # cd to file dir
+  cd "$(dirname $file)"
+
+  local ret=$?
+  zle fzf-redraw-prompt
+  return $ret
+}
+zle -N fzf-cd-file
 
 
 vi_bind() {
@@ -258,8 +279,8 @@ bindkey -M vivis 'V' vi-visual-backward-blank-word-end
 bindkey -M vivis 'S' vi-visual-forward-blank-word
 bindkey -M vivis 'P' vi-visual-forward-blank-word-end
 
-bindkey -M vivis 'j' vi-visual-find-prev-char
-bindkey -M vivis 'J' vi-visual-find-prev-char-skip
+bindkey -M vivis 'z' vi-visual-find-prev-char
+bindkey -M vivis 'Z' vi-visual-find-prev-char-skip
 bindkey -M vivis 'k' vi-visual-find-next-char
 bindkey -M vivis 'K' vi-visual-find-next-char-skip
 bindkey -M vivis ')' vi-visual-repeat-find
@@ -330,12 +351,7 @@ bindkey -v '^e' vi-forward-blank-word
 bindkey -v '^u' vi-forward-blank-word-end
 
 bindkey -v '^k' vi-find-next-char
-bindkey -v '^j' vi-find-prev-char
-
-# editing
-bindkey -v '^d' vi-backward-kill-word
-bindkey -v '^t' kill-word
-
+bindkey -v '^z' vi-find-prev-char
 
 ########################################
 # NORMAL KEYBINDINGS
@@ -359,10 +375,12 @@ bindkey -a 'on' end-of-line
 bindkey -a 'oh' end-of-buffer-or-history
 bindkey -a 'ot' beginning-of-buffer-or-history
 
+bindkey -a 'z' vi-find-prev-char
+bindkey -a 'Z' vi-find-prev-char-skip
 bindkey -a 'k' vi-find-next-char
 bindkey -a 'K' vi-find-next-char-skip
-bindkey -a 'j' vi-find-prev-char
-bindkey -a 'J' vi-find-prev-char-skip
+bindkey -a ')' vi-repeat-find
+bindkey -a '(' vi-rev-repeat-find
 
 
 # editing
@@ -390,43 +408,55 @@ bindkey -a '"' vi-join
 bindkey -a "'" vi-delete-char
 bindkey -a ',' vi-replace-chars
 
-# text object
-bindkey -a 'gW' select-a-blank-word
-bindkey -a 'gw' select-a-word
-bindkey -a 'cW' select-in-blank-word
-bindkey -a 'cw' select-in-word
-
 ########################################
 # CUSTOM KEYBINDINGS
 
 # misc
 stty intr "^C"
 stty eof "^G"
-vi_bind '^h' kill-whole-line
-vi_bind '^b' vi-quoted-insert
 vi_bind '^r' clear-screen
-vi_bind '^n' which-command
+vi_bind '^d' which-command
+vi_bind '^b' vi-quoted-insert
+
+# editing
+vi_bind '^t' kill-buffer
+vi_bind '^h' backward-kill-word
+vi_bind '^n' kill-word
 
 # copy / paste
 vi_bind '^f' vi-yank-x-line
-vi_bind '^l' vi-put-after
+vi_bind '^l' vi-put-before
+
+# cd
+vi_bind '\em' cd-home
+vi_bind '\e,' cd-up
+vi_bind '\e.' cd-back
+
 
 # applications
-vi_bind '\em' run_ranger
-vi_bind '\eb' run_enhancd
+vi_bind '\eg' fzf-file-widget
+vi_bind '\ec' fzf-cd-widget-wrapper
+vi_bind '\er' fzf-history-widget
+
+vi_bind '\eh' fzf-cd-project
+vi_bind '\et' cd-project-root
+vi_bind '\en' fzf-cd-file
+
+vi_bind '\eu' autosuggest-execute
+vi_bind '\ee' autosuggest-accept
+vi_bind '\eo' autosuggest-clear
+
 
 ################################################################################
 # ALIASES
 
 # hacks
 alias sudo='sudo '
-alias ranger='ranger --choosedir=/tmp/.rangerdir; LASTDIR=`cat /tmp/.rangerdir`; cd "$LASTDIR"'
 alias n='nvim'
 e() { eval "$EDITOR $*" }
 alias p='python'
 alias f='fd -IH'
 alias hdi='howdoi'
-alias gr='c $(git rev-parse --show-toplevel)'
 alias -g .ps='$(fd ".*gpg" ~/.password-store/ | sed "s$.*\.password-store/\(.*\)\.gpg$\1$" | fzf --preview="pass show {}")'
 alias psc='pass show --clip .ps'
 alias cheat='fd -tf index.html ~/configuration/cheatsheets | fzf | xargs -i xdg-open {}'
@@ -434,15 +464,6 @@ alias cheat='fd -tf index.html ~/configuration/cheatsheets | fzf | xargs -i xdg-
 sp() { eval "sudo pacman -$*" }
 S() { eval "sudo pacman -S $*" }
 Ss() { eval "sudo pacman -Ss $*" }
-uw() { xclip -o | tr -s '\n' ' ' | sed "s/$/\n/" >> unknown_sentences }
-
-c() {
-  if [[ "$*" == "" ]] ; then
-    eval "h ~"
-  else
-    eval "h $*"
-  fi
-}
 
 # scripts
 t() { trans en:ru "$*" }
@@ -478,11 +499,11 @@ alias gcc='gcc -fdiagnostics-color=always'
 alias tldr='tldr -c'
 
 # ls
-alias ls='ls --color'
-alias l='colorls '
-alias ll='colorls -l'
-alias la='colorls -A'
-alias lla='colorls -lA'
+alias ls='ls --color -t'
+alias l='colorls -t'
+alias ll='colorls -ltr'
+alias la='colorls -At'
+alias lla='colorls -lAtr'
 
 # confirm
 alias rm='rm -i'
