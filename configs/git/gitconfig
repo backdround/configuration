@@ -11,7 +11,8 @@
   ch = checkout
   br = branch
   cm = commit
-  logb = log --oneline --graph --all
+  lb = log --oneline --graph --all
+  l = log --oneline --graph --all -n 15
 
 [diff-so-fancy]
   markEmptyLines = false

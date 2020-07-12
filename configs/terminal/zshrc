@@ -297,8 +297,8 @@ bindkey -M vivis 'G' vi-visual-insert-bol
 bindkey -M vivis 'h' vi-visual-change
 bindkey -M vivis 'H' vi-visual-change
 bindkey -M vivis "'" vi-visual-kill-and-vicmd
-bindkey -M vivli 't' vi-vlines-kill-and-vicmd
-bindkey -M vivli 'T' vi-vlines-kill-and-vicmd
+bindkey -M vivis 't' vi-visual-kill-and-vicmd
+bindkey -M vivis 'T' vi-visual-kill-and-vicmd
 bindkey -M vivis ',' vi-visual-replace-region
 
 bindkey -M vivis 'm' vi-visual-lowercase-region

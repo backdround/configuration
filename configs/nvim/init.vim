@@ -207,17 +207,17 @@ function! s:BasicSettings()
   noremap k f
   noremap K t
 
-  noremap j F
-  noremap J T
+  noremap z F
+  noremap Z T
 
   noremap ) ;
   noremap ( ,
 
   " marks / jumps
-  nnoremap z m
-  nnoremap Z <C-o>
-  nnoremap q `
-  nnoremap Q <C-i>
+  nnoremap q m
+  nnoremap Q <C-o>
+  nnoremap j `
+  nnoremap J <C-i>
 
   " tab managment
   nnoremap <silent> yo <Cmd>Startify<CR>
@@ -368,7 +368,9 @@ function! s:BasicSettings()
   nnoremap _ <esc>:w<CR>
   nnoremap <silent> xh <C-]>
   nnoremap <silent> xt gd
-  "nnoremap <leader>k :tab Man<CR>
+  "nnoremap <leader>k :tAb Man<CR>
+  " jump over ()[]{}<> by @^
+  " jump over ""''``   by -+
 
 
   if exists("g:editor")
@@ -737,16 +739,16 @@ function! s:ConfigureCommonPlugins()
   let g:comfortable_motion_no_default_key_mappings = 1
   let g:comfortable_motion_interval = 1000.0 / 60
 
-  let g:comfortable_motion_friction = 80.0
-  let g:comfortable_motion_air_drag = 6.5
+  let g:comfortable_motion_friction = 320.0
+  let g:comfortable_motion_air_drag = 6.2
 
-  let g:cm_impulse = 4
+  let g:cm_impulse = 8
 
-  nnoremap <silent> E :call comfortable_motion#flick(g:cm_impulse * winheight(0) *    1 )<CR>
-  nnoremap <silent> e :call comfortable_motion#flick(g:cm_impulse * winheight(0) *  0.4 )<CR>
+  nnoremap <silent> E :call comfortable_motion#flick(g:cm_impulse * winheight(0) *  0.7  )<CR>
+  nnoremap <silent> e :call comfortable_motion#flick(g:cm_impulse * winheight(0) *  0.35 )<CR>
 
-  nnoremap <silent> U :call comfortable_motion#flick(g:cm_impulse * winheight(0) *   -1 )<CR>
-  nnoremap <silent> u :call comfortable_motion#flick(g:cm_impulse * winheight(0) * -0.4 )<CR>
+  nnoremap <silent> U :call comfortable_motion#flick(g:cm_impulse * winheight(0) * -0.7  )<CR>
+  nnoremap <silent> u :call comfortable_motion#flick(g:cm_impulse * winheight(0) * -0.35 )<CR>
 
   " --------------------------------------------------------------------------
   " wordmotion
