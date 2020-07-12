@@ -1,3 +1,4 @@
+######################################################################
 # GENERAL OPTIONS
 set -s escape-time 1
 set -g base-index 1
@@ -8,33 +9,31 @@ set -g mouse on
 set -g renumber-windows on
 set -g monitor-activity off
 
+
+######################################################################
 # BINDS
-set -g prefix2 `
 
-bind ` send-prefix -2
+# prefix
 unbind C-b
+set-option -g prefix `
+bind ` send-prefix
 
-bind r rotate-window
-bind R source-file ~/.tmux.conf
-bind f resize-pane -Z
-bind < swap-window -t -1
-bind > swap-window -t +1
+# general
+bind e split-window
+bind u split-window -h
+bind i new-window
 bind q kill-pane
 bind z kill-window
 
-bind C choose-client -Z
-bind B choose-buffer -Z
-bind T choose-tree -Z
+# misc
+bind \' copy-mode
+bind c rotate-window
+bind g choose-tree -Z
+bind r source-file ~/.tmux.conf
+bind d resize-pane -Z
+bind , swap-window -t -1
+bind . swap-window -t +1
 
-
-# vim like copy paste
-bind -T copy-mode-vi 'v' send -X begin-selection
-bind -T copy-mode-vi 'y' send -X copy-selection-and-cancel
-
-# selection bindings
-bind -T copy-mode-vi 'a' send -X append-selection
-bind -T copy-mode-vi 'C-a' send -X copy-line
-bind -T copy-mode-vi 'C-v' send -X rectangle-toggle
 
 # pane manipulation
 bind -n M-F select-pane -L
@@ -47,11 +46,6 @@ bind -n M-H resize-pane -D 5
 bind -n M-T resize-pane -U 5
 bind -n M-N resize-pane -R 5
 
-bind S choose-tree -s
-bind e split-window
-bind u split-window -h
-bind i new-window
-
 bind -n M-1 select-window -t 1
 bind -n M-2 select-window -t 2
 bind -n M-3 select-window -t 3
@@ -62,7 +56,67 @@ bind -n M-7 select-window -t 7
 bind -n M-8 select-window -t 8
 bind -n M-9 select-window -t 9
 
+# Fix home / end
+bind -n Home send Escape "[H"
+bind -n End send Escape "[F"
 
+
+######################################################################
+# COPY MODE VI
+bind -T copy-mode-vi 'E' send -X halfpage-down
+bind -T copy-mode-vi 'U' send -X halfpage-up
+bind -T copy-mode-vi 'e' send -N 12 -X scroll-down
+bind -T copy-mode-vi 'u' send -N 12 -X scroll-up
+
+bind -T copy-mode-vi 's' send -X next-word
+bind -T copy-mode-vi 'p' send -X next-word-end
+bind -T copy-mode-vi 'w' send -X previous-word
+bind -T copy-mode-vi 'v' "send -X cursor-left \; send -X next-word-end \; send -X previous-word \; send -X previous-word \; send -X next-word-end"
+
+bind -T copy-mode-vi 'S' send -X next-space
+bind -T copy-mode-vi 'P' send -X next-space-end
+bind -T copy-mode-vi 'W' send -X previous-space
+bind -T copy-mode-vi 'V' "send -X cursor-left \; send -X next-word-end \; send -X previous-word \; send -X previous-word \; send -X next-word-end"
+
+bind -T copy-mode-vi 'o' switch-client -T multiKeyBindings
+bind -T multiKeyBindings 't' send -X history-top
+bind -T multiKeyBindings 'h' send -X history-bottom
+bind -T multiKeyBindings 'd' send -X back-to-indentation
+bind -T multiKeyBindings "n" send -X end-of-line
+bind -T multiKeyBindings Escape copy-mode
+bind -T copy-mode-vi Home send start-of-line
+bind -T copy-mode-vi End  send end-of-line
+
+bind -T copy-mode-vi ')' send -X jump-again
+bind -T copy-mode-vi '(' send -X jump-reverse
+bind -T copy-mode-vi 'k' command-prompt -1 -p "to:" "send -X jump-forward \"%%\""
+bind -T copy-mode-vi 'z' command-prompt -1 -p "to:" "send -X jump-backward \"%%\""
+bind -T copy-mode-vi 'K' command-prompt -1 -p "to:" "send -X jump-to-forward \"%%\""
+bind -T copy-mode-vi 'Z' command-prompt -1 -p "to:" "send -X jump-to-backward \"%%\""
+
+bind -T copy-mode-vi '}' send -X next-paragraph
+bind -T copy-mode-vi '{' send -X previous-paragraph
+bind -T copy-mode-vi '%' send -X next-matching-bracket
+
+bind -T copy-mode-vi 'n'  send -X begin-selection
+bind -T copy-mode-vi '^n' send -X begin-selection \; send -X rectangle-toggle
+bind -T copy-mode-vi 'N'  send -X select-line
+bind -T copy-mode-vi 'r'  send -X other-end
+bind -T copy-mode-vi Escape send -X clear-selection
+bind -T copy-mode-vi 'q'  send -X cancel
+
+bind -T copy-mode-vi 'F'   send -X copy-end-of-line            \; run-shell -b 'zsh -c "tmux show-buffer | tee >(xclip -sel p) | xclip -sel c"'
+bind -T copy-mode-vi 'f'   send -X copy-selection-and-cancel   \; run-shell -b 'zsh -c "tmux show-buffer | tee >(xclip -sel p) | xclip -sel c"'
+bind -T copy-mode-vi '^f'  send -X copy-line                   \; run-shell -b 'zsh -c "tmux show-buffer | tee >(xclip -sel p) | xclip -sel c"'
+bind -T copy-mode-vi 'M-f' send -X append-selection-and-cancel \; run-shell -b 'zsh -c "tmux show-buffer | tee >(xclip -sel p) | xclip -sel c"'
+
+bind -T copy-mode-vi ']' send -X search-again
+bind -T copy-mode-vi '[' send -X search-reverse
+bind -T copy-mode-vi '/' command-prompt -i -p '/' "send -X search-backward-incremental \"%%%\""
+bind -T copy-mode-vi '?' command-prompt -i -p '?' "send -X search-forward-incremental \"%%%\""
+
+
+######################################################################
 # VISUAL
 set -g status on
 set -g status-interval 2
@@ -116,10 +170,17 @@ set -g window-status-current-style "fg=colour10, bg=colour8"
 set -g window-status-format " #I #W "
 set -g window-status-style "fg=colour7, bg=colour0"
 
-#PLUGINS
+
+######################################################################
+# PLUGINS
+
+# Plugin manager
+# prefix + I     - install plugins
+# prefix + U     - update plugins
+# prefix + alt-u - uninstall plugins
 set -g @plugin 'tmux-plugins/tpm'
 
-# PREFIX HIGHLIGHT
+# Prefix highlight
 set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
 set -g @prefix_highlight_show_copy_mode 'on'
 set -g @prefix_highlight_output_prefix ' '
@@ -132,13 +193,7 @@ set -g @prefix_highlight_copy_mode_attr 'fg=black,bg=colour3'
 set -g @prefix_highlight_fg             'black'
 set -g @prefix_highlight_bg             'colour13'
 
-# TMUX YANK
-# selection + y - copy to primary
-# selection + Y - paste to command line
-set -g @plugin 'tmux-plugins/tmux-yank'
-set -g @yank_selection 'primary'
-
-# TMUX FINGERS
+# Fingers
 # prefix + h - enter finger mod
 # finger + [a - z] - copy selected
 # finger + [A - Z] - insert selected in command line
@@ -149,7 +204,10 @@ set -g @fingers-hint-position "right"
 set -g @fingers-hint-format "#[fg=colour1][%s]"
 set -g @fingers-highlight-format "#[fg=colour3]%s"
 
-# TMUX RESURRECT
+# Jump
+set -g @plugin 'schasse/tmux-jump'
+
+# Resurrect
 # prefix + ctrl-s - save session
 # prefix + ctrl-r - restore session
 set -g @plugin 'tmux-plugins/tmux-resurrect'
@@ -157,12 +215,7 @@ set -g @resurrect-strategy-nvim 'session'
 set -g @resurrect-capture-pane-contents 'on'
 set -g @resurrect-save-shell-history 'on'
 
-# PLUGIN MANAGER
-# prefix + I     - install plugins
-# prefix + U     - update plugins
-# prefix + alt-u - uninstall plugins
-
-# IF tpm isn't install, then install and run, else just run.
+# Install on first run
 run '\
 if [ ! -f ~/.tmux/plugins/tpm/tpm ] ; then \
   notify-send "Installing plugin manager and plugins" ; \
