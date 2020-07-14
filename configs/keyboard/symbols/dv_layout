@@ -2,9 +2,9 @@ default alphanumeric_keys modifier_keys
 xkb_symbols "keys" {
 
   include "us"
-  include "keys"
+    include "keys"
 
-  name[Group1] = "dv";
+    name[Group1] = "dv";
 
   key<AD01> { [ w,            W          ] };
   key<AD02> { [ v,            V          ] };
@@ -44,6 +44,20 @@ xkb_symbols "keys" {
   key<AB08> { [ comma,        less       ] };
   key<AB09> { [ period,       greater    ] };
   key<AB10> { [ slash,        question   ] };
+
+
+  key <KP1> { [   Greek_alpha,    Greek_ALPHA  ] };
+  key <KP2> { [     Greek_rho,      Greek_RHO  ] };
+  key <KP3> { [   Greek_sigma,    Greek_SIGMA  ] };
+
+  key <KP4> { [     Greek_tau,      Greek_TAU  ] };
+  key <KP5> { [   Greek_delta,    Greek_DELTA  ] };
+  key <KP6> { [     Greek_eta,      Greek_ETA  ] };
+
+  key <KP7> { [      Greek_nu,       Greek_NU  ] };
+  key <KP8> { [ Greek_epsilon,  Greek_EPSILON  ] };
+  key <KP9> { [    Greek_iota,     Greek_IOTA  ] };
+
 
   key<BKSL> { [ backslash,    bar        ] };
 };

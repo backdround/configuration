@@ -45,20 +45,21 @@ xkb_symbols "common" {
     key <AB09> { [            period,           greater  ] };
     key <AB10> { [             slash,          question  ] };
 
+
+    key <KP1> { [        Greek_alpha,       Greek_ALPHA  ] };
+    key <KP2> { [     Cyrillic_shcha,    Cyrillic_SHCHA  ] };
+    key <KP3> { [        Cyrillic_ef,       Cyrillic_EF  ] };
+
+    key <KP4> { [       Cyrillic_tse,      Cyrillic_TSE  ] };
+    key <KP5> { [        Cyrillic_yu,       Cyrillic_YU  ] };
+    key <KP6> { [       Cyrillic_sha,      Cyrillic_SHA  ] };
+
+    key <KP7> { [           Greek_nu,          Greek_NU  ] };
+    key <KP8> { [         Cyrillic_e,        Cyrillic_E  ] };
+    key <KP9> { [         Greek_iota,        Greek_IOTA  ] };
+
+
     key <BKSL> { [         backslash,               bar  ] };
-
-
-    key <KP1> {	[      Cyrillic_tse,      Cyrillic_TSE  ]	};
-    key <KP2> {	[    Cyrillic_shcha,    Cyrillic_SHCHA  ]	};
-    key <KP3> {	[      Cyrillic_sha,      Cyrillic_SHA  ]	};
-
-    key <KP4> {	[       Cyrillic_ef,       Cyrillic_EF  ]	};
-    key <KP5> {	[       Cyrillic_yu,       Cyrillic_YU  ]	};
-    key <KP6> {	[        Cyrillic_e,        Cyrillic_E  ]	};
-
-    key <KP7> {	[  KP_7	]	};
-    key <KP8> {	[  KP_8	]	};
-    key <KP9> {	[  KP_9	]	};
 
     include "kpdl(comma)"
 };
