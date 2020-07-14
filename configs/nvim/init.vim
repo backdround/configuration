@@ -136,7 +136,7 @@ function! s:BasicSettings()
   set expandtab
   set smartindent
   "local language
-  set keymap=russian-jcukenwin
+  set keymap=custom_ru
   set iminsert=0
   set imsearch=0
   "misc

@@ -64,6 +64,7 @@ if __name__ == '__main__':
         # Nvim
         ["configs/nvim/init.vim",                    "~/.config/nvim/init.vim"],
         ["configs/nvim/coc-settings.json",           "~/.config/nvim/coc-settings.json"],
+        ["configs/nvim/keymap/custom_ru.vim",        "~/.config/nvim/keymap/custom_ru.vim"],
 
         ["configs/nvim/UltiSnips/all.snippets",      "~/.local/share/nvim/UltiSnips/all.snippets"],
         ["configs/nvim/UltiSnips/cpp.snippets",      "~/.local/share/nvim/UltiSnips/cpp.snippets"],
