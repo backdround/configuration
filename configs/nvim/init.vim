@@ -68,7 +68,6 @@ function! s:LoadPlugins()
     Plug 'xolox/vim-misc'
                                           " MARKDOWN PREVIEW
     Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
-    Plug 'Chiel92/vim-autoformat'         " AUTOFORMAT
     Plug 'backdround/ctrlsf.vim'          " CTRLSF
     Plug 'ludovicchabant/vim-gutentags'   " GUTENTAGS
     Plug 'xolox/vim-notes'                " NOTES
@@ -277,6 +276,8 @@ function! s:BasicSettings()
   noremap o. +g_
   noremap or -g_
 
+  noremap oD ze
+  noremap oN zs
 
   " copy / paste
   noremap f y
@@ -890,10 +891,6 @@ function! s:ConfigureFeaturePlugins()
   nmap <silent> <leader>m <Plug>MarkdownPreview
 
   " --------------------------------------------------------------------------
-  " autoformat
-  noremap <Leader>b :Autoformat<CR>
-
-  " --------------------------------------------------------------------------
   " ctrlsf
   let g:ctrlsf_auto_focus = {"at" : "start"}
   let g:ctrlsf_context = '-A 5 -B 2'
@@ -1134,9 +1131,10 @@ function! s:ConfigureFeaturePlugins()
   "nmap <silent> <leader>ul <Plug>(coc-openlink)
 
   "" do something
+  map  <silent> <Leader>b <Plug>(coc-format-selected)
+  nmap <silent> <Leader>B <Plug>(coc-format)
+
   "nmap <silent> <leader>uf <Plug>(coc-fix-current)
-  "nmap <silent> <leader>uF <Plug>(coc-format)
-  "xmap <silent> <leader>uf <Plug>(coc-format-selected)
   "xmap <silent> <leader>ug <Plug>(coc-codeaction-selected)
   "nmap <silent> <leader>ug <Plug>(coc-codeaction)
   "nmap <silent> <leader>uR <Plug>(coc-rename)
