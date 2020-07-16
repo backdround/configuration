@@ -552,6 +552,9 @@ function! s:ConfigureCommonPlugins()
   " **************************************************************************
   " UI ENCHANTMENTS
 
+  " markdown polyglot
+  let g:vim_markdown_no_default_key_mappings = 1
+
   " --------------------------------------------------------------------------
   " devicons
   let g:WebDevIconsNerdTreeGitPluginForceVAlign = 0
