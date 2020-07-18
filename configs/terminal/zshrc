@@ -136,6 +136,13 @@ source /usr/share/fzf/key-bindings.zsh
 ################################################################################
 # ZLE
 
+# missed default widgets
+function vi-kill-word() {
+  local WORDCHARS=${WORDCHARS/\//}
+  zle kill-word
+}
+zle -N vi-kill-word
+
 # x11 copy wrapping
 function x11-copy-wrap-widgets() {
   for widget in $@; do
@@ -420,8 +427,11 @@ vi_bind '^b' vi-quoted-insert
 
 # editing
 vi_bind '^t' kill-buffer
-vi_bind '^h' backward-kill-word
-vi_bind '^n' kill-word
+
+vi_bind '\e^h' backward-kill-word
+vi_bind '^h' vi-backward-kill-word
+vi_bind '\e^n' kill-word
+vi_bind '^n' vi-kill-word
 
 # copy / paste
 vi_bind '^f' vi-yank-x-line
