@@ -405,6 +405,14 @@ function! s:BasicSettings()
     autocmd InsertLeave * set iminsert=0
   augroup END
 
+  "set title to current session or directory
+  set title
+  augroup Title
+    autocmd!
+    autocmd DirChanged * let &titlestring = fnamemodify(getcwd(), ':t')
+  augroup END
+  let &titlestring = fnamemodify(getcwd(), ':t')
+
   ""remap q in Man page
   "augroup ManPageQuit
     "autocmd!
