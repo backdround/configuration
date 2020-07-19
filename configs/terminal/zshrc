@@ -143,6 +143,12 @@ function vi-kill-word() {
 }
 zle -N vi-kill-word
 
+function custom-which-command() {
+  zle autosuggest-clear
+  zle which-command
+}
+zle -N custom-which-command
+
 # x11 copy wrapping
 function x11-copy-wrap-widgets() {
   for widget in $@; do
@@ -204,7 +210,9 @@ zle -N cd-back
 # fzf wrappers
 function fzf-cd-project() {
   zle -I
-  FZF_ALT_C_COMMAND='fd -H -d6 -E"tmp" -td -tf "^.git$" | sed "s$\(.*\).git$\1$"' fzf-cd-widget
+  UPDATE_GIT_DB='updatedb -l 0 -U ~ -e ~/tmp -o ~/.tmp/mlocate.db'
+  FIND_GIT_DIRS="$UPDATE_GIT_DB && locate -d ~/.tmp/mlocate.db -b '\.git'"
+  FZF_ALT_C_COMMAND="$FIND_GIT_DIRS | sed 's$\(.*\).git$\1$'" fzf-cd-widget
   zle reset-prompt
 }
 zle -N fzf-cd-project
@@ -422,7 +430,7 @@ bindkey -a ',' vi-replace-chars
 stty intr "^C"
 stty eof "^G"
 vi_bind '^r' clear-screen
-vi_bind '^d' which-command
+vi_bind '^d' custom-which-command
 vi_bind '^b' vi-quoted-insert
 
 # editing
@@ -466,10 +474,13 @@ alias n='nvim'
 e() { eval "$EDITOR $*" }
 alias p='python'
 alias f='fd -IH'
-alias hdi='howdoi'
 alias -g .ps='$(fd ".*gpg" ~/.password-store/ | sed "s$.*\.password-store/\(.*\)\.gpg$\1$" | fzf --preview="pass show {}")'
 alias psc='pass show --clip .ps'
 alias cheat='fd -tf index.html ~/configuration/cheatsheets | fzf | xargs -i xdg-open {}'
+alias tldr='tldr -c'
+alias hdi='howdoi'
+
+pg() { eval "pgrep -i -l \"$*\" | grep -i \"$*\"" }
 
 sp() { eval "sudo pacman -$*" }
 S() { eval "sudo pacman -S $*" }
@@ -488,8 +499,19 @@ eval "fswatch --event MovedTo --event MovedFrom --event Renamed --event Removed 
   --event Updated --event Created -o -r $1 | xargs -i sh -c \"${@:2}\""
 }
 
+# git
+alias g='git'
+alias gs='git status'
+alias ga='git add'
+alias gb='git branch'
+alias gp='git push'
+alias gl='git l'
+alias glg='git log'
+alias gch='git checkout'
+alias gcm='git commit'
+
 # global
-alias -g .g='| grep'
+alias -g .g='| grep -i'
 alias -g .l='| less'
 alias -g .c="| column -t"
 alias -g .p="| $PAGER"
@@ -499,14 +521,12 @@ alias -g .stn='| tr " " "\n"'
 alias less='less -R'
 alias diff='diff --color=always'
 alias watch='watch --color'
-alias yaourt='yaourt --color'
 alias pacman='pacman --color=always'
 alias dmesg='dmesg --color=always'
-alias grep='grep --color=always'
+alias grep='grep -i --color=always'
 alias fgrep='fgrep --color=always'
 alias egrep='egrep --color=always'
 alias gcc='gcc -fdiagnostics-color=always'
-alias tldr='tldr -c'
 
 # ls
 alias ls='ls --color -t'
