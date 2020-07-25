@@ -177,22 +177,16 @@ function! s:BasicSettings()
   " --------------------------------------------------------------------------
   " bindings {{{
 
-  let g:mapleader = 'd'
-
   map d <nop>
-  map b <nop>
-  map o <nop>
-  map i <Nop>
-  map y <Nop>
-  map x <Nop>
+  let g:mapleader = 'd'
 
   " word motions
   noremap w b
   noremap W B
-  noremap v ge
-  noremap V gE
-  noremap s w
-  noremap S W
+  noremap q ge
+  noremap Q gE
+  noremap j w
+  noremap J W
   noremap p e
   noremap P E
 
@@ -213,57 +207,59 @@ function! s:BasicSettings()
   noremap ( ,
 
   " marks / jumps
-  nnoremap q m
-  nnoremap Q <C-o>
-  nnoremap j `
-  nnoremap J <C-i>
+  nnoremap y m
+  nnoremap Y <C-o>
+  nnoremap i `
+  nnoremap I <C-i>
 
   " tab managment
-  nnoremap <silent> yo <Cmd>Startify<CR>
-  nnoremap <silent> ye <Cmd>split +Startify<CR>
-  nnoremap <silent> yu <Cmd>vsplit +Startify<CR>
-  nnoremap <silent> yi <Cmd>tabnew +Startify<CR>
-  nnoremap <silent> yI <Cmd>buffer # \| tabnew +buffer #<CR>
+  map v <Nop>
+  nnoremap <silent> vo <Cmd>Startify<CR>
+  nnoremap <silent> vi <Cmd>tabnew +Startify<CR>
+  nnoremap <silent> vI <Cmd>buffer # \| tabnew +buffer #<CR>
 
-  nnoremap <silent> ys <Cmd>tabfirst<CR>
-  nnoremap <silent> yp <Cmd>tablast<CR>
-  nnoremap <silent> yv <Cmd>tabprev<CR>
-  nnoremap <silent> yy <Cmd>tabnext<CR>
+  nnoremap <silent> vE <Cmd>tabfirst<CR>
+  nnoremap <silent> vU <Cmd>tablast<CR>
+  nnoremap <silent> ve <Cmd>tabprev<CR>
+  nnoremap <silent> vu <Cmd>tabnext<CR>
 
-  nnoremap <silent> yq <Cmd>tabclose<CR>
-  nnoremap <silent> yz <Cmd>quitall<CR>
-  nnoremap <silent> yZ <Cmd>quitall!<CR>
+  nnoremap <silent> vs <Cmd>-tabmove<CR>
+  nnoremap <silent> vp <Cmd>+tabmove<CR>
 
-  nnoremap <silent> y, <Cmd>-tabmove<CR>
-  nnoremap <silent> y. <Cmd>+tabmove<CR>
+  nnoremap <silent> vq <Cmd>tabclose<CR>
+  nnoremap <silent> vQ <Cmd>tabclose!<CR>
+  nnoremap <silent> vz <Cmd>quitall<CR>
+  nnoremap <silent> vZ <Cmd>quitall!<CR>
 
   " split managment
-  nnoremap <silent> ie <Cmd>split<CR>
-  nnoremap <silent> iu <Cmd>vsplit<CR>
-  nnoremap <silent> ii <Cmd>tabnew<CR>
+  map s <Nop>
+  nnoremap <silent> s<M-i> <Cmd>tabnew<CR>
+  nnoremap <silent> s<M-u> <Cmd>vsplit<CR>
+  nnoremap <silent> s<M-e> <Cmd>split<CR>
 
-  nnoremap <silent> iq <Cmd>quit<CR>
-  nnoremap <silent> iQ <Cmd>quit!<CR>
+  nnoremap <silent> sq <Cmd>quit<CR>
+  nnoremap <silent> sQ <Cmd>quit!<CR>
 
-  nnoremap iv <C-w>h
-  nnoremap is <C-w>j
-  nnoremap ip <C-w>k
-  nnoremap iy <C-w>l
+  nnoremap so <C-w>h
+  nnoremap se <C-w>j
+  nnoremap su <C-w>k
+  nnoremap si <C-w>l
 
-  nnoremap iV <C-w>H
-  nnoremap iS <C-w>J
-  nnoremap iP <C-w>K
-  nnoremap iY <C-w>L
+  nnoremap sO <C-w>H
+  nnoremap sE <C-w>J
+  nnoremap sU <C-w>K
+  nnoremap sI <C-w>L
 
-  nnoremap ix <C-w>=
-  nnoremap i+ <C-w>+
-  nnoremap i- <C-w>-
-  nnoremap i< <C-w><
-  nnoremap i> <C-w>>
-  nnoremap i\| <C-w>\|
-  nnoremap i_ <C-w>_
+  nnoremap ss <C-w>=
+  nnoremap s+ <C-w>+
+  nnoremap s- <C-w>-
+  nnoremap s< <C-w><
+  nnoremap s> <C-w>>
+  nnoremap s\| <C-w>\|
+  nnoremap s_ <C-w>_
 
   " misc movement
+  map o <nop>
   noremap oh G
   noremap ot gg
   noremap or l
@@ -344,12 +340,14 @@ function! s:BasicSettings()
 
   vnoremap r o
 
+  map x <Nop>
   nnoremap xi gv
   onoremap xi gv
   vnoremap i gv
 
 
   " vim
+  map b <nop>
   nnoremap bu :%s/<C-r>s//g<Left><Left>
   vnoremap bu :s/<C-r>s//g<Left><Left>
   nnoremap bU :%s/<C-r>s//gc<Left><Left><Left>
