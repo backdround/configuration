@@ -1,0 +1,29 @@
+#command
+e  forw-line 9j
+u  back-line 9k
+s  forw-line 19j
+p  back-line 19k
+ot goto-line
+oh goto-end
+
+/  forw-search
+?  back-search
+]  repeat-search
+[  reverse-search
+
+0  digit
+1  digit
+2  digit
+3  digit
+4  digit
+5  digit
+6  digit
+7  digit
+8  digit
+9  digit
+q  quit
+
+#env
+LESS         = -i -R -M
+LESSHISTFILE = -
+LESSCHARSET  = utf-8

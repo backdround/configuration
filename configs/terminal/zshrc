@@ -46,6 +46,7 @@ export PATH=~/.local/bin/:$PATH
 export EDITOR="editor.sh"
 PAGER="editor.sh -R"
 export MANPAGER="nvim -c 'set ft=man' -"
+export LESSKEY="$(realpath ~)/.lesskey"
 
 # pass store
 PASSWORD_STORE_CLIP_TIME=15
@@ -518,7 +519,6 @@ alias -g .p="| $PAGER"
 alias -g .stn='| tr " " "\n"'
 
 # color
-alias less='less -R'
 alias diff='diff --color=always'
 alias watch='watch --color'
 alias pacman='pacman --color=always'

@@ -161,6 +161,13 @@ if __name__ == '__main__':
     utils.replace_in_file(instance_file, replaces)
 
     # --------------------------------------------------------------------------
+    # less
+    lesskey_input = os.path.join(project_root, "configs/terminal/lesskeys")
+    lesskey_output = os.path.expanduser("~/.lesskey")
+    lesskey_command = "lesskey -o {} -- {}".format(lesskey_output, lesskey_input)
+    os.system(lesskey_command)
+
+    # --------------------------------------------------------------------------
     # other desktop
     deployer.symlink_all_files_in_dir("services/", "~/.config/systemd/user")
     deployer.symlink_all_files_in_dir("links/",    "~/.local/share/applications")
