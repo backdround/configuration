@@ -226,8 +226,8 @@ function! s:BasicSettings()
   nnoremap <silent> vs <Cmd>-tabmove<CR>
   nnoremap <silent> vp <Cmd>+tabmove<CR>
 
-  nnoremap <silent> vq <Cmd>tabclose<CR>
-  nnoremap <silent> vQ <Cmd>tabclose!<CR>
+  nnoremap <expr> <silent> vq tabpagenr('$') == 1 ? "<Cmd>quitall<CR>" : "<Cmd>tabclose<CR>"
+  nnoremap <expr> <silent> vQ tabpagenr('$') == 1 ? "<Cmd>quitall!<CR>" : "<Cmd>tabclose!<CR>"
   nnoremap <silent> vz <Cmd>quitall<CR>
   nnoremap <silent> vZ <Cmd>quitall!<CR>
 
