@@ -42,7 +42,9 @@ setopt extended_glob
 # VARIABLES
 
 export PATH="$(yarn global bin):$PATH"
+export PATH="$(npm -g bin):$PATH"
 export PATH=~/.local/bin/:$PATH
+
 export EDITOR="editor.sh"
 PAGER="editor.sh -R"
 export MANPAGER="nvim -c 'set ft=man' -"

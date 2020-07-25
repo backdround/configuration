@@ -29,4 +29,5 @@ python-pip
 tmux
 translate-shell
 yarn
+npm
 ruby-colorls

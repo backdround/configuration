@@ -261,6 +261,7 @@ for_window [class="qute_editor"] resize set --size-qutebrowser_editor--
 
 # Tiling ignore
 for_window [class="octa"] floating enable
+for_window [class="ui"] floating enable
 for_window [class="chart_manager_test"] floating enable
 for_window [class="app"] floating enable
 for_window [class="qmllivebench"] floating enable

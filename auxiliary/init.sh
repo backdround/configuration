@@ -1,7 +1,7 @@
 #!/bin/bash
-# Script setup on bare archlinux
+# Setup script on bare archlinux.
 
-# Check
+# Get setup instonse
 INSTANCES="^(home|work|note|server)$"
 if [[ ! "$1" =~ $INSTANCES ]]; then
   echo "couldn't get install type (work|home|note|server)"
@@ -14,15 +14,16 @@ PROJECT_ROOT=$(realpath "${SCRIPT_PATH}/..")
 
 
 ############################################################
-# Start of common preset intall
+# Common preset intall
 
 # Install base / trizen / common packages
 
+# Update
+sudo pacman -Fy
+sudo pacman --needed --noconfirm -Syu base base-devel git
+
 cd "$PROJECT_ROOT"
 if [[ "$1" == "server"  ]]; then
-  # Update
-  pacman -Fy
-  pacman --needed --noconfirm -Syu base base-devel git
 
   # Create not root user (trizen)
   ./auxiliary/server_user.sh "$@"
@@ -33,9 +34,6 @@ if [[ "$1" == "server"  ]]; then
   # Install packages
   sudo -u trizen sh -c "trizen --needed --noconfirm -S - < ./dependencies/common_packets"
 else
-  # Update
-  sudo pacman -Fy
-  sudo pacman --needed --noconfirm -Syu base base-devel git
 
   # Install trizen
   ./auxiliary/trizen.sh "$@"
@@ -58,15 +56,14 @@ sudo chsh "$USER" -s /bin/zsh
 pip install --user neovim
 
 
-# End of common install
+# End of server install
 if [ "$1" == "server" ]; then
   exit 0
 fi
 
 
-
 ############################################################
-# Start of desktop preset intall
+# Desktop preset intall
 
 # Create directory tree
 mkdir ~/tmp
@@ -91,19 +88,27 @@ sudo pacman --needed --noconfirm -S - < dependencies/packets
 trizen --needed --noconfirm -S - < dependencies/aur_packets
 
 
+############################################################
+# Configure packages
+
 # Add desktop configurations
 gsettings set org.gnome.desktop.default-applications.terminal exec /usr/bin/termite
 gsettings set org.gnome.desktop.default-applications.terminal exec-arg "-x"
 
-
-# Install dependencies
+# lang tool
 pip install --user pyLanguagetool
+
+# qutebrowser
 /usr/share/qutebrowser/scripts/dictcli.py install en-US ru-RU
 
-yarn global add browser-sync
+# npm
+mkdir ~/.npm-global
+npm config set prefix "~/.npm-global"
 
 
-# Setup default services
+############################################################
+# Services
+
 systemctl --user daemon-reload
 systemctl --user enable telegram.service
 systemctl --user enable ddterminal.service
