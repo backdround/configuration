@@ -8,15 +8,18 @@ macro(header_directories return_list)
   set(${return_list} ${dir_list})
 endmacro()
 
+
 # Get source files
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS *.cpp)
 file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS *.h)
 header_directories(DIRECTORIES)
 
+find_package(Threads)
 
 # Create main library
 add_library(main_lib STATIC ${SOURCES} ${HEADERS})
 target_include_directories(main_lib PUBLIC ${DIRECTORIES})
+target_link_libraries(main_lib Threads::Threads)
 
 
 # Create binary
