@@ -112,13 +112,16 @@ c.bindings.default['passthrough'] = {}
 clear_script = "jseval -q -f ~/.config/qutebrowser/my_scripts/clear.js"
 
 # Navigation
-config.bind('a', 'run-with-count 7 scroll left')
-config.bind('o', 'run-with-count 7 scroll right')
 config.bind('e', 'run-with-count 7 scroll down')
 config.bind('u', 'run-with-count 7 scroll up')
 
 config.bind('s', 'run-with-count 12 scroll down')
 config.bind('p', 'run-with-count 12 scroll up')
+
+config.bind('oh', 'scroll-to-perc')
+config.bind('ot', 'scroll-to-perc 0')
+config.bind('od', 'run-with-count 7 scroll left')
+config.bind('on', 'run-with-count 7 scroll right')
 
 # Main
 config.bind('E', 'back')
@@ -147,9 +150,6 @@ config.bind('vp', 'tab-move +')
 
 config.bind('vy', 'reload')
 config.bind('vY', 'reload -f')
-
-config.bind('vo', 'scroll-to-perc 0')
-config.bind('va', 'scroll-to-perc')
 
 config.bind('vw', 'set-cmd-text -s :tab-take')
 config.bind('vW', 'set-cmd-text -s :tab-take --keep')

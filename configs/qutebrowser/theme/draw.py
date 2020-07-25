@@ -241,6 +241,7 @@ def set_style(c):
     c.tabs.favicons.scale = 1
 
     # Fonts
+    font_size_big_str = '13pt'
     font_size_str = '11pt'
     font_size_small_str = '9pt'
 
@@ -256,7 +257,8 @@ def set_style(c):
     c.fonts.messages.warning = font_size_str + ' monospace'
     c.fonts.prompts = font_size_str + ' monospace'
     c.fonts.statusbar = font_size_small_str + ' monospace'
-    c.fonts.tabs = font_size_str  + ' monospace'
+    c.fonts.tabs.selected = font_size_big_str  + ' monospace'
+    c.fonts.tabs.unselected = font_size_str  + ' monospace'
     c.fonts.web.family.standard = ''
     c.fonts.web.family.fixed = ''
     c.fonts.web.family.serif = ''
