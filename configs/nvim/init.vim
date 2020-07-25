@@ -734,8 +734,8 @@ function! s:ConfigureCommonPlugins()
   map ok <Plug>(easymotion-bd-f)
   map oj <Plug>(easymotion-bd-t)
 
-  map ow <Plug>(easymotion-b)
-  map ov <Plug>(easymotion-ge)
+  map oj <Plug>(easymotion-b)
+  map oq <Plug>(easymotion-ge)
   map os <Plug>(easymotion-w)
   map op <Plug>(easymotion-e)
 
@@ -764,14 +764,14 @@ function! s:ConfigureCommonPlugins()
   " wordmotion
   let g:wordmotion_spaces = '()\[\]<>{}' . ',./%@^!?;:$~`"\#_|-+=&*' . "'"
   let g:wordmotion_mappings = {
-        \ 'w'         :'<M-s>',
+        \ 'w'         :'<M-j>',
         \ 'b'         :'<M-w>',
         \ 'e'         :'<M-p>',
-        \ 'ge'        :'<M-v>',
-        \ 'W'         :'<M-S>',
+        \ 'ge'        :'<M-q>',
+        \ 'W'         :'<M-J>',
         \ 'B'         :'<M-W>',
         \ 'E'         :'<M-P>',
-        \ 'gE'        :'<M-V>',
+        \ 'gE'        :'<M-Q>',
         \ 'aw'        :'g<M-w>',
         \ 'iw'        :'c<M-w>',
         \ 'aW'        :'g<M-W>',
