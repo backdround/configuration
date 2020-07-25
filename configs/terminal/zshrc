@@ -479,7 +479,6 @@ alias p='python'
 alias f='fd -IH'
 alias -g .ps='$(fd ".*gpg" ~/.password-store/ | sed "s$.*\.password-store/\(.*\)\.gpg$\1$" | fzf --preview="pass show {}")'
 alias psc='pass show --clip .ps'
-alias cheat='fd -tf index.html ~/configuration/cheatsheets | fzf | xargs -i xdg-open {}'
 alias tldr='tldr -c'
 alias hdi='howdoi'
 
