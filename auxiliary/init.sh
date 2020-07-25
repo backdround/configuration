@@ -104,6 +104,9 @@ pip install --user pyLanguagetool
 # npm
 mkdir ~/.npm-global
 npm config set prefix "~/.npm-global"
+npm config set init-author-email "backdround@yandex.ru"
+npm config set init-author-name "Vlad Chepaykin"
+npm config set init-license "MIT"
 
 
 ############################################################
