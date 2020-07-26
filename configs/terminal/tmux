@@ -26,7 +26,7 @@ bind q kill-pane
 bind z kill-window
 
 # misc
-bind \' copy-mode
+bind \" copy-mode
 bind c rotate-window
 bind g choose-tree -Z
 bind r source-file ~/.tmux.conf
@@ -68,15 +68,15 @@ bind -T copy-mode-vi 'U' send -X halfpage-up
 bind -T copy-mode-vi 'e' send -N 12 -X scroll-down
 bind -T copy-mode-vi 'u' send -N 12 -X scroll-up
 
-bind -T copy-mode-vi 's' send -X next-word
+bind -T copy-mode-vi 'j' send -X next-word
 bind -T copy-mode-vi 'p' send -X next-word-end
 bind -T copy-mode-vi 'w' send -X previous-word
-bind -T copy-mode-vi 'v' "send -X cursor-left \; send -X next-word-end \; send -X previous-word \; send -X previous-word \; send -X next-word-end"
+bind -T copy-mode-vi 'q' "send -X cursor-left \; send -X next-word-end \; send -X previous-word \; send -X previous-word \; send -X next-word-end"
 
-bind -T copy-mode-vi 'S' send -X next-space
+bind -T copy-mode-vi 'J' send -X next-space
 bind -T copy-mode-vi 'P' send -X next-space-end
 bind -T copy-mode-vi 'W' send -X previous-space
-bind -T copy-mode-vi 'V' "send -X cursor-left \; send -X next-word-end \; send -X previous-word \; send -X previous-word \; send -X next-word-end"
+bind -T copy-mode-vi 'Q' "send -X cursor-left \; send -X next-word-end \; send -X previous-word \; send -X previous-word \; send -X next-word-end"
 
 bind -T copy-mode-vi 'o' switch-client -T multiKeyBindings
 bind -T multiKeyBindings 't' send -X history-top

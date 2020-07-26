@@ -288,13 +288,13 @@ bindkey -r -M vivis 'o'
 
 # movements
 bindkey -M vivis 'w' vi-visual-backward-word
-bindkey -M vivis 'v' vi-visual-backward-word-end
-bindkey -M vivis 's' vi-visual-forward-word
+bindkey -M vivis 'q' vi-visual-backward-word-end
+bindkey -M vivis 'j' vi-visual-forward-word
 bindkey -M vivis 'p' vi-visual-forward-word-end
 
 bindkey -M vivis 'W' vi-visual-backward-blank-word
-bindkey -M vivis 'V' vi-visual-backward-blank-word-end
-bindkey -M vivis 'S' vi-visual-forward-blank-word
+bindkey -M vivis 'Q' vi-visual-backward-blank-word-end
+bindkey -M vivis 'J' vi-visual-forward-blank-word
 bindkey -M vivis 'P' vi-visual-forward-blank-word-end
 
 bindkey -M vivis 'z' vi-visual-find-prev-char
@@ -359,8 +359,8 @@ bindkey -M vivli 'n' vi-vlines-exit-to-visual
 
 # movements
 bindkey -v '^w' vi-backward-word
-bindkey -v '^v' vi-backward-word-end
-bindkey -v '^s' vi-forward-word
+bindkey -v '^q' vi-backward-word-end
+bindkey -v '^j' vi-forward-word
 bindkey -v '^p' vi-forward-word-end
 
 bindkey -v '^a' vi-backward-blank-word
@@ -379,13 +379,13 @@ bindkey -a -r 'gg'
 
 # movement
 bindkey -a 'w' vi-backward-word
-bindkey -a 'v' vi-backward-word-end
-bindkey -a 's' vi-forward-word
+bindkey -a 'q' vi-backward-word-end
+bindkey -a 'j' vi-forward-word
 bindkey -a 'p' vi-forward-word-end
 
 bindkey -a 'W' vi-backward-blank-word
-bindkey -a 'V' vi-backward-blank-word-end
-bindkey -a 'S' vi-forward-blank-word
+bindkey -a 'Q' vi-backward-blank-word-end
+bindkey -a 'J' vi-forward-blank-word
 bindkey -a 'P' vi-forward-blank-word-end
 
 bindkey -a 'od' beginning-of-line
