@@ -92,8 +92,7 @@ trizen --needed --noconfirm -S - < dependencies/aur_packets
 # Configure packages
 
 # Add desktop configurations
-gsettings set org.gnome.desktop.default-applications.terminal exec /usr/bin/termite
-gsettings set org.gnome.desktop.default-applications.terminal exec-arg "-x"
+gsettings set org.gnome.desktop.default-applications.terminal exec /usr/bin/kitty
 
 # lang tool
 pip install --user pyLanguagetool

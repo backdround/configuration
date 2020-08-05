@@ -1,10 +1,10 @@
 #!/bin/sh
 
-export TERMINAL=termite
 export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 export GCC_COLORS=true
 export LC_ALL=en_US.UTF-8
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export TERMINAL=kitty
 
 if grep -q home ~/.instance; then
  xrandr --output DVI-D-1 --auto --primary --output DP-1 --auto --left-of DVI-D-1

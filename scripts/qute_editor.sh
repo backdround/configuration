@@ -1,2 +1,2 @@
 #!/bin/sh
-termite --class qute_editor --exec="bash -c \"sleep 0.06 && nvim $@ --cmd 'let g:editor = 1'\""
+kitty --class qute_editor bash -c "nvim $@ --cmd 'let g:editor = 1'"

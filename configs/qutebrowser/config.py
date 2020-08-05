@@ -42,7 +42,7 @@ c.downloads.location.directory = '~/downloads'
 c.downloads.location.prompt = False
 c.downloads.location.suggestion = 'filename'
 editor_script = os.path.expanduser('~/.local/bin/qute_editor.sh')
-c.editor.command = [editor_script, '{} -c \'normal! {line}G{column0}l\'']
+c.editor.command = [editor_script, '\"{}\" -c \'normal! {line}G{column0}l\'']
 
 both_hands_chars = 'bmfgcrldhtnxkjqzypsvwiueoa'
 left_hand_chars = 'xkjqzypsvwiueoa'

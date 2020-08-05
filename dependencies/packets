@@ -18,6 +18,7 @@ dunst
 feh
 flameshot
 fzy
+kitty
 gdb-dashboard
 hsetroot
 imagemagick
@@ -37,7 +38,6 @@ openssh
 sudo
 telegram-desktop
 terminus-font
-termite
 thunar
 the_silver_searcher
 tor
