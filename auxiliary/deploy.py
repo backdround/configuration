@@ -54,6 +54,7 @@ if __name__ == '__main__':
         ["configs/terminal/bat",                     "~/.config/bat/config"],
         ["configs/terminal/tmux",                    "~/.tmux.conf"],
         ["configs/terminal/zshrc",                   "~/.zshrc"],
+        ["configs/terminal/p10k.zsh",                "~/.p10k.zsh"],
         ["configs/terminal/kitty.conf",              "~/.config/kitty/kitty.conf"],
         ["configs/terminal/ranger",                  "~/.config/ranger/rc.conf"],
 
