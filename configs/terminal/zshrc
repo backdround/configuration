@@ -160,12 +160,12 @@ zle -N vi-yank-x-line
 function cd-project-root() {
   local root_directory="$(git rev-parse --show-toplevel 2> /dev/null)"
   if [ $? ]; then
-    cd "$root_directory" > /dev/null && zle reset-prompt
+    cd "$root_directory" > /dev/null && zle fzf-redraw-prompt
   fi
 }
-function cd-home() { cd ~ > /dev/null && zle reset-prompt }
-function cd-up() { cd .. > /dev/null && zle reset-prompt }
-function cd-back() { cd - > /dev/null && zle reset-prompt }
+function cd-home() { cd ~ > /dev/null && zle fzf-redraw-prompt }
+function cd-up() { cd .. > /dev/null && zle fzf-redraw-prompt }
+function cd-back() { cd - > /dev/null && zle fzf-redraw-prompt }
 zle -N cd-project-root
 zle -N cd-home
 zle -N cd-up
@@ -173,14 +173,35 @@ zle -N cd-back
 
 
 # fzf wrappers
+function fzf-select() {
+  setopt localoptions pipefail no_aliases 2> /dev/null
+  eval "$FZF_SELECT" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS" $(__fzfcmd) -m "$@" | while read item; do
+    echo -n "$item"
+  done
+  local ret=$?
+  echo
+  return $ret
+}
+
+
 function fzf-cd-project() {
   zle -I
-  UPDATE_GIT_DB='updatedb -l 0 -U ~ -e ~/tmp -o ~/.tmp/mlocate.db'
-  FIND_GIT_DIRS="$UPDATE_GIT_DB && locate -d ~/.tmp/mlocate.db -b '\.git'"
-  FZF_ALT_C_COMMAND="$FIND_GIT_DIRS | sed 's$\(.*\).git$\1$'" fzf-cd-widget
+
+  UPDATE_DB="updatedb -l 0 -U ~/ -e ~/.tmp -e ~/tmp -o ~/.tmp/mlocate.db"
+  FIND_GIT_DIRS="$UPDATE_DB && locate -d ~/.tmp/mlocate.db -b '\.git'"
+  FZF_SELECT="$FIND_GIT_DIRS | sed 's$\(.*\).git$\1$'"
+  local PROJECT_DIR=$(fzf-select)
   zle reset-prompt
+
+  if [[ -z "$PROJECT_DIR" ]]; then
+    return 0
+  fi
+
+  cd "$PROJECT_DIR" > /dev/null &&
+  zle fzf-redraw-prompt
 }
 zle -N fzf-cd-project
+
 
 function fzf-cd-widget-wrapper() {
   FZF_ALT_C_COMMAND='fd -I --type directory' FZF_DEFAULT_OPTS="--height 40% --reverse $FZF_DEFAULT_OPTS" fzf-cd-widget
@@ -190,7 +211,6 @@ zle -N fzf-cd-widget-wrapper
 
 fzf-cd-file() {
   zle -I
-  setopt localoptions pipefail no_aliases 2> /dev/null
 
   # Choose root directory
   local root_directory="$(git rev-parse --show-toplevel 2> /dev/null)"
@@ -199,21 +219,32 @@ fzf-cd-file() {
   fi
 
   # Find file
-  local file="$(fd -tf . "$root_directory" | FZF_DEFAULT_OPTS="--height 40% --reverse $FZF_DEFAULT_OPTS" $(__fzfcmd))"
+  FZF_SELECT="fd -tf . \"$root_directory\""
+  local file=$(fzf-select)
+  zle reset-prompt
+
   if [[ -z "$file" ]]; then
-    zle redisplay
     return 0
   fi
 
   # cd to file dir
-  cd "$(dirname $file)"
-
-  local ret=$?
+  cd "$(dirname $file)"  &&
   zle fzf-redraw-prompt
-  return $ret
 }
 zle -N fzf-cd-file
 
+# fzf kill
+k() {
+  FZF_SELECT="ps cax | tail -n +2"
+  local process=$(fzf-select)
+
+  if [[ -z "$process" ]]; then
+    return 0
+  fi
+
+  local pid="$(echo "$process" | sed -r -e "s/\s*([[:digit:]]+).*/\1/")"
+  kill $@ $pid
+}
 
 vi_bind() {
   bindkey -M vicmd $@
