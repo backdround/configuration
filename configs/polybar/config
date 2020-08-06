@@ -28,17 +28,14 @@ screenchange-reload = false
 
 
 [colors]
-background     = ${xrdb:background}
-background-alt = ${xrdb:color16   }
-foreground     = ${xrdb:color7    }
-foreground-alt = ${xrdb:color15   }
-primary        = ${xrdb:color2    }
-secondary      = ${xrdb:color4    }
-urgent         = ${xrdb:color5    }
-orange         = ${xrdb:color9    }
-red            = ${xrdb:color1    }
+background     = ${xrdb:color0}
+foreground     = ${xrdb:foreground}
+
+primary        = ${xrdb:color6    }
+
 gray           = ${xrdb:color8    }
-gray-alt       = ${xrdb:color17   }
+warning        = ${xrdb:color11   }
+urgent         = ${xrdb:color1    }
 
 
 [bar/primary]
@@ -50,7 +47,6 @@ background = ${colors.background}
 foreground = ${colors.foreground}
 
 line-size = 2
-line-color = ${colors.secondary}
 
 border-size = 0
 border-top = 17
@@ -65,10 +61,11 @@ padding-left = 0
 module-margin-left = 2
 module-margin-right = 2
 
-font-0 = FantasqueSansMono Nerd Font:size=11;2
+font-0 = FantasqueSansMono Nerd Font:size=12;2
+font-1 = FantasqueSansMono Nerd Font:size=12:weight=bold;2
 
 
-modules-left = memory cpu filesystem xbacklight battery xkeyboard vpn
+modules-left = memory filesystem xbacklight battery xkeyboard vpn
 modules-center = i3
 modules-right = pulseaudio date powermenu
 
@@ -90,8 +87,8 @@ cursor-click = pointer
 [label/base]
 format-prefix-foreground = ${colors.primary}
 format-foreground = ${colors.foreground}
-format-background = ${colors.background-alt}
-format-underline = ${colors.gray-alt}
+format-background = ${colors.background}
+format-underline = ${colors.primary}
 
 format-padding = 1
 format-margin = 0
@@ -181,16 +178,15 @@ label-focused = %name%
 label-focused-background = ${colors.gray}
 label-focused-underline  = ${colors.primary}
 label-focused-padding    = 2
+label-focused-font       = 2
 
 ; unfocused = Inactive workspace on any monitor
 label-unfocused = %name%
-label-unfocused-background = ${colors.background-alt}
 label-unfocused-underline  = ${colors.foreground}
 label-unfocused-padding = 2
 
 ; visible = Active workspace on unfocused monitor
 label-visible = %name%
-label-visible-background = ${colors.background-alt}
 label-visible-underline = ${colors.foreground}
 label-visible-padding = 2
 
@@ -223,8 +219,8 @@ label-charging     = %percentage:3%%
 format-discharging = <ramp-capacity> <label-discharging>
 label-discharging = %percentage%%
 
-ramp-capacity-0-foreground = ${colors.red}
-ramp-capacity-1-foreground = ${colors.orange}
+ramp-capacity-0-foreground = ${colors.urgent}
+ramp-capacity-1-foreground = ${colors.warning}
 ramp-capacity-2-foreground = ${colors.primary}
 ramp-capacity-3-foreground = ${colors.primary}
 ramp-capacity-4-foreground = ${colors.primary}
@@ -277,13 +273,6 @@ format-prefix = " "
 label = %percentage_used:3%%
 
 
-[module/cpu]
-inherit = label/base
-type = internal/cpu
-interval = 2
-format-prefix = " "
-label = %percentage:2%%
-
 [module/vpn]
 inherit = label/base
 type = custom/script
@@ -302,12 +291,12 @@ interval = 5
 
 format-prefix = "  "
 # maintain color manualy :c
-time = "  %{F#3fe097}  %{F-}%H:%M"
+time = "  %{F#89b8c2}  %{F-}%H:%M"
 time-alt =
 date = %d/%m
 date-alt = %A
 
-label = "%date%%time% "
+label = "%date%%time%"
 
 [module/pulseaudio]
 inherit = label/base
@@ -320,17 +309,17 @@ ramp-volume-foreground = ${label/base.format-prefix-foreground}
 label-volume =  %percentage:2%%
 label-volume-foreground = ${root.foreground}
 
-label-muted = "  muted"
-label-muted-foreground = #666
+label-muted = "  muted"
+label-muted-foreground = ${colors.gray}
 
 bar-volume-width = 10
-bar-volume-foreground-0 = ${colors.primary}
-bar-volume-foreground-1 = ${colors.primary}
-bar-volume-foreground-2 = ${colors.primary}
+bar-volume-foreground-0 = ${colors.gray}
+bar-volume-foreground-1 = ${colors.gray}
+bar-volume-foreground-2 = ${colors.gray}
 bar-volume-foreground-3 = ${colors.primary}
 bar-volume-foreground-4 = ${colors.primary}
-bar-volume-foreground-5 = ${colors.orange}
-bar-volume-foreground-6 = ${colors.red}
+bar-volume-foreground-5 = ${colors.warning}
+bar-volume-foreground-6 = ${colors.urgent}
 bar-volume-gradient = false
 bar-volume-indicator = ●
 bar-volume-indicator-font = 1
@@ -338,7 +327,7 @@ bar-volume-fill = ━
 bar-volume-fill-font = 1
 bar-volume-empty = ─
 bar-volume-empty-font = 1
-bar-volume-empty-foreground = ${colors.foreground-alt}
+bar-volume-empty-foreground = ${colors.foreground}
 
 [module/powermenu]
 inherit = label/base
@@ -348,14 +337,15 @@ expand-right = true
 
 label-open = " "
 label-open-foreground = ${colors.urgent}
-label-close = "  cancel "
-label-close-foreground = ${colors.secondary}
+label-close = "   cancel "
+label-close-foreground = ${colors.gray}
 label-separator = |
-label-separator-foreground = ${colors.foreground-alt}
+label-separator-foreground = ${colors.foreground}
 
-menu-0-0 = "  reboot "
+menu-0-0 = "   reboot "
 menu-0-0-exec = sudo systemctl reboot
-menu-0-1 = "  power off "
+menu-0-0-foreground = ${colors.warning}
+menu-0-1 = "   power off "
 menu-0-1-exec = sudo systemctl poweroff
 menu-0-1-foreground = ${colors.urgent}
 

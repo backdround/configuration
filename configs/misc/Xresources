@@ -28,7 +28,7 @@ urxvt*.font: xft:xos4 Terminus:size=10:antialias=false
 *.cursorColor:  #c6c8d1
 
 ! black
-*.color0:       #161821
+*.color0:       #1D1E26
 *.color8:       #6b7089
 
 ! red
@@ -45,7 +45,7 @@ urxvt*.font: xft:xos4 Terminus:size=10:antialias=false
 
 ! blue
 *.color4:       #84a0c6
-*.color12:      #91acd1
+*.color12:      #98B0D1
 
 ! magenta
 *.color5:       #a093c7
