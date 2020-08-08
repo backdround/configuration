@@ -143,8 +143,8 @@ if __name__ == '__main__':
     }
 
     if instance == "home":
-        position_size["dropdown"] = ("979 348", "1882 500")
-        position_size["ranger"] = ("979 348", "1882 500")
+        position_size["dropdown"] = ("978 352", "1884 499")
+        position_size["ranger"] = ("978 352", "1884 499")
         position_size["telegram"] = ("2872 468", "580 740")
 
     replaces =      [('--position-{}--'.format(key), val1) for key, (val1, _) in position_size.items()]

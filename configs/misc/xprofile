@@ -19,6 +19,6 @@ xset r rate 200 30
 xkbcomp -I$HOME/.config/xkb ~/.config/xkb/keymap/config $DISPLAY -w 0
 xset b off
 
-COLOR=#6A6379
+COLOR=#595C64
 
 hsetroot -solid "$COLOR"
