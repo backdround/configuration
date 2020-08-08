@@ -88,6 +88,7 @@ c.session.lazy_restore = True
 
 c.spellcheck.languages = ['en-US', 'ru-RU']
 c.tabs.last_close = 'close'
+c.tabs.close_mouse_button = 'right'
 
 c.url.default_page = 'https://google.com/'
 c.url.start_pages = ['https://google.com']
@@ -173,14 +174,14 @@ config.bind('<Alt-s>',        'config-cycle --temp hints.chars {} {}'.format(bot
 
 config.bind('g', 'enter-mode insert')
 config.bind('c', 'enter-mode passthrough')
-config.bind('r', 'enter-mode caret')
+config.bind('n', 'enter-mode caret')
 
 
 # open in background/new/current tab or new window
 commands_with_prefix = [
     # navigate related current page
-    ('s', 'navigate increment {}'),
-    ('p', 'navigate decrement {}'),
+    ('p', 'navigate increment {}'),
+    ('s', 'navigate decrement {}'),
     ('y', 'navigate up {}'),
 
     ('e', 'back {}'),
