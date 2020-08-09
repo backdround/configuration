@@ -23,7 +23,7 @@ setopt share_history
 autoload -U compinit && compinit
 zmodload -i zsh/complist
 
-eval "$(dircolors)"
+eval "$(dircolors | sed -e "s/:di=[0-9;]*:/:di=01;35:/")"
 zstyle ':completion:*' menu select
 zstyle ':completion:*' completer _complete _correct _approximate
 zstyle ':completion:*:default' select-scroll 0
@@ -549,10 +549,10 @@ alias gcc='gcc -fdiagnostics-color=always'
 
 # ls
 alias ls='ls --color -t'
-alias l='colorls -t'
-alias ll='colorls -ltr'
-alias la='colorls -At'
-alias lla='colorls -lAtr'
+alias l='lsd -t'
+alias ll='lsd -ltr'
+alias la='lsd -At'
+alias lla='lsd -lAtr'
 
 # confirm
 alias rm='rm -i'
