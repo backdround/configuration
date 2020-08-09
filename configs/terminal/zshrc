@@ -57,14 +57,39 @@ PASSWORD_STORE_GENERATED_LENGTH=17
 ################################################################################
 # PLUGIN CONFIGS
 
-FZF_TMUX_HEIGHT=40%
-FZF_DEFAULT_OPTS='--no-mouse --cycle --reverse --border --color=bg:233'
-FZF_DEFAULT_COMMAND='fd --type file'
-FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-FZF_ALT_C_COMMAND='fd --type directory'
+function foreground {
+  echo $(xrdb -query | grep "foreground:" | cut -f 2| tr -d '\n')
+}
+
+function background {
+  echo $(xrdb -query | grep "background:" | cut -f 2| tr -d '\n')
+}
+
+function color {
+  COLOR=$(xrdb -query | grep "color$@:" | cut -f 2| tr -d '\n')
+  echo $COLOR
+}
+
+
+FZF_COLORS="--color='\
+  border:$(color 2),\
+  bg+:$(color 8),fg+:$(color 15),\
+  bg:$(background),fg:$(foreground),\
+  gutter:$(background),\
+  hl:$(color 1),\
+  hl+:$(color 9),\
+  preview-bg:$(color 0)\
+'"
+FZF_COLORS=$(echo $FZF_COLORS | tr -d ' ')
+
+export FZF_TMUX_HEIGHT=40%
+export FZF_DEFAULT_OPTS="--no-mouse --cycle --reverse --border $FZF_COLORS"
+export FZF_DEFAULT_COMMAND='fd --type file'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND='fd --type directory'
 
 ZSH_AUTOSUGGEST_USE_ASYNC=1
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#778077'
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=$(color 8)"
 
 ZLE_RPROMPT_INDENT=0
 
