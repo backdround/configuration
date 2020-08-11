@@ -132,10 +132,10 @@ set -g display-panes-colour colour7
 
 # confirm or insertion commands
 set -g message-style "fg=colour0, bg=colour1"
-set -g message-command-style "fg=colour11, bg=colour8"
+set -g message-command-style "fg=colour3, bg=colour8"
 
 # general status style
-set -g status-style "fg=colour10, bg=colour0"
+set -g status-style "fg=colour3, bg=colour0"
 
 # left status
 set -g status-left-style "fg=colour15, bg=colour8"
@@ -163,7 +163,7 @@ set -g clock-mode-colour colour5
 set -g clock-mode-style 24
 
 # border style
-set -g pane-active-border-style "fg=colour13"
+set -g pane-active-border-style "fg=colour5"
 set -g pane-border-style 'fg=colour8'
 
 # window status

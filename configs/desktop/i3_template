@@ -134,7 +134,7 @@ set_from_resource  $gray   i3wm.color8 #6b7089
 
 set_from_resource  $green  i3wm.color2 #6aa28c
 set_from_resource  $cyan   i3wm.color6 #89b8c2
-set_from_resource  $red    i3wm.color1 #e27e9b
+set_from_resource  $red    i3wm.color1 #bf5c80
 
 #class                  border background text   indicator child_border
 client.focused          $black $black     $cyan  $cyan     $cyan
