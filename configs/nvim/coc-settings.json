@@ -2,13 +2,13 @@
   // suggest
   "suggest.maxPreviewWidth": 80,
   "suggest.enablePreview": false,
-  "suggest.snippetIndicator": "⚡",
+  "suggest.snippetIndicator": " ",
 
   // diagnostic
-  "diagnostic.infoSign":    "ღ",
-  "diagnostic.hintSign":    "ஐ",
-  "diagnostic.warningSign": "⚠",
-  "diagnostic.errorSign":   "✖",
+  "diagnostic.infoSign":    "",
+  "diagnostic.hintSign":    "",
+  "diagnostic.warningSign": "",
+  "diagnostic.errorSign":   "",
   "diagnostic.level": "information",
   "diagnostic.virtualText": true,
   "diagnostic.enableMessage": "never",

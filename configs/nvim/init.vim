@@ -21,6 +21,7 @@ function! s:LoadPlugins()
   " --------------------------------------------------------------------------
   " UI ENCHANTMENTS
   Plug 'rafi/awesome-vim-colorschemes' " COLORSCHEMES
+  Plug 'backdround/melting'            " MY COLORSCHEME
   Plug 'sheerun/vim-polyglot'          " POLYGLOT
   Plug 'ryanoasis/vim-devicons'        " DEVICONS
 
@@ -380,11 +381,6 @@ function! s:BasicSettings()
   " --------------------------------------------------------------------------
   " autocomands {{{
 
-  "clear highlight function autoloads
-  augroup SetHighlightFunctionGroup
-    autocmd!
-  augroup END
-
   "disabling autocommenting
   augroup DisablingAutocommenting
     autocmd!
@@ -403,7 +399,7 @@ function! s:BasicSettings()
     autocmd InsertLeave * set iminsert=0
   augroup END
 
-  "set title to current session or directory
+  "set title to current directory
   set title
   augroup Title
     autocmd!
@@ -443,108 +439,16 @@ function! s:ConfigureView()
   set termguicolors
   set background=dark
 
-  " --------------------------------------------------------------------------
-  " favorite sets {{{
+  let g:airline_theme='melting'
+  colorscheme melting
 
-  let g:airline_theme='onedark'
-  "let g:airline_theme='behelit'
-  "let g:airline_theme='wombat'
-  "let g:airline_theme='hybrid'
-  "let g:airline_theme='ayu_mirage'
-
-  colorscheme lucid
-  "colorscheme one
-  "colorscheme deus
-  "colorscheme wombat256mod
-  "colorscheme apprentice
-  "colorscheme space-vim-dark
-  "colorscheme minimalist
-  "colorscheme molokai
-  "colorscheme dracula
-
-  " }}}
-
-  " --------------------------------------------------------------------------
-  " highlight colors {{{
-
-  "Terminal colors
-  let g:terminal_color_0  = "#17121e"
-  let g:terminal_color_1  = "#ff2d5e"
-  let g:terminal_color_2  = "#3fe097"
-  let g:terminal_color_3  = "#fdf2a2"
-  let g:terminal_color_4  = "#BD93F9"
-  let g:terminal_color_5  = "#db0088"
-  let g:terminal_color_6  = "#8BE9FD"
-  let g:terminal_color_7  = "#e4e0ed"
-  let g:terminal_color_8  = "#343439"
-  let g:terminal_color_9  = "#FF6E67"
-  let g:terminal_color_10 = "#00fa90"
-  let g:terminal_color_11 = "#F4F99D"
-  let g:terminal_color_12 = "#CAA9FA"
-  let g:terminal_color_13 = "#FF92D0"
-  let g:terminal_color_14 = "#61afef"
-  let g:terminal_color_15 = "#ffffff"
-  let g:terminal_color_16 = "#222222"
-  let g:terminal_color_17 = "#777777"
-
-  "CursorLine
-  call s:SetHighlight("CursorLine",   { 'bg': '#232323'})
-  call s:SetHighlight("CursorLineNr", { 'mode': 'bold', 'fg': '#7bc992', 'bg': '#191919'})
-
-  "Msg
-  call s:SetHighlight("ErrorMsg",     { 'mode': 'bold', 'bg': '#000000', 'fg': '#ff5555'})
-  call s:SetHighlight("WarningMsg",   { 'mode': 'bold', 'bg': '#101010', 'fg': '#ff79c6'})
-
-  "Pmenu
-  call s:SetHighlight("Pmenu",        { 'bg': '#41495B', 'fg': '7bc992'})
-  call s:SetHighlight("PmenuSel",     { 'bg': '#4B536C', 'fg': '#55ff88'})
-  call s:SetHighlight("PmenuSbar",     { 'bg': 'black', 'fg': '#55ff88'})
-
-  "Diffs
-  call s:SetHighlight("DiffAdd",      { 'fg': '#55ff55'})
-  call s:SetHighlight("DiffDelete",   { 'fg': '#ff5555'})
-  call s:SetHighlight("DiffChange",   { 'fg': '#ff9955'})
-
-  "Signs
-  call s:SetHighlight('ErrorColor',       {'bg': '#101010', 'fg': '#f43753'})
-  call s:SetHighlight('WarningColor',     {'bg': '#101010', 'fg': '#f4f453'})
-  call s:SetHighlight('InfoColor', {'bg': '#101010', 'fg': '#67f473'})
-  call s:SetHighlight('HintColor',        {'bg': '#101010', 'fg': '#f484f4'})
-
-  "Folded
-  call s:SetHighlight("Folded",       { 'bg': '#302737'})
-
-  "Left column
-  call s:SetHighlight("ColorColumn",       { 'bg': '#232323'})
-  call s:SetHighlight("VertSplit",       { 'bg': '#3E4550'})
-
-  "Coc highlight
-  call s:SetHighlight("CocHighlightText", { 'bg': '#555555', 'fg': '#ffffff'})
-  call s:SetHighlight("CocHighlightRead", { 'bg': '#555555', 'fg': '#60ff53'})
-  call s:SetHighlight("CocHighlightWrite", { 'bg': '#555555', 'fg': '#f484f4'})
-
-  hi! link CocErrorHighlight   ErrorColor
-  hi! link CocWarningHighlight WarningColor
-  hi! link CocInfoHighlight    InfoColor
-  hi! link CocHintHighlight    HintColor
-
-  hi! link CocErrorSign        ErrorColor
-  hi! link CocWarningSign      WarningColor
-  hi! link CocInfoSign         InfoColor
-  hi! link CocHintSign         HintColor
-
-  call s:SetHighlight("CocErrorLine", {'bg': '#151515'})
-  call s:SetHighlight("CocWarningLine", {'bg': '#151515'})
-  call s:SetHighlight("CocInfoLine", {'bg': '#151515'})
-  call s:SetHighlight("CocHintLine", {'bg': '#151515'})
-  call s:SetHighlight("CocCodeLens", {'fg': '#505050'})
-
-  " other
-  call s:SetHighlight("Search", {'bg': '#92E7D3', 'fg': '#383C49'})
-  call s:SetHighlight("StatusLine", {'bg': '#383C49', 'fg': '#00fa90'})
-  call s:SetHighlight("CocFloating", {'bg': '#383C49', 'fg': '#00fa90'})
-  call s:SetHighlight("WildMenu", {'bg': '#E8E492', 'fg': '#383C49'})
-  " }}}
+  nmap <leader>c :call <SID>SynStack()<CR>
+  function! <SID>SynStack()
+    if !exists("*synstack")
+      return
+    endif
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+  endfunc
 
 endfunction
 " }}}
@@ -563,7 +467,7 @@ function! s:ConfigureCommonPlugins()
 
   " --------------------------------------------------------------------------
   " devicons
-  let g:WebDevIconsNerdTreeGitPluginForceVAlign = 0
+  let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
   let g:WebDevIconsUnicodeDecorateFolderNodes = 1
   let g:DevIconsEnableFoldersOpenClose = 1
   let g:DevIconsEnableFolderExtensionPatternMatching = 1
@@ -580,6 +484,19 @@ function! s:ConfigureCommonPlugins()
   let g:airline_inactive_collapse = 0
   let g:airline_powerline_fonts = 1
 
+  let g:airline#extensions#default#section_truncate_width = {}
+
+  let g:airline_section_b = ''
+  let g:airline_section_y = ''
+  let g:airline_section_x = '%y'
+  let g:airline_section_c = '%t%m'
+  let g:airline_section_z = '%#__accent_bold#%p%% %l/%L%#__restore__#'
+
+  let g:airline_left_sep = ''
+  let g:airline_left_alt_sep = '╱'
+  let g:airline_right_sep = ''
+  let g:airline_right_alt_sep = '╱'
+
   let g:airline#extensions#tabline#enabled = 1
   let g:airline#extensions#tabline#show_close_button = 0
   let g:airline#extensions#tabline#tab_nr_type = 1
@@ -589,19 +506,13 @@ function! s:ConfigureCommonPlugins()
   let g:airline#extensions#tabline#show_splits = 1
   let g:airline#extensions#tabline#show_tab_count = 0
 
+  " Fix mode truncation (truncated at 79 symbols).
   function! AirlineInit()
-    let g:airline_section_b = ''
-    let g:airline_section_y = ''
-    let g:airline_section_x = '%y'
-    let g:airline_section_c = '%t%m'
-    let g:airline_section_z = '%#__accent_bold#%p%% %l/%L%#__restore__#'
+    function! airline#parts#mode()
+      return airline#util#shorten(get(w:, 'airline_current_mode', ''), 50, 1)
+    endfunction
   endfunction
-
-  augroup AAInit
-    autocmd!
-    autocmd User AirlineAfterInit call AirlineInit()
-  augroup END
-
+  autocmd User AirlineAfterInit call AirlineInit()
 
   " **************************************************************************
   " WINDOW-BASED FEATURES
@@ -705,11 +616,6 @@ function! s:ConfigureCommonPlugins()
   nnoremap <silent> <leader>,n :NERDTreeRefreshRoot<CR>
   nnoremap <silent> <leader>,t :NERDTreeFind<CR>
   nnoremap <silent> <leader>,h :NERDTreeCWD<CR>
-
-  "my theme fix
-  augroup SetHighlightFunctionGroup
-    autocmd ColorScheme * highlight link NERDTreeDir Directory
-  augroup END
 
   nnoremap <silent> i, :call LoadWindow()<CR>
 
@@ -967,19 +873,15 @@ function! s:ConfigureFeaturePlugins()
 
   " --------------------------------------------------------------------------
   " signature
-  call s:SetHighlight('MySignatureMarkText',   { 'fg': '#b895ff'})
-  call s:SetHighlight('MySignatureMarkerText',   { 'fg': '#ff4a33'})
-  let g:SignatureMarkTextHL = 'MySignatureMarkText'
-  let g:SignatureMarkerTextHL = 'MySignatureMarkerText'
   "let g:SignatureMap = {
-        "\ 'Leader'             :  "<Leader>m",
-        "\ 'DeleteMark'         :  "d<Leader>m",
-        "\ 'ListBufferMarks'    :  "<Leader>m/",
-        "\ 'ListBufferMarkers'  :  "<Leader>m?",
-        "\ 'GotoNextMarker'     :  "m>",
-        "\ 'GotoPrevMarker'     :  "m<",
-        "\ 'GotoNextMarkerAny'  :  "m]",
-        "\ 'GotoPrevMarkerAny'  :  "m["
+        "\ 'Leader'             :  "<Leader>y",
+        "\ 'DeleteMark'         :  "t<Leader>y",
+        "\ 'ListBufferMarks'    :  "<Leader>y/",
+        "\ 'ListBufferMarkers'  :  "<Leader>y?",
+        "\ 'GotoNextMarker'     :  "<Leader>y>",
+        "\ 'GotoPrevMarker'     :  "<Leader>y<",
+        "\ 'GotoNextMarkerAny'  :  "<Leader>y]",
+        "\ 'GotoPrevMarkerAny'  :  "<Leader>y["
         "\ }
 
   " --------------------------------------------------------------------------
@@ -1032,34 +934,6 @@ function! s:ConfigureFeaturePlugins()
     autocmd  FileType fzf set laststatus=0 noshowmode relativenumber!
     autocmd  FileType fzf autocmd BufLeave <buffer> set laststatus=2 showmode relativenumber
   augroup END
-  " }}}
-
-  " highlights {{{
-  let g:fzf_colors =
-        \ { 'fg'      : ['fg', 'FzfFg'      ] ,
-        \ 'bg'      : ['fg', 'FzfBg'      ] ,
-        \ 'hl'      : ['fg', 'FzfHl'      ] ,
-        \ 'fg+'     : ['bg', 'FzfFg'      ] ,
-        \ 'bg+'     : ['bg', 'FzfBg'      ] ,
-        \ 'hl+'     : ['bg', 'FzfHl'      ] ,
-        \ 'info'    : ['fg', 'FzfInfo'    ] ,
-        \ 'border'  : ['fg', 'FzfBorder'  ] ,
-        \ 'prompt'  : ['fg', 'FzfPrompt'  ] ,
-        \ 'pointer' : ['fg', 'FzfPointer' ] ,
-        \ 'marker'  : ['fg', 'FzfMarker'  ] ,
-        \ 'spinner' : ['fg', 'FzfSpiner'  ] ,
-        \ 'header'  : ['fg', 'FzfHeader'  ] }
-  call s:SetHighlight('FzfFg', {'fg': '#3fc997', 'bg': '#00ffff'})
-  call s:SetHighlight('FzfBg', {'fg': '#000000', 'bg': '#161616'})
-  call s:SetHighlight('FzfHl', {'fg': '#db0088', 'bg': '#ff0000'})
-
-  call s:SetHighlight('FzfInfo'   , {'fg': '#d0ffc3'})
-  call s:SetHighlight('FzfBorder' , {'fg': '#ffffff'})
-  call s:SetHighlight('FzfPrompt' , {'fg': '#b3e4eb'})
-  call s:SetHighlight('FzfPointer', {'fg': '#00ffff'})
-  call s:SetHighlight('FzfMarker' , {'fg': '#ff0000'})
-  call s:SetHighlight('FzfSpiner' , {'fg': '#d0ffc3'})
-  call s:SetHighlight('FzfHeader' , {'fg': '#ffffff'})
   " }}}
 
   " bindings {{{
@@ -1211,18 +1085,6 @@ endfunction
 
 " ============================================================================
 " Util Functions {{{
-
-" ----------------------------------------------------------------------------
-" Highlight
-function! s:SetHighlight(hlName, hl)
-  let l:mode = get(a:hl, 'mode', 'none')
-  let l:fg = get(a:hl, 'fg', 'none')
-  let l:bg = get(a:hl, 'bg', 'none')
-  execute "highlight ".a:hlName." gui=".l:mode." guifg=".l:fg." guibg=".l:bg
-  augroup SetHighlightFunctionGroup
-    execute "autocmd ColorScheme * highlight ".a:hlName." gui=".l:mode." guifg=".l:fg." guibg=".l:bg
-  augroup END
-endfunction
 
 " ----------------------------------------------------------------------------
 " Save/Load window
