@@ -110,7 +110,7 @@ if __name__ == '__main__':
         ["configs/gtk/gtkrc-2.0",                   "~/.gtkrc-2.0"],
 
         # Desktop
-        ["configs/desktop/compton.conf",            "~/.config/compton.conf"],
+        ["configs/desktop/picom.conf",              "~/.config/picom.conf"],
         ["configs/desktop/dunstrc",                 "~/.config/dunst/dunstrc"],
         ["configs/desktop/mouse_index.theme",       "~/.icons/default/index.theme"],
         ["configs/desktop/user-dirs.dirs",          "~/.config/user-dirs.dirs"],

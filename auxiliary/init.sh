@@ -101,7 +101,7 @@ pip install --user pyLanguagetool
 /usr/share/qutebrowser/scripts/dictcli.py install en-US ru-RU
 
 # npm
-mkdir ~/.npm-global
+mkdir -p ~/.npm-global
 npm config set prefix "~/.npm-global"
 npm config set init-author-email "backdround@yandex.ru"
 npm config set init-author-name "Vlad Chepaykin"
@@ -114,7 +114,7 @@ npm config set init-license "MIT"
 systemctl --user daemon-reload
 systemctl --user enable telegram.service
 systemctl --user enable ddterminal.service
-systemctl --user enable compton
+systemctl --user enable picom
 systemctl --user enable ranger
 systemctl --user enable ssh-agent
 systemctl --user enable dropbox_monitor

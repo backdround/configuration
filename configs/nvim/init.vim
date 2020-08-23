@@ -551,7 +551,7 @@ function! s:ConfigureCommonPlugins()
         \ {'cp': '~/configuration/configs/polybar/config'},
         \ {'cm': '~/configuration/configs/terminal/tmux'},
         \ {'ct': '~/configuration/configs/terminal/kitty'},
-        \ {'cc': '~/configuration/configs/desktop/compton.conf'},
+        \ {'cc': '~/configuration/configs/desktop/picom.conf'},
         \ {'cx': '~/configuration/configs/misc/xprofile'},
         \ {'cr': '~/configuration/configs/misc/Xresources'},
         \ {'cd': '~/configuration/configs/desktop/dunstrc'},
