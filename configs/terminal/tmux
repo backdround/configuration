@@ -207,22 +207,22 @@ set -g @plugin 'tmux-plugins/tpm'
 # Prefix highlight
 set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
 
-set -g @prefix_highlight_output_prefix "#[bg=colour0,fg=colour0]"
-set -g @prefix_highlight_output_suffix "#[fg=colour8,reverse]"
+set -g @prefix_highlight_output_prefix "#[bg=colour0#,fg=colour0]"
+set -g @prefix_highlight_output_suffix "#[fg=colour8#,reverse]"
 
 # normal
 set -g @prefix_highlight_empty_has_affixes 'on'
 set -g @prefix_highlight_empty_prompt \
 "#[fg=colour5]"\
 ""\
-"#[fg=colour0,bg=colour5]"\
+"#[fg=colour0#,bg=colour5]"\
 " NORMAL "
 
 # prefix
 set -g @prefix_highlight_prefix_prompt \
 "#[fg=colour1]"\
 ""\
-"#[fg=colour0,bg=colour1]"\
+"#[fg=colour0#,bg=colour1]"\
 " PREFIX "
 
 # copy
@@ -230,7 +230,7 @@ set -g @prefix_highlight_show_copy_mode 'on'
 set -g @prefix_highlight_copy_prompt \
 "#[fg=colour3]"\
 ""\
-"#[fg=colour0,bg=colour3]"\
+"#[fg=colour0#,bg=colour3]"\
 "  COPY  "
 
 
