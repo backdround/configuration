@@ -26,10 +26,10 @@ function! s:LoadPlugins()
   Plug 'ryanoasis/vim-devicons'        " DEVICONS
 
   Plug 'vim-airline/vim-airline'       " AIRLINE
-  Plug 'vim-airline/vim-airline-themes'
 
   " --------------------------------------------------------------------------
   " WINDOW-BASED FEATURES
+  Plug 'voldikss/vim-floaterm'         " FLOATERM
   Plug 'mhinz/vim-startify'            " STARTIFY
   Plug 'majutsushi/tagbar'             " TAG BAR
   Plug 'mbbill/undotree'               " UNDOTREE
@@ -518,22 +518,17 @@ function! s:ConfigureCommonPlugins()
   " WINDOW-BASED FEATURES
 
   " --------------------------------------------------------------------------
-  " terminal
-  tnoremap <silent> <C-t> <C-\><C-n>
+  " floaterm
+  let g:floaterm_width = 0.9
+  let g:floaterm_height = 0.9
+  let g:floaterm_wintype = "floating"
+  let g:floaterm_position = "center"
+  let g:floaterm_wintitle = v:false
+  let g:floaterm_winblend = 6
+  let g:floaterm_autoinsert = v:true
 
-  " toggle
-  nnoremap <silent> <F1> :call TerminalToggle()<CR>
-  tnoremap <silent> <F1> <C-\><C-n>:call TerminalToggle()<CR>
-  nnoremap <silent> <F13> :call SwitchWindowTo("Terminal")<CR>
-  tnoremap <silent> <F13> <C-\><C-n>:call SwitchWindowTo("Terminal")<CR>
-
-  " insert mode in terminal by default
-  augroup TerminalInsertMode
-    autocmd!
-    autocmd BufWinEnter,WinEnter Terminal startinsert
-    autocmd BufLeave Terminal stopinsert
-  augroup END
-
+  let g:floaterm_keymap_toggle = '<F1>'
+  let g:floaterm_keymap_kill = '<F2>'
 
   " --------------------------------------------------------------------------
   " startify
@@ -1160,50 +1155,6 @@ function! SwitchWindowTo(bufexpr)
   endif
 
   execute l:window_number . "wincmd w"
-endfunction
-
-" ----------------------------------------------------------------------------
-" Terminal toggle
-
-function! TerminalToggle()
-  let l:terminal_buffer = bufnr('Terminal')
-  if terminal_buffer == -1
-    " Save splits pos and size
-    let t:terminal_winrestcmd = winrestcmd()
-    " Create terminal buffer
-    execute "bot 35new"
-    terminal
-    setlocal bufhidden=hide
-    setlocal nobuflisted
-    setlocal winfixwidth
-    setlocal winfixheight
-    setlocal filetype=terminal
-    setlocal scrolloff=0
-    file Terminal
-    startinsert
-    return
-  endif
-
-  let l:terminal_window = bufwinnr(terminal_buffer)
-  if terminal_window == -1
-    " Save splits pos and size
-    let t:terminal_winrestcmd = winrestcmd()
-    " Create terminal window
-    execute "bot 35new +buffer".terminal_buffer
-    setlocal winfixwidth
-    setlocal winfixheight
-  else
-    " Restore focuse
-    if bufwinnr('%') == l:terminal_window
-      call LoadWindow()
-    endif
-    " Close window
-    execute "close ".terminal_window
-    " Restore splits pos and size
-    if exists("t:terminal_winrestcmd")
-      execute t:terminal_winrestcmd
-    endif
-  endif
 endfunction
 
 " ----------------------------------------------------------------------------
