@@ -30,4 +30,4 @@ tmux
 translate-shell
 yarn
 npm
-ruby-colorls
+lsd

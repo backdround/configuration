@@ -126,32 +126,34 @@ set -g status-justify centre
 set -g default-terminal "tmux-256color"
 set -ga terminal-overrides ",xterm-256color:Tc"
 
-# display panes number
-set -g display-panes-active-colour colour5
+# display panes
+set -g display-panes-active-colour colour1
 set -g display-panes-colour colour7
 
 # confirm or insertion commands
-set -g message-style "fg=colour10, bg=colour8"
-set -g message-command-style "fg=colour11, bg=colour8"
+set -g message-style "fg=colour0, bg=colour1"
+set -g message-command-style "fg=colour3, bg=colour8"
 
 # general status style
-set -g status-style "fg=colour10, bg=colour0"
+set -g status-style "fg=colour3, bg=colour0"
 
 # left status
-set -g status-left-style "fg=colour6, bg=colour8"
+set -g status-left-style "fg=colour15, bg=colour8"
 set -g status-left-length 30
 set -g status-left \
-  "#[fg=colour13]#{prefix_highlight} \
-#(whoami) \
-#[fg=colour8, bg=colour0]#[fg=colour6]"
+"#{prefix_highlight}"\
+" #(whoami) "\
+"#[fg=colour0,reverse]"
 
 # right status
+set -g status-right-style "fg=colour0, bg=colour8"
 set -g status-right-length 35
 set -g status-right \
-	"#[fg=colour3,bg=colour0]\
-#[fg=colour8,bg=colour0]\
-#[fg=colour3,bg=colour8] #{pane_tty} \
-#[fg=colour2] #H "
+"#[bg=colour0, fg=colour15]"\
+" #H "\
+"#[default]"\
+"#[fg=colour15,bold] #{pane_tty} "\
+"#[default reverse]"
 
 # mode (selection in vi mode)
 set -g mode-style "fg=colour0, bg=colour3"
@@ -161,15 +163,35 @@ set -g clock-mode-colour colour5
 set -g clock-mode-style 24
 
 # border style
-set -g pane-active-border-style "fg=colour13"
+set -g pane-active-border-style "fg=colour5"
 set -g pane-border-style 'fg=colour8'
 
 # window status
-set -g window-status-current-format " #I #W #{?window_zoomed_flag,z ,}"
-set -g window-status-current-style "fg=colour10, bg=colour8"
-set -g window-status-format " #I #{?#{==:#W,nvim},#T,#W} "
-set -g window-status-current-format " #I #{?#{==:#W,nvim},#T,#W} "
-set -g window-status-style "fg=colour7, bg=colour0"
+
+# bell
+set -g window-status-bell-style \
+"fg=colour9, bg=colour0, bold"
+
+# separator
+set -g window-status-separator \
+"#[fg=colour4,bg=colour0]╱#[default]"
+
+# current pane
+set -g window-status-current-style \
+"fg=colour15, bg=colour4, bold"
+
+set -g window-status-current-format \
+"#[fg=colour4,bg=colour0]#[default]"\
+" #I #{?#{==:#W,nvim},#T,#W} "\
+"#[fg=colour4,bg=colour0]#[default]"
+
+# pane
+set -g window-status-style \
+"fg=colour7, bg=colour0"
+
+
+set -g window-status-format \
+"  #I #{?#{==:#W,nvim},#T,#W}  "
 
 
 ######################################################################
@@ -181,18 +203,35 @@ set -g window-status-style "fg=colour7, bg=colour0"
 # prefix + alt-u - uninstall plugins
 set -g @plugin 'tmux-plugins/tpm'
 
+
 # Prefix highlight
 set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
+
+set -g @prefix_highlight_output_prefix "#[bg=colour0#,fg=colour0]"
+set -g @prefix_highlight_output_suffix "#[fg=colour8#,reverse]"
+
+# normal
+set -g @prefix_highlight_empty_has_affixes 'on'
+set -g @prefix_highlight_empty_prompt \
+"#[fg=colour5]"\
+""\
+"#[fg=colour0#,bg=colour5]"\
+" NORMAL "
+
+# prefix
+set -g @prefix_highlight_prefix_prompt \
+"#[fg=colour1]"\
+""\
+"#[fg=colour0#,bg=colour1]"\
+" PREFIX "
+
+# copy
 set -g @prefix_highlight_show_copy_mode 'on'
-set -g @prefix_highlight_output_prefix ' '
-set -g @prefix_highlight_output_suffix ' '
-set -g @prefix_highlight_prefix_prompt 'PREFIX'
-set -g @prefix_highlight_copy_prompt   ' COPY '
-set -g @prefix_highlight_empty_prompt  ' NORMAL '
-set -g @prefix_highlight_empty_attr     'fg=colour0,bg=colour2'
-set -g @prefix_highlight_copy_mode_attr 'fg=black,bg=colour3'
-set -g @prefix_highlight_fg             'black'
-set -g @prefix_highlight_bg             'colour13'
+set -g @prefix_highlight_copy_prompt \
+"#[fg=colour3]"\
+""\
+"#[fg=colour0#,bg=colour3]"\
+"  COPY  "
 
 
 # Fingers

@@ -8,7 +8,6 @@
 *borderWidth: 1
 *borderColor: #FFFFFF
 *cursorOffTime: -1
-*cursorColor: #7BC992
 *selectToClipboard: false
 *pointerMode: 2
 *translations: #override \n\
@@ -22,25 +21,40 @@ urxvt*.font: xft:xos4 Terminus:size=10:antialias=false
 *.urlLauncher: qutebrowser
 *.underlineURLs: true
 
-*.foreground:     #e4e0ed
-*.background:     #0F0C14
-*.background-alt: #000111
 
-*.color0:         #17121e
-*.color8:         #343439
-*.color16:        #222222
-*.color17:        #777777
-*.color7:         #e4e0ed
-*.color15:        #ffffff
-*.color1:         #ff2d5e
-*.color9:         #FF6E67
-*.color2:         #3fe097
-*.color10:        #00fa90
-*.color3:         #fdf2a2
-*.color11:        #F4F99D
-*.color4:         #BD93F9
-*.color12:        #CAA9FA
-*.color5:         #db0088
-*.color13:        #FF92D0
-*.color6:         #8BE9FD
-*.color14:        #61afef
+! special
+*.foreground:   #c6c8d1
+*.background:   #14171e
+*.cursorColor:  #c6c8d1
+
+! black
+*.color0:       #1d1e26
+*.color8:       #6b7089
+
+! red
+*.color1:       #bf5c80
+*.color9:       #f2779b
+
+! green
+*.color2:       #6aa28c
+*.color10:      #88cea2
+
+! yellow
+*.color3:       #c2bc85
+*.color11:      #dcde92
+
+! blue
+*.color4:       #84a0c6
+*.color12:      #a9bbd5
+
+! magenta
+*.color5:       #a093c7
+*.color13:      #c6b9db
+
+! cyan
+*.color6:       #89b8c2
+*.color14:      #9be1d0
+
+! white
+*.color7:       #c6c8d1
+*.color15:      #e1e2e8

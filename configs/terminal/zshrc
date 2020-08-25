@@ -23,7 +23,7 @@ setopt share_history
 autoload -U compinit && compinit
 zmodload -i zsh/complist
 
-eval "$(dircolors)"
+eval "$(dircolors | sed -e "s/:di=[0-9;]*:/:di=01;35:/")"
 zstyle ':completion:*' menu select
 zstyle ':completion:*' completer _complete _correct _approximate
 zstyle ':completion:*:default' select-scroll 0
@@ -54,60 +54,44 @@ export LESSKEY="$(realpath ~)/.lesskey"
 PASSWORD_STORE_CLIP_TIME=15
 PASSWORD_STORE_GENERATED_LENGTH=17
 
-# termite ssh fix
-export TERM=xterm-256color
-
 ################################################################################
 # PLUGIN CONFIGS
 
-FZF_TMUX_HEIGHT=40%
-FZF_DEFAULT_OPTS='--no-mouse --cycle --reverse --border --color=bg:233'
-FZF_DEFAULT_COMMAND='fd --type file'
-FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-FZF_ALT_C_COMMAND='fd --type directory'
+function foreground {
+  echo $(xrdb -query | grep "foreground:" | cut -f 2| tr -d '\n')
+}
+
+function background {
+  echo $(xrdb -query | grep "background:" | cut -f 2| tr -d '\n')
+}
+
+function color {
+  COLOR=$(xrdb -query | grep "color$@:" | cut -f 2| tr -d '\n')
+  echo $COLOR
+}
+
+
+FZF_COLORS="--color='\
+  border:$(color 2),\
+  bg+:$(color 8),fg+:$(color 15),\
+  bg:$(background),fg:$(foreground),\
+  gutter:$(background),\
+  hl:$(color 1),\
+  hl+:$(color 9),\
+  preview-bg:$(color 0)\
+'"
+FZF_COLORS=$(echo $FZF_COLORS | tr -d ' ')
+
+export FZF_TMUX_HEIGHT=40%
+export FZF_DEFAULT_OPTS="--no-mouse --cycle --reverse --border $FZF_COLORS"
+export FZF_DEFAULT_COMMAND='fd --type file'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND='fd --type directory'
 
 ZSH_AUTOSUGGEST_USE_ASYNC=1
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#778077'
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=$(color 8)"
 
-POWERLEVEL9K_MODE='nerdfont-complete'
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vi_mode ssh dir dir_writable)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs vcs command_execution_time time user os_icon)
-
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=''
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%F{green}%f "
-
-POWERLEVEL9K_FOLDER_ICON=''
-POWERLEVEL9K_HOME_ICON=''
-POWERLEVEL9K_HOME_SUB_ICON=''
-
-POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND='11'
-POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND='black'
-POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND='13'
-POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND='black'
-POWERLEVEL9K_VI_MODE_VISUAL_BACKGROUND='7'
-POWERLEVEL9K_VI_MODE_VISUAL_FOREGROUND='black'
-
-POWERLEVEL9K_USER_DEFAULT_BACKGROUND='8'
-POWERLEVEL9K_USER_DEFAULT_FOREGROUND='10'
-POWERLEVEL9K_USER_SUDO_BACKGROUND='8'
-POWERLEVEL9K_USER_SUDO_FOREGROUND='red'
-POWERLEVEL9K_USER_ROOT_BACKGROUND='8'
-POWERLEVEL9K_USER_ROOT_FOREGROUND='red'
-
-POWERLEVEL9K_OS_ICON_FOREGROUND='10'
-POWERLEVEL9K_OS_ICON_BACKGROUND='black'
-
-POWERLEVEL9K_TIME_BACKGROUND='white'
-POWERLEVEL9K_TIME_FOREGROUND='black'
-
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND='black'
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND='6'
-
-POWERLEVEL9K_SSH_BACKGROUND='8'
-POWERLEVEL9K_SSH_FOREGROUND='5'
-POWERLEVEL9K_SSH_ICON='SSH'
-
+ZLE_RPROMPT_INDENT=0
 
 zstyle ':filter-select' case-insensitive yes
 
@@ -128,13 +112,16 @@ antigen bundle transfer
 antigen bundle djui/alias-tips
 antigen bundle hlissner/zsh-autopair
 
-antigen theme backdround/powerlevel9k
+antigen theme romkatv/powerlevel10k
 
 antigen apply
 
 # fzf
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
+
+# powerlevel10k
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 ################################################################################
 # ZLE
@@ -198,12 +185,12 @@ zle -N vi-yank-x-line
 function cd-project-root() {
   local root_directory="$(git rev-parse --show-toplevel 2> /dev/null)"
   if [ $? ]; then
-    cd "$root_directory" > /dev/null && zle reset-prompt
+    cd "$root_directory" > /dev/null && zle fzf-redraw-prompt
   fi
 }
-function cd-home() { cd ~ > /dev/null && zle reset-prompt }
-function cd-up() { cd .. > /dev/null && zle reset-prompt }
-function cd-back() { cd - > /dev/null && zle reset-prompt }
+function cd-home() { cd ~ > /dev/null && zle fzf-redraw-prompt }
+function cd-up() { cd .. > /dev/null && zle fzf-redraw-prompt }
+function cd-back() { cd - > /dev/null && zle fzf-redraw-prompt }
 zle -N cd-project-root
 zle -N cd-home
 zle -N cd-up
@@ -211,14 +198,35 @@ zle -N cd-back
 
 
 # fzf wrappers
+function fzf-select() {
+  setopt localoptions pipefail no_aliases 2> /dev/null
+  eval "$FZF_SELECT" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS" $(__fzfcmd) -m "$@" | while read item; do
+    echo -n "$item"
+  done
+  local ret=$?
+  echo
+  return $ret
+}
+
+
 function fzf-cd-project() {
   zle -I
-  UPDATE_GIT_DB='updatedb -l 0 -U ~ -e ~/tmp -o ~/.tmp/mlocate.db'
-  FIND_GIT_DIRS="$UPDATE_GIT_DB && locate -d ~/.tmp/mlocate.db -b '\.git'"
-  FZF_ALT_C_COMMAND="$FIND_GIT_DIRS | sed 's$\(.*\).git$\1$'" fzf-cd-widget
+
+  UPDATE_DB="updatedb -l 0 -U ~/ -e ~/.tmp -e ~/tmp -o ~/.tmp/mlocate.db"
+  FIND_GIT_DIRS="$UPDATE_DB && locate -d ~/.tmp/mlocate.db -b '\.git'"
+  FZF_SELECT="$FIND_GIT_DIRS | sed 's$\(.*\).git$\1$'"
+  local PROJECT_DIR=$(fzf-select)
   zle reset-prompt
+
+  if [[ -z "$PROJECT_DIR" ]]; then
+    return 0
+  fi
+
+  cd "$PROJECT_DIR" > /dev/null &&
+  zle fzf-redraw-prompt
 }
 zle -N fzf-cd-project
+
 
 function fzf-cd-widget-wrapper() {
   FZF_ALT_C_COMMAND='fd -I --type directory' FZF_DEFAULT_OPTS="--height 40% --reverse $FZF_DEFAULT_OPTS" fzf-cd-widget
@@ -228,7 +236,6 @@ zle -N fzf-cd-widget-wrapper
 
 fzf-cd-file() {
   zle -I
-  setopt localoptions pipefail no_aliases 2> /dev/null
 
   # Choose root directory
   local root_directory="$(git rev-parse --show-toplevel 2> /dev/null)"
@@ -237,21 +244,32 @@ fzf-cd-file() {
   fi
 
   # Find file
-  local file="$(fd -tf . "$root_directory" | FZF_DEFAULT_OPTS="--height 40% --reverse $FZF_DEFAULT_OPTS" $(__fzfcmd))"
+  FZF_SELECT="fd -tf . \"$root_directory\""
+  local file=$(fzf-select)
+  zle reset-prompt
+
   if [[ -z "$file" ]]; then
-    zle redisplay
     return 0
   fi
 
   # cd to file dir
-  cd "$(dirname $file)"
-
-  local ret=$?
+  cd "$(dirname $file)"  &&
   zle fzf-redraw-prompt
-  return $ret
 }
 zle -N fzf-cd-file
 
+# fzf kill
+k() {
+  FZF_SELECT="ps cax | tail -n +2"
+  local process=$(fzf-select)
+
+  if [[ -z "$process" ]]; then
+    return 0
+  fi
+
+  local pid="$(echo "$process" | sed -r -e "s/\s*([[:digit:]]+).*/\1/")"
+  kill $@ $pid
+}
 
 vi_bind() {
   bindkey -M vicmd $@
@@ -531,10 +549,10 @@ alias gcc='gcc -fdiagnostics-color=always'
 
 # ls
 alias ls='ls --color -t'
-alias l='colorls -t'
-alias ll='colorls -ltr'
-alias la='colorls -At'
-alias lla='colorls -lAtr'
+alias l='lsd -t'
+alias ll='lsd -ltr'
+alias la='lsd -At'
+alias lla='lsd -lAtr'
 
 # confirm
 alias rm='rm -i'

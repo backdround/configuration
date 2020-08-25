@@ -10,7 +10,8 @@ map gl cd ~/.local
 map gp cd ~/build/
 map gt cd ~/tmp/
 
-map xx shell -fs termite
+map xx shell -fs kitty
 map xt shell -fs thunar
-map xn shell -fs termite -e "zsh -c 'sleep 0.06 && nvim %s; zsh -i'"
+map xn shell -fs kitty zsh -c 'nvim %s; zsh -i'
+map xh shell -fs kitty nvim %s
 map xd shell -fs dragon-drag-and-drop %p

@@ -7,9 +7,9 @@ PartOf=i3-gaps.target
 Type=simple
 
 Environment="DISPLAY=:0"
-Environment="TERMCMD=termite"
+Environment="TERMCMD=kitty"
 
-ExecStart=/usr/bin/termite --class ranger-desktop -e ranger
+ExecStart=/usr/bin/kitty --class ranger-desktop ranger
 
 KillMode=process
 

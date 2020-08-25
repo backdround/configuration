@@ -129,26 +129,21 @@ bindcode $mod+Shift+32 move right 50px
 ############################################################
 # Colors
 
-set_from_resource  $black  i3wm.color0  #17121e
-set_from_resource  $red    i3wm.color1  #ff2d5e
-set_from_resource  $green  i3wm.color10 #00fa90
-set_from_resource  $green2 i3wm.color2  #3fe097
-set_from_resource  $yellow i3wm.color3  #fdf2a2
-set_from_resource  $purple i3wm.color4  #BD93F9
-set_from_resource  $pink   i3wm.color5  #db0088
-set_from_resource  $blue   i3wm.color6  #8BE9FD
-set_from_resource  $white  i3wm.color7  #e4e0ed
-set_from_resource  $gray   i3wm.color8  #343439
-set_from_resource  $gray2  i3wm.color17 #777777
+set_from_resource  $black  i3wm.color0 #1D1E26
+set_from_resource  $gray   i3wm.color8 #6b7089
 
-#class                  border  backgr. text    indicator child_border
-client.focused          $gray   $black  $green2 $green    $green
-client.focused_inactive $gray   $black  $green2 $white    $white
-client.unfocused        $gray   $black  $green2 $gray2    $gray2
-client.urgent           $pink   $black  $green2 $pink     $pink
-client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+set_from_resource  $green  i3wm.color2 #6aa28c
+set_from_resource  $cyan   i3wm.color6 #89b8c2
+set_from_resource  $red    i3wm.color1 #bf5c80
 
-client.background       #ffffff
+#class                  border background text   indicator child_border
+client.focused          $black $black     $cyan  $cyan     $cyan
+client.focused_inactive $black $black     $cyan  $gray     $gray
+client.unfocused        $black $black     $cyan  $gray     $gray
+client.urgent           $black $black     $cyan  $red      $red
+client.placeholder      $black $black     $cyan  $gray     $gray
+
+client.background       $gray
 
 
 
@@ -166,8 +161,8 @@ bindcode $mod+18 gaps inner current set $inner
 bindcode $mod+19 gaps inner current set 5
 
 # Border
-default_border pixel 1
-default_floating_border pixel 1
+default_border pixel 2
+default_floating_border pixel 2
 bindcode $mod+17 border toggle
 
 

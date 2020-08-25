@@ -54,7 +54,8 @@ if __name__ == '__main__':
         ["configs/terminal/bat",                     "~/.config/bat/config"],
         ["configs/terminal/tmux",                    "~/.tmux.conf"],
         ["configs/terminal/zshrc",                   "~/.zshrc"],
-        ["configs/terminal/termite",                 "~/.config/termite/config"],
+        ["configs/terminal/p10k.zsh",                "~/.p10k.zsh"],
+        ["configs/terminal/kitty.conf",              "~/.config/kitty/kitty.conf"],
         ["configs/terminal/ranger",                  "~/.config/ranger/rc.conf"],
 
         # Git
@@ -109,7 +110,7 @@ if __name__ == '__main__':
         ["configs/gtk/gtkrc-2.0",                   "~/.gtkrc-2.0"],
 
         # Desktop
-        ["configs/desktop/compton.conf",            "~/.config/compton.conf"],
+        ["configs/desktop/picom.conf",              "~/.config/picom.conf"],
         ["configs/desktop/dunstrc",                 "~/.config/dunst/dunstrc"],
         ["configs/desktop/mouse_index.theme",       "~/.icons/default/index.theme"],
         ["configs/desktop/user-dirs.dirs",          "~/.config/user-dirs.dirs"],
@@ -142,8 +143,8 @@ if __name__ == '__main__':
     }
 
     if instance == "home":
-        position_size["dropdown"] = ("979 348", "1882 500")
-        position_size["ranger"] = ("979 348", "1882 500")
+        position_size["dropdown"] = ("978 352", "1884 499")
+        position_size["ranger"] = ("978 352", "1884 499")
         position_size["telegram"] = ("2872 468", "580 740")
 
     replaces =      [('--position-{}--'.format(key), val1) for key, (val1, _) in position_size.items()]
