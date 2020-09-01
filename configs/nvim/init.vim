@@ -523,12 +523,13 @@ function! s:ConfigureCommonPlugins()
   let g:floaterm_height = 0.9
   let g:floaterm_wintype = "floating"
   let g:floaterm_position = "center"
-  let g:floaterm_wintitle = v:false
-  let g:floaterm_winblend = 6
+  let g:floaterm_title = ''
   let g:floaterm_autoinsert = v:true
 
   let g:floaterm_keymap_toggle = '<F1>'
   let g:floaterm_keymap_kill = '<F2>'
+  tnoremap <F3> <C-\><C-n>
+  nnoremap <F3> <Cmd>FloatermToggle<Cr><C-\><C-n>
 
   " --------------------------------------------------------------------------
   " startify
