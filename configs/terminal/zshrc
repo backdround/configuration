@@ -212,8 +212,20 @@ function fzf-select() {
 function fzf-cd-project() {
   zle -I
 
-  UPDATE_DB="updatedb -l 0 -U ~/ -e ~/.tmp -e ~/tmp -o ~/.tmp/mlocate.db"
-  FIND_GIT_DIRS="$UPDATE_DB && locate -d ~/.tmp/mlocate.db -b '\.git'"
+  function _search() {
+    test -d "$1" && fd -H -td -g '.git' "$1"
+  }
+
+  FIND_GIT_DIRS="{                \
+    _search ~/work              & \
+    _search ~/build             & \
+    _search ~/sandboxes         & \
+    _search ~/configuration     & \
+    _search ~/.local/share/nvim & \
+    _search ~/.antigen          & \
+    _search ~/.tmux               \
+  }"
+
   FZF_SELECT="$FIND_GIT_DIRS | sed 's$\(.*\).git$\1$'"
   local PROJECT_DIR=$(fzf-select)
   zle reset-prompt
