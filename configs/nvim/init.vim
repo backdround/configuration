@@ -584,8 +584,8 @@ function! s:ConfigureCommonPlugins()
   let g:tagbar_map_showproto = "t" "remap showproto from <Space> to t
   let g:tagbar_autoshowtag = 1
   let g:tagbar_autofocus = 0
-  nnoremap <silent> yh :TagbarToggle<CR>
-  nnoremap <silent> ih :call SwitchWindowTo("__Tagbar__.*")<CR>
+  nnoremap <silent> vh :TagbarToggle<CR>
+  nnoremap <silent> sh :call SwitchWindowTo("__Tagbar__.*")<CR>
 
   " --------------------------------------------------------------------------
   " undotree
@@ -594,8 +594,8 @@ function! s:ConfigureCommonPlugins()
   let g:undotree_RelativeTimestamp = 1
   let g:undotree_ShortIndicators = 1
   let g:undotree_HelpLine = 0
-  nnoremap <silent> yn :UndotreeToggle<CR>
-  nnoremap <silent> in :call SwitchWindowTo("undotree_*")<CR>
+  nnoremap <silent> vn :UndotreeToggle<CR>
+  nnoremap <silent> sn :call SwitchWindowTo("undotree_*")<CR>
 
   " --------------------------------------------------------------------------
   " nerdtree
@@ -608,13 +608,13 @@ function! s:ConfigureCommonPlugins()
   let g:NERDTreeMapMenu = 'a'
   let g:NERDTreeWinSize = '29'
 
-  nnoremap <silent> yt :call NerdtreeToggle()<CR>
-  nnoremap <silent> it :call SwitchWindowTo("NERD_tree_*")<CR>
+  nnoremap <silent> vt :call NerdtreeToggle()<CR>
+  nnoremap <silent> st :call SwitchWindowTo("NERD_tree_*")<CR>
   nnoremap <silent> <leader>,n :NERDTreeRefreshRoot<CR>
   nnoremap <silent> <leader>,t :NERDTreeFind<CR>
   nnoremap <silent> <leader>,h :NERDTreeCWD<CR>
 
-  nnoremap <silent> i, :call LoadWindow()<CR>
+  nnoremap <silent> s, :call LoadWindow()<CR>
 
 
   " **************************************************************************
