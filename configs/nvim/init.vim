@@ -263,18 +263,23 @@ function! s:BasicSettings()
   map o <nop>
   noremap oh G
   noremap ot gg
-  noremap or l
+  noremap og zH
+  noremap oc zL
 
-  noremap od ^
-  noremap ob +
-  noremap of -
+  noremap od ^ze
+  noremap ob +ze
+  noremap of -ze
 
-  noremap on g_
-  noremap o. +g_
-  noremap or -g_
+  noremap on $
+  noremap o. +$
+  noremap or -$
 
-  noremap oD ze
-  noremap oN zs
+  noremap - <Cmd>call search("[\"'`]", "b", line("."))<Cr>
+  noremap + <Cmd>call search("[\"'`]", "", line("."))<Cr>
+  noremap $ <Cmd>call search("[({[<]", "", line("."))<Cr>
+  noremap ; <Cmd>call search("[({[<]", "b", line("."))<Cr>
+  noremap ^ <Cmd>call search("[)}\\]>]", "", line("."))<Cr>
+  noremap @ <Cmd>call search("[)}\\]>]", "b", line("."))<Cr>
 
   " copy / paste
   noremap f y
@@ -322,8 +327,6 @@ function! s:BasicSettings()
   nnoremap M <C-r>
 
   noremap " J
-  noremap ; =
-  noremap ^ "
 
   " visual mode
   nnoremap n v
@@ -369,8 +372,6 @@ function! s:BasicSettings()
   nnoremap <silent> xh <C-]>
   nnoremap <silent> xt gd
   "nnoremap <leader>k :tAb Man<CR>
-  " jump over ()[]{}<> by @^
-  " jump over ""''``   by -+
 
 
   if exists("g:editor")
