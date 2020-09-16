@@ -631,15 +631,15 @@ function! s:ConfigureCommonPlugins()
 
   map a <Plug>(easymotion-lineanywhere)
 
-  map oz <Plug>(easymotion-vim-N)
-  map oq <Plug>(easymotion-vim-n)
+  map o[ <Plug>(easymotion-vim-N)
+  map o] <Plug>(easymotion-vim-n)
 
   map ok <Plug>(easymotion-bd-f)
-  map oj <Plug>(easymotion-bd-t)
+  map oz <Plug>(easymotion-bd-t)
 
-  map oj <Plug>(easymotion-b)
+  map ow <Plug>(easymotion-b)
   map oq <Plug>(easymotion-ge)
-  map os <Plug>(easymotion-w)
+  map oj <Plug>(easymotion-w)
   map op <Plug>(easymotion-e)
 
   map oa <Plug>(easymotion-B)
