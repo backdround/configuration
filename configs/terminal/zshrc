@@ -180,17 +180,26 @@ vi-yank-x-line () {
 }
 zle -N vi-yank-x-line
 
+# reset prompt. copy from z4h.
+function custom_reset_promp() {
+  local f
+  for f in chpwd "${chpwd_functions[@]}" precmd "${precmd_functions[@]}"; do
+    [[ "${+functions[$f]}" == 0 ]] || "$f" &>/dev/null || true
+  done
+  zle .reset-prompt
+  zle -R
+}
 
 # cd
 function cd-project-root() {
   local root_directory="$(git rev-parse --show-toplevel 2> /dev/null)"
   if [ $? ]; then
-    cd "$root_directory" > /dev/null && zle fzf-redraw-prompt
+    cd "$root_directory" > /dev/null && custom_reset_promp
   fi
 }
-function cd-home() { cd ~ > /dev/null && zle fzf-redraw-prompt }
-function cd-up() { cd .. > /dev/null && zle fzf-redraw-prompt }
-function cd-back() { cd - > /dev/null && zle fzf-redraw-prompt }
+function cd-home() { cd ~ > /dev/null && custom_reset_promp }
+function cd-up() { cd .. > /dev/null && custom_reset_promp }
+function cd-back() { cd - > /dev/null && custom_reset_promp }
 zle -N cd-project-root
 zle -N cd-home
 zle -N cd-up
@@ -461,9 +470,9 @@ bindkey -a ',' vi-replace-chars
 
 # misc
 stty intr "^C"
-stty eof "^G"
+stty eof "^D"
 vi_bind '^r' clear-screen
-vi_bind '^d' custom-which-command
+vi_bind '^g' custom-which-command
 vi_bind '^b' vi-quoted-insert
 
 # editing
@@ -480,7 +489,7 @@ vi_bind '^l' vi-put-before
 
 # cd
 vi_bind '\em' cd-home
-vi_bind '\e,' cd-up
+vi_bind "\eb" cd-up
 vi_bind '\e.' cd-back
 
 
@@ -520,7 +529,7 @@ Ss() { eval "sudo pacman -Ss $*" }
 
 # scripts
 t() { trans en:ru "$*" }
-tr() { trans ru:en "$*" }
+r() { trans ru:en "$*" }
 alias se='~/.local/bin/spellchecker'
 alias sr='~/.local/bin/spellchecker_ru'
 alias lolclock='while true; do tput clear; date +"%H : %M : %S" | figlet ; sleep 1; done'
