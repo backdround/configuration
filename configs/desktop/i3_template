@@ -243,7 +243,7 @@ for_window [class="ddterminal-desktop"] resize set --size-dropdown--
 for_window [class="ddterminal-desktop"] move scratchpad
 
 # Ranger
-bindcode $mod+47 [class="ranger-desktop"] scratchpad show
+bindcode $mod+42 [class="ranger-desktop"] scratchpad show
 for_window [class="ranger-desktop"] floating enable
 for_window [class="ranger-desktop"] sticky enable
 for_window [class="ranger-desktop"] move position --position-ranger--
@@ -262,4 +262,4 @@ for_window [class="app"] floating enable
 for_window [class="qmllivebench"] floating enable
 for_window [class="QML Live Bench"] floating enable
 
-# vim: set ft=i3:
+# vim: set ft=i3config:
