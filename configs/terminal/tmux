@@ -30,9 +30,9 @@ bind \" copy-mode
 bind c rotate-window
 bind g choose-tree -Z
 bind r source-file ~/.tmux.conf
-bind d resize-pane -Z
-bind , swap-window -t -1
-bind . swap-window -t +1
+bind . resize-pane -Z
+bind s swap-window -t -1 \; select-window -t -1
+bind p swap-window -t +1 \; select-window -t +1
 
 
 # pane manipulation
