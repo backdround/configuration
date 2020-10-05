@@ -151,11 +151,14 @@ client.background       $gray
 # Customization
 
 # Gaps
-set $outer 0
-set $inner 19
+set $outer -2
+set $inner 21
 
 gaps outer $outer
 gaps inner $inner
+
+gaps top 0
+gaps bottom 1
 
 bindcode $mod+18 gaps inner current set $inner
 bindcode $mod+19 gaps inner current set 5
