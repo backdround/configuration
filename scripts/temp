@@ -48,6 +48,11 @@ case $TEMPLATE in
     SECOND_PANE="$PROJECT_DIRECTORY"
     MAIN_FILE="resources/main.qml"
     ;;
+  "node")
+    FIRST_PANE="$PROJECT_DIRECTORY"
+    SECOND_PANE="$PROJECT_DIRECTORY"
+    MAIN_FILE="index.js"
+    ;;
   *)
     echo "$TEMPLATE - Unknown project type"
     exit 1
