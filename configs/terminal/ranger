@@ -1,17 +1,177 @@
+# Settings
+set column_ratios 2,4,5
+
+set vcs_aware true
+set vcs_msg_length 70
+
 set preview_images true
-default_linemode devicons
+set preview_images_method kitty
+set w3m_delay 0.01
+
+set unicode_ellipsis true
 set draw_borders true
+set dirname_in_tabs true
+set update_tmux_title true
+set tilde_in_titlebar true
+set sort mtime
+set cd_bookmarks false
+set line_numbers relative
+set relative_current_zero true
+set confirm_on_delete always
 
-map gd cd ~/downloads
-map gs cd ~/other/screens
-map go cd ~/other
-map gC cd ~/.config
-map gl cd ~/.local
-map gp cd ~/build/
-map gt cd ~/tmp/
+default_linemode devicons
 
+
+# Misc
+unmap q Q R <esc> ~ ? :
+map q     quit
+map Q     quitall
+map R     reload_cwd
+map <esc> change_mode normal
+map ~     set viewmode!
+map ?     help
+map :     console
+
+
+# Base movements
+unmap b e u i o
+map e move down=1
+map u move up=1
+map b move left=1
+map i move right=1
+map od move left=1
+map on move right=1
+map ot move to=0
+map oh move to=-1
+
+
+# Movements
+unmap p P Y I
+map p console find%space
+map P console travel%space
+map Y history_go -1
+map I history_go 1
+
+
+# Tabs
+unmap v
+map vi tab_new
+map vq tab_close
+map vv tab_restore
+map vp tab_shift 1
+map vs tab_shift -1
+map <a-1> tab_open 1
+map <a-2> tab_open 2
+map <a-3> tab_open 3
+map <a-4> tab_open 4
+map <a-5> tab_open 5
+map <a-6> tab_open 6
+map <a-7> tab_open 7
+map <a-8> tab_open 8
+map <a-9> tab_open 9
+
+
+# Searching
+unmap / [ ]
+alias search_letter_skipping scout -tsl
+map / console search_letter_skipping%space
+map ] search_next
+map [ search_next forward=False
+
+
+# Marking
+unmap d n N <Space>
+map <Space> mark_files toggle=True
+map dn      mark_files all=True val=False
+map n       toggle_visual_mode
+map N       toggle_visual_mode reverse=True
+
+
+# Copy / delete / paste
+unmap f l t
+map f chain copy mode=toggle; move down=1
+map t chain cut mode=toggle; move down=1
+map T delete
+
+map df uncut
+map dt uncut
+
+map ll paste
+map lL paste overwrite=True
+map ls paste_symlink relative=True
+map lS paste_symlink relative=False
+
+
+# Bookmarks
+unmap s
+map sm cd ~
+map sd cd ~/downloads
+map ss cd ~/other/screens
+map sp cd ~/build/
+map st cd ~/tmp/
+
+
+# Externals
+unmap x
 map xx shell -fs kitty
 map xt shell -fs thunar
 map xn shell -fs kitty zsh -c 'nvim %s; zsh -i'
 map xh shell -fs kitty nvim %s
 map xd shell -fs dragon-drag-and-drop %p
+
+
+# Commands
+unmap r c a g
+map r shell $SHELL
+map c edit
+map a bulkrename
+map gs shell -p du --max-depth=1 -h -c
+map gp yank path
+map gd yank dir
+map gn yank name
+map g. yank name_without_extension
+
+
+# Sorting
+unmap . ,
+map .r set sort_reverse!
+map .z set sort=random
+map .s chain set sort=size;      set sort_reverse=False
+map .b chain set sort=basename;  set sort_reverse=False
+map .n chain set sort=natural;   set sort_reverse=False
+map .m chain set sort=mtime;     set sort_reverse=False
+map .c chain set sort=ctime;     set sort_reverse=False
+map .a chain set sort=atime;     set sort_reverse=False
+map .t chain set sort=type;      set sort_reverse=False
+map .e chain set sort=extension; set sort_reverse=False
+
+map ,s chain set sort=size;      set sort_reverse=True
+map ,b chain set sort=basename;  set sort_reverse=True
+map ,n chain set sort=natural;   set sort_reverse=True
+map ,m chain set sort=mtime;     set sort_reverse=True
+map ,c chain set sort=ctime;     set sort_reverse=True
+map ,a chain set sort=atime;     set sort_reverse=True
+map ,t chain set sort=type;      set sort_reverse=True
+map ,e chain set sort=extension; set sort_reverse=True
+
+
+# Settings
+unmap z
+map z set show_hidden!
+
+# Empty keys
+unmap w y j k m
+
+
+# Console binds
+cmap <c-q> eval fm.ui.console.move_word(left=1)
+cmap <c-j> eval fm.ui.console.move_word(right=1)
+cmap <c-w> eval fm.ui.console.move_word(left=1)
+cmap <c-p> eval fm.ui.console.move_word(right=1)
+
+
+# Pager binds
+pmap e pager_move  down=0.5 pages=True
+pmap u pager_move  up=0.5   pages=True
+
+# vim: set ft=conf:

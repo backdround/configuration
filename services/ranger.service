@@ -8,6 +8,7 @@ Type=simple
 
 Environment="DISPLAY=:0"
 Environment="TERMCMD=kitty"
+Environment="EDITOR=/home/%u/.local/bin/editor.sh"
 
 ExecStart=/usr/bin/kitty --class ranger-desktop ranger
 
