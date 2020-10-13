@@ -175,7 +175,8 @@ label-mode-padding    = 2
 
 ; focused = Active workspace on focused monitor
 label-focused = %name%
-label-focused-background = ${colors.gray}
+label-focused-foreground = ${colors.background}
+label-focused-background = ${xrdb:color12}
 label-focused-underline  = ${colors.primary}
 label-focused-padding    = 2
 label-focused-font       = 2
