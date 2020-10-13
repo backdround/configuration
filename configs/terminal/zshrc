@@ -319,6 +319,9 @@ vi_bind "[2~" vi-insert
 #        Shift-tab
 vi_bind "[Z"  reverse-menu-complete
 
+bindkey -r -M viopp j
+bindkey -r -M viopp k
+
 ########################################
 # VISUAL KEYBINDINGS
 
@@ -554,7 +557,7 @@ alias gcm='git commit'
 # global
 alias -g .g='| grep -i'
 alias -g .l='| less'
-alias -g .c="| column -t"
+alias -g .c="| wc -l"
 alias -g .p="| $PAGER"
 alias -g .stn='| tr " " "\n"'
 
@@ -571,9 +574,9 @@ alias gcc='gcc -fdiagnostics-color=always'
 # ls
 alias ls='ls --color -t'
 alias l='lsd -t'
-alias ll='lsd -ltr'
+alias ll='lsd -lt'
 alias la='lsd -At'
-alias lla='lsd -lAtr'
+alias lla='lsd -lAt'
 
 # confirm
 alias rm='rm -i'
