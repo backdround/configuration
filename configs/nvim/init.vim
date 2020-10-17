@@ -783,8 +783,9 @@ endfunction
 function! s:ConfigureFeaturePlugins()
   " --------------------------------------------------------------------------
   " markdown preview
+  let g:mkdp_command_for_global = 1
   let g:mkdp_auto_close = 0
-  nmap <silent> <leader>m <Plug>MarkdownPreview
+  nmap <silent> <leader>m <Cmd>MarkdownPreview<Cr>
 
   " --------------------------------------------------------------------------
   " ctrlsf
