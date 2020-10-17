@@ -231,6 +231,7 @@ function! s:BasicSettings()
   nnoremap <expr> <silent> vQ tabpagenr('$') == 1 ? "<Cmd>quitall!<CR>" : "<Cmd>tabclose!<CR>"
   nnoremap <silent> vz <Cmd>quitall<CR>
   nnoremap <silent> vZ <Cmd>quitall!<CR>
+  nnoremap <silent> vj <Cmd>xall<CR>
 
   " split managment
   map s <Nop>
@@ -282,18 +283,20 @@ function! s:BasicSettings()
   noremap @ <Cmd>call search("[)}\\]>]", "b", line("."))<Cr>
 
   " copy / paste
-  noremap f y
-  nnoremap ff yy
-  nnoremap F y$
-  noremap <leader>f "+y
-  noremap <leader>F "*y
-  noremap xf "sy
+  noremap  f         "py
+  nnoremap ff        "pyy
+  nnoremap F         "py$
+  noremap  <leader>f "+y
+  noremap  <leader>F "*y
+  noremap  bf        "sy
 
-  noremap l p
-  noremap L P
+  noremap l         p
+  noremap L         P
+  noremap <M-l>     "pp
+  noremap <M-L>     "pP
   noremap <leader>l "+p
   noremap <leader>L "*p
-  noremap xl "sp
+  noremap bl        "sp
 
   " find
   nnoremap ! <Cmd>let @/ = expand('<cword>') \| set hlsearch<Cr>
@@ -345,12 +348,12 @@ function! s:BasicSettings()
   vnoremap r o
 
   map x <Nop>
-  nnoremap xi gv
-  onoremap xi gv
+  nnoremap xn gv
+  onoremap xn gv
   vnoremap i gv
 
 
-  " vim
+  " substitute
   map b <nop>
   nnoremap bu :%s/<C-r>s//g<Left><Left>
   vnoremap bu :s/<C-r>s//g<Left><Left>
@@ -362,21 +365,18 @@ function! s:BasicSettings()
   nnoremap bE :%s/\<<C-r>s\>//gc<Left><Left><Left>
   vnoremap bE :s/\<<C-r>s\>//gc<Left><Left><Left>
 
-  nnoremap <silent> <leader>r :source ~/.config/nvim/init.vim<CR>
-
   " other
   set pastetoggle=<F8>
+
   inoremap <M-c> <C-^>
   vnoremap / y/<C-R>"<CR>
   nnoremap _ <esc>:w<CR>
+  nnoremap <silent> <leader>r :source ~/.config/nvim/init.vim<CR>
+
   nnoremap <silent> xh <C-]>
-  nnoremap <silent> xt gd
-  "nnoremap <leader>k :tAb Man<CR>
+  nnoremap <silent> xt :tab Man<CR>
+  nnoremap <silent> xe gd
 
-
-  if exists("g:editor")
-    nnoremap z ZZ
-  endif
   " }}}
 
   " --------------------------------------------------------------------------
@@ -407,21 +407,6 @@ function! s:BasicSettings()
     autocmd DirChanged * let &titlestring = fnamemodify(getcwd(), ':t')
   augroup END
   let &titlestring = fnamemodify(getcwd(), ':t')
-
-  ""remap q in Man page
-  "augroup ManPageQuit
-    "autocmd!
-    "autocmd FileType man nunmap <buffer> q
-    "autocmd FileType man map <buffer> q <Plug>(easymotion-lineanywhere)
-    "autocmd FileType man nnoremap <buffer> z :vnew \| bd # \| :q<CR>
-  "augroup END
-
-  "" setup default toc (gO) height
-  "augroup SetupDefaultTocHeight
-    "autocmd!
-    "autocmd FileType qf :res 15<CR>
-  "augroup END
-
 
   "}}}
 
@@ -699,7 +684,7 @@ function! s:ConfigureCommonPlugins()
 
   " --------------------------------------------------------------------------
   " easy-align
-  map bf <Plug>(EasyAlign)
+  map bD <Plug>(EasyAlign)
   map bd <Plug>(LiveEasyAlign)
 
   " --------------------------------------------------------------------------
@@ -838,7 +823,7 @@ function! s:ConfigureFeaturePlugins()
   " rooter
   let g:rooter_silent_chdir = 1
   let g:rooter_resolve_links = 1
-  let g:rooter_patterns = ['.git/', '.git', '_darcs/', '.hg/', '.bzr/', '.svn/']
+  let g:rooter_patterns = ['.git/']
 
   " --------------------------------------------------------------------------
   " repeat
@@ -1047,8 +1032,9 @@ function! s:ConfigureFeaturePlugins()
 
   " plugins
   let g:coc_global_extensions = [
+        \ "coc-prettier",
         \ "coc-json",
-        \ "coc-ultisnips",
+        \ "coc-snippets",
         \ "coc-html",
         \ "coc-css",
         \ "coc-yaml",
