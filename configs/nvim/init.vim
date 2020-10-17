@@ -81,7 +81,6 @@ function! s:LoadPlugins()
     "Plug 'kshenoy/vim-signature'          " SIGNATURE
 
     Plug 'SirVer/ultisnips'               " SNIPPETS
-    Plug 'honza/vim-snippets'
 
     Plug 'backdround/DoxygenToolkit.vim'  " DOXYGEN
 
@@ -873,8 +872,11 @@ function! s:ConfigureFeaturePlugins()
   let g:UltiSnipsSnippetDirectories = [expand("~/").'.local/share/nvim/UltiSnips']
   let g:UltiSnipsEnableSnipMate = 0
 
+  nnoremap <silent> <leader>jo <Cmd>edit   +UltiSnipsEdit<Cr>
+  nnoremap <silent> <leader>je <Cmd>split  +UltiSnipsEdit<Cr>
+  nnoremap <silent> <leader>ju <Cmd>vsplit +UltiSnipsEdit<Cr>
+  nnoremap <silent> <leader>ji <Cmd>tabe   +UltiSnipsEdit %<Cr>
 
-  let g:UltiSnipsListSnippets = '<M-q>'
   let g:UltiSnipsExpandTrigger = '<M-k>'
   let g:UltiSnipsJumpForwardTrigger = '<M-k>'
   let g:UltiSnipsJumpBackwardTrigger = '<M-j>'
@@ -935,16 +937,19 @@ function! s:ConfigureFeaturePlugins()
   nnoremap <silent> <leader>H :FzfGFiles?<CR>| "changed
   nnoremap <silent> <expr> <leader>t ":FzfFiles ".(expand('%:p:h'))."\<CR>"
   nnoremap <silent> <leader>T :FzfFiles<CR>
-  nnoremap <silent> <leader>n :FzfTags<CR>
-  nnoremap <silent> <leader>N :FzfBTags<CR>
+
+  " useful
+  nnoremap <silent> <leader>n :FzfBTags<CR>
+  nnoremap <silent> <leader>N :FzfTags<CR>
   nnoremap <silent> <leader>R :FzfHistory<CR>| "mru
+  nnoremap <leader>v :FzfWindows<CR>
+  nnoremap <leader>k :FzfSnippets<CR>
 
   " useless
   nnoremap <leader>Dv :FzfFiles ~/.local/share/nvim<CR>
   nnoremap <leader>Db :FzfBuffers<CR>
   nnoremap <leader>Df :FzfLines<CR>
   nnoremap <leader>Dz :FzfMarks<CR>
-  nnoremap <leader>Dw :FzfWindows<CR>
   nnoremap <leader>Dg :FzfCommits<CR>
   nnoremap <leader>DG :FzfBCommits<CR>
 
@@ -953,7 +958,6 @@ function! s:ConfigureFeaturePlugins()
   nnoremap <leader>Dt :FzfColors<CR>| "theme
   nnoremap <leader>D: :FzfHistory:<CR>
   nnoremap <leader>D/ :FzfHistory/<CR>
-  nnoremap <leader>Ds :FzfSnippets<CR>
   nnoremap <leader>Dc :FzfCommands<CR>
   " }}}
 
@@ -972,6 +976,9 @@ function! s:ConfigureFeaturePlugins()
 
   " --------------------------------------------------------------------------
   " coc
+  let g:coc_snippet_next = '<M-k>'
+  let g:coc_snippet_prev = '<M-j>'
+
   nnoremap <silent> <leader>z :CocRestart<CR>
   nnoremap <silent> <leader>Z :CocDisable<CR>
 
@@ -1034,7 +1041,6 @@ function! s:ConfigureFeaturePlugins()
   let g:coc_global_extensions = [
         \ "coc-prettier",
         \ "coc-json",
-        \ "coc-snippets",
         \ "coc-html",
         \ "coc-css",
         \ "coc-yaml",
