@@ -58,6 +58,8 @@ unmap v
 map vi tab_new
 map vq tab_close
 map vv tab_restore
+map vu tab_move 1
+map ve tab_move -1
 map vp tab_shift 1
 map vs tab_shift -1
 map <a-1> tab_open 1
