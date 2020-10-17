@@ -546,6 +546,8 @@ eval "fswatch --event MovedTo --event MovedFrom --event Renamed --event Removed 
 # git
 alias g='git'
 alias gs='git status'
+alias gd='git diff'
+alias gds='git diff --staged'
 alias ga='git add'
 alias gb='git branch'
 alias gp='git push'

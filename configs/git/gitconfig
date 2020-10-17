@@ -14,6 +14,9 @@
   lb = log --oneline --graph --all
   l = log --oneline --graph --all -n 15
 
+[pull]
+  ff = only
+
 [diff-so-fancy]
   markEmptyLines = false
 
