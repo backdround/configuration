@@ -230,7 +230,7 @@ function! s:BasicSettings()
   nnoremap <expr> <silent> vQ tabpagenr('$') == 1 ? "<Cmd>quitall!<CR>" : "<Cmd>tabclose!<CR>"
   nnoremap <silent> vz <Cmd>quitall<CR>
   nnoremap <silent> vZ <Cmd>quitall!<CR>
-  nnoremap <silent> vj <Cmd>xall<CR>
+  nnoremap <silent> <M-z> <Cmd>xall<CR>
 
   " split managment
   map s <Nop>
