@@ -177,6 +177,25 @@ function! s:BasicSettings()
   " --------------------------------------------------------------------------
   " bindings {{{
 
+  " insert word motions
+  inoremap <C-w> <C-o>b
+  inoremap <C-q> <Esc>gea
+  inoremap <C-j> <C-o>w
+  inoremap <C-p> <Esc>ea
+
+  inoremap <C-a> <C-o>B
+  inoremap <C-o> <Esc>gEa
+  inoremap <C-e> <C-o>W
+  inoremap <C-u> <Esc>Ea
+
+  " insert editing
+  inoremap <C-t> <Esc>cc
+  inoremap <C-h> <Esc>bce
+  inoremap <C-n> <Esc>lcw
+  inoremap <M-h> <Esc>BcE
+  inoremap <M-n> <Esc>lcW
+
+  " normal
   map d <nop>
   let g:mapleader = 'd'
 
@@ -710,7 +729,7 @@ function! s:ConfigureCommonPlugins()
 
   let g:AutoPairsFlyMode = 1
   let g:AutoPairsMultilineClose = 1
-
+  let g:AutoPairsMapCh = 0
   " --------------------------------------------------------------------------
   " sideways
   nmap <silent> b, <Cmd>SidewaysLeft<Cr>
