@@ -293,12 +293,11 @@ function! s:BasicSettings()
   noremap o. +$
   noremap or -$
 
-  noremap - <Cmd>call search("[\"'`]", "b", line("."))<Cr>
-  noremap + <Cmd>call search("[\"'`]", "", line("."))<Cr>
-  noremap $ <Cmd>call search("[({[<]", "", line("."))<Cr>
-  noremap ; <Cmd>call search("[({[<]", "b", line("."))<Cr>
-  noremap ^ <Cmd>call search("[)}\\]>]", "", line("."))<Cr>
-  noremap @ <Cmd>call search("[)}\\]>]", "b", line("."))<Cr>
+  noremap + <Cmd>:call MoveThrough("[\"'`]")<Cr>
+  noremap - <Cmd>:call MoveThrough("[\"'`]", v:true)<Cr>
+
+  noremap ^ <Cmd>:call MoveThrough("[()]")<Cr>
+  noremap @ <Cmd>:call MoveThrough("[()]", v:true)<Cr>
 
   " copy / paste
   noremap  f         "py
@@ -1173,13 +1172,39 @@ endfunction
 
 " ----------------------------------------------------------------------------
 " nerdtree toggle
-
-" NERDTreeToggle renumber windows
 function! NerdtreeToggle()
   let l:buffer_number = winbufnr(t:saved_window)
   NERDTreeToggleVCS
   let t:saved_window = bufwinnr(l:buffer_number)
   call LoadWindow()
+endfunction
+
+" ----------------------------------------------------------------------------
+" Movements
+function! MoveThrough(pattern, ...) " (pattern, isReverse)
+  " Get reverse
+  let l:reverse = v:false
+  if a:0 > 0
+    if a:1
+      let l:reverse = v:true
+    endif
+  endif
+
+  if l:reverse
+    let l:flag = "b"
+    normal! l
+  else
+    let l:flag = ""
+    normal! h
+  endif
+
+  call search(a:pattern, l:flag, line("."))
+
+  if l:reverse
+    normal! h
+  else
+    normal! l
+  endif
 endfunction
 " }}}
 " ============================================================================
