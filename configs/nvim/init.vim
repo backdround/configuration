@@ -190,10 +190,9 @@ function! s:BasicSettings()
 
   " insert editing
   inoremap <C-t> <Esc>cc
-  inoremap <C-h> <Esc>bce
-  inoremap <C-n> <Esc>lcw
-  inoremap <M-h> <Esc>BcE
-  inoremap <M-n> <Esc>lcW
+  inoremap <C-h> <C-w>
+  inoremap <M-h> <Cmd>:call Ctrl_W()<Cr>
+  inoremap <C-l> <C-o>p
 
   " normal
   map d <nop>
@@ -1205,6 +1204,33 @@ function! MoveThrough(pattern, ...) " (pattern, isReverse)
   else
     normal! l
   endif
+endfunction
+
+" ----------------------------------------------------------------------------
+" Insert editing
+function! RemoveCharsInLine(from, to)
+  let l:line = getline('.')
+  let l:chars = str2list(l:line)
+
+  call remove(l:chars, a:from - 1, a:to - 1)
+
+  let l:line = list2str(l:chars)
+  call setbufline(bufnr('%'), line('.'), l:line)
+endfunction
+
+function! Ctrl_W()
+  " Remove previous word
+  let l:right_position = virtcol('.')
+  call search('\( \|^\)\S', 'be', line('.'))
+  let l:left_position  = virtcol('.')
+
+  if l:right_position - l:left_position > 0
+    call RemoveCharsInLine(l:left_position, l:right_position - 1)
+    return
+  endif
+
+  " Or inherit c-w behavior.
+  call feedkeys("\<C-w>", 'n')
 endfunction
 " }}}
 " ============================================================================
