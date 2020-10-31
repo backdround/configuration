@@ -576,12 +576,39 @@ function! s:ConfigureCommonPlugins()
   " --------------------------------------------------------------------------
   " tagbar
   let g:tagbar_width = 30
-  let g:tagbar_zoomwidth = 100
+  let g:tagbar_zoomwidth = 80
   let g:tagbar_hide_nonpublic = 1
   let g:tagbar_silent = 1
-  let g:tagbar_map_showproto = "t" "remap showproto from <Space> to t
   let g:tagbar_autoshowtag = 1
   let g:tagbar_autofocus = 0
+
+  let g:tagbar_map_help                  = "?"
+  let g:tagbar_map_jump                  = "<Cr>"
+  let g:tagbar_map_preview               = "g"
+  let g:tagbar_map_previewwin            = "G"
+  let g:tagbar_map_nexttag               = "j"
+  let g:tagbar_map_prevtag               = "k"
+  let g:tagbar_map_showproto             = "t"
+  let g:tagbar_map_hidenonpublic         = "n"
+  let g:tagbar_map_zoomwin               = "."
+
+  let g:tagbar_map_togglesort            = "<Nop>"
+  let g:tagbar_map_togglecaseinsensitive = "<Nop>"
+  let g:tagbar_map_toggleautoclose       = "<Nop>"
+  let g:tagbar_map_togglepause           = "<Nop>"
+
+  let g:tagbar_map_close                 = "<Nop>"
+
+  let g:tagbar_map_openfold              = "xo"
+  let g:tagbar_map_closefold             = "xe"
+  let g:tagbar_map_togglefold            = "xa"
+  let g:tagbar_map_openallfolds          = "xZ"
+  let g:tagbar_map_closeallfolds         = "xz"
+  let g:tagbar_map_nextfold              = "xj"
+  let g:tagbar_map_prevfold              = "xk"
+  let g:tagbar_map_incrementfolds        = "<Nop>"
+  let g:tagbar_map_decrementfolds        = "<Nop>"
+
   nnoremap <silent> vh :TagbarToggle<CR>
   nnoremap <silent> sh :call SwitchWindowTo("__Tagbar__.*")<CR>
 
@@ -722,7 +749,7 @@ function! s:ConfigureCommonPlugins()
   let g:AutoPairsShortcutFastWrap = '<M-u>'
   let g:AutoPairsShortcutBackInsert = '<M-e>'
 
-  let g:AutoPairsFlyMode = 1
+  let g:AutoPairsFlyMode = 0
   let g:AutoPairsMultilineClose = 1
   let g:AutoPairsMapCh = 0
   " --------------------------------------------------------------------------
