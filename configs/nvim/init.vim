@@ -168,6 +168,13 @@ function! s:BasicSettings()
 	let g:loaded_netrw = 1
 	let g:loaded_netrwPlugin = 1
 
+  " view options
+  set termguicolors
+  set background=dark
+
+  let g:airline_theme='melting'
+  colorscheme melting
+
   if exists("g:editor")
     set nobackup
     set noswapfile
@@ -192,7 +199,6 @@ function! s:BasicSettings()
   inoremap <C-t> <Esc>cc
   inoremap <C-h> <C-w>
   inoremap <M-h> <Cmd>:call Ctrl_W()<Cr>
-  inoremap <C-l> <C-o>p
 
   " normal
   map d <nop>
@@ -310,6 +316,8 @@ function! s:BasicSettings()
   noremap L         P
   noremap <M-l>     "pp
   noremap <M-L>     "pP
+  inoremap <C-l> <C-o>p
+  inoremap <M-l> <C-o>"pP
   noremap <leader>l "+p
   noremap <leader>L "*p
   noremap bl        "sp
@@ -320,7 +328,6 @@ function! s:BasicSettings()
   nnoremap # g#
   nnoremap [ N
   nnoremap ] n
-
 
   " insert
   nnoremap g i
@@ -352,6 +359,7 @@ function! s:BasicSettings()
   nnoremap N V
   nnoremap <C-n> <C-v>
 
+  vnoremap i gv
   vnoremap m gu
   vnoremap M gU
 
@@ -362,12 +370,6 @@ function! s:BasicSettings()
   vnoremap C A
 
   vnoremap r o
-
-  map x <Nop>
-  nnoremap xn gv
-  onoremap xn gv
-  vnoremap i gv
-
 
   " substitute
   map b <nop>
@@ -387,12 +389,13 @@ function! s:BasicSettings()
   inoremap <M-c> <C-^>
   vnoremap / y/<C-R>"<CR>
   nnoremap _ <esc>:w<CR>
-  nnoremap <silent> <leader>r :source ~/.config/nvim/init.vim<CR>
+  nnoremap <silent> <leader>r <Cmd>source ~/.config/nvim/init.vim<CR>
+  nmap <leader>c <Cmd>echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')<Cr>
 
+  map x <Nop>
   nnoremap <silent> xh <C-]>
   nnoremap <silent> xt :tab Man<CR>
-  nnoremap <silent> xe gd
-
+  nnoremap <silent> xn gd
   " }}}
 
   " --------------------------------------------------------------------------
@@ -428,29 +431,6 @@ function! s:BasicSettings()
 
   " other
   command! FilePath echo(expand("%:p"))
-
-endfunction
-" }}}
-" ============================================================================
-
-" ============================================================================
-" Configure View {{{
-function! s:ConfigureView()
-  " --------------------------------------------------------------------------
-  " view options
-  set termguicolors
-  set background=dark
-
-  let g:airline_theme='melting'
-  colorscheme melting
-
-  nmap <leader>c :call <SID>SynStack()<CR>
-  function! <SID>SynStack()
-    if !exists("*synstack")
-      return
-    endif
-    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-  endfunc
 
 endfunction
 " }}}
@@ -1241,4 +1221,3 @@ call s:ConfigureCommonPlugins()
 if !exists("g:editor")
   call s:ConfigureFeaturePlugins()
 endif
-call s:ConfigureView()
