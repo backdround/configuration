@@ -383,6 +383,24 @@ function! s:BasicSettings()
   nnoremap bE :%s/\<<C-r>s\>//gc<Left><Left><Left>
   vnoremap bE :s/\<<C-r>s\>//gc<Left><Left><Left>
 
+  " foldings
+  map x <Nop>
+  nnoremap xo zo
+  nnoremap x<M-o> zO
+  nnoremap xe zc
+  nnoremap x<M-e> zC
+  nnoremap xa za
+  nnoremap x<M-a> zA
+
+  nnoremap xz <Cmd>%foldclose!<Cr>
+  nnoremap xZ <Cmd>%foldopen!<Cr>
+
+  set foldopen-=block
+  nnoremap xj zj
+  nnoremap xk zk
+  nnoremap xJ ]z
+  nnoremap xK [z
+
   " other
   set pastetoggle=<F8>
 
@@ -392,7 +410,6 @@ function! s:BasicSettings()
   nnoremap <silent> <leader>r <Cmd>source ~/.config/nvim/init.vim<CR>
   nmap <leader>c <Cmd>echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')<Cr>
 
-  map x <Nop>
   nnoremap <silent> xh <C-]>
   nnoremap <silent> xt :tab Man<CR>
   nnoremap <silent> xn gd
