@@ -89,6 +89,7 @@ if __name__ == '__main__':
     desktop_config_pairs = (
         # Qutebrowser
         ["configs/qutebrowser/config.py",           "~/.config/qutebrowser/config.py"],
+        ["configs/qutebrowser/style.css",           "~/.config/qutebrowser/style.css"],
         ["configs/qutebrowser/theme/draw.py",       "~/.config/qutebrowser/theme/draw.py"],
         ["configs/qutebrowser/quickmarks",          "~/.config/qutebrowser/quickmarks"],
         ["configs/qutebrowser/my_scripts/clear.js", "~/.config/qutebrowser/my_scripts/clear.js"],

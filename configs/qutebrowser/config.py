@@ -37,6 +37,7 @@ c.content.plugins = True
 # c.content.private_browsing = False
 # c.content.register_protocol_handler = 'ask'
 # c.content.ssl_strict = 'ask'
+c.content.user_stylesheets = 'style.css'
 
 c.downloads.location.directory = '~/downloads'
 c.downloads.location.prompt = False

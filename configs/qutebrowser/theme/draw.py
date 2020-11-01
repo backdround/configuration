@@ -221,7 +221,7 @@ def set_colors(c):
     c.colors.tabs.indicator.start  = palette['cyan']
     c.colors.tabs.indicator.stop   = palette['green']
 
-    c.colors.webpage.bg = palette['cloud-light']
+    c.colors.webpage.bg = "#FFFFFF"
 
 
 def set_style(c):
