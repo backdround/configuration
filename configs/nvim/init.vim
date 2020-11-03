@@ -582,7 +582,7 @@ function! s:ConfigureCommonPlugins()
   let g:tagbar_autoshowtag = 1
   let g:tagbar_autofocus = 0
 
-  let g:tagbar_map_help                  = "?"
+  let g:tagbar_map_help                  = "<M-h>"
   let g:tagbar_map_jump                  = "<Cr>"
   let g:tagbar_map_preview               = "g"
   let g:tagbar_map_previewwin            = "G"
@@ -619,6 +619,33 @@ function! s:ConfigureCommonPlugins()
   let g:undotree_RelativeTimestamp = 1
   let g:undotree_ShortIndicators = 1
   let g:undotree_HelpLine = 0
+
+  function! g:Undotree_CustomMap()
+    " unmap default maps
+    nunmap <buffer> ?
+    nunmap <buffer> q
+    nunmap <buffer> <tab>
+    nunmap <buffer> C
+    nunmap <buffer> T
+    nunmap <buffer> D
+    nunmap <buffer> K
+    nunmap <buffer> J
+    nunmap <buffer> >
+    nunmap <buffer> <
+    nunmap <buffer> <c-r>
+    nunmap <buffer> u
+
+    " create custom maps
+    nmap <buffer> <M-h> <plug>UndotreeHelp
+    nmap <buffer> m <plug>UndotreeUndo
+    nmap <buffer> M <plug>UndotreeRedo
+    nmap <buffer> j <plug>UndotreePreviousState
+    nmap <buffer> k <plug>UndotreeNextState
+    nmap <buffer> J <plug>UndotreePreviousSavedState
+    nmap <buffer> K <plug>UndotreeNextSavedState
+    nmap <buffer> <Cr> <plug>UndotreeEnter
+  endfunc
+
   nnoremap <silent> vn :UndotreeToggle<CR>
   nnoremap <silent> sn :call SwitchWindowTo("undotree_*")<CR>
 
