@@ -92,6 +92,7 @@ if __name__ == '__main__':
         ["configs/qutebrowser/style.css",           "~/.config/qutebrowser/style.css"],
         ["configs/qutebrowser/theme/draw.py",       "~/.config/qutebrowser/theme/draw.py"],
         ["configs/qutebrowser/quickmarks",          "~/.config/qutebrowser/quickmarks"],
+        ["configs/qutebrowser/greasemonkey",        "~/.local/share/qutebrowser/greasemonkey"],
         ["configs/qutebrowser/my_scripts/clear.js", "~/.config/qutebrowser/my_scripts/clear.js"],
 
         # Polybar
