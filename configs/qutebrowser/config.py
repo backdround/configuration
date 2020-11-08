@@ -1,6 +1,10 @@
 import os
 import theme.draw
 
+# disable linter errors
+c = c  # noqa: F821 pylint: disable=E0602,C0103
+config = config  # noqa: F821 pylint: disable=E0602,C0103
+
 theme.draw.set_colors(c)
 theme.draw.set_style(c)
 
@@ -69,15 +73,6 @@ c.hints.prev_regexes = ['\\bprev(ious)?\\b',
                         '\\bвернуться\\b',
                         '\\bпред(ыдущая)\\b',
                         '\\bназад\\b']
-
-instance = ""
-instance_file_path = os.path.expanduser("~/.instance")
-with open(instance_file_path, 'r') as file:
-    instance = file.read()
-
-if instance == "home":
-    c.zoom.default = 125
-
 
 c.hints.uppercase = True
 c.input.partial_timeout = 10000
