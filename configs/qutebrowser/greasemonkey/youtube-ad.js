@@ -67,4 +67,16 @@
     }
   };
   setInterval(closeVideoAd, 500);
+
+  let skipPreviewAd = () => {
+    const videoPreviewAd = document.querySelector(
+      ".ytp-ad-preview-container .ytp-ad-preview-text"
+    );
+
+    if (videoPreviewAd) {
+      // Rewind preview ad.
+      getVideo().currentTime += 10;
+    }
+  };
+  setInterval(skipPreviewAd, 500);
 })();

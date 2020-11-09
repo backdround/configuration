@@ -276,6 +276,7 @@ config.bind('tr', 'config-source')
 config.bind('te', 'config-edit')
 config.bind('ts', 'view-source')
 config.bind('tQ', 'quit')
+config.bind('<F12>', 'devtools')
 
 config.bind('<Alt-h>', 'jseval -q document.querySelectorAll(\'video\') [0].currentTime -= 7;')
 config.bind('<Alt-n>', 'jseval -q document.querySelectorAll(\'video\') [0].currentTime += 7;')
