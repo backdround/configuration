@@ -54,9 +54,9 @@ xkb_symbols "common" {
     key <KP5> { [        Cyrillic_yu,       Cyrillic_YU  ] };
     key <KP6> { [       Cyrillic_sha,      Cyrillic_SHA  ] };
 
-    key <KP7> { [           Greek_nu,          Greek_NU  ] };
+    key <KP7> { [          Greek_phi,          Greek_PHI ] };
     key <KP8> { [         Cyrillic_e,        Cyrillic_E  ] };
-    key <KP9> { [         Greek_iota,        Greek_IOTA  ] };
+    key <KP9> { [              U1D3E,        U1D3E       ] };
 
 
     key <BKSL> { [         backslash,               bar  ] };

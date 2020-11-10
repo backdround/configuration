@@ -54,9 +54,9 @@ xkb_symbols "keys" {
   key <KP5> { [   Greek_delta,    Greek_DELTA  ] };
   key <KP6> { [     Greek_eta,      Greek_ETA  ] };
 
-  key <KP7> { [      Greek_nu,       Greek_NU  ] };
+  key <KP7> { [     Greek_phi,      Greek_PHI  ] };
   key <KP8> { [ Greek_epsilon,  Greek_EPSILON  ] };
-  key <KP9> { [    Greek_iota,     Greek_IOTA  ] };
+  key <KP9> { [         U1D3E,          U1D3E  ] };
 
 
   key<BKSL> { [ backslash,    bar        ] };
