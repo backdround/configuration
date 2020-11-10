@@ -111,6 +111,10 @@ if __name__ == '__main__':
         ["configs/gtk/settings.ini",                "~/.config/gtk-3.0/settings.ini"],
         ["configs/gtk/gtkrc-2.0",                   "~/.gtkrc-2.0"],
 
+        # Rofi
+        ["configs/rofi/style.rasi",                 "~/.config/rofi/style.rasi"],
+        ["configs/rofi/config.rasi",                "~/.config/rofi/config.rasi"],
+
         # Desktop
         ["configs/desktop/picom.conf",              "~/.config/picom.conf"],
         ["configs/desktop/dunstrc",                 "~/.config/dunst/dunstrc"],

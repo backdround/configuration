@@ -45,7 +45,7 @@ bindcode $mod+38 exec --no-startup-id .local/bin/translate_notify
 #  D&D screens
 bindcode $mod+39 exec --no-startup-id ~/.local/bin/dragon_screen ~/other/screens
 #  Dmenu
-bindcode $mod+40 exec --no-startup-id j4-dmenu-desktop --no-generic  --dmenu='dmenu -i -l 20 -dim 1 -fn 8'
+bindcode $mod+40 exec --no-startup-id rofi -normal-window -modi drun -show drun
 
 # Screenshots
 bindsym --release Print exec --no-startup-id flameshot screen -c -p ~/other/screens
@@ -258,6 +258,7 @@ for_window [class="qute_editor"] floating enable
 for_window [class="qute_editor"] resize set --size-qutebrowser_editor--
 
 # Tiling ignore
+for_window [class="Rofi"] floating enable
 for_window [class="octa"] floating enable
 for_window [class="ui"] floating enable
 for_window [class="chart_manager_test"] floating enable

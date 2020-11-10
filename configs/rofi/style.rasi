@@ -1,0 +1,131 @@
+/* ******************************************************* */
+/* MAIN */
+
+* {
+  default-spacing:               1.1em;
+  font:                          "Fantasque Sans Mono 13";
+
+  --background:                  #404759;
+  --foreground:                  #c6c8d1;
+
+  --element-background:          #23252E;
+  --element-foreground:          var(--foreground);
+  --selected-element-background: #626C7A;
+  --selected-element-foreground: #fff;
+
+  border-color:                  var(--foreground);
+  background-color:              #00000000;
+  text-color:                    #98A4B3;
+}
+
+window {
+  border:           0.4em;
+  border-color:     #9BC2CA;
+  padding:          var(default-spacing);
+  background-color: var(--background);
+}
+
+mainbox {
+  spacing: 0.9em;
+}
+
+listview {
+  scrollbar: false;
+  spacing:   0.7em;
+}
+
+
+/* ******************************************************* */
+/* ELEMENT */
+
+element {
+  padding: 1.3em 1.7em;
+}
+
+element normal.normal {
+  background-color: var(--element-background);
+  text-color:       var(--element-foreground);
+}
+
+element alternate.normal {
+  background-color: var(--element-background);
+  text-color:       var(--element-foreground);
+}
+
+element selected.normal {
+  background-color: var(--selected-element-background);
+  text-color:       var(--selected-element-foreground);
+}
+
+/* ******************************************************* */
+/* MESSAGE */
+
+error-message {
+  padding:      0.7em 1.1em 1.1em;
+  border:       0px 0px 0.15em;
+  border-color: var(--foreground);
+}
+
+textbox {
+  text-color: var(--foreground);
+}
+
+
+/* ******************************************************* */
+/* INPUT BOX */
+
+inputbar {
+  padding:    0.1em 0.6em 0.4em 0.6em;
+  text-color: var(--foreground);
+  spacing:    0.2em;
+  border:     0px 0px 0.15em;
+  font:       "Fantasque Sans Mono 14";
+  children: [
+    prompt,
+    textbox-prompt-colon,
+    entry,
+    num-filtered-rows,
+    textbox-num-sep,
+    num-rows
+  ];
+}
+
+entry {
+  text-color: var(--foreground);
+  font: inherit;
+}
+
+/* *********************************** */
+/* DISPLAY TEXT */
+
+prompt {
+  font: inherit;
+}
+
+textbox-prompt-colon {
+  margin: 0em 1em 0em 0em ;
+  expand: false;
+  str:    ":";
+  font:   inherit;
+}
+
+/* *********************************** */
+/* ROWS */
+
+num-filtered-rows {
+  expand: false;
+  font:   inherit;
+}
+
+textbox-num-sep {
+  expand: false;
+  str:    "/";
+  font:   inherit;
+}
+
+num-rows {
+  expand: false;
+  font:   inherit;
+}
+
+// vim:syntax=css
