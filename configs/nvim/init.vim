@@ -244,11 +244,11 @@ function! s:BasicSettings()
 
   nnoremap <silent> vE <Cmd>tabfirst<CR>
   nnoremap <silent> vU <Cmd>tablast<CR>
-  nnoremap <silent> ve <Cmd>tabprev<CR>
-  nnoremap <silent> vu <Cmd>tabnext<CR>
+  nnoremap <silent> ve gT
+  nnoremap <silent> vu gt
 
-  nnoremap <silent> vs <Cmd>-tabmove<CR>
-  nnoremap <silent> vp <Cmd>+tabmove<CR>
+  nnoremap <silent> vs <Cmd>execute "tabmove -" . v:count1<CR>
+  nnoremap <silent> vp <Cmd>execute "tabmove +" . v:count1<CR>
 
   nnoremap <expr> <silent> vq tabpagenr('$') == 1 ? "<Cmd>quitall<CR>" : "<Cmd>tabclose<CR>"
   nnoremap <expr> <silent> vQ tabpagenr('$') == 1 ? "<Cmd>quitall!<CR>" : "<Cmd>tabclose!<CR>"
@@ -316,7 +316,7 @@ function! s:BasicSettings()
   noremap L         P
   noremap <M-l>     "pp
   noremap <M-L>     "pP
-  inoremap <C-l> <C-o>p
+  inoremap <C-l> <C-o>P
   inoremap <M-l> <C-o>"pP
   noremap <leader>l "+p
   noremap <leader>L "*p
@@ -383,17 +383,22 @@ function! s:BasicSettings()
   nnoremap bE :%s/\<<C-r>s\>//gc<Left><Left><Left>
   vnoremap bE :s/\<<C-r>s\>//gc<Left><Left><Left>
 
+  nnoremap bo :%s///g<Left><Left><Left>
+  vnoremap bo :s///g<Left><Left><Left>
+  nnoremap bO :%s///gc<Left><Left><Left><Left>
+  vnoremap bO :s///gc<Left><Left><Left><Left>
+
   " foldings
   map x <Nop>
-  nnoremap xo zo
+  nnoremap xo     zo
   nnoremap x<M-o> zO
-  nnoremap xe zc
+  nnoremap xe     zc
   nnoremap x<M-e> zC
-  nnoremap xa za
+  nnoremap xa     za
   nnoremap x<M-a> zA
 
-  nnoremap xz <Cmd>%foldclose!<Cr>
-  nnoremap xZ <Cmd>%foldopen!<Cr>
+  nnoremap xz     <Cmd>%foldclose!<Cr>
+  nnoremap x<M-z> <Cmd>%foldopen!<Cr>
 
   set foldopen-=block
   nnoremap xj zj
@@ -1108,6 +1113,7 @@ function! s:ConfigureFeaturePlugins()
 
   " plugins
   let g:coc_global_extensions = [
+        \ "coc-tsserver",
         \ "coc-prettier",
         \ "coc-json",
         \ "coc-html",
