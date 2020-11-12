@@ -92,7 +92,8 @@ map N       toggle_visual_mode reverse=True
 # Copy / delete / paste
 unmap f l t
 map f chain copy mode=toggle; move down=1
-map t chain cut mode=toggle; move down=1
+map h chain cut mode=toggle; move down=1
+map t shell -s trash-put %s
 map T delete
 
 map ll paste
@@ -120,10 +121,12 @@ map xd shell -fs dragon-drag-and-drop %p
 
 
 # Commands
-unmap r c a g
-map r shell $SHELL
+unmap a A j c r g
+map j shell $SHELL
 map c edit
-map a bulkrename
+map r bulkrename
+map a console touch%space
+map A console mkdir%space
 map gs shell -p du --max-depth=1 -h -c
 map gp yank path
 map gd yank dir
@@ -132,31 +135,30 @@ map g. yank name_without_extension
 
 
 # Sorting
-unmap . ,
-map .r set sort_reverse!
-map .z set sort=random
-map .s chain set sort=size;      set sort_reverse=False
-map .b chain set sort=basename;  set sort_reverse=False
-map .n chain set sort=natural;   set sort_reverse=False
-map .m chain set sort=mtime;     set sort_reverse=False
-map .c chain set sort=ctime;     set sort_reverse=False
-map .a chain set sort=atime;     set sort_reverse=False
-map .t chain set sort=type;      set sort_reverse=False
-map .e chain set sort=extension; set sort_reverse=False
+unmap z Z
+map zr set sort_reverse!
+map zs chain set sort=size;      set sort_reverse=False
+map zb chain set sort=basename;  set sort_reverse=False
+map zn chain set sort=natural;   set sort_reverse=False
+map zm chain set sort=mtime;     set sort_reverse=False
+map zc chain set sort=ctime;     set sort_reverse=False
+map za chain set sort=atime;     set sort_reverse=False
+map zt chain set sort=type;      set sort_reverse=False
+map ze chain set sort=extension; set sort_reverse=False
 
-map ,s chain set sort=size;      set sort_reverse=True
-map ,b chain set sort=basename;  set sort_reverse=True
-map ,n chain set sort=natural;   set sort_reverse=True
-map ,m chain set sort=mtime;     set sort_reverse=True
-map ,c chain set sort=ctime;     set sort_reverse=True
-map ,a chain set sort=atime;     set sort_reverse=True
-map ,t chain set sort=type;      set sort_reverse=True
-map ,e chain set sort=extension; set sort_reverse=True
+map Zs chain set sort=size;      set sort_reverse=True
+map Zb chain set sort=basename;  set sort_reverse=True
+map Zn chain set sort=natural;   set sort_reverse=True
+map Zm chain set sort=mtime;     set sort_reverse=True
+map Zc chain set sort=ctime;     set sort_reverse=True
+map Za chain set sort=atime;     set sort_reverse=True
+map Zt chain set sort=type;      set sort_reverse=True
+map Ze chain set sort=extension; set sort_reverse=True
 
 
 # Settings
-unmap z
-map z set show_hidden!
+unmap .
+map . set show_hidden!
 
 # Empty keys
 unmap w y j k m
