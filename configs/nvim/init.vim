@@ -34,9 +34,6 @@ function! s:LoadPlugins()
   Plug 'majutsushi/tagbar'             " TAG BAR
   Plug 'mbbill/undotree'               " UNDOTREE
 
-  Plug 'scrooloose/nerdtree'           " NERDTREE
-  Plug 'Xuyuanp/nerdtree-git-plugin'
-
   " --------------------------------------------------------------------------
   " MOTIONS
   Plug 'romainl/vim-cool'              " COOL
@@ -160,8 +157,7 @@ function! s:BasicSettings()
   set backupdir=~/.nvimbk
   set notimeout " for leader key etc
   set noequalalways
-  set sessionoptions-=buffers
-  set sessionoptions+=globals
+  set sessionoptions=curdir,folds,globals,help,tabpages,winpos,winsize,tabpages
   set completeopt+=preview
   let g:loaded_matchit = 1
   let g:no_plugin_maps = 1
@@ -471,7 +467,6 @@ function! s:ConfigureCommonPlugins()
 
   " --------------------------------------------------------------------------
   " devicons
-  let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
   let g:WebDevIconsUnicodeDecorateFolderNodes = 1
   let g:DevIconsEnableFoldersOpenClose = 1
   let g:DevIconsEnableFolderExtensionPatternMatching = 1
@@ -531,9 +526,9 @@ function! s:ConfigureCommonPlugins()
   let g:floaterm_autoinsert = v:true
 
   let g:floaterm_keymap_toggle = '<F1>'
-  let g:floaterm_keymap_kill = '<F2>'
-  tnoremap <F3> <C-\><C-n>
-  nnoremap <F3> <Cmd>FloatermToggle<Cr><C-\><C-n>
+  tnoremap <F2> <C-\><C-n>
+  nnoremap <F2> <Cmd>FloatermToggle<Cr><C-\><C-n>
+  let g:floaterm_keymap_kill = '<F3>'
 
   " --------------------------------------------------------------------------
   " startify
@@ -547,30 +542,14 @@ function! s:ConfigureCommonPlugins()
   let g:startify_bookmarks = [
         \ {'cv': '~/configuration/configs/nvim/init.vim'},
         \ {'cz': '~/configuration/configs/terminal/zshrc'},
-        \ {'ci': '~/configuration/configs/desktop/i3_template'},
-        \ {'cp': '~/configuration/configs/polybar/config'},
-        \ {'cm': '~/configuration/configs/terminal/tmux'},
-        \ {'ct': '~/configuration/configs/terminal/kitty'},
-        \ {'cc': '~/configuration/configs/desktop/picom.conf'},
-        \ {'cx': '~/configuration/configs/misc/xprofile'},
-        \ {'cr': '~/configuration/configs/misc/Xresources'},
-        \ {'cd': '~/configuration/configs/desktop/dunstrc'},
-        \ {'di': '~/drop/it'},
-        \ {'dw': '~/drop/work'},
-        \ {'dn': '~/drop/investment'},
-        \ {'dm': '~/drop/home'},
-        \ {'dh': '~/drop/health'},
+        \ {'ct': '~/configuration/configs/desktop/i3_template'},
+        \ {'ci': '~/.config/i3/config'},
         \ ]
 
   let g:startify_lists = [
         \ { 'type':'sessions',  'header': ['Sessions']                                 },
         \ { 'type':'bookmarks', 'header': ['Bookmarks']                                },
         \ { 'type':'files',     'header': ['MRU'], 'indices': ['A', 'S', 'D', 'F','G'] },
-        \ ]
-
-  let g:startify_session_before_save = [
-        \ 'silent! NERDTreeClose',
-        \ 'silent! TagbarClose'
         \ ]
 
   let g:startify_session_dir = '~/.local/share/nvim/sessions/'
@@ -653,25 +632,6 @@ function! s:ConfigureCommonPlugins()
 
   nnoremap <silent> vn :UndotreeToggle<CR>
   nnoremap <silent> sn :call SwitchWindowTo("undotree_*")<CR>
-
-  " --------------------------------------------------------------------------
-  " nerdtree
-  let g:NERDTreeStatusline = 'Nerdtree'
-  let g:NERDTreeMapOpenInTab = '<C-i>'
-  let g:NERDTreeMapOpenSplit = 'e'
-  let g:NERDTreeMapOpenVSplit = 'u'
-  let g:NERDTreeMapPreviewSplit = 'gs'
-  let g:NERDTreeMapPreviewVSplit = 'gv'
-  let g:NERDTreeMapMenu = 'a'
-  let g:NERDTreeWinSize = '29'
-
-  nnoremap <silent> vt :call NerdtreeToggle()<CR>
-  nnoremap <silent> st :call SwitchWindowTo("NERD_tree_*")<CR>
-  nnoremap <silent> <leader>,n :NERDTreeRefreshRoot<CR>
-  nnoremap <silent> <leader>,t :NERDTreeFind<CR>
-  nnoremap <silent> <leader>,h :NERDTreeCWD<CR>
-
-  nnoremap <silent> s, :call LoadWindow()<CR>
 
 
   " **************************************************************************
@@ -979,9 +939,9 @@ function! s:ConfigureFeaturePlugins()
         \ --exclude .git/ --exclude .ccls.cache/ --exclude build/'
 
   let g:fzf_action = {
-        \ 'ctrl-e': 'split',
-        \ 'ctrl-u': 'vsplit',
-        \ 'ctrl-i': 'tab split' }
+        \ 'alt-e': 'split',
+        \ 'alt-u': 'vsplit',
+        \ 'alt-i': 'tab split' }
   let g:fzf_layout = { 'down': '30%' }
   let g:fzf_history_dir = '~/.local/share/fzf-history'
   let g:fzf_command_prefix='Fzf'
@@ -1113,6 +1073,7 @@ function! s:ConfigureFeaturePlugins()
 
   " plugins
   let g:coc_global_extensions = [
+        \ "coc-explorer",
         \ "coc-tsserver",
         \ "coc-prettier",
         \ "coc-json",
@@ -1127,6 +1088,43 @@ function! s:ConfigureFeaturePlugins()
         \ ]
   "nnoremap <silent> <leader>uy :<C-u>CocList yank<cr>
   "nnoremap <silent> <leader>us  :<C-u>CocList --normal gstatus<CR>
+
+  " coc explorer
+  let g:coc_explorer_global_presets = {
+  \  'floating': {
+  \    'position': 'floating',
+  \    'open-action-strategy': 'sourceWindow',
+  \    'floating-width': -80,
+  \    'floating-height': -10
+  \  }
+  \}
+
+  " toggle explorer
+  nnoremap <silent> vt <Cmd>CocCommand explorer --preset floating --reveal false<CR>
+  " toggle explorer and reveal current file
+  nnoremap <silent> v<M-t> <Cmd>CocCommand explorer --preset floating<CR>
+
+
+  function! SetCocExplorerMap()
+    setl rnu
+    noremap <buffer> on $2gE
+    noremap <buffer> o. +$2gE
+    noremap <buffer> or -$2gE
+
+    vnoremap <buffer> on $3gE
+    vnoremap <buffer> o. +$3gE
+    vnoremap <buffer> or -$3gE
+
+    silent! unmap <buffer> hn
+    silent! unmap <buffer> hN
+    silent! unmap <buffer> tn
+  endfunction
+
+  augroup SetMapCocExplorerAU
+    autocmd!
+    autocmd FileType coc-explorer call SetCocExplorerMap()
+  augroup END
+
 
   " --------------------------------------------------------------------------
   "signify
@@ -1210,6 +1208,7 @@ function! LoadWindow()
     wincmd w
   endif
 endfunction
+nnoremap <silent> s, :call LoadWindow()<CR>
 
 " ----------------------------------------------------------------------------
 " Windows swithing
@@ -1224,15 +1223,6 @@ function! SwitchWindowTo(bufexpr)
   endif
 
   execute l:window_number . "wincmd w"
-endfunction
-
-" ----------------------------------------------------------------------------
-" nerdtree toggle
-function! NerdtreeToggle()
-  let l:buffer_number = winbufnr(t:saved_window)
-  NERDTreeToggleVCS
-  let t:saved_window = bufwinnr(l:buffer_number)
-  call LoadWindow()
 endfunction
 
 " ----------------------------------------------------------------------------

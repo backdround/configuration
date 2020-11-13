@@ -50,5 +50,78 @@
       "filetypes": ["sh"],
       "ignoredRootPaths": ["~"]
     }
+  },
+
+  // explorer
+  "explorer.floating.border.title": "",
+  "explorer.sources": [
+    { "name": "file", "expand": true }
+  ],
+  "explorer.icon.enableNerdfont": true,
+  "explorer.file.root.template": "[icon] [hidden & 1][root] [fullpath][1 & git]",
+
+  "explorer.keyMappingMode": "none",
+  "explorer.keyMappings.global": {
+    // open
+    "<M-o>": "open",
+    "<M-e>": "open:split",
+    "<M-u>": "open:vsplit",
+    "<M-i>": "open:tab",
+
+
+    // folders
+    "c": "cd",
+    "<M-c>": "gotoParent",
+    "g": [
+      "expandable?",
+      ["expanded?", "collapse:recursive", "expand"],
+      "collapse:recursive"
+    ],
+    "<M-g>": "collapse:recursive",
+    "<2-LeftMouse>": [
+      "expandable?",
+      ["expanded?", "collapse:recursive", "expand"],
+      "open"
+    ],
+
+
+    // file management
+    "f": "copyFile",
+    "h": "cutFile",
+    "l": "pasteFile",
+    "t": "delete",
+    "T": "deleteForever",
+    "r": "rename",
+
+    "a": "addFile",
+    "A": "addDirectory",
+
+
+    // selection
+    "<space>": ["toggleSelection", "nodeNext"],
+    "<M-space>": ["toggleSelection", "nodePrev"],
+
+
+    // movements
+    "{": "expandablePrev",
+    "}": "expandableNext",
+
+    //"[d": "diagnosticPrev",
+    //"]d": "diagnosticNext",
+
+    //"[c": "gitPrev",
+    //"]c": "gitNext",
+    //"<<": "gitStage",
+    //">>": "gitUnstage",
+
+
+    // other
+    "<tab>": "actionMenu",
+    "x": "systemExecute",
+    ".": "toggleHidden",
+
+    "?": "help",
+    "q": "quit",
+    "R": "refresh"
   }
 }
