@@ -70,6 +70,7 @@ mkdir ~/tmp
 mkdir ~/drop
 mkdir ~/downloads
 mkdir ~/build
+mkdir ~/projects
 
 mkdir -p ~/other/videos
 mkdir -p ~/other/music
