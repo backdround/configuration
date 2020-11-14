@@ -5,18 +5,6 @@ xkb_keymap {
     include "basic"
     include "pc"
     include "numpad"
-
-    type "Ctrl_type" {
-      modifiers = Control+Shift;
-      map[None] = Level1;
-      map[Shift] = Level2;
-      map[Control] = Level3;
-
-      level_name[Level1] = "Base";
-      level_name[Level2] = "Shift";
-      level_name[Level3] = "Ctrl";
-    };
-
   };
 
   xkb_compat {
@@ -30,25 +18,19 @@ xkb_keymap {
     };
 
     interpret ISO_Last_Group {
-      action= LockGroup(group=3);
-    };
-
-    interpret Hyper_R {
       action= LockGroup(group=2);
     };
   };
 
   xkb_symbols {
     include "pc+dv_layout"
-    include "us_layout:2"
-    include "ru_layout:3"
+    include "ru_layout:2"
 
     include "inet(evdev)"
     include "terminate(ctrl_alt_bksp)"
 
     replace key <CAPS> {
-      type = "Ctrl_type",
-      [ ISO_First_Group, ISO_Last_Group, Hyper_R ]
+      [ ISO_First_Group, ISO_Last_Group ]
     };
   };
 

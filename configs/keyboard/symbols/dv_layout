@@ -3,7 +3,7 @@ xkb_symbols "keys" {
 
   include "us"
 
-    name[Group1] = "dv";
+  name[Group1] = "dv";
 
   key<AD01> { [ w,            W          ] };
   key<AD02> { [ v,            V          ] };
