@@ -1105,7 +1105,7 @@ function! s:ConfigureFeaturePlugins()
   nnoremap <silent> v<M-t> <Cmd>CocCommand explorer --preset floating<CR>
 
 
-  function! SetCocExplorerMap()
+  function! s:SetCocExplorerMap()
     setl rnu
     noremap <buffer> on $2gE
     noremap <buffer> o. +$2gE
@@ -1115,14 +1115,17 @@ function! s:ConfigureFeaturePlugins()
     vnoremap <buffer> o. +$3gE
     vnoremap <buffer> or -$3gE
 
-    silent! unmap <buffer> hn
-    silent! unmap <buffer> hN
-    silent! unmap <buffer> tn
+    nmap <nowait> <buffer> f <Plug>(coc-explorer-key-n-f)
+    vmap <nowait> <buffer> f <Plug>(coc-explorer-key-v-f)
+    nmap <nowait> <buffer> t <Plug>(coc-explorer-key-n-t)
+    vmap <nowait> <buffer> t <Plug>(coc-explorer-key-v-t)
+    nmap <nowait> <buffer> h <Plug>(coc-explorer-key-n-h)
+    vmap <nowait> <buffer> h <Plug>(coc-explorer-key-v-h)
   endfunction
 
   augroup SetMapCocExplorerAU
     autocmd!
-    autocmd FileType coc-explorer call SetCocExplorerMap()
+    autocmd User CocExplorerOpenPost call s:SetCocExplorerMap()
   augroup END
 
 
