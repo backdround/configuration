@@ -17,16 +17,6 @@ xkb_keymap {
       level_name[Level3] = "Ctrl";
     };
 
-    type "Alt_type" {
-      modifiers = Shift+Mod5;
-      map[None] = Level1;
-      map[Shift] = Level2;
-      map[Mod5] = Level3;
-      level_name[Level1] = "Base";
-      level_name[Level2] = "Shift";
-      level_name[Level3] = "AltGr";
-    };
-
   };
 
   xkb_compat {
@@ -46,10 +36,6 @@ xkb_keymap {
     interpret Hyper_R {
       action= LockGroup(group=2);
     };
-
-    interpret ISO_Level3_Shift {
-      action= SetMods(modifiers=Mod5);
-    };
   };
 
   xkb_symbols {
@@ -64,14 +50,6 @@ xkb_keymap {
       type = "Ctrl_type",
       [ ISO_First_Group, ISO_Last_Group, Hyper_R ]
     };
-
-    replace key <RALT> {
-      [ ISO_Level3_Shift, Caps_Lock ]
-    };
-    replace key <TAB> {
-      [ ISO_Level3_Shift, Tab ]
-    };
-    modifier_map Mod5 { ISO_Level3_Shift };
   };
 
   xkb_geometry  { include "pc(pc105)" };

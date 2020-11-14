@@ -2,7 +2,6 @@ default alphanumeric_keys modifier_keys
 xkb_symbols "keys" {
 
   include "us"
-    include "keys"
 
     name[Group1] = "dv";
 
