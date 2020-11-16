@@ -568,13 +568,13 @@ function! s:ConfigureCommonPlugins()
 
   let g:tagbar_map_help                  = "<M-h>"
   let g:tagbar_map_jump                  = "<Cr>"
-  let g:tagbar_map_preview               = "g"
+  let g:tagbar_map_preview               = "<Nop>"
   let g:tagbar_map_previewwin            = "G"
-  let g:tagbar_map_nexttag               = "j"
-  let g:tagbar_map_prevtag               = "k"
+  let g:tagbar_map_nexttag               = "}"
+  let g:tagbar_map_prevtag               = "{"
   let g:tagbar_map_showproto             = "t"
-  let g:tagbar_map_hidenonpublic         = "n"
-  let g:tagbar_map_zoomwin               = "."
+  let g:tagbar_map_hidenonpublic         = "."
+  let g:tagbar_map_zoomwin               = "<M-n>"
 
   let g:tagbar_map_togglesort            = "<Nop>"
   let g:tagbar_map_togglecaseinsensitive = "<Nop>"
@@ -585,8 +585,8 @@ function! s:ConfigureCommonPlugins()
 
   let g:tagbar_map_openfold              = "xo"
   let g:tagbar_map_closefold             = "xe"
-  let g:tagbar_map_togglefold            = "xa"
-  let g:tagbar_map_openallfolds          = "xZ"
+  let g:tagbar_map_togglefold            = ["g", "xa"]
+  let g:tagbar_map_openallfolds          = "x<M-z>"
   let g:tagbar_map_closeallfolds         = "xz"
   let g:tagbar_map_nextfold              = "xj"
   let g:tagbar_map_prevfold              = "xk"
@@ -598,8 +598,8 @@ function! s:ConfigureCommonPlugins()
 
   " --------------------------------------------------------------------------
   " undotree
-  let g:undotree_CustomUndotreeCmd  = 'topleft vertical 30 new'
-  let g:undotree_CustomDiffpanelCmd = 'botright 7 new'
+  let g:undotree_CustomUndotreeCmd  = 'topleft vertical 35 new'
+  let g:undotree_CustomDiffpanelCmd = 'belowright 10 new'
   let g:undotree_RelativeTimestamp = 1
   let g:undotree_ShortIndicators = 1
   let g:undotree_HelpLine = 0
@@ -623,10 +623,10 @@ function! s:ConfigureCommonPlugins()
     nmap <buffer> <M-h> <plug>UndotreeHelp
     nmap <buffer> m <plug>UndotreeUndo
     nmap <buffer> M <plug>UndotreeRedo
-    nmap <buffer> j <plug>UndotreePreviousState
-    nmap <buffer> k <plug>UndotreeNextState
-    nmap <buffer> J <plug>UndotreePreviousSavedState
-    nmap <buffer> K <plug>UndotreeNextSavedState
+    nmap <buffer> } <plug>UndotreePreviousState
+    nmap <buffer> { <plug>UndotreeNextState
+    nmap <buffer> K <plug>UndotreePreviousSavedState
+    nmap <buffer> J <plug>UndotreeNextSavedState
     nmap <buffer> <Cr> <plug>UndotreeEnter
   endfunc
 
@@ -683,21 +683,12 @@ function! s:ConfigureCommonPlugins()
   " --------------------------------------------------------------------------
   " wordmotion
   let g:wordmotion_spaces = '()\[\]<>{}' . ',./%@^!?;:$~`"\#_|-+=&*' . "'"
-  let g:wordmotion_mappings = {
-        \ 'w'         :'<M-j>',
-        \ 'b'         :'<M-w>',
-        \ 'e'         :'<M-p>',
-        \ 'ge'        :'<M-q>',
-        \ 'W'         :'<M-J>',
-        \ 'B'         :'<M-W>',
-        \ 'E'         :'<M-P>',
-        \ 'gE'        :'<M-Q>',
-        \ 'aw'        :'g<M-w>',
-        \ 'iw'        :'c<M-w>',
-        \ 'aW'        :'g<M-W>',
-        \ 'iW'        :'c<M-W>',
-        \ '<C-R><C-W>':'<C-R><C-M>'
-  \ }
+  let g:wordmotion_nomap = 1
+
+  map <M-w> <Plug>WordMotion_b
+  map <M-q> <Plug>WordMotion_ge
+  map <M-j> <Plug>WordMotion_w
+  map <M-p> <Plug>WordMotion_e
 
   " **************************************************************************
   " EDITORS
@@ -732,11 +723,10 @@ function! s:ConfigureCommonPlugins()
   nmap bNn <Plug>YSsurround
   nmap bNN <Plug>YSsurround
   xmap n   <Plug>VSurround
-  xmap N  <Plug>VgSurround
+  xmap N   <Plug>VgSurround
 
   " --------------------------------------------------------------------------
   " auto-pairs
-  let g:AutoPairsShortcutToggle = '<M-a>'
   let g:AutoPairsShortcutJump = '<M-o>'
   let g:AutoPairsShortcutFastWrap = '<M-u>'
   let g:AutoPairsShortcutBackInsert = '<M-e>'
@@ -744,6 +734,7 @@ function! s:ConfigureCommonPlugins()
   let g:AutoPairsFlyMode = 0
   let g:AutoPairsMultilineClose = 1
   let g:AutoPairsMapCh = 0
+
   " --------------------------------------------------------------------------
   " sideways
   nmap <silent> b, <Cmd>SidewaysLeft<Cr>
@@ -794,7 +785,6 @@ function! s:ConfigureCommonPlugins()
   let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "ip", "it", "i>"]
 
   " targets
-
   let g:targets_aiAI        = 'gc  '
   let g:targets_mapped_aiAI = ['<Plug>(virtual-visual-i)', '<Plug>(virtual-visual-a)', '', '']
   let g:targets_nl = 'th'
@@ -873,7 +863,7 @@ function! s:ConfigureFeaturePlugins()
   " --------------------------------------------------------------------------
   " Goyo
   let g:goyo_width = '170'
-  nnoremap <Leader>. <Cmd>Goyo<CR>
+  nnoremap <M-n> <Cmd>Goyo<CR>
 
   augroup GoyoMode
     autocmd!

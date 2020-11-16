@@ -120,7 +120,7 @@
     "x": "systemExecute",
     ".": "toggleHidden",
 
-    "?": "help",
+    "<M-h>": "help",
     "q": "quit",
     "R": "refresh"
   }
