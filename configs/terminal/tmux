@@ -236,11 +236,12 @@ set -g @prefix_highlight_copy_prompt \
 
 # Fingers
 # prefix + h - enter finger mod
-# finger + [a - z] - copy selected
-# finger + [A - Z] - paste selected in command line
+# finger + [a - z] - paste selected in command line
+# finger + [A - Z] - copy selected
 set -g @plugin 'Morantron/tmux-fingers'
 set -g @fingers-key h
-set -g @fingers-main-action 'zsh -c "tee >(xclip -sel p) | xclip -sel c"'
+set -g @fingers-main-action ':paste:'
+set -g @fingers-shift-action 'zsh -c "tee >(xclip -sel p) | xclip -sel c"'
 set -g @fingers-hint-format "#[fg=color0,bg=color2]%s"
 set -g @fingers-highlight-format "#[fg=color15,bg=color8]%s"
 set -g @fingers-keyboard-layout dvorak-homerow
@@ -264,3 +265,5 @@ if [ ! -f ~/.tmux/plugins/tpm/tpm ] ; then \
 else \
   ~/.tmux/plugins/tpm/tpm ; \
 fi '
+
+# vim: set ft=conf:
