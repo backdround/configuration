@@ -727,6 +727,7 @@ function! s:ConfigureCommonPlugins()
 
   " --------------------------------------------------------------------------
   " auto-pairs
+  let g:AutoPairsShortcutToggle = '<Nop>'
   let g:AutoPairsShortcutJump = '<M-o>'
   let g:AutoPairsShortcutFastWrap = '<M-u>'
   let g:AutoPairsShortcutBackInsert = '<M-e>'
@@ -820,9 +821,21 @@ function! s:ConfigureFeaturePlugins()
   let g:ctrlsf_winsize = '70%'
   let g:ctrlsf_indent = 2
   let g:ctrlsf_mapping = {
+        \ "open"   : "<C-o>",
         \ "split"  : "<C-e>",
         \ "vsplit" : "<C-u>",
         \ "tab"    : "<C-i>",
+        \ "stop"    : "<C-C>",
+        \ "next"    : "}",
+        \ "prev"    : "{",
+        \ "openb"   : "",
+        \ "tabb"    : "",
+        \ "popen"   : "",
+        \ "popenf"  : "",
+        \ "quit"    : "",
+        \ "chgmode" : "",
+        \ "pquit"   : "",
+        \ "loclist" : "",
         \ }
 
   nmap <Leader>g <Plug>CtrlSFCCwordExec
@@ -832,9 +845,8 @@ function! s:ConfigureFeaturePlugins()
   " --------------------------------------------------------------------------
   " gutentags
   let g:gutentags_add_default_project_roots = 0
-  let g:gutentags_project_root              = ['.git', '.gutMark']
+  let g:gutentags_project_root              = ['.git']
   let g:gutentags_cache_dir                 = '~/.local/share/nvim/tags'
-  let g:gutentags_exclude_project_root      = ['/usr']
   let g:gutentags_file_list_command         = 'fd --type file'
 
   " --------------------------------------------------------------------------
