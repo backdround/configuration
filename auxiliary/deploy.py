@@ -50,27 +50,28 @@ if __name__ == '__main__':
     # Minimals shared configs
     minimal_config_pairs = (
         # Terminal
-        ["configs/terminal/inputrc",                 "~/.inputrc"],
-        ["configs/terminal/bat",                     "~/.config/bat/config"],
-        ["configs/terminal/tmux",                    "~/.tmux.conf"],
-        ["configs/terminal/zshrc",                   "~/.zshrc"],
-        ["configs/terminal/p10k.zsh",                "~/.p10k.zsh"],
-        ["configs/terminal/kitty.conf",              "~/.config/kitty/kitty.conf"],
-        ["configs/terminal/ranger",                  "~/.config/ranger/rc.conf"],
+        ["configs/terminal/inputrc",                   "~/.inputrc"],
+        ["configs/terminal/bat",                       "~/.config/bat/config"],
+        ["configs/terminal/tmux",                      "~/.tmux.conf"],
+        ["configs/terminal/zshrc",                     "~/.zshrc"],
+        ["configs/terminal/p10k.zsh",                  "~/.p10k.zsh"],
+        ["configs/terminal/kitty.conf",                "~/.config/kitty/kitty.conf"],
+        ["configs/terminal/ranger",                    "~/.config/ranger/rc.conf"],
 
         # Git
-        ["configs/git/gitconfig",                    "~/.gitconfig"],
-        ["configs/git/gitignore_global",             "~/.gitignore_global"],
+        ["configs/git/gitconfig",                      "~/.gitconfig"],
+        ["configs/git/gitignore_global",               "~/.gitignore_global"],
 
         # Nvim
-        ["configs/nvim/init.vim",                    "~/.config/nvim/init.vim"],
-        ["configs/nvim/coc-settings.json",           "~/.config/nvim/coc-settings.json"],
-        ["configs/nvim/keymap/custom_ru.vim",        "~/.config/nvim/keymap/custom_ru.vim"],
+        ["configs/nvim/init.vim",                      "~/.config/nvim/init.vim"],
+        ["configs/nvim/coc-settings.json",             "~/.config/nvim/coc-settings.json"],
+        ["configs/nvim/keymap/custom_ru.vim",          "~/.config/nvim/keymap/custom_ru.vim"],
 
-        ["configs/nvim/UltiSnips/all.snippets",      "~/.local/share/nvim/UltiSnips/all.snippets"],
-        ["configs/nvim/UltiSnips/cpp.snippets",      "~/.local/share/nvim/UltiSnips/cpp.snippets"],
-        ["configs/nvim/UltiSnips/qml.snippets",      "~/.local/share/nvim/UltiSnips/qml.snippets"],
-        ["configs/nvim/UltiSnips/snippets.snippets", "~/.local/share/nvim/UltiSnips/snippets.snippets"],
+        ["configs/nvim/UltiSnips/all.snippets",        "~/.local/share/nvim/UltiSnips/all.snippets"],
+        ["configs/nvim/UltiSnips/cpp.snippets",        "~/.local/share/nvim/UltiSnips/cpp.snippets"],
+        ["configs/nvim/UltiSnips/qml.snippets",        "~/.local/share/nvim/UltiSnips/qml.snippets"],
+        ["configs/nvim/UltiSnips/snippets.snippets",   "~/.local/share/nvim/UltiSnips/snippets.snippets"],
+        ["configs/nvim/UltiSnips/javascript.snippets", "~/.local/share/nvim/UltiSnips/javascript.snippets"],
 
         # Misc
         ["configs/misc/trizen.conf",                 "~/.config/trizen/trizen.conf"],

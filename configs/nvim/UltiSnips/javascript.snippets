@@ -1,0 +1,78 @@
+# ------------------------------------------------------------------------------
+# Console
+snippet cl "console.log"
+console.log(${0})
+endsnippet
+
+snippet cw "console.warn"
+console.warn(${0})
+endsnippet
+
+snippet ce "console.error"
+console.error(${0:error})
+endsnippet
+
+snippet ca "console.assert"
+console.assert(${0})
+endsnippet
+
+snippet vout "verbose out"
+console.log("${2:`!p snip.rv = t[1].replace('"','\\"')`:}", ${1})$0
+endsnippet
+
+# ------------------------------------------------------------------------------
+# Timers
+snippet st "setTimeout"
+setTimeout(() => {
+	${2}
+}, ${1:100})
+endsnippet
+
+snippet si "setInterval"
+setInterval(() => {
+	${2}
+}, ${1:100})
+endsnippet
+
+snippet sim "setImmediate"
+setImmediate(() => {
+	${2}
+}, ${1:100})
+endsnippet
+
+# ------------------------------------------------------------------------------
+# Imports
+snippet req "require(module)"
+const ${2:`!p snip.rv = t[1]`} = require('${1}')
+endsnippet
+
+# ------------------------------------------------------------------------------
+# Module
+
+snippet m "template module"
+'use strict'
+
+class ${1:`!p
+class_name = list(snip.basename)
+class_name[0] = class_name[0].upper()
+
+# Set symbols upper after '-'
+for i in range(len(class_name)):
+	if i == (len(class_name) - 1):
+		break
+	if class_name[i] == '-':
+		class_name[i + 1] = class_name[i + 1].upper()
+
+# Filtering out '-'
+class_name = [c for c in class_name if c != '-' ]
+
+# Create string from list
+snip.rv = "".join(class_name)
+`} {
+	constructor(${2}) {
+		${3}
+	}
+}
+
+module.exports = `!p snip.rv = t[1]`
+endsnippet
