@@ -943,22 +943,31 @@ function! s:ConfigureFeaturePlugins()
   " fzf
   " options {{{
   let $FZF_DEFAULT_OPTS = '--multi --no-mouse --inline-info'
-  let $FZF_DEFAULT_COMMAND = 'fd --hidden  --type file
-        \ --exclude .git/ --exclude .ccls.cache/ --exclude build/'
+  let $FZF_DEFAULT_COMMAND = '
+    \ fd --hidden
+    \ --type file
+    \ --exclude .git/
+    \ --exclude .ccls.cache/
+    \ --exclude build/
+    \ --exclude node_modules
+  \'
 
   let g:fzf_action = {
         \ 'alt-e': 'split',
         \ 'alt-u': 'vsplit',
         \ 'alt-i': 'tab split' }
-  let g:fzf_layout = { 'down': '30%' }
+  let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
   let g:fzf_history_dir = '~/.local/share/fzf-history'
   let g:fzf_command_prefix='Fzf'
 
-  " autoclose statusline
-  augroup CustomFzfView
+  " by default BTags --layout=reverse-list
+  command! -bang -nargs=* FIXEDFzfBTags
+    \ call fzf#vim#buffer_tags(<q-args>, {'options': ['--layout=default']}, <bang>0)
+
+  " set buffer name for tabline
+  augroup CustomFzfName
     autocmd!
-    autocmd  FileType fzf set laststatus=0 noshowmode relativenumber!
-    autocmd  FileType fzf autocmd BufLeave <buffer> set laststatus=2 showmode relativenumber
+    autocmd FileType fzf file fzf
   augroup END
   " }}}
 
@@ -974,22 +983,22 @@ function! s:ConfigureFeaturePlugins()
   imap <c-f>l <plug>(fzf-complete-buffer-line)
 
   " open file
-  nnoremap <silent> <leader>d :FzfHelptags<CR>
-  nnoremap <silent> <leader>h :FzfGFiles<CR>
-  nnoremap <silent> <leader>H :FzfGFiles?<CR>| "changed
+  nnoremap <silent> <leader>d         :FzfHelptags<CR>
+  nnoremap <silent> <leader>h         :FzfGFiles<CR>
+  nnoremap <silent> <leader><M-h>     :FzfGFiles?<CR>| "changed
   nnoremap <silent> <expr> <leader>t ":FzfFiles ".(expand('%:p:h'))."\<CR>"
-  nnoremap <silent> <leader>T :FzfFiles<CR>
+  nnoremap <silent> <leader><M-t>     :FzfFiles<CR>
 
   " useful
-  nnoremap <silent> <leader>n :FzfBTags<CR>
-  nnoremap <silent> <leader>N :FzfTags<CR>
-  nnoremap <silent> <leader>R :FzfHistory<CR>| "mru
-  nnoremap <leader>v :FzfWindows<CR>
-  nnoremap <leader>k :FzfSnippets<CR>
+  nnoremap <silent> <leader>n     :FIXEDFzfBTags<CR>
+  nnoremap <silent> <leader><M-n> :FzfTags<CR>
+  nnoremap <silent> <leader><M-r> :FzfHistory<CR>| "mru
+  nnoremap <silent> <leader>v     :FzfWindows<CR>
+  nnoremap <silent> <leader>k     :FzfSnippets<CR>
+  nnoremap <silent> <leader><M-b> :FzfBuffers<CR>
 
   " useless
   nnoremap <leader>Dv :FzfFiles ~/.local/share/nvim<CR>
-  nnoremap <leader>Db :FzfBuffers<CR>
   nnoremap <leader>Df :FzfLines<CR>
   nnoremap <leader>Dz :FzfMarks<CR>
   nnoremap <leader>Dg :FzfCommits<CR>
