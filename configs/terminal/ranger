@@ -161,7 +161,7 @@ unmap .
 map . set show_hidden!
 
 # Empty keys
-unmap w y j k m
+unmap w y k m
 
 # Pager binds
 pmap e pager_move  down=0.5 pages=True

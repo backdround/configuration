@@ -499,7 +499,7 @@ function! s:ConfigureCommonPlugins()
   let g:airline#extensions#tabline#enabled = 1
   let g:airline#extensions#tabline#show_close_button = 0
   let g:airline#extensions#tabline#tab_nr_type = 1
-  let g:airline#extensions#tabline#fnamemod = ':t:m'
+  let g:airline#extensions#tabline#fnamemod = ':t'
 
   let g:airline#extensions#tabline#show_buffers = 0
   let g:airline#extensions#tabline#show_splits = 1
@@ -529,6 +529,12 @@ function! s:ConfigureCommonPlugins()
   tnoremap <F2> <C-\><C-n>
   nnoremap <F2> <Cmd>FloatermToggle<Cr><C-\><C-n>
   let g:floaterm_keymap_kill = '<F3>'
+
+  " set buffer name for tabline
+  augroup CustomFloatermName
+    autocmd!
+    autocmd FileType floaterm file terminal
+  augroup END
 
   " --------------------------------------------------------------------------
   " startify
@@ -727,13 +733,13 @@ function! s:ConfigureCommonPlugins()
 
   " --------------------------------------------------------------------------
   " auto-pairs
-  let g:AutoPairsShortcutToggle = '<Nop>'
+  let g:AutoPairsShortcutToggle = ''
   let g:AutoPairsShortcutJump = '<M-o>'
   let g:AutoPairsShortcutFastWrap = '<M-u>'
   let g:AutoPairsShortcutBackInsert = '<M-e>'
 
   let g:AutoPairsFlyMode = 0
-  let g:AutoPairsMultilineClose = 1
+  let g:AutoPairsMultilineClose = 0
   let g:AutoPairsMapCh = 0
 
   " --------------------------------------------------------------------------
