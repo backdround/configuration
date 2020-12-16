@@ -20,17 +20,26 @@ xkb_keymap {
     interpret ISO_Last_Group {
       action= LockGroup(group=2);
     };
+
+    interpret Hyper_R {
+      action= LockGroup(group=3);
+    };
   };
 
   xkb_symbols {
     include "pc+dv_layout"
     include "ru_layout:2"
+    include "us_layout:3"
 
     include "inet(evdev)"
     include "terminate(ctrl_alt_bksp)"
 
     replace key <CAPS> {
       [ ISO_First_Group, ISO_Last_Group ]
+    };
+
+    replace key <HNGL> {
+      [ Hyper_R ]
     };
   };
 

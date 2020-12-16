@@ -102,6 +102,7 @@ if __name__ == '__main__':
 
         # Keyboard
         ["configs/keyboard/keymap/config",          "~/.config/xkb/keymap/config"],
+        ["configs/keyboard/symbols/us_layout",      "~/.config/xkb/symbols/us_layout"],
         ["configs/keyboard/symbols/dv_layout",      "~/.config/xkb/symbols/dv_layout"],
         ["configs/keyboard/symbols/ru_layout",      "~/.config/xkb/symbols/ru_layout"],
 
