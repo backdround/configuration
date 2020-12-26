@@ -32,3 +32,4 @@ translate-shell
 yarn
 npm
 lsd
+kitty-terminfo
