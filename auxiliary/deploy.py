@@ -125,6 +125,7 @@ if __name__ == '__main__':
         # Misc
         ["configs/misc/gpg",                        "~/.gnupg/gpgconf.conf"],
         ["configs/misc/pulse",                      "~/.config/pulseaudio-ctl/config"],
+        ["configs/misc/zathurarc",                  "~/.config/zathura/zathurarc"],
     )
     deployer.create_list_of_symlink(desktop_config_pairs)
 

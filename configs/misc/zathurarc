@@ -1,0 +1,162 @@
+# ----------------------------------------------------------
+# COLOR THEME
+
+set default-fg              "#C6C8D1"
+set default-bg              "#14171E"
+
+set completion-fg           "#C6C8D1"
+set completion-bg           "#22252F"
+
+set completion-group-fg     "#C6C8D1"
+set completion-group-bg     "#3D4252"
+
+set completion-highlight-fg "#E1E2E8"
+set completion-highlight-bg "#3D4252"
+
+set index-fg                "#C6C8D1"
+set index-bg                "#14171E"
+
+set index-active-fg         "#C6C8D1"
+set index-active-bg         "#3D4252"
+
+set inputbar-fg             "#C6C8D1"
+set inputbar-bg             "#14171E"
+
+set statusbar-fg            "#88CEA2"
+set statusbar-bg            "#14171E"
+
+set notification-fg         "#88CEA2"
+set notification-bg         "#1B1E25"
+
+set notification-warning-fg "#DCDE92"
+set notification-warning-bg "#1B1E25"
+
+set notification-error-fg   "#F2779B"
+set notification-error-bg   "#1B1E25"
+
+
+set highlight-color         "#00BD8F"
+set highlight-active-color  "#DB006A"
+set highlight-transparency  "0.4"
+
+
+
+# ----------------------------------------------------------
+# UI
+
+set statusbar-basename      false
+set statusbar-home-tilde    true
+set selection-clipboard     primary
+
+set guioptions              shv
+
+set recolor                 false
+set recolor-keephue         true
+set recolor-darkcolor       "#E6E8F5"
+set recolor-lightcolor      "#232A38"
+set recolor-reverse-video   false
+
+set zoom-step 15
+set scroll-step 160
+set scroll-hstep 200
+
+# ----------------------------------------------------------
+# BINDS
+
+unmap w
+unmap v
+unmap s
+unmap p
+unmap y
+unmap o
+unmap a
+unmap e
+unmap u
+unmap i
+unmap z
+unmap q
+unmap j
+unmap k
+unmap x
+unmap f
+unmap g
+unmap c
+unmap r
+unmap l
+unmap d
+unmap h
+unmap t
+unmap n
+unmap b
+unmap m
+
+unmap W
+unmap V
+unmap S
+unmap P
+unmap Y
+unmap O
+unmap A
+unmap E
+unmap U
+unmap I
+unmap Z
+unmap Q
+unmap J
+unmap K
+unmap X
+unmap F
+unmap G
+unmap C
+unmap R
+unmap L
+unmap D
+unmap H
+unmap T
+unmap N
+unmap B
+unmap M
+
+unmap +
+unmap -
+unmap =
+
+
+# movements
+map e scroll down
+map u scroll up
+map s scroll half-down
+map p scroll half-up
+
+map oh goto bottom
+map ot goto top
+map od scroll left
+map on scroll right
+
+map E jumplist backward
+map U jumplist forward
+
+
+# jumps
+map x follow
+map y mark_add
+map i mark_evaluate
+
+
+# view
+map + zoom in
+map - zoom out
+map = zoom 100
+map & adjust_window width
+
+
+# other
+map [ search backward
+map ] search forward
+
+map r recolor
+map _ toggle_index
+map g toggle_page_mode
+map q quit
+
+# vim: set ft=config:
