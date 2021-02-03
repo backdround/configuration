@@ -4,6 +4,8 @@ import theme.draw
 # disable linter errors
 c = c  # noqa: F821 pylint: disable=E0602,C0103
 config = config  # noqa: F821 pylint: disable=E0602,C0103
+config.load_autoconfig(False)
+
 
 theme.draw.set_colors(c)
 theme.draw.set_style(c)
@@ -159,8 +161,8 @@ config.bind('=',              'zoom')
 config.bind('/',              'set-cmd-text /')
 config.bind('?',              'set-cmd-text ?')
 config.bind(':',              'set-cmd-text :')
-config.bind('<Ctrl-Return>',  'follow-selected -t')
-config.bind('<Return>',       'follow-selected')
+config.bind('<Ctrl-Return>',  'selection-follow -t')
+config.bind('<Return>',       'selection-follow')
 config.bind('<Ctrl-/>',       'search {primary}')
 config.bind('<Ctrl-Shift-?>', 'search --reverse {primary}')
 config.bind(']',              'search-next')
@@ -168,9 +170,9 @@ config.bind('[',              'search-prev')
 config.bind('<Ctrl-Shift-b>', 'set-cmd-text -s :open -p')
 config.bind('<Alt-s>',        'config-cycle --temp hints.chars {} {}'.format(both_hands_chars, left_hand_chars))
 
-config.bind('g', 'enter-mode insert')
-config.bind('c', 'enter-mode passthrough')
-config.bind('n', 'enter-mode caret')
+config.bind('g', 'mode-enter insert')
+config.bind('c', 'mode-enter passthrough')
+config.bind('n', 'mode-enter caret')
 
 
 # open in background/new/current tab or new window
@@ -316,10 +318,10 @@ config.bind('e',            'scroll down',                         mode='caret')
 config.bind('u',            'scroll up',                           mode='caret')
 
 
-config.bind('<Ctrl-Space>', 'drop-selection',                      mode='caret')
-config.bind('<Escape>',     'leave-mode',                          mode='caret')
-config.bind('<Space>',      'toggle-selection',                    mode='caret')
-config.bind('n',            'toggle-selection',                    mode='caret')
+config.bind('<Ctrl-Space>', 'selection-drop',                      mode='caret')
+config.bind('<Escape>',     'mode-leave',                          mode='caret')
+config.bind('<Space>',      'selection-toggle',                    mode='caret')
+config.bind('n',            'selection-toggle',                    mode='caret')
 
 config.bind('f',            'yank selection ;; yank selection -s', mode='caret')
 config.bind('F',            'yank selection'                     , mode='caret')
@@ -358,7 +360,7 @@ config.bind('<Ctrl-Y>',         'rl-yank',                              mode='co
 
 config.bind('<Up>',             'completion-item-focus --history prev', mode='command')
 config.bind('<Down>',           'completion-item-focus --history next', mode='command')
-config.bind('<Escape>',         'leave-mode',                           mode='command')
+config.bind('<Escape>',         'mode-leave',                           mode='command')
 config.bind('<Ctrl-Return>',    'command-accept --rapid',               mode='command')
 config.bind('<Return>',         'command-accept',                       mode='command')
 config.bind('<Shift-Tab>',      'completion-item-focus prev',           mode='command')
@@ -369,15 +371,15 @@ config.bind('<Ctrl-Tab>',       'completion-item-focus next-category',  mode='co
 
 #  *****************************************************************************
 ## Hint mode
-config.bind('<Escape>', 'leave-mode', mode='hint')
-config.bind('<Return>', 'follow-hint', mode='hint')
+config.bind('<Escape>', 'mode-leave', mode='hint')
+config.bind('<Return>', 'hint-follow', mode='hint')
 
 
 #  *****************************************************************************
 ## Insert mode
-config.bind('<Escape>', 'leave-mode',             mode='insert')
-config.bind('<Alt-a>',  'open-editor',            mode='insert')
-config.bind('<Alt-t>',  'enter-mode passthrough', mode='insert')
+config.bind('<Escape>', 'mode-leave',             mode='insert')
+config.bind('<Alt-a>',  'edit-text',            mode='insert')
+config.bind('<Alt-t>',  'mode-enter passthrough', mode='insert')
 
 for i in range(1, 10):
     config.bind('<Alt-{}>'.format(i), 'tab-focus {}'.format(i), mode='insert')
@@ -386,7 +388,7 @@ config.bind('<Alt-0>', 'tab-focus -1', mode='insert')
 
 #  *****************************************************************************
 ## Passthrough mode
-config.bind('<Escape>',     'leave-mode',        mode='passthrough')
+config.bind('<Escape>',     'mode-leave',        mode='passthrough')
 config.bind('<Alt-Escape>', 'fake-key <Escape>', mode='passthrough')
-config.bind('<Alt-a>',      'open-editor',       mode='passthrough')
-config.bind('<Alt-t>',      'enter-mode insert', mode='passthrough')
+config.bind('<Alt-a>',      'edit-text',       mode='passthrough')
+config.bind('<Alt-t>',      'mode-enter insert', mode='passthrough')
