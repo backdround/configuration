@@ -530,25 +530,21 @@ alias -g .ps='$(fd ".*gpg" ~/.password-store/ | sed "s$.*\.password-store/\(.*\)
 alias psc='pass show --clip .ps'
 alias tldr='tldr -c'
 alias hdi='howdoi'
+alias d='docker'
+alias dc='docker-compose'
 
 pg() { eval "pgrep -i -l \"$*\" | grep -i \"$*\"" }
 
 sp() { eval "sudo pacman -$*" }
-S() { eval "sudo pacman -S $*" }
-Ss() { eval "sudo pacman -Ss $*" }
+alias S='sudo pacman -S'
+alias Ss='sudo pacman -Ss'
 
 # scripts
-t() { trans en:ru "$*" }
-r() { trans ru:en "$*" }
+alias t='trans en:ru'
+alias r='trans ru:en'
 alias se='~/.local/bin/spellchecker'
 alias sr='~/.local/bin/spellchecker_ru'
 alias lolclock='while true; do tput clear; date +"%H : %M : %S" | figlet ; sleep 1; done'
-
-# usage: fswatch-write ./file.txt echo "file was changed"
-fswatch-write() {
-eval "fswatch --event MovedTo --event MovedFrom --event Renamed --event Removed \
-  --event Updated --event Created -o -r $1 | xargs -i sh -c \"${@:2}\""
-}
 
 # git
 alias g='git'
@@ -582,10 +578,10 @@ alias gcc='gcc -fdiagnostics-color=always'
 
 # ls
 alias ls='ls --color -t'
-alias l='lsd -t'
-alias ll='lsd -lt'
-alias la='lsd -At'
-alias lla='lsd -lAt'
+alias l='lsd -t --color=always'
+alias ll='lsd -lt --color=always'
+alias la='lsd -At --color=always'
+alias lla='lsd -lAt --color=always'
 
 # confirm
 alias rm='rm -i'
