@@ -1,6 +1,9 @@
 #!/bin/bash
 # Setup script on bare archlinux.
 
+# Exit script on any error
+set -e
+
 # Get setup instonse
 INSTANCES="^(home|work|note|server)$"
 if [[ ! "$1" =~ $INSTANCES ]]; then
@@ -51,7 +54,7 @@ mkdir -p ~/.local/bin
 
 
 # Install configuration
-sudo chsh "$USER" -s /bin/zsh
+sudo chsh "`whoami`" -s /bin/zsh
 ./auxiliary/deploy.py "$@"
 pip install --user neovim
 
