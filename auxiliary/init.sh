@@ -35,7 +35,7 @@ if [[ "$1" == "server"  ]]; then
   sudo -u trizen ./auxiliary/trizen.sh "$@"
 
   # Install packages
-  sudo -u trizen sh -c "trizen --needed --noconfirm -S - < ./dependencies/common_packets"
+  sudo -u trizen trizen --needed --noconfirm -S $(cat ./dependencies/common_packets)
 else
 
   # Install trizen

@@ -74,7 +74,6 @@ if __name__ == '__main__':
         ["configs/nvim/UltiSnips/javascript.snippets", "~/.local/share/nvim/UltiSnips/javascript.snippets"],
 
         # Misc
-        ["configs/misc/trizen.conf",                 "~/.config/trizen/trizen.conf"],
         ["configs/misc/xprofile",                    "~/.xprofile"],
         ["configs/misc/Xresources",                  "~/.Xresources"],
     )
