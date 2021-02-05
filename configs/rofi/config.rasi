@@ -10,6 +10,7 @@ configuration {
   fake-background: "background";
   theme: "style.rasi";
   display-drun: "Filter";
+  matching: "fuzzy";
 
   me-accept-entry: "MousePrimary";
   me-select-entry: "MouseDPrimary";
