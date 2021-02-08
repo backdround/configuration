@@ -214,6 +214,16 @@ zle -N cd-up
 zle -N cd-back
 
 
+# fix redraw
+function custom-redraw-prompt() {
+  local precmd
+  for precmd in $precmd_functions; do
+    $precmd
+  done
+  zle reset-prompt
+}
+zle -N custom-redraw-prompt
+
 # fzf wrappers
 function fzf-select() {
   setopt localoptions pipefail no_aliases 2> /dev/null
@@ -251,7 +261,7 @@ function fzf-cd-project() {
   fi
 
   cd "$PROJECT_DIR" > /dev/null &&
-  zle fzf-redraw-prompt
+  zle custom-redraw-prompt
 }
 zle -N fzf-cd-project
 
@@ -282,7 +292,7 @@ fzf-cd-file() {
 
   # cd to file dir
   cd "$(dirname $file)"  &&
-  zle fzf-redraw-prompt
+  zle custom-redraw-prompt
 }
 zle -N fzf-cd-file
 
