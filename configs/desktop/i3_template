@@ -205,7 +205,7 @@ mode "launcher" {
   bindsym t exec --no-startup-id ~/.local/bin/qute_do.sh; mode "default"
 
   #google-chrome
-  bindsym n exec --no-startup-id google-chrome-unstable; mode "default"
+  bindsym n exec --no-startup-id google-chrome-stable; mode "default"
 
   # change layout
   bindsym $mod+d split h
