@@ -80,6 +80,7 @@ mkdir -p ~/other/music
 mkdir -p ~/other/books
 mkdir -p ~/other/screens
 mkdir -p ~/other/docs
+mkdir -p ~/other/test_projects
 
 mkdir ~/.password-store
 mkdir -p ~/.tmp/trizen

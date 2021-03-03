@@ -178,4 +178,3 @@ if __name__ == '__main__':
     # other desktop
     deployer.symlink_all_files_in_dir("services/", "~/.config/systemd/user")
     deployer.symlink_all_files_in_dir("links/",    "~/.local/share/applications")
-    deployer.create_list_of_symlink([["templates", "~/templates"]])
