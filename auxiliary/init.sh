@@ -48,7 +48,6 @@ fi
 # Create directory tree
 mkdir -p ~/.nvimbk
 mkdir -p ~/.local/share/applications
-mkdir -p ~/.local/othescripts/r
 mkdir -p ~/.local/bin
 
 
@@ -71,7 +70,6 @@ fi
 
 # Create directory tree
 mkdir -p ~/tmp
-mkdir -p ~/drop
 mkdir -p ~/downloads
 mkdir -p ~/build
 mkdir -p ~/projects

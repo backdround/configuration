@@ -405,6 +405,8 @@ function! s:BasicSettings()
   " other
   set pastetoggle=<F8>
 
+  nnoremap ^ q
+  nnoremap $ @
   inoremap <M-c> <C-^>
   vnoremap / y/<C-R>"<CR>
   nnoremap _ <esc>:w<CR>
@@ -857,7 +859,7 @@ function! s:ConfigureFeaturePlugins()
 
   " --------------------------------------------------------------------------
   " notes
-  let g:notes_directories = ['~/drop']
+  let g:notes_directories = ['~/notes']
   let g:notes_title_sync = 'rename_file'
 
   " --------------------------------------------------------------------------
