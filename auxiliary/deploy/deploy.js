@@ -119,7 +119,7 @@ function makeLinks(links) {
       commandString = `mkdir -p $(dirname ${symlink}) && ln -sf ${target} ${symlink}`
     }
 
-    // Perform command
+    // Perform command.
     let command = spawnSync(commandString, [], {shell: true})
 
     // Check errors.
@@ -158,7 +158,7 @@ function makeCommands(commands) {
       let error = process.stderr.toString().trim()
       log.error(`Error command:\n ${processString}\n ${error}`)
     } else {
-      log.info('Make:', processString)
+      log.info('Executed:', processString)
     }
   }
 }
@@ -193,7 +193,7 @@ function makeTemplates(templates) {
       continue
     }
 
-    log.info('Make template:', templateData.instance.output)
+    log.info('Rendered:', templateData.instance.output)
   }
 }
 

@@ -88,11 +88,11 @@
 
 # --------------------------------------------------
 # templates
-#.templates: &templates
-    #qute_link:
-        #instance:
-            #input: "@/links/qute_link.desktop"
-            #output: "~/.config/i3/config"
+.templates: &templates
+    qute_link:
+        instance:
+            input: "@/links/qute_link.desktop"
+            output: "~/.local/share/applications/qute_link.desktop"
 
 .i3_note_template: &i3_note_template
     instance: &i3_note_instance
@@ -141,6 +141,7 @@ home:
         << : *desktop-links
     commands: *commands
     templates:
+        << : *templates
         i3 : *i3_home_template
 
 work:
@@ -149,6 +150,7 @@ work:
         << : *desktop-links
     commands: *commands
     templates:
+        << : *templates
         i3 : *i3_work_template
 
 note:
@@ -157,4 +159,5 @@ note:
         << : *desktop-links
     commands: *commands
     templates:
+        << : *templates
         i3 : *i3_note_template
