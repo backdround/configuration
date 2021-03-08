@@ -27,7 +27,6 @@ lightdm
 lightdm-gtk-greeter
 lightdm-gtk-greeter-settings
 mpv
-nodejs
 ponymix
 pulseaudio
 ranger

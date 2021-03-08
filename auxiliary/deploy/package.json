@@ -1,0 +1,16 @@
+{
+  "name": "deploy-configs",
+  "main": "deploy.js",
+  "description": "Script for deploy configs to system",
+  "scripts": {
+    "deploy": "node ./deploy.js"
+  },
+  "author": "Vlad Chepaykin <backdround@yandex.ru>",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "commander": "^7.1.0",
+    "mustache": "^4.1.0",
+    "yaml": "^1.10.0"
+  }
+}

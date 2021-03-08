@@ -3,6 +3,10 @@
 # Exit script on any error
 set -e
 
+which trizen > /dev/null && \
+  echo "Trizen already installed" && \
+  exit 0
+
 # Install trizen package
 cd /tmp/
 git clone https://aur.archlinux.org/trizen.git

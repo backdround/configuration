@@ -12,8 +12,7 @@ if [[ ! "$1" =~ $INSTANCES ]]; then
 fi
 
 # Get project root
-SCRIPT_PATH=$(dirname "$0")
-PROJECT_ROOT=$(realpath "${SCRIPT_PATH}/..")
+PROJECT_ROOT=$(git rev-parse --show-toplevel)
 
 
 ############################################################
@@ -29,17 +28,17 @@ cd "$PROJECT_ROOT"
 if [[ "$1" == "server"  ]]; then
 
   # Create not root user (trizen)
-  ./auxiliary/server_user.sh "$@"
+  ./auxiliary/scripts/server_user.sh "$@"
 
   # Install trizen
-  sudo -u trizen ./auxiliary/trizen.sh "$@"
+  sudo -u trizen ./auxiliary/scripts/trizen.sh "$@"
 
   # Install packages
   sudo -u trizen trizen --needed --noconfirm -S $(cat ./dependencies/common_packets)
 else
 
   # Install trizen
-  ./auxiliary/trizen.sh "$@"
+  ./auxiliary/scripts/trizen.sh "$@"
 
   # Install packages
   trizen --needed --noconfirm -S - < ./dependencies/common_packets
@@ -47,15 +46,17 @@ fi
 
 
 # Create directory tree
-mkdir ~/.nvimbk
+mkdir -p ~/.nvimbk
 mkdir -p ~/.local/share/applications
-mkdir -p ~/.local/other
+mkdir -p ~/.local/othescripts/r
 mkdir -p ~/.local/bin
 
 
 # Install configuration
 sudo chsh "`whoami`" -s /bin/zsh
-./auxiliary/deploy.py "$@"
+npm --prefix ./auxiliary/deploy ci && \
+  npm --prefix ./auxiliary/deploy run deploy -- --instance $1
+
 pip install --user neovim
 
 
@@ -69,11 +70,11 @@ fi
 # Desktop preset intall
 
 # Create directory tree
-mkdir ~/tmp
-mkdir ~/drop
-mkdir ~/downloads
-mkdir ~/build
-mkdir ~/projects
+mkdir -p ~/tmp
+mkdir -p ~/drop
+mkdir -p ~/downloads
+mkdir -p ~/build
+mkdir -p ~/projects
 
 mkdir -p ~/other/videos
 mkdir -p ~/other/music
@@ -82,9 +83,8 @@ mkdir -p ~/other/screens
 mkdir -p ~/other/docs
 mkdir -p ~/other/test_projects
 
-mkdir ~/.password-store
 mkdir -p ~/.tmp/trizen
-mkdir ~/.ssh && chmod 700 ~/.ssh
+mkdir -p ~/.ssh && chmod 700 ~/.ssh
 
 
 # Install packages
