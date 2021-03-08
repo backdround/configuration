@@ -70,7 +70,7 @@
     services:        ["@/services/",                               "~/.config/systemd/user"]
 
     # Links
-    links:           ["@/links/",                                  "~/.local/share/applications"]
+    links:           ["@/links/gotop.desktop",                     "~/.local/share/applications/gotop.desktop"]
 
     # Misc
     gpg:             ["@/configs/misc/gpg",                        "~/.gnupg/gpgconf.conf"]
@@ -88,6 +88,12 @@
 
 # --------------------------------------------------
 # templates
+#.templates: &templates
+    #qute_link:
+        #instance:
+            #input: "@/links/qute_link.desktop"
+            #output: "~/.config/i3/config"
+
 .i3_note_template: &i3_note_template
     instance: &i3_note_instance
         input: "@/configs/desktop/i3_template"

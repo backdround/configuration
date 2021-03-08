@@ -99,6 +99,7 @@ function objectEmpty(object) {
 }
 
 function makeLinks(links) {
+  // Check empty links.
   if (objectEmpty(links)) {
     log.info('Nothing to do')
     return
@@ -108,10 +109,22 @@ function makeLinks(links) {
     let target = files[0]
     let symlink = files[1]
 
-    let symlinkProcess = spawnSync('ln', ['-sf', target, symlink], {shell: true})
+    // Get command string.
+    let commandString
+    if (fs.statSync(target).isDirectory()) {
+      // Create directory and make all target links.
+      commandString = `mkdir -p ${symlink} && ln -sf ${target}/* -t ${symlink}`
+    } else {
+      // Create base directory and make target link.
+      commandString = `mkdir -p $(dirname ${symlink}) && ln -sf ${target} ${symlink}`
+    }
 
-    if (symlinkProcess.status != 0) {
-      let error = symlinkProcess.stderr.toString().trim()
+    // Perform command
+    let command = spawnSync(commandString, [], {shell: true})
+
+    // Check errors.
+    if (command.status != 0) {
+      let error = command.stderr.toString().trim()
       log.error(`Error creation ${symlink}:\n ${error}`)
     } else {
       log.info('Created:', symlink)
@@ -120,6 +133,7 @@ function makeLinks(links) {
 }
 
 function makeCommands(commands) {
+  // Check empty commands.
   if (objectEmpty(commands)) {
     log.info('Nothing to do')
     return
@@ -150,16 +164,24 @@ function makeCommands(commands) {
 }
 
 function makeTemplates(templates) {
+  // Check empty templates.
   if (objectEmpty(templates)) {
     log.info('Nothing to do')
     return
   }
 
+  // Get default data
+  let defaultData = {
+    user: os.userInfo().username,
+    homedir: os.homedir()
+  }
+
+  // Make templates
   for (let [_, templateData] of Object.entries(templates)) {
     let inputPath = templateData.instance.input
     let outputPath = templateData.instance.output
     outputPath = outputPath.replace('~', os.homedir())
-    let data = templateData.data
+    let data = Object.assign(defaultData, templateData.data)
 
     try {
       let template = fs.readFileSync(inputPath, 'utf8').toString()
