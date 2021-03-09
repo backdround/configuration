@@ -80,8 +80,9 @@ set $wsright3 "7: >"
 set $wsright4 "8: Right"
 
 # Monitors
-set $left_monitor {{{left_monitor}}}
-set $right_monitor {{{right_monitor}}}
+{{#monitors}}
+set $left_monitor {{{left}}}
+set $right_monitor {{{right}}}
 workspace $wsleft1  output $left_monitor
 workspace $wsleft2  output $left_monitor
 workspace $wsleft3  output $left_monitor
@@ -90,6 +91,11 @@ workspace $wsright1 output $right_monitor
 workspace $wsright2 output $right_monitor
 workspace $wsright3 output $right_monitor
 workspace $wsright4 output $right_monitor
+{{/monitors}}
+
+{{^monitors}}
+# Monitors not setted :c
+{{/monitors}}
 
 # Switch to workspace
 bindsym $mod+h      workspace $wsleft1
