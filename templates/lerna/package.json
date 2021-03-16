@@ -1,0 +1,8 @@
+{
+  "name": "lerna-test-project",
+  "main": "index.js",
+  "private": true,
+  "dependencies": {
+    "@monorepo/some-package": "^1.0.0"
+  }
+}

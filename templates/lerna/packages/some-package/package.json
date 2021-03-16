@@ -1,0 +1,10 @@
+{
+  "name": "@monorepo/some-package",
+  "version": "1.0.0",
+  "main": "index.js",
+  "bin": {
+    "some-package": "./cli.js"
+  },
+  "author": "Vlad Chepaykin",
+  "license": "MIT"
+}

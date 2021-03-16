@@ -66,6 +66,9 @@ case $TEST_TYPE in
   "node")
     CODE_FILE="index.js"
     ;;
+  "lerna")
+    CODE_FILE="index.js"
+    ;;
   *)
     error "Template settings not setted!"
 esac
