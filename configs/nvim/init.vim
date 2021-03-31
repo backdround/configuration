@@ -300,6 +300,12 @@ function! s:BasicSettings()
   noremap ^ <Cmd>:call MoveThrough("[()]")<Cr>
   noremap @ <Cmd>:call MoveThrough("[()]", v:true)<Cr>
 
+  " movement with enter insert mode
+  noremap o<M-b> +zei
+  noremap o<M-f> -zei
+  noremap o<M-.> +$a
+  noremap o<M-r> -$a
+
   " copy / paste
   noremap  f         "py
   nnoremap ff        "pyy
@@ -312,8 +318,8 @@ function! s:BasicSettings()
   noremap L         P
   noremap <M-l>     "pp
   noremap <M-L>     "pP
-  inoremap <C-l> <C-o>P
-  inoremap <M-l> <C-o>"pP
+  inoremap <C-l> <C-r>"
+  inoremap <M-l> <C-r>p
   noremap <leader>l "+p
   noremap <leader>L "*p
   noremap bl        "sp
@@ -405,10 +411,10 @@ function! s:BasicSettings()
   " other
   set pastetoggle=<F8>
 
-  nnoremap ^ q
+  nnoremap ; q
   nnoremap $ @
   inoremap <M-c> <C-^>
-  vnoremap / y/<C-R>"<CR>
+  vnoremap / y/\V<C-R>=escape(@",'/\')<CR><CR>
   nnoremap _ <esc>:w<CR>
   nnoremap <silent> <leader>r <Cmd>source ~/.config/nvim/init.vim<CR>
   nmap <leader>c <Cmd>echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')<Cr>
@@ -421,10 +427,9 @@ function! s:BasicSettings()
   " --------------------------------------------------------------------------
   " autocomands {{{
 
-  "disabling autocommenting
-  augroup DisablingAutocommenting
+  augroup JsTextWidth
     autocmd!
-    autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+    autocmd FileType javascript setlocal textwidth=79
   augroup END
 
   "change indention to 4 spaces
@@ -1095,6 +1100,10 @@ function! s:ConfigureFeaturePlugins()
         \ "coc-explorer",
         \ "coc-tsserver",
         \ "coc-prettier",
+        \ "coc-cmake",
+        \ "coc-sh",
+        \ "coc-stylelint",
+        \ "coc-stylelintplus",
         \ "coc-json",
         \ "coc-html",
         \ "coc-css",
