@@ -427,6 +427,11 @@ function! s:BasicSettings()
   " --------------------------------------------------------------------------
   " autocomands {{{
 
+  augroup DisableAutoCommentOnOnelineComment
+    autocmd!
+    autocmd FileType c,cpp,hpp,h,javascript setlocal comments-=:// comments+=f://
+  augroup END
+
   augroup JsTextWidth
     autocmd!
     autocmd FileType javascript setlocal textwidth=79
