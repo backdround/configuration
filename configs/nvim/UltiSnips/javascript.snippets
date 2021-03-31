@@ -76,3 +76,20 @@ snip.rv = "".join(class_name)
 
 module.exports = `!p snip.rv = t[1]`
 endsnippet
+
+# ------------------------------------------------------------------------------
+# Documentation
+
+snippet doc "JsDoc comment"
+/**
+ * ${0:description}
+ */
+endsnippet
+
+snippet .p "JsDoc param"
+@param {${1:type}} ${2:name} ${0:description}
+endsnippet
+
+snippet .r "JsDoc return"
+@return {${1:type}} ${0:description}
+endsnippet
