@@ -83,7 +83,7 @@
     less:
         input: "@/configs/terminal/lesskeys"
         output: "~/.lesskey"
-        command: "lesskey -o {{{input}}} -- {{{output}}}"
+        command: "lesskey -o {{{output}}} -- {{{input}}}"
 
 
 # --------------------------------------------------
