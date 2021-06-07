@@ -1,6 +1,0 @@
-#!/bin/bash
-
-DESTDIR="$(dirname "$0")/build"
-cd "$DESTDIR"
-
-cmake .. && cmake --build . -j5 && ./bin/app

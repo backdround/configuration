@@ -54,9 +54,6 @@ case $TEST_TYPE in
     SHELL_PANE_DIRECTORY="$TEST_PATH/build"
     CODE_FILE="src/main.cpp"
     ;;
-  "task")
-    CODE_FILE="src/test.cpp"
-    ;;
   "html")
     CODE_FILE="index.html"
     ;;
