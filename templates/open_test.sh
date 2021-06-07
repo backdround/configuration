@@ -66,6 +66,9 @@ case $TEST_TYPE in
   "lerna")
     CODE_FILE="index.js"
     ;;
+  "bash")
+    CODE_FILE="script.sh"
+    ;;
   *)
     error "Template settings not setted!"
 esac
