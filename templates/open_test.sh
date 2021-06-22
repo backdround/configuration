@@ -46,6 +46,9 @@ fi
 CODE_PANE_DIRECTORY="$TEST_PATH"
 SHELL_PANE_DIRECTORY="$TEST_PATH"
 case $TEST_TYPE in
+  "vagrant")
+    CODE_FILE="Vagrantfile"
+    ;;
   "qt")
     SHELL_PANE_DIRECTORY="$TEST_PATH/build"
     CODE_FILE="src/main.cpp"
