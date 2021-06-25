@@ -133,8 +133,8 @@ map ot goto top
 map od scroll left
 map on scroll right
 
-map E jumplist backward
-map U jumplist forward
+map Y jumplist backward
+map I jumplist forward
 
 
 # jumps
