@@ -29,3 +29,5 @@
 [color]
   status = always
   ui = always
+[init]
+	defaultBranch = master
