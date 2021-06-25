@@ -189,7 +189,7 @@ bindsym $mod+8 border toggle
 bindsym $mod+w mode "session"
 mode "session" {
   bindsym w exec --no-startup-id systemctl --user stop i3-gaps.target; exec i3-msg exit ; mode "default"
-  bindsym v exec --no-startup-id i3lock-fancy; mode "default"
+  bindsym v exec --no-startup-id i3lock-fancy-dualmonitor --pixelate --greyscale; mode "default"
   bindsym s exec --no-startup-id "systemctl --user stop i3-gaps.target; sleep 0.5; systemctl poweroff"; mode "default"
   bindsym p exec --no-startup-id "systemctl --user stop i3-gaps.target; sleep 0.5; systemctl reboot"; mode "default"
 
