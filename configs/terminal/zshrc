@@ -169,7 +169,7 @@ function x11-paste-wrap-widgets() {
   for widget in $@; do
     eval "
     function _x11-paste-wrap-$widget() {
-        CUTBUFFER=\$(xclip -out -selection clipboard)
+        CUTBUFFER=\$(xclip -out -selection clipboard 2>/dev/null)
         zle .$widget
     }"
     zle -N $widget _x11-paste-wrap-$widget
