@@ -1,0 +1,23 @@
+[Unit]
+Description=Notepad to write english words
+After=i3-gaps.target
+PartOf=i3-gaps.target
+
+[Service]
+Type=simple
+
+Environment="DISPLAY=:0"
+Environment="TERMCMD=kitty"
+Environment="EDITOR=/home/%u/.local/bin/editor.sh"
+
+ExecStart=/usr/bin/kitty --class words-pad-desktop nvim /home/%u/words
+
+KillMode=process
+
+Restart=always
+RestartSec=0
+
+RemainAfterExit=no
+
+[Install]
+WantedBy=i3-gaps.target
