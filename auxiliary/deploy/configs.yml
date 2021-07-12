@@ -105,6 +105,8 @@
         dropdown-size:           "1884 499"
         words-pad-position:      "1350 150"
         words-pad-size:          "429 441"
+        tasks-pad-position:      "1350 150"
+        tasks-pad-size:          "429 441"
         ranger-position:         "18 46"
         ranger-size:             "1884 499"
         qutebrowser_editor-size: "675 336"

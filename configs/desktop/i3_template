@@ -255,6 +255,15 @@ for_window [class="words-pad-desktop"] move position {{{words-pad-position}}}
 for_window [class="words-pad-desktop"] resize set {{{words-pad-size}}}
 for_window [class="words-pad-desktop"] move scratchpad
 
+
+# Tasks pad
+bindsym $mod+y [class="tasks-pad-desktop"] scratchpad show
+for_window [class="tasks-pad-desktop"] floating enable
+for_window [class="tasks-pad-desktop"] sticky enable
+for_window [class="tasks-pad-desktop"] move position {{{tasks-pad-position}}}
+for_window [class="tasks-pad-desktop"] resize set {{{tasks-pad-size}}}
+for_window [class="tasks-pad-desktop"] move scratchpad
+
 # Dropdown terminal
 bindsym $mod+d [class="ddterminal-desktop"] scratchpad show
 for_window [class="ddterminal-desktop"] floating enable

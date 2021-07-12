@@ -120,6 +120,7 @@ git clone -q git@github.com:alexanderjeurissen/ranger_devicons.git ~/.config/ran
 
 systemctl --user daemon-reload
 systemctl --user enable words-pad.service
+systemctl --user enable tasks-pad.service
 systemctl --user enable telegram.service
 systemctl --user enable ddterminal.service
 systemctl --user enable picom
