@@ -552,6 +552,8 @@ pg() { eval "pgrep -i -l \"$*\" | grep -i \"$*\"" }
 sp() { eval "sudo pacman -$*" }
 alias S='sudo pacman -S'
 alias Ss='sudo pacman -Ss'
+alias sshi='ssh -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+alias scpi='scp -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 
 # scripts
 t() { trans en:ru "$*"}
