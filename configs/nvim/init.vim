@@ -1106,7 +1106,6 @@ function! s:ConfigureFeaturePlugins()
         \ "coc-tsserver",
         \ "coc-prettier",
         \ "coc-cmake",
-        \ "coc-sh",
         \ "coc-stylelint",
         \ "coc-stylelintplus",
         \ "coc-json",
