@@ -48,6 +48,7 @@
       "command": "bash-language-server",
       "args": ["start"],
       "filetypes": ["sh"],
+      "rootPatterns": [".git"],
       "ignoredRootPaths": ["~"]
     }
   },
