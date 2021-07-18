@@ -95,6 +95,8 @@ c.url.searchengines['DEFAULT'] = 'http://www.google.com/search?hl=en&q={}'
 c.url.searchengines['a'] = 'https://wiki.archlinux.org/?search={}'
 c.url.searchengines['d'] = 'https://duckduckgo.com/?q={}'
 c.url.searchengines['y'] = 'https://www.youtube.com/results?search_query={}'
+c.url.searchengines['t'] = 'https://translate.google.com/?sl=en&tl=ru&text={}&op=translate'
+c.url.searchengines['tr'] = 'https://translate.google.com/?sl=ru&tl=en&text={}&op=translate'
 
 
 c.bindings.default['normal'] = {}
