@@ -19,8 +19,8 @@ set-option -g prefix `
 bind ` send-prefix
 
 # general
-bind e split-window
-bind u split-window -h
+bind e split-window -c "#{pane_current_path}"
+bind u split-window -h -c "#{pane_current_path}"
 bind i new-window
 bind q kill-pane
 bind z kill-window
