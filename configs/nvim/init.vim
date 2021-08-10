@@ -375,15 +375,15 @@ function! s:BasicSettings()
 
   " substitute
   map b <nop>
-  nnoremap bu :%s/<C-r>s//g<Left><Left>
-  vnoremap bu :s/<C-r>s//g<Left><Left>
-  nnoremap bU :%s/<C-r>s//gc<Left><Left><Left>
-  vnoremap bU :s/<C-r>s//gc<Left><Left><Left>
+  nnoremap bu :%s/<C-r>p//g<Left><Left>
+  vnoremap bu :s/<C-r>p//g<Left><Left>
+  nnoremap bU :%s/<C-r>p//gc<Left><Left><Left>
+  vnoremap bU :s/<C-r>p//gc<Left><Left><Left>
 
-  nnoremap be :%s/\<<C-r>p\>//g<Left><Left>
-  vnoremap be :s/\<<C-r>p\>//g<Left><Left>
-  nnoremap bE :%s/\<<C-r>p\>//gc<Left><Left><Left>
-  vnoremap bE :s/\<<C-r>p\>//gc<Left><Left><Left>
+  nnoremap be :%s/<C-r>p/<C-r>s/g<Left><Left>
+  vnoremap be :s/<C-r>p/<C-r>s/g<Left><Left>
+  nnoremap bE :%s/<C-r>p/<C-r>s/gc<Left><Left><Left>
+  vnoremap bE :s/<C-r>p/<C-r>s/gc<Left><Left><Left>
 
   nnoremap bo :%s///g<Left><Left><Left>
   vnoremap bo :s///g<Left><Left><Left>
