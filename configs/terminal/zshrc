@@ -545,15 +545,54 @@ alias tldr='tldr -c'
 alias hdi='howdoi'
 alias d='docker'
 alias dc='docker-compose'
-chg() { onchange "**/*" -- bash -c "clear && $*" }
 
 pg() { eval "pgrep -i -l \"$*\" | grep -i \"$*\"" }
 
 sp() { eval "sudo pacman -$*" }
 alias S='sudo pacman -S'
 alias Ss='sudo pacman -Ss'
+
 alias sshi='ssh -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 alias scpi='scp -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+
+
+chg() { onchange "**/*" -- bash -c "clear && $*" }
+
+# Замена watch -n 0.5 ...
+wch() {
+  local PRINT='\
+    local AVAILABLE_HEIGHT="$(($(tput lines) - 3))"
+    local OUTPUT="$(date && echo && eval "$* 2>&1 | head -n \"$AVAILABLE_HEIGHT\"")" && \
+    clear && \
+    echo "$OUTPUT"\
+  '
+  eval "$PRINT"
+  while sleep 0.5 ; do
+    eval "$PRINT"
+  done
+}
+
+# Функция удаления дребезга.
+# Множество подряд идущих эвентов обрабатывается как один.
+bounce_event() {
+  local DELAY=${1:-1}
+
+  if ! [[ $DELAY =~ ^[0-9.]+$ ]]; then
+    echo "Invalid delay: $DELAY"
+    return 1
+  fi
+
+  (
+    trap 'exit $?' SIGINT SIGHUP SIGTERM
+    while read line ; do
+      local DRAIN_PROCESS_PID="$(cat >/dev/null & echo $!)"
+      sleep "$DELAY"
+      kill "$DRAIN_PROCESS_PID" 2>/dev/null || true
+      echo "event triggered"
+    done
+    trap - SIGINT SIGHUP SIGTERM
+  )
+}
 
 # scripts
 t() { trans en:ru "$*"}
