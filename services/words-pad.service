@@ -10,7 +10,7 @@ Environment="DISPLAY=:0"
 Environment="TERMCMD=kitty"
 Environment="EDITOR=/home/%u/.local/bin/editor.sh"
 
-ExecStart=/usr/bin/kitty --class words-pad-desktop nvim /home/%u/words
+ExecStart=/usr/bin/kitty --class words-pad-desktop $EDITOR /home/%u/words
 
 KillMode=process
 
