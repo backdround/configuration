@@ -238,10 +238,12 @@ set -g @prefix_highlight_copy_prompt \
 # prefix + h - enter finger mod
 # finger + [a - z] - paste selected in command line
 # finger + [A - Z] - copy selected
+# finger + alt + [a - z] - open selected (url / files / etc)
 set -g @plugin 'Morantron/tmux-fingers'
 set -g @fingers-key h
 set -g @fingers-main-action ':paste:'
 set -g @fingers-shift-action 'zsh -c "tee >(xclip -sel p) | xclip -sel c"'
+set -g @fingers-alt-action ':open:'
 set -g @fingers-hint-format "#[fg=color0,bg=color2]%s"
 set -g @fingers-highlight-format "#[fg=color15,bg=color8]%s"
 set -g @fingers-keyboard-layout dvorak-homerow
