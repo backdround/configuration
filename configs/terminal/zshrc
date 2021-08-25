@@ -558,11 +558,17 @@ alias scpi='scp -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsF
 
 chg() { onchange "**/*" -- bash -c "clear && $*" }
 
-# Замена watch -n 0.5 ...
+# Replace watch -n 0.5 ...
 wch() {
+  # Get argments. To save quoted arguments.
+  local args=
+  for arg in "$@"; do
+    args="$args \"$arg\""
+  done
+
   local PRINT='\
     local AVAILABLE_HEIGHT="$(($(tput lines) - 3))"
-    local OUTPUT="$(date && echo && eval "$* 2>&1 | head -n \"$AVAILABLE_HEIGHT\"")" && \
+    local OUTPUT="$(date && echo && eval "$args 2>&1 | head -n \"$AVAILABLE_HEIGHT\"")" && \
     clear && \
     echo "$OUTPUT"\
   '
@@ -571,6 +577,7 @@ wch() {
     eval "$PRINT"
   done
 }
+alias wch='wch '
 
 # Функция удаления дребезга.
 # Множество подряд идущих эвентов обрабатывается как один.
