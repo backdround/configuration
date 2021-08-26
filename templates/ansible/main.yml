@@ -1,0 +1,19 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Add test container to inventory
+      ansible.builtin.add_host:
+        name: test_container
+        ansible_connection: docker
+
+- hosts: test_container
+  tasks:
+    - name: Some test
+      ansible.builtin.shell:
+        cat /etc/passwd | sed 's/:.*/ /' | tr -d '\n'
+      register: test_output
+
+    - name: Test output
+      debug:
+        var: test_output.stdout
+...

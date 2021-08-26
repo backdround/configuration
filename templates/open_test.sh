@@ -72,6 +72,9 @@ case $TEST_TYPE in
   "bash")
     CODE_FILE="script.sh"
     ;;
+  "ansible")
+    CODE_FILE="main.yml"
+    ;;
   *)
     error "Template settings not setted!"
 esac

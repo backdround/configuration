@@ -545,6 +545,8 @@ alias tldr='tldr -c'
 alias hdi='howdoi'
 alias d='docker'
 alias dc='docker-compose'
+alias a='ansible'
+alias ap='ansible-playbook'
 
 pg() { eval "pgrep -i -l \"$*\" | grep -i \"$*\"" }
 

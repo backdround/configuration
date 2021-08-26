@@ -1,0 +1,34 @@
+---
+- name: Start test container at localhost
+  hosts: localhost
+  tasks:
+    - name: Enable docker service
+      ansible.builtin.service:
+        name: docker
+        state: started
+      become: true
+
+    - name: Run test container
+      community.docker.docker_container:
+        image: ubuntu:groovy
+        name: test_container
+        recreate: true
+        stop_timeout: 2
+        command: ["sleep", "infinity"]
+
+    - name: Add test container to inventory
+      ansible.builtin.add_host:
+        name: test_container
+        ansible_connection: docker
+
+
+- name: Configure test container
+  hosts: test_container
+  gather_facts: false
+  tasks:
+    - name: Install python
+      ansible.builtin.raw: apt update && apt install -y python3
+
+    - name: Test container environment
+      ansible.builtin.ping:
+...
