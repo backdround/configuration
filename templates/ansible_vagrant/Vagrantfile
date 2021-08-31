@@ -1,0 +1,53 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  # Disable synced /vagrant folder
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  # Configure hostmanager.
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
+  config.hostmanager.manage_guest = true
+  config.hostmanager.ignore_private_ip = true
+
+
+  # Arch machine
+  config.vm.define "varch", autostart: false do |varch|
+    varch.vm.box = "archlinux/archlinux"
+    varch.vm.hostname = "varch"
+    varch.vm.network :private_network, type: "dhcp"
+
+    varch.vm.provider "virtualbox" do |vb|
+      vb.gui = false
+      vb.memory = "512"
+    end
+
+    varch.vm.provision "shell", inline: <<-SHELL
+      sudo pacman --noconfirm -Sy python
+    SHELL
+  end
+
+  # Ubuntu machine
+  config.vm.define "vubuntu", autostart: false do |vubuntu|
+    vubuntu.vm.box = "ubuntu/groovy64"
+    vubuntu.vm.hostname = "vubuntu"
+    vubuntu.vm.network :private_network, type: "dhcp"
+
+    vubuntu.vm.provider "virtualbox" do |vb|
+      vb.gui = false
+      vb.memory = "512"
+    end
+
+    vubuntu.vm.provision "shell", inline: <<-SHELL
+      sudo apt update && apt install -y python3
+    SHELL
+  end
+
+  config.hostmanager.ip_resolver = proc do |vm, resolving_vm|
+    if hostname = (vm.ssh_info && vm.ssh_info[:host])
+      get_ip_pipeline = "ip -brief a | tac | grep -m1 -E -o '[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+'"
+      `vagrant ssh #{vm.config.vm.hostname} -c "#{get_ip_pipeline}"`.split()[0]
+    end
+  end
+end
