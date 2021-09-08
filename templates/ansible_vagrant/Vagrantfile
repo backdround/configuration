@@ -30,7 +30,7 @@ Vagrant.configure("2") do |config|
 
   # Ubuntu machine
   config.vm.define "vubuntu", autostart: false do |vubuntu|
-    vubuntu.vm.box = "ubuntu/groovy64"
+    vubuntu.vm.box = "generic/ubuntu2104"
     vubuntu.vm.hostname = "vubuntu"
     vubuntu.vm.network :private_network, type: "dhcp"
 
