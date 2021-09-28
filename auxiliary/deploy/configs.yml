@@ -128,8 +128,8 @@
     data:
         << : *i3_note_data
         monitors:
-            left: "DP-1"
-            right: "HDMI-2"
+            left: "DP-2"
+            right: "HDMI-3"
 
 # --------------------------------------------------
 # Insnances

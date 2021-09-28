@@ -11,7 +11,7 @@ if grep -q home ~/.instance; then
 fi
 
 if grep -q work ~/.instance; then
-  xrandr --output HDMI-2 --output DP-1 --primary --left-of HDMI-2
+  xrandr --output HDMI-3 --output DP-2 --primary --left-of HDMI-3
 fi
 
 xset m 1/1 0
