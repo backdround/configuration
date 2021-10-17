@@ -71,13 +71,11 @@ bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 2
 
 # Workspace names
 set $wsleft1  "1: Web"
-set $wsleft2  "2: Build"
+set $wsleft2  "2: Left"
 set $wsleft3  "3: <"
-set $wsleft4  "4: Left"
-set $wsright1 "5: Code"
-set $wsright2 "6: Other"
-set $wsright3 "7: >"
-set $wsright4 "8: Right"
+set $wsright1 "4: Code"
+set $wsright2 "5: Right"
+set $wsright3 "6: >"
 
 # Monitors
 {{#monitors}}
@@ -86,11 +84,9 @@ set $right_monitor {{{right}}}
 workspace $wsleft1  output $left_monitor
 workspace $wsleft2  output $left_monitor
 workspace $wsleft3  output $left_monitor
-workspace $wsleft4  output $left_monitor
 workspace $wsright1 output $right_monitor
 workspace $wsright2 output $right_monitor
 workspace $wsright3 output $right_monitor
-workspace $wsright4 output $right_monitor
 {{/monitors}}
 
 {{^monitors}}
@@ -99,30 +95,22 @@ workspace $wsright4 output $right_monitor
 
 # Switch to workspace
 bindsym $mod+h      workspace $wsleft1
+bindsym $mod+m      workspace $wsleft2
+bindsym $mod+b      workspace $wsleft3
+
 bindsym $mod+t      workspace $wsright1
-
-bindsym $mod+b      workspace $wsleft2
-bindsym $mod+m      workspace $wsright2
-
-bindsym $mod+comma  workspace $wsleft3
+bindsym $mod+comma  workspace $wsright2
 bindsym $mod+period workspace $wsright3
-
-bindsym $mod+1      workspace $wsleft4
-bindsym $mod+2      workspace $wsright4
 
 
 # Move focused container to workspace
 bindsym $mod+Shift+h move container to workspace $wsleft1
+bindsym $mod+Shift+m move container to workspace $wsleft2
+bindsym $mod+Shift+b move container to workspace $wsleft3
+
 bindsym $mod+Shift+t move container to workspace $wsright1
-
-bindsym $mod+Shift+b move container to workspace $wsleft2
-bindsym $mod+Shift+m move container to workspace $wsright2
-
-bindcode $mod+Shift+59 move container to workspace $wsleft3
+bindcode $mod+Shift+59 move container to workspace $wsright2
 bindcode $mod+Shift+60 move container to workspace $wsright3
-
-bindcode $mod+Shift+10 move container to workspace $wsleft4
-bindcode $mod+Shift+11 move container to workspace $wsright4
 
 
 # Focus keys
