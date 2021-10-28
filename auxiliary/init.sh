@@ -110,6 +110,10 @@ npm config set init-author-email "backdround@yandex.ru"
 npm config set init-author-name "Vlad Chepaykin"
 npm config set init-license "MIT"
 
+# go
+go env -w GOMODCACHE="/home/$(whoami)/.go"
+go env -w GOPATH="/home/$(whoami)/.go"
+
 # rager
 test -d ~/.config/ranger/plugins/ranger_devicons || \
 git clone -q git@github.com:alexanderjeurissen/ranger_devicons.git ~/.config/ranger/plugins/ranger_devicons
