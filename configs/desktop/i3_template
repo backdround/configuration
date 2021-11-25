@@ -45,6 +45,8 @@ bindsym $mod+a exec --no-startup-id .local/bin/translate_notify
 bindsym $mod+o exec --no-startup-id ~/.local/bin/dragon_screen ~/other/screens
 #  Dmenu
 bindsym $mod+e exec --no-startup-id rofi -normal-window -modi drun -show drun
+# Resume / pause active window
+bindsym XF86AudioPlay exec --no-startup-id ~/.local/bin/pause_resume_active_window.sh
 
 # Dunst
 bindsym Mod1+space exec --no-startup-id dunstctl close
