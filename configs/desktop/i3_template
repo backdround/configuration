@@ -27,8 +27,10 @@ bindsym $mod+j floating toggle
 bindsym $mod+k focus mode_toggle
 
 # Scratchpad
-bindsym $mod+minus move scratchpad
-bindsym $mod+equal scratchpad show
+# hash - hide
+# underscor - show
+bindsym $mod+Shift+3 move scratchpad
+bindsym $mod+Shift+minus scratchpad show
 
 # I3
 bindsym $mod+z reload
@@ -131,6 +133,11 @@ bindsym $mod+Shift+g move down 50px
 bindsym $mod+Shift+c move up 50px
 bindsym $mod+Shift+r move right 50px
 
+# Resize focused window
+bindsym $mod+minus resize shrink height 10 px or 4 ppt
+bindsym $mod+Shift+plus resize grow height 10 px or 4 ppt
+bindsym $mod+Ctrl+comma resize shrink width 10 px or 4 ppt
+bindsym $mod+Ctrl+period resize grow width 10 px or 4 ppt
 
 
 ############################################################
