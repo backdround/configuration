@@ -1,14 +1,9 @@
 configuration {
-  width: 33;
-  lines: 7;
-  columns: 1;
   location: 0;
   fixed-num-lines: false;
   terminal: "kitty";
   cycle: false;
   dpi: 1;
-  fake-background: "background";
-  theme: "style.rasi";
   display-drun: "Filter";
   matching: "fuzzy";
 
@@ -38,5 +33,6 @@ configuration {
   kb-custom-8: "Shift+Alt+8";
   kb-custom-9: "Shift+Alt+9";
 }
+@theme "style.rasi"
 
 // vim:syntax=css

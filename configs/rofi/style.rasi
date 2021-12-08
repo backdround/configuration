@@ -23,6 +23,7 @@ window {
   border-color:     #9BC2CA;
   padding:          var(default-spacing);
   background-color: var(--background);
+  width: 35%;
 }
 
 mainbox {
@@ -30,6 +31,8 @@ mainbox {
 }
 
 listview {
+  lines: 8;
+  columns: 1;
   scrollbar: false;
   spacing:   0.7em;
 }
