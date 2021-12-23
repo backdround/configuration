@@ -46,7 +46,6 @@
 
     # Keyboard
     keyboard:        ["@/configs/keyboard/keymap/config",          "~/.config/xkb/keymap/config"]
-    keyboard-us:     ["@/configs/keyboard/symbols/us_layout",      "~/.config/xkb/symbols/us_layout"]
     keyboard-dv:     ["@/configs/keyboard/symbols/dv_layout",      "~/.config/xkb/symbols/dv_layout"]
     keyboard-ru:     ["@/configs/keyboard/symbols/ru_layout",      "~/.config/xkb/symbols/ru_layout"]
 

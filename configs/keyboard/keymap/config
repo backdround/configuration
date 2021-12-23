@@ -1,17 +1,9 @@
 xkb_keymap {
   xkb_keycodes { include "evdev" };
-
-  xkb_types {
-    include "basic"
-    include "pc"
-    include "numpad"
-  };
+  xkb_types { include "complete" };
 
   xkb_compat {
-    include "basic"
-    include "ledscroll(group_lock)"
-    augment "misc"
-    augment "xfree86"
+     include "complete"
 
     interpret ISO_First_Group {
       action= LockGroup(group=1);
@@ -20,26 +12,17 @@ xkb_keymap {
     interpret ISO_Last_Group {
       action= LockGroup(group=2);
     };
-
-    interpret Hyper_R {
-      action= LockGroup(group=3);
-    };
   };
 
   xkb_symbols {
     include "pc+dv_layout"
     include "ru_layout:2"
-    include "us_layout:3"
 
     include "inet(evdev)"
     include "terminate(ctrl_alt_bksp)"
 
-    replace key <CAPS> {
-      [ ISO_First_Group, ISO_Last_Group ]
-    };
-
     replace key <HNGL> {
-      [ Hyper_R ]
+      [ ISO_First_Group, ISO_Last_Group ]
     };
   };
 
