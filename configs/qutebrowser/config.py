@@ -92,10 +92,10 @@ c.url.default_page = 'https://google.com/'
 c.url.start_pages = ['https://google.com']
 
 c.url.searchengines['DEFAULT'] = 'http://www.google.com/search?hl=en&q={}'
-c.url.searchengines['a'] = 'https://wiki.archlinux.org/?search={}'
-c.url.searchengines['d'] = 'https://duckduckgo.com/?q={}'
 c.url.searchengines['y'] = 'https://www.youtube.com/results?search_query={}'
 c.url.searchengines['t'] = 'https://translate.google.com/?sl=en&tl=ru&text={}&op=translate'
+c.url.searchengines['d'] = 'https://dictionary.cambridge.org/dictionary/english/{}'
+c.url.searchengines['c'] = 'https://context.reverso.net/translation/english-russian/{}'
 c.url.searchengines['tr'] = 'https://translate.google.com/?sl=ru&tl=en&text={}&op=translate'
 
 
