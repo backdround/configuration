@@ -119,8 +119,8 @@
         dropdown-position:       "978 352"
         ranger-position:         "978 352"
         monitors:
-            left: "DP-1"
-            right: "DVI-D-1"
+            left: "DisplayPort-0"
+            right: "DVI-D-0"
 
 .i3_work_template: &i3_work_template
     instance: *i3_note_instance
