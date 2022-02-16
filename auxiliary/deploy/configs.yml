@@ -64,6 +64,7 @@
     mouse-theme:     ["@/configs/desktop/mouse_index.theme",       "~/.icons/default/index.theme"]
     xdg-dirs:        ["@/configs/desktop/user-dirs.dirs",          "~/.config/user-dirs.dirs"]
     mime:            ["@/configs/desktop/mimeapps.list",           "~/.config/mimeapps.list"]
+    flameshot:       ["@/configs/desktop/flameshot.ini",           "~/.config/flameshot/flameshot.ini"]
 
     # Services
     services:        ["@/services/",                               "~/.config/systemd/user"]
