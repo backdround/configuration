@@ -78,6 +78,9 @@ case $TEST_TYPE in
   "ansible_vagrant")
     CODE_FILE="main.yml"
     ;;
+  "go")
+    CODE_FILE="main.go"
+    ;;
   *)
     error "Template settings not setted!"
 esac

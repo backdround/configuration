@@ -1,0 +1,2 @@
+clear && go run .
+onchange ./main.go -- bash -c "clear && go run ."
