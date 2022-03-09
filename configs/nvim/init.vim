@@ -136,6 +136,7 @@ function! s:BasicSettings()
   set iminsert=0
   set imsearch=0
   "misc
+  set colorcolumn=80
   set updatetime=50
   set scrolloff=10
   set showcmd
@@ -442,6 +443,16 @@ function! s:BasicSettings()
     autocmd!
     autocmd FileType cpp,c,hpp,h setlocal shiftwidth=4
   augroup END
+
+  augroup GoLangSettings
+    autocmd!
+    autocmd FileType go call SetGoLangSettings()
+    function SetGoLangSettings()
+      setlocal noexpandtab
+      setlocal tabstop=4
+    endfunction
+  augroup END
+
 
   "set engligsh language when leave insert mode
   augroup LeaveInsertLanguage
@@ -1066,8 +1077,8 @@ function! s:ConfigureFeaturePlugins()
   "nmap <silent> <leader>ul <Plug>(coc-openlink)
 
   "" do something
-  map  <silent> <Leader>b <Plug>(coc-format-selected)
-  nmap <silent> <Leader>B <Plug>(coc-format)
+  nmap <silent> <Leader>b <Plug>(coc-format)
+  map  <silent> <Leader>B <Plug>(coc-format-selected)
 
   "nmap <silent> <leader>uf <Plug>(coc-fix-current)
   "xmap <silent> <leader>ug <Plug>(coc-codeaction-selected)
@@ -1116,7 +1127,8 @@ function! s:ConfigureFeaturePlugins()
         \ "coc-highlight",
         \ "coc-git",
         \ "coc-yank",
-        \ "coc-vimlsp"
+        \ "coc-vimlsp",
+		\ "coc-go"
         \ ]
   "nnoremap <silent> <leader>uy :<C-u>CocList yank<cr>
   "nnoremap <silent> <leader>us  :<C-u>CocList --normal gstatus<CR>
