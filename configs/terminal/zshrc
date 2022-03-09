@@ -48,7 +48,7 @@ export PATH=~/.local/bin/:$PATH
 export EDITOR="editor.sh"
 export PAGER="editor.sh -R"
 export SYSTEMD_PAGER=
-export MANPAGER="nvim -c 'set ft=man' -"
+export MANPAGER='nvim +Man!'
 export LESSKEY="$(realpath ~)/.lesskey"
 
 # pass store
