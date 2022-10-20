@@ -81,6 +81,9 @@ case $TEST_TYPE in
   "go")
     CODE_FILE="main.go"
     ;;
+  "earthly")
+    CODE_FILE="Earthfile"
+    ;;
   *)
     error "Template settings not setted!"
 esac

@@ -1,0 +1,8 @@
+VERSION 0.6
+FROM alpine:latest
+WORKDIR /work
+RUN apk update && apk upgrade
+
+command:
+  RUN echo -n "hello" > file.txt
+  SAVE ARTIFACT file.txt AS LOCAL output/file.txt
