@@ -84,6 +84,9 @@ case $TEST_TYPE in
   "earthly")
     CODE_FILE="Earthfile"
     ;;
+  "docker")
+    CODE_FILE="Dockerfile"
+    ;;
   *)
     error "Template settings not setted!"
 esac

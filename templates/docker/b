@@ -1,0 +1,38 @@
+#!/bin/bash
+set -o errexit
+
+
+docker_image_name="$(basename $(pwd))-test"
+
+build() {
+  DOCKER_BUILDKIT=1 docker image build -t $docker_image_name .
+}
+
+run() {
+  build
+  docker container run --rm --name=${docker_image_name}-run -it $docker_image_name
+}
+
+run-it() {
+  build
+  docker container run --rm --name=${docker_image_name}-run-it --entrypoint=/bin/sh -it $docker_image_name
+}
+
+clean() {
+  docker image rm $docker_image_name
+}
+
+
+
+action="$1"
+if [[ -z "$action" ]]; then
+  build
+  exit 0
+fi
+
+if [[ "$(type -t "$action")" == "function" ]]; then
+  "$action"
+else
+  echo "Action doens't exist" >&2
+  exit 1
+fi
