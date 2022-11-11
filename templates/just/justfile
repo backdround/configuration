@@ -1,0 +1,6 @@
+
+@default:
+  just --list --unsorted --justfile {{justfile()}}
+
+run:
+  uname -a

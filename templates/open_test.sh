@@ -87,6 +87,9 @@ case $TEST_TYPE in
   "docker")
     CODE_FILE="Dockerfile"
     ;;
+  "just")
+    CODE_FILE="justfile"
+    ;;
   *)
     error "Template settings not setted!"
 esac
