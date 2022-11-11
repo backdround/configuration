@@ -128,7 +128,5 @@ systemctl --user enable ddterminal.service
 systemctl --user enable picom
 systemctl --user enable ranger
 systemctl --user enable ssh-agent
-systemctl --user enable dropbox_monitor
-systemctl --user enable dropbox_sync.timer
 sudo systemctl enable lightdm
 sudo systemctl enable tor
