@@ -34,14 +34,14 @@ if [[ "$1" == "server"  ]]; then
   sudo -u trizen ./auxiliary/scripts/trizen.sh "$@"
 
   # Install packages
-  sudo -u trizen trizen --needed --noconfirm -S $(cat ./dependencies/common_packets)
+  sudo -u trizen trizen --needed --noconfirm -S $(cat ./packages/common_packets)
 else
 
   # Install trizen
   ./auxiliary/scripts/trizen.sh "$@"
 
   # Install packages
-  trizen --needed --noconfirm -S - < ./dependencies/common_packets
+  trizen --needed --noconfirm -S - < ./packages/common_packets
 fi
 
 
@@ -87,8 +87,8 @@ mkdir -p ~/.ssh && chmod 700 ~/.ssh
 
 # Install packages
 gpg --recv-keys 9B8450B91D1362C1
-sudo pacman --needed --noconfirm -S - < dependencies/packets
-trizen --needed --noconfirm -S - < dependencies/aur_packets
+sudo pacman --needed --noconfirm -S - < packages/packets
+trizen --needed --noconfirm -S - < packages/aur_packets
 
 
 ############################################################
