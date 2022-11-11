@@ -76,6 +76,7 @@ function! s:LoadPlugins()
     Plug 'junegunn/goyo.vim'              " GOYO
     Plug 'tyru/open-browser.vim'          " OPEN BROWSER
     "Plug 'kshenoy/vim-signature'          " SIGNATURE
+    Plug 'earthly/earthly.vim', { 'branch': 'main' }
 
     Plug 'SirVer/ultisnips'               " SNIPPETS
 
