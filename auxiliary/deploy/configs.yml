@@ -70,7 +70,7 @@
     services:        ["@/services/",                               "~/.config/systemd/user"]
 
     # Links
-    links:           ["@/links/gotop.desktop",                     "~/.local/share/applications/gotop.desktop"]
+    links:           ["@/links/",                                  "~/.local/share/applications"]
 
     # Misc
     gpg:             ["@/configs/misc/gpg",                        "~/.gnupg/gpgconf.conf"]
