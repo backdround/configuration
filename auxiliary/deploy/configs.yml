@@ -18,11 +18,7 @@
     nvim-coc:      ["@/configs/nvim/coc-settings.json",             "~/.config/nvim/coc-settings.json"]
     nvim-layout:   ["@/configs/nvim/keymap/custom_ru.vim",          "~/.config/nvim/keymap/custom_ru.vim"]
 
-    snippets-all:  ["@/configs/nvim/UltiSnips/all.snippets",        "~/.local/share/nvim/UltiSnips/all.snippets"]
-    snippets-cpp:  ["@/configs/nvim/UltiSnips/cpp.snippets",        "~/.local/share/nvim/UltiSnips/cpp.snippets"]
-    snippets-qml:  ["@/configs/nvim/UltiSnips/qml.snippets",        "~/.local/share/nvim/UltiSnips/qml.snippets"]
-    snippets-js:   ["@/configs/nvim/UltiSnips/javascript.snippets", "~/.local/share/nvim/UltiSnips/javascript.snippets"]
-    snippets-snip: ["@/configs/nvim/UltiSnips/snippets.snippets",   "~/.local/share/nvim/UltiSnips/snippets.snippets"]
+    snippets:      ["@/configs/nvim/UltiSnips/",                    "~/.local/share/nvim/UltiSnips/s"]
 
     # Misc
     xprofile:      ["@/configs/misc/xprofile",                      "~/.xprofile"]
