@@ -5,9 +5,9 @@
 set -e
 
 # Get setup instonse
-INSTANCES="^(home|work|note|server)$"
+INSTANCES="^(home|work|note)$"
 if [[ ! "$1" =~ $INSTANCES ]]; then
-  echo "couldn't get install type (work|home|note|server)"
+  echo "couldn't get install type (work|home|note)"
   exit 1
 fi
 
@@ -15,60 +15,35 @@ fi
 PROJECT_ROOT=$(git rev-parse --show-toplevel)
 
 
-############################################################
-# Common preset intall
-
-# Install base / trizen / common packages
 
 # Update
 sudo pacman -Fy
 sudo pacman --needed --noconfirm -Syu base base-devel git
 
 cd "$PROJECT_ROOT"
-if [[ "$1" == "server"  ]]; then
 
-  # Create not root user (trizen)
-  ./auxiliary/scripts/server_user.sh "$@"
+############################################################
+# Install trizen
 
-  # Install trizen
-  sudo -u trizen ./auxiliary/scripts/trizen.sh "$@"
+which trizen > /dev/null || {
+  cd /tmp/
+  git clone https://aur.archlinux.org/trizen.git
+  cd trizen/
+  makepkg --needed --install --noconfirm --syncdeps
 
-  # Install packages
-  sudo -u trizen trizen --needed --noconfirm -S $(cat ./packages/common_packets)
-else
+  # Generate config.
+  trizen -q > /dev/null
 
-  # Install trizen
-  ./auxiliary/scripts/trizen.sh "$@"
+  # Change tmp dir.
+  sed 's~^\(.*clone_dir.*\)".*"\(.*\)~\1"$ENV{HOME}/.tmp/trizen"\2~' -i ~/.config/trizen/trizen.conf
+}
 
-  # Install packages
-  trizen --needed --noconfirm -S - < ./packages/common_packets
-fi
-
-
+############################################################
 # Create directory tree
 mkdir -p ~/.nvimbk
 mkdir -p ~/.local/share/applications
 mkdir -p ~/.local/bin
 
-
-# Install configuration
-sudo chsh "`whoami`" -s /bin/zsh
-npm --prefix ./auxiliary/deploy ci && \
-  npm --prefix ./auxiliary/deploy run deploy -- --instance $1
-
-pip install --user neovim
-
-
-# End of server install
-if [ "$1" == "server" ]; then
-  exit 0
-fi
-
-
-############################################################
-# Desktop preset intall
-
-# Create directory tree
 mkdir -p ~/tmp
 mkdir -p ~/downloads
 mkdir -p ~/build
@@ -83,6 +58,20 @@ mkdir -p ~/other/test_projects
 
 mkdir -p ~/.tmp/trizen
 mkdir -p ~/.ssh && chmod 700 ~/.ssh
+
+
+############################################################
+# Install packages
+
+# Install common packages
+trizen --needed --noconfirm -S - < ./packages/common_packets
+
+# Install configuration
+sudo chsh "`whoami`" -s /bin/zsh
+npm --prefix ./auxiliary/deploy ci && \
+  npm --prefix ./auxiliary/deploy run deploy -- --instance $1
+
+pip install --user neovim
 
 
 # Install packages

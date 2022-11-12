@@ -58,15 +58,9 @@ PASSWORD_STORE_GENERATED_LENGTH=17
 ################################################################################
 # PLUGIN CONFIGS
 
-if grep -q server ~/.instance; then
-    function get-colors {
-        cat ~/.Xresources
-    }
-  else
-    function get-colors {
-        xrdb -query
-    }
-fi
+function get-colors {
+    xrdb -query
+}
 
 function foreground {
   echo $(get-colors | grep "foreground:" | awk '{print $2}'| tr -d '\n')

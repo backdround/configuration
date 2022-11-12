@@ -129,12 +129,6 @@
 
 # --------------------------------------------------
 # Insnances
-server:
-    links:
-        << : *terminal-links
-    commands: *commands
-
-
 home:
     links:
         << : *terminal-links
