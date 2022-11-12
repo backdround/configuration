@@ -38,6 +38,10 @@ which trizen > /dev/null || {
   sed 's~^\(.*clone_dir.*\)".*"\(.*\)~\1"$ENV{HOME}/.tmp/trizen"\2~' -i ~/.config/trizen/trizen.conf
 }
 
+# Update
+trizen -Fy
+trizen -Sy
+
 ############################################################
 # Create directory tree
 mkdir -p ~/.nvimbk
