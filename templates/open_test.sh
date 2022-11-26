@@ -90,6 +90,9 @@ case $TEST_TYPE in
   "just")
     CODE_FILE="justfile"
     ;;
+  "cue")
+    CODE_FILE="schema.cue"
+    ;;
   *)
     error "Template settings not setted!"
 esac

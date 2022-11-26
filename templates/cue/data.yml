@@ -1,0 +1,6 @@
+
+user:
+  Age: 3
+  Name: bob
+  Files:
+    path1: "/home/bob"

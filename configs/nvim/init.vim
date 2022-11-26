@@ -77,6 +77,7 @@ function! s:LoadPlugins()
     Plug 'tyru/open-browser.vim'          " OPEN BROWSER
     "Plug 'kshenoy/vim-signature'          " SIGNATURE
     Plug 'earthly/earthly.vim', { 'branch': 'main' }
+    Plug 'jjo/vim-cue'
 
     Plug 'SirVer/ultisnips'               " SNIPPETS
 

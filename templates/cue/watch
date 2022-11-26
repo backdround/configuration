@@ -1,0 +1,4 @@
+#!/bin/bash
+
+clear && cue vet ./schema.cue ./data.yml
+onchange **/* -- bash -c "clear && cue vet ./schema.cue ./data.yml"
