@@ -43,7 +43,8 @@ setopt extended_glob
 
 export PATH="$(yarn global bin):$PATH"
 export PATH="$(npm -g bin):$PATH"
-export PATH=~/.local/bin/:$PATH
+export PATH="$HOME/.local/bin/:$PATH"
+export PATH="$HOME/go/bin/:$PATH"
 
 export EDITOR="editor.sh"
 export PAGER="editor.sh -R"
