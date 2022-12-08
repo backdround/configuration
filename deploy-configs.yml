@@ -137,9 +137,6 @@
     mime:
         target: "{{.GitRoot}}/configs/desktop/mimeapps.list"
         link: "{{.Home}}/.config/mimeapps.list"
-    flameshot:
-        target: "{{.GitRoot}}/configs/desktop/flameshot.ini"
-        link: "{{.Home}}/.config/flameshot/flameshot.ini"
 
     # Services
     services:
@@ -161,6 +158,11 @@
 # commands
 .commands: &commands
     qute_link:
+        input: "{{.GitRoot}}/configs/desktop/flameshot.ini"
+        output: "{{.Home}}/.config/flameshot/flameshot.ini"
+        command: "sed \"s~%HOMEDIR%~$HOME~g\" {{.Input}} > {{.Output}}"
+
+    flameshot:
         input: "{{.GitRoot}}/links/qute_link.desktop"
         output: "{{.Home}}/.local/share/applications/qute_link.desktop"
         command: "sed \"s~%HOMEDIR%~$HOME~g\" {{.Input}} > {{.Output}}"
