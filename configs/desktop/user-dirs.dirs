@@ -2,7 +2,7 @@
 XDG_DESKTOP_DIR="$HOME/.local/share/applications"
 XDG_SCRIPTS_DIR="$HOME/.local/bin"
 XDG_DOWNLOAD_DIR="$HOME/downloads"
-XDG_TEMPLATES_DIR="$HOME/templates"
+XDG_TEMPLATES_DIR="$HOME/"
 XDG_DOCUMENTS_DIR="$HOME/other/docs"
 XDG_MUSIC_DIR="$HOME/other/music"
 XDG_VIDEOS_DIR="$HOME/other/videos"
@@ -11,4 +11,3 @@ XDG_SCREENSHOTS_DIR="$HOME/other/screens"
 
 XDG_PUBLICSHARE_DIR="$HOME/.local/other"
 XDG_PICTURES_DIR="$HOME/.local/other"
-
