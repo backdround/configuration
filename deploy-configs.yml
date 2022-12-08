@@ -1,0 +1,234 @@
+# --------------------------------------------------
+# terminal
+.terminal-links: &terminal-links
+    readline:
+        target: "{{.GitRoot}}/configs/terminal/inputrc"
+        link: "{{.Home}}/.inputrc"
+    bat:
+        target: "{{.GitRoot}}/configs/terminal/bat"
+        link: "{{.Home}}/.config/bat/config"
+    tmux:
+        target: "{{.GitRoot}}/configs/terminal/tmux"
+        link: "{{.Home}}/.tmux.conf"
+    zsh:
+        target: "{{.GitRoot}}/configs/terminal/zshrc"
+        link: "{{.Home}}/.zshrc"
+    zsh-theme:
+        target: "{{.GitRoot}}/configs/terminal/p10k.zsh"
+        link: "{{.Home}}/.p10k.zsh"
+    kitty:
+        target: "{{.GitRoot}}/configs/terminal/kitty.conf"
+        link: "{{.Home}}/.config/kitty/kitty.conf"
+    ranger:
+        target: "{{.GitRoot}}/configs/terminal/ranger"
+        link: "{{.Home}}/.config/ranger/rc.conf"
+
+    # Git
+    git-config:
+        target: "{{.GitRoot}}/configs/git/gitconfig"
+        link: "{{.Home}}/.gitconfig"
+    git-ignore:
+        target: "{{.GitRoot}}/configs/git/gitignore_global"
+        link: "{{.Home}}/.gitignore_global"
+
+    # Nvim
+    nvim:
+        target: "{{.GitRoot}}/configs/nvim/init.vim"
+        link: "{{.Home}}/.config/nvim/init.vim"
+    nvim-coc:
+        target: "{{.GitRoot}}/configs/nvim/coc-settings.json"
+        link: "{{.Home}}/.config/nvim/coc-settings.json"
+    nvim-layout:
+        target: "{{.GitRoot}}/configs/nvim/keymap/custom_ru.vim"
+        link: "{{.Home}}/.config/nvim/keymap/custom_ru.vim"
+
+    snippets:
+        target: "{{.GitRoot}}/configs/nvim/UltiSnips/"
+        link: "{{.Home}}/.local/share/nvim/UltiSnips/s"
+
+    # Misc
+    xprofile:
+        target: "{{.GitRoot}}/configs/misc/xprofile"
+        link: "{{.Home}}/.xprofile"
+    Xresources:
+        target: "{{.GitRoot}}/configs/misc/Xresources"
+        link: "{{.Home}}/.Xresources"
+    scripts:
+        target: "{{.GitRoot}}/scripts/"
+        link: "{{.Home}}/.local/bin/"
+
+# --------------------------------------------------
+# desktop
+.desktop-links: &desktop-links
+    # Qutebrowser
+    qute:
+        target: "{{.GitRoot}}/configs/qutebrowser/config.py"
+        link: "{{.Home}}/.config/qutebrowser/config.py"
+    qute-style:
+        target: "{{.GitRoot}}/configs/qutebrowser/style.css"
+        link: "{{.Home}}/.config/qutebrowser/style.css"
+    qute-draw:
+        target: "{{.GitRoot}}/configs/qutebrowser/theme/draw.py"
+        link: "{{.Home}}/.config/qutebrowser/theme/draw.py"
+    qute-marks:
+        target: "{{.GitRoot}}/configs/qutebrowser/quickmarks"
+        link: "{{.Home}}/.config/qutebrowser/quickmarks"
+    qute-gm:
+        target: "{{.GitRoot}}/configs/qutebrowser/greasemonkey"
+        link: "{{.Home}}/.local/share/qutebrowser/greasemonkey"
+    qute-clear:
+        target: "{{.GitRoot}}/configs/qutebrowser/my_scripts/clear.js"
+        link: "{{.Home}}/.config/qutebrowser/my_scripts/clear.js"
+
+    # Polybar
+    polybar:
+        target: "{{.GitRoot}}/configs/polybar/config"
+        link: "{{.Home}}/.config/polybar/config"
+    polybar-startup:
+        target: "{{.GitRoot}}/configs/polybar/startup"
+        link: "{{.Home}}/.config/polybar/startup"
+
+    # Keyboard
+    keyboard:
+        target: "{{.GitRoot}}/configs/keyboard/keymap/config"
+        link: "{{.Home}}/.config/xkb/keymap/config"
+    keyboard-dv:
+        target: "{{.GitRoot}}/configs/keyboard/symbols/dv_layout"
+        link: "{{.Home}}/.config/xkb/symbols/dv_layout"
+    keyboard-ru:
+        target: "{{.GitRoot}}/configs/keyboard/symbols/ru_layout"
+        link: "{{.Home}}/.config/xkb/symbols/ru_layout"
+
+    # Gtk
+    gtk-css:
+        target: "{{.GitRoot}}/configs/gtk/gtk.css"
+        link: "{{.Home}}/.config/gtk-3.0/gtk.css"
+    gtk-settings:
+        target: "{{.GitRoot}}/configs/gtk/settings.ini"
+        link: "{{.Home}}/.config/gtk-3.0/settings.ini"
+    gtk2-rc:
+        target: "{{.GitRoot}}/configs/gtk/gtkrc-2.0"
+        link: "{{.Home}}/.gtkrc-2.0"
+
+    # Rofi
+    rofi:
+        target: "{{.GitRoot}}/configs/rofi/config.rasi"
+        link: "{{.Home}}/.config/rofi/config.rasi"
+    rofi-style:
+        target: "{{.GitRoot}}/configs/rofi/style.rasi"
+        link: "{{.Home}}/.config/rofi/style.rasi"
+
+    # Desktop
+    picom:
+        target: "{{.GitRoot}}/configs/desktop/picom.conf"
+        link: "{{.Home}}/.config/picom.conf"
+    dunst:
+        target: "{{.GitRoot}}/configs/desktop/dunstrc"
+        link: "{{.Home}}/.config/dunst/dunstrc"
+    mouse-theme:
+        target: "{{.GitRoot}}/configs/desktop/mouse_index.theme"
+        link: "{{.Home}}/.icons/default/index.theme"
+    xdg-dirs:
+        target: "{{.GitRoot}}/configs/desktop/user-dirs.dirs"
+        link: "{{.Home}}/.config/user-dirs.dirs"
+    mime:
+        target: "{{.GitRoot}}/configs/desktop/mimeapps.list"
+        link: "{{.Home}}/.config/mimeapps.list"
+    flameshot:
+        target: "{{.GitRoot}}/configs/desktop/flameshot.ini"
+        link: "{{.Home}}/.config/flameshot/flameshot.ini"
+
+    # Services
+    services:
+        target: "{{.GitRoot}}/services/"
+        link: "{{.Home}}/.config/systemd/user"
+
+    # Links
+    links:
+        target: "{{.GitRoot}}/links/"
+        link: "{{.Home}}/.local/share/applications"
+
+    # Misc
+    gpg:
+        target: "{{.GitRoot}}/configs/misc/gpg"
+        link: "{{.Home}}/.gnupg/gpgconf.conf"
+    pulseaudio:
+        target: "{{.GitRoot}}/configs/misc/pulse"
+        link: "{{.Home}}/.config/pulseaudio-ctl/config"
+    zathura:
+        target: "{{.GitRoot}}/configs/misc/zathurarc"
+        link: "{{.Home}}/.config/zathura/zathurarc"
+
+# --------------------------------------------------
+# commands
+.commands: &commands
+    less:
+        input: "{{.GitRoot}}/configs/terminal/lesskeys"
+        output: "{{.Home}}/.lesskey"
+        command: "lesskey -o {{.Output}} -- {{.Input}}"
+    qute_link:
+        input: "{{.GitRoot}}/links/qute_link.desktop"
+        output: "{{.Home}}/.local/share/applications/qute_link.desktop"
+        command: "sed \"s~{{{homedir}}}~$HOME~g\" {{.Input}} > {{.Output}}"
+
+
+# --------------------------------------------------
+# templates
+.i3_template: &i3_template
+    input: "{{.GitRoot}}/configs/desktop/i3_template"
+    output: "{{.Home}}/.config/i3/config"
+
+.i3_data_note: &i3_data_note
+    telegram-position:       "1348 96"
+    telegram-size:           "525 700"
+    dropdown-position:       "18 46"
+    dropdown-size:           "1884 499"
+    ranger-position:         "18 46"
+    ranger-size:             "1884 499"
+    qutebrowser_editor-size: "675 336"
+
+.i3_data_home: &i3_data_home
+    << : *i3_data_note
+    telegram-position:       "2872 468"
+    telegram-size:           "580 740"
+    dropdown-position:       "978 352"
+    ranger-position:         "978 352"
+    monitors:
+        left: "DisplayPort-0"
+        right: "DVI-D-0"
+
+i3_data_work: &i3_data_work
+    << : *i3_data_note
+    monitors:
+        left: "DP-2"
+        right: "HDMI-3"
+
+# --------------------------------------------------
+# Insnances
+instances:
+    home:
+        links:
+            <<: [*terminal-links, *desktop-links]
+        commands: *commands
+        templates:
+            i3:
+                <<:  *i3_template
+                data: *i3_data_home
+
+    work:
+        links:
+            <<: [*terminal-links, *desktop-links]
+        commands: *commands
+        templates:
+            i3:
+                <<:  *i3_template
+                data: *i3_data_work
+
+    note:
+        links:
+            <<: [*terminal-links, *desktop-links]
+        commands: *commands
+        templates:
+            i3:
+                <<:  *i3_template
+                data: *i3_data_note
