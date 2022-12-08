@@ -5,15 +5,15 @@
   default-spacing:               1.1em;
   font:                          "Fantasque Sans Mono 13";
 
-  --background:                  #404759;
-  --foreground:                  #c6c8d1;
+  background:                  #404759;
+  foreground:                  #c6c8d1;
 
-  --element-background:          #23252E;
-  --element-foreground:          var(--foreground);
-  --selected-element-background: #626C7A;
-  --selected-element-foreground: #fff;
+  element-background:          #23252E;
+  element-foreground:          var(foreground);
+  selected-element-background: #626C7A;
+  selected-element-foreground: #fff;
 
-  border-color:                  var(--foreground);
+  border-color:                  var(foreground);
   background-color:              #00000000;
   text-color:                    #98A4B3;
 }
@@ -22,7 +22,7 @@ window {
   border:           0.4em;
   border-color:     #9BC2CA;
   padding:          var(default-spacing);
-  background-color: var(--background);
+  background-color: var(background);
   width: 35%;
 }
 
@@ -46,18 +46,18 @@ element {
 }
 
 element normal.normal {
-  background-color: var(--element-background);
-  text-color:       var(--element-foreground);
+  background-color: var(element-background);
+  text-color:       var(element-foreground);
 }
 
 element alternate.normal {
-  background-color: var(--element-background);
-  text-color:       var(--element-foreground);
+  background-color: var(element-background);
+  text-color:       var(element-foreground);
 }
 
 element selected.normal {
-  background-color: var(--selected-element-background);
-  text-color:       var(--selected-element-foreground);
+  background-color: var(selected-element-background);
+  text-color:       var(selected-element-foreground);
 }
 
 /* ******************************************************* */
@@ -66,11 +66,11 @@ element selected.normal {
 error-message {
   padding:      0.7em 1.1em 1.1em;
   border:       0px 0px 0.15em;
-  border-color: var(--foreground);
+  border-color: var(foreground);
 }
 
 textbox {
-  text-color: var(--foreground);
+  text-color: var(foreground);
 }
 
 
@@ -79,7 +79,7 @@ textbox {
 
 inputbar {
   padding:    0.1em 0.6em 0.4em 0.6em;
-  text-color: var(--foreground);
+  text-color: var(foreground);
   spacing:    0.2em;
   border:     0px 0px 0.15em;
   font:       "Fantasque Sans Mono 14";
@@ -94,7 +94,7 @@ inputbar {
 }
 
 entry {
-  text-color: var(--foreground);
+  text-color: var(foreground);
   font: inherit;
 }
 
