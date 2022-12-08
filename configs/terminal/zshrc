@@ -622,6 +622,7 @@ alias gcm='git commit'
 alias -g .g='| grep -i'
 alias -g .l='| less'
 alias -g .c="| wc -l"
+alias -g .h="--help"
 alias -g .p="| $PAGER"
 alias -g .stn='| tr " " "\n"'
 
