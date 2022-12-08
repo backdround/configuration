@@ -22,6 +22,9 @@
     ranger:
         target: "{{.GitRoot}}/configs/terminal/ranger"
         link: "{{.Home}}/.config/ranger/rc.conf"
+    less:
+        target: "{{.GitRoot}}/configs/terminal/lesskeys"
+        link: "{{.Home}}/.lesskey"
 
     # Git
     git-config:
@@ -162,10 +165,6 @@
 # --------------------------------------------------
 # commands
 .commands: &commands
-    less:
-        input: "{{.GitRoot}}/configs/terminal/lesskeys"
-        output: "{{.Home}}/.lesskey"
-        command: "lesskey -o {{.Output}} -- {{.Input}}"
     qute_link:
         input: "{{.GitRoot}}/links/qute_link.desktop"
         output: "{{.Home}}/.local/share/applications/qute_link.desktop"
