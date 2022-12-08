@@ -146,11 +146,6 @@
         target: "{{.GitRoot}}/services/"
         link: "{{.Home}}/.config/systemd/user"
 
-    # Links
-    links:
-        target: "{{.GitRoot}}/links/"
-        link: "{{.Home}}/.local/share/applications"
-
     # Misc
     gpg:
         target: "{{.GitRoot}}/configs/misc/gpg"
@@ -168,8 +163,7 @@
     qute_link:
         input: "{{.GitRoot}}/links/qute_link.desktop"
         output: "{{.Home}}/.local/share/applications/qute_link.desktop"
-        command: "sed \"s~{{{homedir}}}~$HOME~g\" {{.Input}} > {{.Output}}"
-
+        command: "sed \"s~%HOMEDIR%~$HOME~g\" {{.Input}} > {{.Output}}"
 
 # --------------------------------------------------
 # templates
