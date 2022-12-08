@@ -179,20 +179,20 @@
     output: "{{.Home}}/.config/i3/config"
 
 .i3_data_note: &i3_data_note
-    telegram-position:       "1348 96"
-    telegram-size:           "525 700"
-    dropdown-position:       "18 46"
-    dropdown-size:           "1884 499"
-    ranger-position:         "18 46"
-    ranger-size:             "1884 499"
-    qutebrowser_editor-size: "675 336"
+    telegramPosition: "1348 96"
+    telegramSize:     "525 700"
+    dropdownPosition: "18 46"
+    dropdownSize:     "1884 499"
+    rangerPosition:   "18 46"
+    rangerSize:       "1884 499"
+    quteEditorSize:   "675 336"
 
 .i3_data_home: &i3_data_home
-    << : *i3_data_note
-    telegram-position:       "2872 468"
-    telegram-size:           "580 740"
-    dropdown-position:       "978 352"
-    ranger-position:         "978 352"
+    <<: *i3_data_note
+    telegramPosition: "2872 468"
+    telegramSize:     "580 740"
+    dropdownPosition: "978 352"
+    rangerPosition:   "978 352"
     monitors:
         left: "DisplayPort-0"
         right: "DVI-D-0"

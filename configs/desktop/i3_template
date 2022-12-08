@@ -84,20 +84,18 @@ set $wsright2 "5: Right"
 set $wsright3 "6: >"
 
 # Monitors
-{{#monitors}}
-set $left_monitor {{{left}}}
-set $right_monitor {{{right}}}
+{{with .monitors}}
+set $left_monitor {{.left}}
+set $right_monitor {{.right}}
 workspace $wsleft1  output $left_monitor
 workspace $wsleft2  output $left_monitor
 workspace $wsleft3  output $left_monitor
 workspace $wsright1 output $right_monitor
 workspace $wsright2 output $right_monitor
 workspace $wsright3 output $right_monitor
-{{/monitors}}
-
-{{^monitors}}
+{{else}}
 # Monitors not setted :c
-{{/monitors}}
+{{end}}
 
 # Switch to workspace
 bindsym $mod+h      workspace $wsleft1
@@ -241,8 +239,8 @@ mode "launcher" {
 # Telegram
 bindsym $mod+s [class="TelegramDesktop"] scratchpad show
 for_window [class="TelegramDesktop"] floating enable
-for_window [class="TelegramDesktop"] move position {{{telegram-position}}}
-for_window [class="TelegramDesktop"] resize set {{{telegram-size}}}
+for_window [class="TelegramDesktop"] move position {{.telegramPosition}}
+for_window [class="TelegramDesktop"] resize set {{.telegramSize}}
 for_window [class="TelegramDesktop"] sticky enable
 for_window [class="TelegramDesktop"] move scratchpad
 
@@ -250,21 +248,21 @@ for_window [class="TelegramDesktop"] move scratchpad
 bindsym $mod+d [class="ddterminal-desktop"] scratchpad show
 for_window [class="ddterminal-desktop"] floating enable
 for_window [class="ddterminal-desktop"] sticky enable
-for_window [class="ddterminal-desktop"] move position {{{dropdown-position}}}
-for_window [class="ddterminal-desktop"] resize set {{{dropdown-size}}}
+for_window [class="ddterminal-desktop"] move position {{.dropdownPosition}}
+for_window [class="ddterminal-desktop"] resize set {{.dropdownSize}}
 for_window [class="ddterminal-desktop"] move scratchpad
 
 # Ranger
 bindsym $mod+i [class="ranger-desktop"] scratchpad show
 for_window [class="ranger-desktop"] floating enable
 for_window [class="ranger-desktop"] sticky enable
-for_window [class="ranger-desktop"] move position {{{ranger-position}}}
-for_window [class="ranger-desktop"] resize set {{{ranger-size}}}
+for_window [class="ranger-desktop"] move position {{.rangerPosition}}
+for_window [class="ranger-desktop"] resize set {{.rangerSize}}
 for_window [class="ranger-desktop"] move scratchpad
 
 # Qutebrowser editor
 for_window [class="qute_editor"] floating enable
-for_window [class="qute_editor"] resize set {{{qutebrowser_editor-size}}}
+for_window [class="qute_editor"] resize set {{.quteEditorSize}}
 
 # Tiling ignore
 for_window [class="Rofi"] floating enable
