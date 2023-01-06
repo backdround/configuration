@@ -19,8 +19,8 @@ check_sudo_access() {
 
 base-preparations() {
   # Changes directory to project root level
-  # PROJECT_ROOT=$(git rev-parse --show-toplevel)
-  # cd "$PROJECT_ROOT"
+  PROJECT_ROOT=$(git rev-parse --show-toplevel)
+  cd "$PROJECT_ROOT"
 
   # Updates databases
   sudo pacman -Fy
@@ -31,8 +31,7 @@ update-trizen() {
   # Installs if needed
   which trizen > /dev/null || {
     git clone https://aur.archlinux.org/trizen.git /tmp/trizen
-    cd /tmp/trizen
-    makepkg --needed --install --noconfirm --syncdeps
+    (cd /tmp/trizen && makepkg --needed --install --noconfirm --syncdeps)
 
     # Generates config.
     trizen -q > /dev/null
