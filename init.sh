@@ -3,6 +3,20 @@
 
 set -euo pipefail
 
+USER_PASSWORD="${1:-}"
+use_sudo() {
+  echo "${USER_PASSWORD:-}" | sudo -p "" -S "$@" || {
+    return 1
+  }
+}
+
+check_sudo_access() {
+  use_sudo ls > /dev/null || {
+    echo "Unable to get sudo"
+    return 1
+  }
+}
+
 base-preparations() {
   # Changes directory to project root level
   # PROJECT_ROOT=$(git rev-parse --show-toplevel)
@@ -92,6 +106,7 @@ enable-services() {
   sudo systemctl enable lightdm
 }
 
+check_sudo_access
 base-preparations
 update-trizen
 update-home-directory-tree
