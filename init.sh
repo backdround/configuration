@@ -4,16 +4,33 @@
 set -euo pipefail
 
 USER_PASSWORD="${1:-}"
-use_sudo() {
-  echo "${USER_PASSWORD:-}" | sudo -p "" -S "$@" || {
-    return 1
+disable_sudo_password_on_script_execution() {
+  use_sudo() {
+    echo "${USER_PASSWORD:-}" | sudo -p "" -S "$@" || {
+      return 1
+    }
   }
-}
 
-check_sudo_access() {
-  use_sudo ls > /dev/null || {
+  # Checks sudo access.
+  sudo -K
+  use_sudo -v || {
     echo "Unable to get sudo"
     return 1
+  }
+
+  # Disables sudo cache timeout.
+  SUDOERS_DISABLE_PASSWORD="$(whoami) ALL=(ALL:ALL) NOPASSWD: ALL"
+  use_sudo bash -c "echo '${SUDOERS_DISABLE_PASSWORD}' >> /etc/sudoers"
+
+  # Enables sudo cache timeout on script exit.
+  undo_action() {
+    use_sudo sed -i "/${SUDOERS_DISABLE_PASSWORD}/d" /etc/sudoers
+  }
+  trap undo_action EXIT
+
+  # Checks sudo execution after manipulations.
+  echo "" | sudo -S -v || {
+    echo "Unable to disable sudo cache timeout"
   }
 }
 
@@ -36,8 +53,11 @@ update-trizen() {
     # Generates config.
     trizen -q > /dev/null
 
-    # Changes tmp dir.
-    sed 's~^\(.*clone_dir.*\)".*"\(.*\)~\1"$ENV{HOME}/.tmp/trizen"\2~' -i ~/.config/trizen/trizen.conf
+    # Changes clone directory.
+    sed -i 's~^\(.*clone_dir.*\)".*"\(.*\)~\1"$ENV{HOME}/.tmp/trizen"\2~' ~/.config/trizen/trizen.conf
+
+    # Creates clone directory.
+    mkdir -p ~/.tmp/trizen
   }
 
   # Updates databases
@@ -58,7 +78,6 @@ update-home-directory-tree() {
   mkdir -p ~/other/docs
   mkdir -p ~/other/test_projects
 
-  mkdir -p ~/.tmp/trizen
   mkdir -p ~/.ssh && chmod 700 ~/.ssh
 }
 
@@ -105,7 +124,7 @@ enable-services() {
   sudo systemctl enable lightdm
 }
 
-check_sudo_access
+disable_sudo_password_on_script_execution
 base-preparations
 update-trizen
 update-home-directory-tree
