@@ -13,8 +13,9 @@ disable_sudo_password_on_script_execution() {
 
   # Checks sudo access.
   sudo -K
-  use_sudo -v || {
+  use_sudo -v 2>/dev/null || {
     echo "Unable to get sudo"
+    echo "Is password correct?"
     return 1
   }
 
@@ -32,6 +33,12 @@ disable_sudo_password_on_script_execution() {
   echo "" | sudo -S -v || {
     echo "Unable to disable sudo cache timeout"
   }
+}
+
+check_paswordless_sudo() {
+  sudo -K
+  echo "" | sudo -p "" -v -S 2>/dev/null || return 1
+  return 0
 }
 
 base-preparations() {
@@ -124,7 +131,8 @@ enable-services() {
   sudo systemctl enable lightdm
 }
 
-disable_sudo_password_on_script_execution
+check_paswordless_sudo || disable_sudo_password_on_script_execution
+
 base-preparations
 update-trizen
 update-home-directory-tree
