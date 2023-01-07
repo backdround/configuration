@@ -1,10 +1,37 @@
 #!/bin/bash
 # init cnofigurations script on bare archlinux.
-
 set -euo pipefail
+
+############################################################
+# Utils
+
+OUTPUT_RED='\033[1;31m'
+OUTPUT_YELLOW='\033[1;33m'
+OUTPUT_BLUE='\033[1;34m'
+OUTPUT_RESET="$(tput sgr0)"
+
+error() {
+  echo -e "$OUTPUT_RED""$@""$OUTPUT_RESET" >&2
+  return 1
+}
+
+warning() {
+  echo -e "$OUTPUT_YELLOW""$@""$OUTPUT_RESET" >&2
+}
+
+title() {
+  echo -en "\n$OUTPUT_BLUE#######---$OUTPUT_RESET "
+  echo -n "$@"
+  echo -en " $OUTPUT_BLUE---#######$OUTPUT_RESET\n"
+}
+
+
+############################################################
+# Configure
 
 USER_PASSWORD="${1:-}"
 disable_sudo_password_on_script_execution() {
+  title "Temporary disabling sudo password"
   use_sudo() {
     echo "${USER_PASSWORD:-}" | sudo -p "" -S "$@" || {
       return 1
@@ -14,9 +41,7 @@ disable_sudo_password_on_script_execution() {
   # Checks sudo access.
   sudo -K
   use_sudo -v 2>/dev/null || {
-    echo "Unable to get sudo"
-    echo "Is password correct?"
-    return 1
+    error "Unable to get sudo\nIs password correct?"
   }
 
   # Disables sudo cache timeout.
@@ -25,33 +50,36 @@ disable_sudo_password_on_script_execution() {
 
   # Enables sudo cache timeout on script exit.
   undo_action() {
+    title "Enabling sudo password"
     use_sudo sed -i "/${SUDOERS_DISABLE_PASSWORD}/d" /etc/sudoers
   }
   trap undo_action EXIT
 
   # Checks sudo execution after manipulations.
   echo "" | sudo -S -v || {
-    echo "Unable to disable sudo cache timeout"
+    error "Unable to disable sudo cache timeout"
   }
 }
 
 check_paswordless_sudo() {
+  title "Checking presence sudo password"
   sudo -K
   echo "" | sudo -p "" -v -S 2>/dev/null || return 1
   return 0
 }
 
 base-preparations() {
+  title "Providing base packages"
+  sudo pacman -Fy
+  sudo pacman --needed --noconfirm -Syu base base-devel git
+
   # Changes directory to project root level
   PROJECT_ROOT=$(git rev-parse --show-toplevel)
   cd "$PROJECT_ROOT"
-
-  # Updates databases
-  sudo pacman -Fy
-  sudo pacman --needed --noconfirm -Syu base base-devel git
 }
 
-update-trizen() {
+provide-trizen() {
+  title "Providing trizen"
   # Installs if needed
   which trizen > /dev/null || {
     git clone https://aur.archlinux.org/trizen.git /tmp/trizen
@@ -72,7 +100,8 @@ update-trizen() {
   trizen -Sy
 }
 
-update-home-directory-tree() {
+provide-home-directory-tree() {
+  title "Providing home directory tree"
   mkdir -p ~/tmp
   mkdir -p ~/downloads
   mkdir -p ~/build
@@ -88,7 +117,9 @@ update-home-directory-tree() {
   mkdir -p ~/.ssh && chmod 700 ~/.ssh
 }
 
-update-packages() {
+provide-packages() {
+  title "Installing packages"
+
   # Installs common packages
   trizen --needed --noconfirm -S - < ./packages/common_packets
 
@@ -98,6 +129,8 @@ update-packages() {
 }
 
 configure-packages() {
+  title "Configuring packages"
+
   # Adds desktop configurations
   gsettings set org.gnome.desktop.default-applications.terminal exec /usr/bin/kitty
 
@@ -111,7 +144,9 @@ configure-packages() {
   pip install --user pyLanguagetool
 
   # qutebrowser
-  /usr/share/qutebrowser/scripts/dictcli.py install en-US ru-RU
+  /usr/share/qutebrowser/scripts/dictcli.py install en-US ru-RU || {
+    warning "Unable to install qutebrowser spell checkings"
+  }
 
   # go
   go env -w GOMODCACHE="/home/$(whoami)/.go"
@@ -119,10 +154,13 @@ configure-packages() {
 
   # rager
   test -d ~/.config/ranger/plugins/ranger_devicons || \
-  git clone -q git@github.com:alexanderjeurissen/ranger_devicons.git ~/.config/ranger/plugins/ranger_devicons
+    git clone -q git@github.com:alexanderjeurissen/ranger_devicons.git ~/.config/ranger/plugins/ranger_devicons || {
+    warning "Unable to settnig up ranger icons"
+  }
 }
 
-enable-services() {
+provide-systemd-services() {
+  title "Providing services"
   systemctl --user daemon-reload
   systemctl --user enable ddterminal.service
   systemctl --user enable picom
@@ -134,8 +172,8 @@ enable-services() {
 check_paswordless_sudo || disable_sudo_password_on_script_execution
 
 base-preparations
-update-trizen
-update-home-directory-tree
-update-packages
+provide-trizen
+provide-home-directory-tree
+provide-packages
 configure-packages
-enable-services
+provide-systemd-services
