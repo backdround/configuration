@@ -118,14 +118,11 @@ provide-home-directory-tree() {
 }
 
 provide-packages() {
-  title "Installing packages"
+  title "Installing official packages"
+  sudo pacman --needed --noconfirm -S - < packages/official
 
-  # Installs common packages
-  trizen --needed --noconfirm -S - < ./packages/common_packets
-
-  # Install packages
-  sudo pacman --needed --noconfirm -S - < packages/packets
-  trizen --needed --noconfirm -S - < packages/aur_packets
+  title "Installing aur packages"
+  trizen --needed --noconfirm -S - < packages/aur
 }
 
 configure-packages() {
