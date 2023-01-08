@@ -1,101 +1,119 @@
-kitty-terminfo
-lsd
-npm
-yarn
-translate-shell
-tmux
-python-pip
-zsh-lovers
-wget
-zip
-zsh
-zsh-doc
-unzip
-unrar
-tree
-tldr
-htop
-fzf
-fd
-binutils
-bash
-bash-completion
-bash-language-server
-diff-so-fancy
-bat
-ripgrep
-bottom
-mlocate
-trash-cli
-man-db
-strace
-gopass
-nodejs
-polybar
-discord
-peek
-gifski
-vagrant
-openbsd-netcat
-rofi
-unclutter
-acpilight
-pdfjs
-rclone
-xdg-user-dirs
-inotify-tools
-figlet
-alsa-utils
-arc-gtk-theme
-aspell-en
-aspell-ru
-awesome-terminal-fonts
-picom
-coreutils
-deluge
-dunst
-feh
-flameshot
-fzy
-kitty
-gdb-dashboard
-hsetroot
-imagemagick
-lightdm
-lightdm-gtk-greeter
-lightdm-gtk-greeter-settings
-mpv
-pulseaudio
-ranger
-rofi
-screenfetch
-socat
-openssh
-sudo
-telegram-desktop
-terminus-font
-thunar
-the_silver_searcher
-tor
-ttf-bitstream-vera
-ttf-croscore
-ttf-dejavu
-ttf-droid
-ttf-fantasque-sans-mono
-ttf-font-awesome
-ttf-liberation
-w3m
-xclip
-xorg-server
-xorg-xclipboard
-xorg-xkill
-xorg-xprop
-xorg-xrandr
-xorg-xrdb
-xsel
-zathura
-zathura-cb
-zathura-djvu
-zathura-pdf-mupdf
-qutebrowser
-jq
+#!/usr/bin/env bash
+system=(
+  acpilight
+  alsa-utils
+  aspell-en
+  aspell-ru
+  bash
+  binutils
+  coreutils
+  man-db
+  pulseaudio
+  xorg-server
+  xorg-xclipboard
+  xorg-xkill
+  xorg-xprop
+  xorg-xrandr
+  xorg-xrdb
+)
+
+desktop=(
+  arc-gtk-theme
+  awesome-terminal-fonts
+  dunst
+  hsetroot
+  lightdm
+  lightdm-gtk-greeter
+  lightdm-gtk-greeter-settings
+  pdfjs
+  picom
+  polybar
+  rofi
+  terminus-font
+  ttf-bitstream-vera
+  ttf-croscore
+  ttf-dejavu
+  ttf-droid
+  ttf-fantasque-sans-mono
+  ttf-font-awesome
+  ttf-liberation
+  unclutter
+  xdg-user-dirs
+)
+
+apllications=(
+  deluge
+  discord
+  feh
+  flameshot
+  kitty
+  kitty-terminfo
+  mpv
+  peek
+  qutebrowser
+  telegram-desktop
+  thunar
+  zathura
+  zathura-cb
+  zathura-djvu
+  zathura-pdf-mupdf
+)
+
+utils=(
+  bat
+  bottom
+  diff-so-fancy
+  fd
+  fzf
+  htop
+  jq
+  lsd
+  openbsd-netcat
+  openssh
+  ranger
+  # to remove
+  rclone
+
+  ripgrep
+  socat
+  strace
+  sudo
+  tldr
+  tmux
+  translate-shell
+  tree
+  unrar
+  unzip
+  wget
+  xclip
+  xsel
+  zip
+  zsh
+  zsh-doc
+  zsh-lovers
+)
+
+devs=(
+  bash-language-server
+  go
+  nodejs
+  npm
+  python-pip
+  yarn
+)
+
+other=(
+  figlet
+  screenfetch
+  w3m
+  gopass
+)
+
+OFFICIAL_PACKAGES=(
+  "${system[@]}"
+  "${desktop[@]}"
+  "${apllications[@]}"
+  "${utils[@]}"
+  "${devs[@]}"
+  "${other[@]}"
+)

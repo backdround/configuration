@@ -119,10 +119,12 @@ provide-home-directory-tree() {
 
 provide-packages() {
   title "Installing official packages"
-  sudo pacman --needed --noconfirm -S - < packages/official
+  source packages/official
+  sudo pacman --needed --noconfirm -S "${OFFICIAL_PACKAGES[@]}"
 
   title "Installing aur packages"
-  trizen --needed --noconfirm -S - < packages/aur
+  source packages/aur
+  trizen --needed --noconfirm -S "${AUR_PACKAGES[@]}"
 }
 
 configure-packages() {
