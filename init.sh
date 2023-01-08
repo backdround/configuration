@@ -160,7 +160,10 @@ configure-packages() {
 
 provide-systemd-services() {
   title "Providing services"
-  systemctl --user daemon-reload
+  systemctl --user daemon-reload || {
+    warning "Unable to systemctl daemon-reload"
+    warning "Possible chroot environment"
+  }
   systemctl --user enable ddterminal.service
   systemctl --user enable picom
   systemctl --user enable ranger
