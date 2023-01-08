@@ -56,7 +56,7 @@ disable_sudo_password_on_script_execution() {
   trap undo_action EXIT
 
   # Checks sudo execution after manipulations.
-  echo "" | sudo -S -v || {
+  echo "" | sudo -p "" -S ls 2>/dev/null >&2 || {
     error "Unable to disable sudo cache timeout"
   }
 }
@@ -64,7 +64,7 @@ disable_sudo_password_on_script_execution() {
 check_paswordless_sudo() {
   title "Checking presence sudo password"
   sudo -K
-  echo "" | sudo -p "" -v -S 2>/dev/null || return 1
+  echo "" | sudo -p "" -S ls 2>/dev/null >&2 || return 1
   return 0
 }
 
