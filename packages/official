@@ -69,6 +69,7 @@ utils=(
   htop
   jq
   lsd
+  neovim
   openbsd-netcat
   openssh
   ranger

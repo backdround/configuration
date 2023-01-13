@@ -7,7 +7,6 @@ AUR_PACKAGES=(
   fswatch
   google-chrome
   i3lock-fancy-dualmonitors-git
-  neovim-git
   nerd-fonts-complete
   papirus-icon-theme-git
   powerline-fonts-git
