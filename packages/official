@@ -73,9 +73,6 @@ utils=(
   openbsd-netcat
   openssh
   ranger
-  # to remove
-  rclone
-
   ripgrep
   socat
   strace
