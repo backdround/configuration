@@ -157,12 +157,12 @@
 # --------------------------------------------------
 # commands
 .commands: &commands
-    qute_link:
+    flameshot:
         input: "{{.GitRoot}}/configs/desktop/flameshot.ini"
         output: "{{.Home}}/.config/flameshot/flameshot.ini"
         command: "sed \"s~%HOMEDIR%~$HOME~g\" {{.Input}} > {{.Output}}"
 
-    flameshot:
+    qute_link:
         input: "{{.GitRoot}}/links/qute_link.desktop"
         output: "{{.Home}}/.local/share/applications/qute_link.desktop"
         command: "sed \"s~%HOMEDIR%~$HOME~g\" {{.Input}} > {{.Output}}"
