@@ -163,7 +163,7 @@
         command: "sed \"s~%HOMEDIR%~$HOME~g\" {{.Input}} > {{.Output}}"
 
     qute_link:
-        input: "{{.GitRoot}}/links/qute_link.desktop"
+        input: "{{.GitRoot}}/configs/qutebrowser/qute_link.desktop"
         output: "{{.Home}}/.local/share/applications/qute_link.desktop"
         command: "sed \"s~%HOMEDIR%~$HOME~g\" {{.Input}} > {{.Output}}"
 
