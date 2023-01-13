@@ -6,7 +6,6 @@ AUR_PACKAGES=(
   dragon-drag-and-drop-git
   fswatch
   google-chrome
-  i3-gaps-next-git
   i3lock-fancy-dualmonitors-git
   neovim-git
   nerd-fonts-complete

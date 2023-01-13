@@ -21,6 +21,7 @@ desktop=(
   arc-gtk-theme
   awesome-terminal-fonts
   dunst
+  i3-wm
   hsetroot
   lightdm
   lightdm-gtk-greeter
