@@ -169,6 +169,10 @@
 
 # --------------------------------------------------
 # templates
+.instance: &instance
+    input: "{{.GitRoot}}/configs/instance.tmpl"
+    output: "{{.Home}}/.instance"
+
 .i3_template: &i3_template
     input: "{{.GitRoot}}/configs/desktop/i3_template"
     output: "{{.Home}}/.config/i3/config"
@@ -206,6 +210,9 @@ instances:
             <<: [*terminal-links, *desktop-links]
         commands: *commands
         templates:
+            instance:
+                <<: *instance
+                data: home
             i3:
                 <<:  *i3_template
                 data: *i3_data_home
@@ -215,6 +222,9 @@ instances:
             <<: [*terminal-links, *desktop-links]
         commands: *commands
         templates:
+            instance:
+                <<: *instance
+                data: work
             i3:
                 <<:  *i3_template
                 data: *i3_data_work
@@ -224,6 +234,9 @@ instances:
             <<: [*terminal-links, *desktop-links]
         commands: *commands
         templates:
+            instance:
+                <<: *instance
+                data: note
             i3:
                 <<:  *i3_template
                 data: *i3_data_note
