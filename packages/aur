@@ -7,11 +7,7 @@ AUR_PACKAGES=(
   fswatch
   google-chrome
   i3lock-fancy-dualmonitors-git
-  nerd-fonts-complete
+  nerd-fonts-fantasque-sans-mono
   papirus-icon-theme-git
-  powerline-fonts-git
   pulseaudio-ctl
-  terminus-font-ttf
-  ttf-font-awesome-4
-  ttf-font-icons
 )
