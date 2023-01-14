@@ -84,6 +84,7 @@ utils=(
   unrar
   unzip
   wget
+  watchexec
   xclip
   zip
   zsh
@@ -94,8 +95,6 @@ utils=(
 devs=(
   bash-language-server
   go
-  nodejs
-  npm
   python-pip
   yarn
 )

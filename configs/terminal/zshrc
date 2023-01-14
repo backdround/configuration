@@ -41,8 +41,6 @@ setopt extended_glob
 ################################################################################
 # VARIABLES
 
-export PATH="$(yarn global bin):$PATH"
-export PATH="$(npm -g bin):$PATH"
 export PATH="$HOME/.local/bin/:$PATH"
 export PATH="$HOME/go/bin/:$PATH"
 
@@ -553,50 +551,9 @@ alias sshi='ssh -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsF
 alias scpi='scp -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 
 
-chg() { onchange "**/*" -- bash -c "clear && $*" }
-
-# Replace watch -n 0.5 ...
-wch() {
-  # Get argments. To save quoted arguments.
-  local args=
-  for arg in "$@"; do
-    args="$args \"$arg\""
-  done
-
-  local PRINT='\
-    local AVAILABLE_HEIGHT="$(($(tput lines) - 3))"
-    local OUTPUT="$(date && echo && eval "$args 2>&1 | head -n \"$AVAILABLE_HEIGHT\"")" && \
-    clear && \
-    echo "$OUTPUT"\
-  '
-  eval "$PRINT"
-  while sleep 0.5 ; do
-    eval "$PRINT"
-  done
-}
-alias wch='wch '
-
-# Функция удаления дребезга.
-# Множество подряд идущих эвентов обрабатывается как один.
-bounce_event() {
-  local DELAY=${1:-1}
-
-  if ! [[ $DELAY =~ ^[0-9.]+$ ]]; then
-    echo "Invalid delay: $DELAY"
-    return 1
-  fi
-
-  (
-    trap 'exit $?' SIGINT SIGHUP SIGTERM
-    while read line ; do
-      local DRAIN_PROCESS_PID="$(cat >/dev/null & echo $!)"
-      sleep "$DELAY"
-      kill "$DRAIN_PROCESS_PID" 2>/dev/null || true
-      echo "event triggered"
-    done
-    trap - SIGINT SIGHUP SIGTERM
-  )
-}
+chg() { watchexec -c -- "$@" }
+alias chg='chg '
+alias wch='watch --color --interval 0.3 '
 
 # scripts
 t() { trans en:ru "$*"}
@@ -628,7 +585,6 @@ alias -g .stn='| tr " " "\n"'
 
 # color
 alias diff='diff --color=always'
-alias watch='watch --color'
 alias pacman='pacman --color=always'
 alias dmesg='dmesg --color=always'
 alias grep='grep -i --color=always'
