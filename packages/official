@@ -85,7 +85,6 @@ utils=(
   unzip
   wget
   xclip
-  xsel
   zip
   zsh
   zsh-doc

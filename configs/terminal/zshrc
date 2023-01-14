@@ -179,8 +179,8 @@ x11-paste-wrap-widgets $paste_widgets
 
 # x11 copy whole line
 vi-yank-x-line () {
-  print -rn -- $BUFFER | xsel -i -p;
-  print -rn -- $BUFFER | xsel -i -b;
+  print -rn -- $BUFFER | xclip -in -selection primary;
+  print -rn -- $BUFFER | xclip -in -selection clipboard;
 }
 zle -N vi-yank-x-line
 
