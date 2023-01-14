@@ -84,15 +84,7 @@ provide-trizen() {
   which trizen > /dev/null || {
     git clone https://aur.archlinux.org/trizen.git /tmp/trizen
     (cd /tmp/trizen && makepkg --needed --install --noconfirm --syncdeps)
-
-    # Generates config.
-    trizen -q > /dev/null
-
-    # Changes clone directory.
-    sed -i 's~^\(.*clone_dir.*\)".*"\(.*\)~\1"$ENV{HOME}/.tmp/trizen"\2~' ~/.config/trizen/trizen.conf
-
-    # Creates clone directory.
-    mkdir -p ~/.tmp/trizen
+    rm -rf /tmp/trizen
   }
 
   # Updates databases
@@ -124,7 +116,11 @@ provide-packages() {
 
   title "Installing aur packages"
   source packages/aur
-  trizen --needed --noconfirm -S "${AUR_PACKAGES[@]}"
+  trizen --needed --clone-dir="/tmp/trizen-clone" --noconfirm -S "${AUR_PACKAGES[@]}"
+
+  # Remove cache
+  sudo rm -rf /var/cache/pacman/pkg/*
+  rm -rf /tmp/trizen-clone
 }
 
 configure-packages() {
