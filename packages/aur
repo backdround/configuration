@@ -7,6 +7,5 @@ AUR_PACKAGES=(
   google-chrome
   i3lock-fancy-dualmonitors-git
   nerd-fonts-fantasque-sans-mono
-  papirus-icon-theme-git
   pulseaudio-ctl
 )

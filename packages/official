@@ -26,6 +26,7 @@ desktop=(
   lightdm
   lightdm-gtk-greeter
   lightdm-gtk-greeter-settings
+  papirus-icon-theme
   pdfjs
   picom
   polybar
