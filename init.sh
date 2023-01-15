@@ -126,20 +126,25 @@ configure-packages() {
   title "Configuring packages"
 
   # zsh
+  echo "Setting zsh shell as default"
   sudo chsh "$(whoami)" -s /bin/zsh
 
   # neovim
+  echo "Installation python neovim"
   pip install --user neovim
 
   # langtool
+  echo "Installation pyLanguagetool"
   pip install --user pyLanguagetool
 
   # qutebrowser
+  echo "Downloading qutebrowser dictionaries"
   /usr/share/qutebrowser/scripts/dictcli.py install en-US ru-RU || {
     warning "Unable to install qutebrowser spell checkings"
   }
 
   # rager
+  echo "Downloading ranger devicons"
   test -d ~/.config/ranger/plugins/ranger_devicons || \
     git clone https://github.com/alexanderjeurissen/ranger_devicons \
       ~/.config/ranger/plugins/ranger_devicons || {
@@ -149,10 +154,10 @@ configure-packages() {
 
 provide-systemd-services() {
   title "Providing services"
-  systemctl --user daemon-reload || {
-    warning "Unable to systemctl daemon-reload"
-    warning "Possible chroot environment"
+  sudo systemd-detect-virt --chroot || {
+    systemctl --user daemon-reload
   }
+
   systemctl --user enable ddterminal.service
   systemctl --user enable picom
   systemctl --user enable ranger
