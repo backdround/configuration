@@ -149,8 +149,9 @@ configure-packages() {
 
   # rager
   test -d ~/.config/ranger/plugins/ranger_devicons || \
-    git clone -q git@github.com:alexanderjeurissen/ranger_devicons.git ~/.config/ranger/plugins/ranger_devicons || {
-    warning "Unable to settnig up ranger icons"
+    git clone https://github.com/alexanderjeurissen/ranger_devicons \
+      ~/.config/ranger/plugins/ranger_devicons || {
+      warning "Unable to settnig up ranger icons"
   }
 }
 
