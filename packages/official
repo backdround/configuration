@@ -71,7 +71,7 @@ utils=(
   socat
   strace
   sudo
-  tldr
+  tealdeer
   tmux
   translate-shell
   tree
