@@ -3,7 +3,7 @@
 
 set -e
 
-TESTS_ROOT="$(realpath ~/other/test_projects)"
+TESTS_ROOT="$(realpath ~/.tests)"
 
 preview() {
   CODE_FILES="fd -tf --max-depth=2 '(main.cpp|main.qml|main.py|index.js|main.yml|main.go|Earthfile|Dockerfile|justfile|schema.cue)'"

@@ -236,8 +236,6 @@ function fzf-cd-project() {
 
   FZF_SELECT="{                           \
     echo ~/configuration                & \
-    _search ~/work                      & \
-    _search ~/build                     & \
     _search ~/projects                  & \
     _search ~/.local/share/nvim/plugged & \
     _search ~/.antigen/bundles          & \

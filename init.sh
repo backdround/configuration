@@ -95,16 +95,15 @@ provide-trizen() {
 provide-home-directory-tree() {
   title "Providing home directory tree"
   mkdir -p ~/tmp
-  mkdir -p ~/downloads
-  mkdir -p ~/build
   mkdir -p ~/projects
+  mkdir -p ~/downloads
+  mkdir -p ~/screens
+  mkdir -p ~/.tests
 
-  mkdir -p ~/other/videos
-  mkdir -p ~/other/music
-  mkdir -p ~/other/books
-  mkdir -p ~/other/screens
   mkdir -p ~/other/docs
-  mkdir -p ~/other/test_projects
+  mkdir -p ~/other/music
+  mkdir -p ~/other/videos
+  mkdir -p ~/other/books
 
   mkdir -p ~/.ssh && chmod 700 ~/.ssh
 }

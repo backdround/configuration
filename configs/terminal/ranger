@@ -106,9 +106,9 @@ map lS paste_symlink relative=False
 unmap s
 map sm cd ~
 map sd cd ~/downloads
-map ss cd ~/other/screens
-map sp cd ~/build/
-map st cd ~/tmp/
+map ss cd ~/screens
+map sh cd ~/projects
+map st cd ~/tmp
 
 
 # Externals

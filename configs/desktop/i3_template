@@ -44,7 +44,7 @@ bindsym $mod+q restart
 #  Translate
 bindsym $mod+a exec --no-startup-id .local/bin/translate_notify
 #  D&D screens
-bindsym $mod+o exec --no-startup-id ~/.local/bin/dragon_screen ~/other/screens
+bindsym $mod+o exec --no-startup-id ~/.local/bin/dragon_screen ~/screens
 #  Dmenu
 bindsym $mod+e exec --no-startup-id rofi -normal-window -modi drun -show drun
 # Resume / pause active window

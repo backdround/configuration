@@ -31,7 +31,7 @@ if [ ! -d "$TEMPLATE_PATH" ]; then
 fi
 
 # Get test path.
-TEST_PATH="$(realpath ~/other/test_projects/${TEST_TYPE}_${TEST_NAME})"
+TEST_PATH="$(realpath ~/.tests/${TEST_TYPE}_${TEST_NAME})"
 
 if [ -n "$OPEN_EXISTING_PROJECT" ]; then
   test ! -d "$TEST_PATH" && \
