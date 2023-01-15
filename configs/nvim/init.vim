@@ -1,18 +1,18 @@
 " ============================================================================
 " Load Plugins {{{
 
+" --------------------------------------------------------------------------
+" INSTALL vim-plug
+if !filereadable(expand('~/.local/share/nvim/site/autoload/plug.vim'))
+  echom 'Plugin manager: vim-plug has not been installed. Try to install...'
+  exec 'silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs '.
+        \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  echom 'Installing vim-plug complete.'
+
+  let g:custom_install_plugins = 1
+endif
+
 function! s:LoadPlugins()
-  " --------------------------------------------------------------------------
-  " INSTALL vim-plug
-  if !filereadable(expand('~/.local/share/nvim/site/autoload/plug.vim'))
-    echom 'Plugin manager: vim-plug has not been installed. Try to install...'
-    exec 'silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs '.
-          \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    echom 'Installing vim-plug complete.'
-
-    let l:first_init = 1
-  endif
-
   " --------------------------------------------------------------------------
   " SET PLUGINS
 
@@ -100,8 +100,8 @@ function! s:LoadPlugins()
 
   call plug#end()
 
-  if exists("l:first_init")
-    PlugInstall
+  if exists("g:custom_install_plugins")
+    PlugInstall --sync
   endif
 
 endfunction
