@@ -557,7 +557,6 @@ t() { trans en:ru "$*"}
 r() { trans ru:en "$*"}
 alias se='~/.local/bin/spellchecker'
 alias sr='~/.local/bin/spellchecker_ru'
-alias lolclock='while true; do tput clear; date +"%H : %M : %S" | figlet ; sleep 1; done'
 
 # git
 alias g='git'

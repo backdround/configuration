@@ -19,7 +19,6 @@ system=(
 
 desktop=(
   arc-gtk-theme
-  awesome-terminal-fonts
   dunst
   i3-wm
   hsetroot
@@ -31,13 +30,8 @@ desktop=(
   picom
   polybar
   rofi
-  ttf-bitstream-vera
-  ttf-croscore
-  ttf-dejavu
+  # kitty fallback
   ttf-droid
-  ttf-fantasque-sans-mono
-  ttf-font-awesome
-  ttf-liberation
   unclutter
   xdg-user-dirs
 )
@@ -88,8 +82,6 @@ utils=(
   xclip
   zip
   zsh
-  zsh-doc
-  zsh-lovers
 )
 
 devs=(
@@ -100,7 +92,6 @@ devs=(
 )
 
 other=(
-  figlet
   screenfetch
   w3m
   gopass
