@@ -126,9 +126,6 @@ provide-packages() {
 configure-packages() {
   title "Configuring packages"
 
-  # Adds desktop configurations
-  gsettings set org.gnome.desktop.default-applications.terminal exec /usr/bin/kitty
-
   # zsh
   sudo chsh "$(whoami)" -s /bin/zsh
 
