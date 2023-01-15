@@ -140,10 +140,6 @@ configure-packages() {
     warning "Unable to install qutebrowser spell checkings"
   }
 
-  # go
-  go env -w GOMODCACHE="/home/$(whoami)/.go"
-  go env -w GOPATH="/home/$(whoami)/.go"
-
   # rager
   test -d ~/.config/ranger/plugins/ranger_devicons || \
     git clone https://github.com/alexanderjeurissen/ranger_devicons \
