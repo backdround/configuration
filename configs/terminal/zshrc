@@ -57,30 +57,30 @@ PASSWORD_STORE_GENERATED_LENGTH=17
 ################################################################################
 # PLUGIN CONFIGS
 
-function get-colors {
-    xrdb -query
+# Uses `cat ~/.Xresources` instead of `xrdb -query`
+# `xrdb` doesn't work in virtual console.
+XRESOURCES_COLORS=$(cat ~/.Xresources | sed '/^ *!/d')
+get-color() {
+  QUERY="$1"
+  if [[ "$QUERY" =~ ^[0-9]+$ ]]; then
+    QUERY="color$QUERY"
+  fi
+
+  echo -n "$XRESOURCES_COLORS" \
+    | grep "${QUERY}:" \
+    | awk '{print $2}' \
+    | tr -d '\n'
 }
 
-function foreground {
-  echo $(get-colors | grep "foreground:" | awk '{print $2}'| tr -d '\n')
-}
-
-function background {
-  echo $(get-colors | grep "background:" | awk '{print $2}'| tr -d '\n')
-}
-
-function color {
-  echo $(get-colors | grep "color$@:" | awk '{print $2}'| tr -d '\n')
-}
 
 FZF_COLORS="--color='\
-  border:$(color 2),\
-  bg+:$(color 8),fg+:$(color 15),\
-  bg:$(background),fg:$(foreground),\
-  gutter:$(background),\
-  hl:$(color 1),\
-  hl+:$(color 9),\
-  preview-bg:$(color 0)\
+  border:$(get-color 2),\
+  bg+:$(get-color 8),fg+:$(get-color 15),\
+  bg:$(get-color background),fg:$(get-color foreground),\
+  gutter:$(get-color background),\
+  hl:$(get-color 1),\
+  hl+:$(get-color 9),\
+  preview-bg:$(get-color 0)\
 '"
 FZF_COLORS=$(echo $FZF_COLORS | tr -d ' ')
 
@@ -91,7 +91,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='fd --type directory'
 
 ZSH_AUTOSUGGEST_USE_ASYNC=1
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=$(color 8)"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=$(get-color 8)"
 
 ZLE_RPROMPT_INDENT=0
 
