@@ -34,7 +34,6 @@ zstyle ':completion:*:options' list-colors "=(#b)*(-- [a-zA-Z0-9]*)=32=36"
 zstyle ':completion:*:commands' list-colors "=(#b)*(-- [a-zA-Z0-9]*)=32=36"
 
 # options
-setopt correct
 setopt auto_cd
 setopt extended_glob
 
@@ -102,14 +101,12 @@ zstyle ':filter-select' case-insensitive yes
 
 source /usr/share/zsh/share/antigen.zsh
 
-antigen bundle zdharma/fast-syntax-highlighting
+antigen bundle zdharma-continuum/fast-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 antigen bundle backdround/zsh-vimode-visual
 
-antigen bundle command-not-found
 antigen bundle extract
-antigen bundle transfer
 
 antigen bundle djui/alias-tips
 antigen bundle hlissner/zsh-autopair
