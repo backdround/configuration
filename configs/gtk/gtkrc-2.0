@@ -1,8 +1,5 @@
 include "/usr/share/themes/Arc-Dark/gtk-2.0/gtkrc"
 
-style "user-font"
-{
-  font_name="Terminus (TTF) 12"
-}
-widget_class "*" style "user-font"
-gtk-icon-theme-name = "Papirus"
+gtk-icon-theme-name = "Papirus-Dark"
+gtk-theme-name = "Arc-Dark"
+gtk-font-name = "Fantasque Sans Mono 13"

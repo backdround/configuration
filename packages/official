@@ -31,7 +31,6 @@ desktop=(
   picom
   polybar
   rofi
-  terminus-font
   ttf-bitstream-vera
   ttf-croscore
   ttf-dejavu
