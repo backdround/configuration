@@ -88,8 +88,8 @@
 
     # Polybar
     polybar:
-        target: "{{.GitRoot}}/configs/polybar/config"
-        link: "{{.Home}}/.config/polybar/config"
+        target: "{{.GitRoot}}/configs/polybar/config.ini"
+        link: "{{.Home}}/.config/polybar/config.ini"
     polybar-startup:
         target: "{{.GitRoot}}/configs/polybar/startup"
         link: "{{.Home}}/.config/polybar/startup"
