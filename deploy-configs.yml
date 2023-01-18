@@ -147,9 +147,6 @@
         link: "{{.Home}}/.config/systemd/user"
 
     # Misc
-    gpg:
-        target: "{{.GitRoot}}/configs/misc/gpg"
-        link: "{{.Home}}/.gnupg/gpgconf.conf"
     pulseaudio:
         target: "{{.GitRoot}}/configs/misc/pulse"
         link: "{{.Home}}/.config/pulseaudio-ctl/config"
@@ -169,6 +166,10 @@
         input: "{{.GitRoot}}/configs/qutebrowser/qute_link.desktop"
         output: "{{.Home}}/.local/share/applications/qute_link.desktop"
         command: "sed \"s~%HOMEDIR%~$HOME~g\" {{.Input}} > {{.Output}}"
+    gpg-agent:
+        input: "{{.GitRoot}}/configs/misc/make-gpg-agent.sh"
+        output: "{{.Home}}/.gnupg/gpg-agent.conf"
+        command: "bash {{.Input}} {{.Output}}"
 
 # --------------------------------------------------
 # templates
