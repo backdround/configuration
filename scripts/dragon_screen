@@ -5,4 +5,4 @@ fi
 
 files=$(ls -1 -t| head -n 6 | sed "s~^~./~")
 
-dragon-drag-and-drop $files
+dragon-drop $files

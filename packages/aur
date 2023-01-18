@@ -3,7 +3,7 @@
 AUR_PACKAGES=(
   antigen-git
   breeze-hacked-cursor-theme
-  dragon-drag-and-drop-git
+  dragon-drop
   google-chrome
   i3lock-fancy-dualmonitors-git
   nerd-fonts-fantasque-sans-mono
