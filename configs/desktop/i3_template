@@ -161,22 +161,18 @@ client.background       $gray
 # Customization
 
 # Gaps
-set $outer -2
-set $inner 21
+set $outer 0
+set $inner 18
 
 gaps outer $outer
 gaps inner $inner
 
-gaps top 0
-gaps bottom 1
-
-bindsym $mod+9 gaps inner current set $inner
-bindsym $mod+0 gaps inner current set 5
+gaps top -4
 
 # Border
 default_border pixel 2
 default_floating_border pixel 2
-bindsym $mod+8 border toggle
+bindsym $mod+0 border toggle
 
 
 
