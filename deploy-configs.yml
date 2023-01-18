@@ -177,7 +177,7 @@
     output: "{{.Home}}/.instance"
 
 .i3_template: &i3_template
-    input: "{{.GitRoot}}/configs/desktop/i3_template"
+    input: "{{.GitRoot}}/configs/desktop/i3.tmpl"
     output: "{{.Home}}/.config/i3/config"
 
 .i3_data_note: &i3_data_note
