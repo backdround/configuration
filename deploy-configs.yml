@@ -185,9 +185,9 @@
     telegramPosition: "1348 96"
     telegramSize:     "525 700"
     dropdownPosition: "18 46"
-    dropdownSize:     "1884 499"
+    dropdownSize:     "1884 500"
     rangerPosition:   "18 46"
-    rangerSize:       "1884 499"
+    rangerSize:       "1884 500"
     quteEditorSize:   "675 336"
 
 .i3_data_home: &i3_data_home

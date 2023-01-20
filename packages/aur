@@ -6,6 +6,5 @@ AUR_PACKAGES=(
   dragon-drop
   google-chrome
   i3lock-fancy-dualmonitors-git
-  nerd-fonts-fantasque-sans-mono
   pulseaudio-ctl
 )
