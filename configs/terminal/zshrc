@@ -549,11 +549,12 @@ chg() { watchexec -c -- "$@" }
 alias chg='chg '
 alias wch='watch --color --interval 0.3 '
 
-# scripts
+# english
 t() { trans en:ru "$*"}
 r() { trans ru:en "$*"}
 alias se='~/.local/bin/spellchecker'
 alias sr='~/.local/bin/spellchecker_ru'
+say() { trans en:ru -speak "$*" }
 
 # git
 alias g='git'
