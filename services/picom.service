@@ -1,7 +1,7 @@
 [Unit]
-Description=Transperancy for wm
-After=i3-gaps.target
-PartOf=i3-gaps.target
+Description=Visual effects for wm
+PartOf=graphical-session.target
+After=graphical-session.target
 
 [Service]
 Type=forking
@@ -13,4 +13,4 @@ KillSignal=SIGINT
 RemainAfterExit=no
 
 [Install]
-WantedBy=i3-gaps.target
+WantedBy=graphical-session.target

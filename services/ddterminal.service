@@ -1,7 +1,7 @@
 [Unit]
-Description=Drop down terminal
-After=i3-gaps.target
-PartOf=i3-gaps.target
+Description=Drop-down terminal
+PartOf=graphical-session.target
+After=graphical-session.target
 
 [Service]
 Type=simple
@@ -15,4 +15,4 @@ RestartSec=0
 RemainAfterExit=no
 
 [Install]
-WantedBy=i3-gaps.target
+WantedBy=graphical-session.target

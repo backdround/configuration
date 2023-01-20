@@ -6,5 +6,5 @@
 #  (at your option) any later version.
 
 [Unit]
-Description=Windows manager
-Requires=basic.target
+Description=Windows manager indicator
+BindsTo=graphical-session.target

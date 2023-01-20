@@ -1,7 +1,7 @@
 [Unit]
-Description=Notification server(dunst)
-After=i3-gaps.target
-PartOf=i3-gaps.target
+Description=Notification server
+PartOf=graphical-session.target
+After=graphical-session.target
 
 [Service]
 Type=simple
@@ -10,4 +10,4 @@ ExecStart=/bin/bash -c 'dunst -print > /tmp/dunst'
 RemainAfterExit=no
 
 [Install]
-WantedBy=i3-gaps.target
+WantedBy=graphical-session.target

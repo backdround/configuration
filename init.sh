@@ -160,6 +160,7 @@ provide-systemd-services() {
 
   systemctl --user enable ddterminal.service
   systemctl --user enable picom
+  systemctl --user enable dunst
   systemctl --user enable ranger
   systemctl --user enable ssh-agent
   sudo systemctl enable lightdm

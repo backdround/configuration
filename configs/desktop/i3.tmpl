@@ -11,7 +11,7 @@ font pango:FantasqueSansMono Nerd Font 12
 
 
 #  I3
-exec_always --no-startup-id systemctl --user start i3-gaps.target
+exec_always --no-startup-id systemctl --user start i3.target
 #  Polybar
 exec_always --no-startup-id $HOME/.config/polybar/startup
 #  Mouse hider
@@ -181,10 +181,10 @@ bindsym $mod+0 border toggle
 
 bindsym $mod+w mode "session"
 mode "session" {
-  bindsym w exec --no-startup-id systemctl --user stop i3-gaps.target; exec i3-msg exit ; mode "default"
+  bindsym w exec --no-startup-id "systemctl --user stop i3.target && i3-msg exit"; mode "default"
   bindsym v exec --no-startup-id i3lock-fancy-dualmonitor --pixelate --greyscale; mode "default"
-  bindsym s exec --no-startup-id "systemctl --user stop i3-gaps.target; sleep 0.5; systemctl poweroff"; mode "default"
-  bindsym p exec --no-startup-id "systemctl --user stop i3-gaps.target; sleep 0.5; systemctl reboot"; mode "default"
+  bindsym s exec --no-startup-id "systemctl --user stop i3.target && systemctl poweroff"; mode "default"
+  bindsym p exec --no-startup-id "systemctl --user stop i3.target && systemctl reboot"; mode "default"
 
   bindsym Escape mode "default"
   bindsym Mod5+Escape mode "default"
