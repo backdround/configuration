@@ -1,2 +1,0 @@
-#!/bin/bash
-fd . -e h -e cpp ./ | xargs -i sed -i "\#// DEBUG ONLY#d" {}
