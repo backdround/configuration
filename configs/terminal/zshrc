@@ -111,16 +111,14 @@ antigen bundle extract
 antigen bundle djui/alias-tips
 antigen bundle hlissner/zsh-autopair
 
-antigen theme romkatv/powerlevel10k
-
 antigen apply
 
 # fzf
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
 
-# powerlevel10k
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# Prompt
+eval "$(starship init zsh)"
 
 ################################################################################
 # ZLE

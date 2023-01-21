@@ -30,8 +30,6 @@ desktop=(
   picom
   polybar
   rofi
-  # kitty fallback
-  ttf-droid
   ttf-fantasque-nerd
   unclutter
   xdg-user-dirs
@@ -83,6 +81,7 @@ utils=(
   xclip
   zip
   zsh
+  starship
 )
 
 devs=(

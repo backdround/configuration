@@ -1,0 +1,111 @@
+format = """\
+$directory\
+$git_branch$git_commit$git_status$git_state\
+$fill\
+$cmd_duration$time$os
+[$character](bold green)\
+"""
+
+add_newline = false
+
+palette = 'theme'
+
+[palettes.theme]
+
+
+[directory]
+truncation_length = 7
+truncate_to_repo = false
+read_only =	' '
+
+format = """\
+  [](fg:#4A4C59)\
+  [ $path[$read_only]($style red) ]($style)\
+  [](fg:#4A4C59)\
+"""
+style = 'bg:#4A4C59 fg:cyan'
+
+repo_root_format = """\
+  [](fg:#4A4C59)\
+  [ $before_root_path]($before_repo_root_style)\
+  [$repo_root]($repo_root_style)\
+  [$path]($style bold)[$read_only]($read_only_style)\
+  [ ]($style)\
+  [](fg:#4A4C59 bg:#272B34)\
+"""
+before_repo_root_style = 'bg:#4A4C59 fg:cyan'
+repo_root_style = 'bg:#4A4C59 fg:white bold'
+
+
+[git_branch]
+truncation_length = 25
+
+format = """\
+  [ $branch(:$remote_branch)]($style)\
+"""
+style = 'fg:bright-green bg:#272B34'
+
+[git_commit]
+format = """\
+  [ $hash](bg:#272B34 red)[( $tag)](bg:#272B34 yellow)\
+"""
+tag_disabled = false
+tag_symbol = ''
+
+[git_status]
+format = """\
+  [( $ahead_behind)](bg:#272B34 blue)([ $all_status](bg:#272B34 red))\
+  [ ](bg:#272B34)\
+  [](fg:#272B34)\
+"""
+ahead = '↑'
+behind = '↓'
+diverged = '↑↓'
+conflicted = '!='
+renamed = ''
+deleted	= 'x'
+
+[git_state]
+format = """\
+  [ $state( $progress_current/$progress_total)]($style)\
+  [ ╱](#4A4E5E)\
+"""
+
+
+[fill]
+symbol = '─'
+style = '#323543'
+
+
+[cmd_duration]
+format = """\
+  [╱](#4A4E5E)\
+  [ $duration ]($style)\
+"""
+min_time = 3000
+
+[time]
+disabled = false
+format = """\
+  [](fg:#272B34)\
+  [ $time ]($style)\
+  [](fg:#272B34 bg:#4A4C59)\
+"""
+style = 'white bg:#272B34'
+
+[os]
+disabled = false
+format = """\
+  [ $symbol ]($style)\
+  [](fg:#4A4C59)\
+"""
+style = "bg:#4A4C59"
+
+[os.symbols]
+Arch = ' '
+
+[character]
+success_symbol = '[>](bold green)'
+error_symbol = '[>](bold red)'
+vimcmd_symbol = '[<](bold green)'
+# TODO: Fix for visual mod

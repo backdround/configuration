@@ -13,9 +13,9 @@
     zsh:
         target: "{{.GitRoot}}/configs/terminal/zshrc"
         link: "{{.Home}}/.zshrc"
-    zsh-theme:
-        target: "{{.GitRoot}}/configs/terminal/p10k.zsh"
-        link: "{{.Home}}/.p10k.zsh"
+    starship:
+        target: "{{.GitRoot}}/configs/terminal/starship.toml"
+        link: "{{.Home}}/.config/starship.toml"
     kitty:
         target: "{{.GitRoot}}/configs/terminal/kitty.conf"
         link: "{{.Home}}/.config/kitty/kitty.conf"
