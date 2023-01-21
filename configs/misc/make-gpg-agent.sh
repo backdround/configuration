@@ -16,6 +16,8 @@ chmod 700 "$CONFIG_DIRECTORY"
 cat > "$CONFIG" <<EOF
 default-cache-ttl 30
 max-cache-ttl 60
+
+pinentry-program /usr/bin/pinentry-gtk-2
 EOF
 
 # Sets config permition

@@ -2,4 +2,4 @@ include "/usr/share/themes/Arc-Dark/gtk-2.0/gtkrc"
 
 gtk-icon-theme-name = "Papirus-Dark"
 gtk-theme-name = "Arc-Dark"
-gtk-font-name = "Fantasque Sans Mono 13"
+gtk-font-name = "FantasqueSansMono Nerd Font 13"
