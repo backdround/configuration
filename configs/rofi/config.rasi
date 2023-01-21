@@ -4,7 +4,7 @@ configuration {
   terminal: "kitty";
   cycle: false;
   dpi: 1;
-  display-drun: "Filter";
+  display-drun: "FILTER";
   matching: "fuzzy";
 
   me-accept-entry: "MousePrimary";
