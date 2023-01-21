@@ -38,7 +38,7 @@ repo_root_style = 'bg:#4A4C59 fg:white bold'
 
 
 [git_branch]
-truncation_length = 25
+truncation_length = 35
 
 format = """\
   [ $branch(:$remote_branch)]($style)\
