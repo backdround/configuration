@@ -117,7 +117,7 @@ map xx shell -fs kitty
 map xt shell -fs thunar
 map xn shell -fs kitty zsh -c 'nvim %s; zsh -i'
 map xh shell -fs kitty nvim %s
-map xd shell -fs dragon-drop %p
+map xd shell -fs dragon-drop --and-exit %p
 
 
 # Commands
