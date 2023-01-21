@@ -21,6 +21,7 @@ desktop=(
   arc-gtk-theme
   dunst
   i3-wm
+  i3lock
   hsetroot
   lightdm
   lightdm-gtk-greeter
@@ -33,6 +34,7 @@ desktop=(
   ttf-fantasque-nerd
   unclutter
   xdg-user-dirs
+  xorg-xwd
 )
 
 apllications=(
