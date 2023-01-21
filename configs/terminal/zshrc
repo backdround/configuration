@@ -5,6 +5,7 @@
 bindkey -v
 export KEYTIMEOUT=1
 
+# Disable ctrl-s / ctrl-q feature.
 stty -ixon
 
 # history
@@ -47,11 +48,9 @@ export EDITOR="editor.sh"
 export PAGER="editor.sh -R"
 export SYSTEMD_PAGER=
 export MANPAGER='nvim +Man!'
-export LESSKEY="$(realpath ~)/.lesskey"
 
 # pass store
-PASSWORD_STORE_CLIP_TIME=15
-PASSWORD_STORE_GENERATED_LENGTH=17
+export GOPASS_NO_NOTIFY=true
 
 ################################################################################
 # PLUGIN CONFIGS
@@ -523,11 +522,6 @@ alias n='nvim'
 e() { eval "$EDITOR $*" }
 alias py='python'
 alias f='fd -IH'
-alias -g .cp='$(gopass ls --flat | fzf)'
-alias p='gopass show --clip .cp'
-alias pe='gopass edit .cp'
-alias ph='gopass show .cp'
-alias hdi='howdoi'
 alias d='docker'
 alias dc='docker-compose'
 alias a='ansible'
@@ -536,23 +530,30 @@ alias drop='dragon-drop --and-exit'
 
 pg() { eval "pgrep -i -l \"$*\" | grep -i \"$*\"" }
 
+# pacman
 sp() { eval "sudo pacman -$*" }
 alias S='sudo pacman -S'
 alias Ss='sudo pacman -Ss'
 
+# gopass
+p() { PASS="$(gopass ls --flat | fzf)" && gopass show --clip "$PASS" }
+pe() { PASS="$(gopass ls --flat | fzf)" && gopass edit "$PASS" }
+ph() { PASS="$(gopass ls --flat | fzf)" && gopass show "$PASS" }
+
+# ssh
 alias sshi='ssh -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 alias scpi='scp -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 
-
+# fresh
 chg() { watchexec -c -- "$@" }
 alias chg='chg '
 alias wch='watch --color --interval 0.3 '
 
-# english
+# languages
 t() { trans en:ru "$*"}
 r() { trans ru:en "$*"}
-alias se='~/.local/bin/spellchecker'
-alias sr='~/.local/bin/spellchecker_ru'
+se() { echo "$@" | pylanguagetool -l en-US }
+sr() { echo "$@" | pylanguagetool -l ru-RU }
 say() { trans en:ru -speak "$*" }
 
 # git
@@ -574,7 +575,6 @@ alias -g .l='| less'
 alias -g .c="| wc -l"
 alias -g .h="--help"
 alias -g .p="| $PAGER"
-alias -g .stn='| tr " " "\n"'
 
 # color
 alias diff='diff --color=always'
@@ -586,7 +586,6 @@ alias egrep='egrep --color=always'
 alias gcc='gcc -fdiagnostics-color=always'
 
 # ls
-alias ls='ls --color -t'
 alias l='lsd -t --color=always'
 alias ll='lsd -lt --color=always'
 alias la='lsd -At --color=always'
