@@ -47,8 +47,6 @@ bindsym $mod+a exec --no-startup-id .local/bin/translate_notify
 bindsym $mod+o exec --no-startup-id ~/.local/bin/dragon_screen ~/screens
 #  Dmenu
 bindsym $mod+e exec --no-startup-id rofi -normal-window -modi drun -show drun
-# Resume / pause active window
-bindsym XF86AudioPlay exec --no-startup-id ~/.local/bin/pause_resume_active_window.sh
 
 # Dunst
 bindsym Mod1+space exec --no-startup-id dunstctl close
@@ -59,12 +57,9 @@ bindsym --release Print exec --no-startup-id flameshot gui
 bindsym --release $mod+Print exec --no-startup-id ~/.local/bin/screenshot_window
 
 # Volume
-bindsym Mod5+XF86AudioRaiseVolume exec --no-startup-id pulseaudio-ctl up
-bindsym Mod5+XF86AudioMute exec --no-startup-id pulseaudio-ctl mute
-bindsym Mod5+XF86AudioLowerVolume exec --no-startup-id pulseaudio-ctl down
-bindsym XF86AudioRaiseVolume exec --no-startup-id pulseaudio-ctl up
 bindsym XF86AudioMute exec --no-startup-id pulseaudio-ctl mute
-bindsym XF86AudioLowerVolume exec --no-startup-id pulseaudio-ctl down
+bindsym XF86AudioRaiseVolume exec --no-startup-id "~/.local/bin/pulseaudio-ctl.sh up"
+bindsym XF86AudioLowerVolume exec --no-startup-id "~/.local/bin/pulseaudio-ctl.sh down"
 
 # Brightness
 bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 2
