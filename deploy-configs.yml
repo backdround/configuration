@@ -62,6 +62,9 @@
     scripts:
         target: "{{.GitRoot}}/scripts/"
         link: "{{.Home}}/.local/bin/"
+    trizen:
+        target: "{{.GitRoot}}/configs/misc/trizen.conf"
+        link: "{{.Home}}/.config/trizen/trizen.conf"
 
 # --------------------------------------------------
 # desktop
