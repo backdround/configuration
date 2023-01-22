@@ -1,9 +1,6 @@
 # --------------------------------------------------
 # terminal
 .terminal-links: &terminal-links
-    readline:
-        target: "{{.GitRoot}}/configs/terminal/inputrc"
-        link: "{{.Home}}/.inputrc"
     bat:
         target: "{{.GitRoot}}/configs/terminal/bat"
         link: "{{.Home}}/.config/bat/config"
