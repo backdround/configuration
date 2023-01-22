@@ -35,6 +35,8 @@ desktop=(
   polybar
   rofi
   ttf-fantasque-nerd
+  # gopass icons
+  ttf-joypixels
   unclutter
   xdg-user-dirs
   xorg-xwd
