@@ -100,10 +100,12 @@ provide-home-directory-tree() {
   mkdir -p ~/screens
   mkdir -p ~/.tests
 
+  # xdg user dirs
   mkdir -p ~/other/docs
   mkdir -p ~/other/music
   mkdir -p ~/other/videos
   mkdir -p ~/other/books
+  mkdir -p ~/.none
 
   mkdir -p ~/.ssh && chmod 700 ~/.ssh
 }
