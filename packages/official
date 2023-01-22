@@ -89,6 +89,8 @@ utils=(
   zip
   zsh
   starship
+  # flameshot script
+  xdotool
 )
 
 devs=(
