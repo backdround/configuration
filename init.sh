@@ -99,6 +99,7 @@ provide-home-directory-tree() {
   mkdir -p ~/downloads
   mkdir -p ~/screens
   mkdir -p ~/.tests
+  mkdir -p ~/.nvimbk
 
   # xdg user dirs
   mkdir -p ~/other/docs
