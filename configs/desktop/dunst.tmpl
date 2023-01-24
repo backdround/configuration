@@ -24,7 +24,7 @@
     # dynamic width from 0 to 300
     # width = (0, 300)
     # constant width of 300
-    width = (0, 500)
+    width = (0, {{ .width }})
 
     # The maximum height of a single notification, excluding the frame.
     height = 4000
@@ -36,7 +36,7 @@
     offset = 30x30
 
     # Scale factor. It is auto-detected if value is 0.
-    scale = 0
+    scale = {{ .scale }}
 
     # Maximum number of notification (0 means no limit)
     notification_limit = 0
@@ -111,7 +111,7 @@
 
     ### Text ###
 
-    font = Fantasque Sans Mono Italic 13
+    font = FantasqueSansMono Nerd Font Italic {{ .fontSize }}
 
     # The spacing between lines.  If the height is smaller than the
     # font height, it will get raised to the font height.

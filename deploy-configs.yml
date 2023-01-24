@@ -128,9 +128,6 @@
     picom:
         target: "{{.GitRoot}}/configs/desktop/picom.conf"
         link: "{{.Home}}/.config/picom.conf"
-    dunst:
-        target: "{{.GitRoot}}/configs/desktop/dunstrc"
-        link: "{{.Home}}/.config/dunst/dunstrc"
     mouse-theme:
         target: "{{.GitRoot}}/configs/desktop/mouse_index.theme"
         link: "{{.Home}}/.icons/default/index.theme"
@@ -177,6 +174,23 @@
     input: "{{.GitRoot}}/configs/instance.tmpl"
     output: "{{.Home}}/.instance"
 
+# dunst
+.dunst_default: &dunst_default
+    input: "{{.GitRoot}}/configs/desktop/dunst.tmpl"
+    output: "{{.Home}}/.config/dunst/dunstrc"
+    data:
+        scale: 0
+        fontSize: 13
+        width: 500
+
+.dunst_note: &dunst_note
+    <<: *dunst_default
+    data:
+        scale: 1
+        fontSize: 10
+        width: 700
+
+# i3
 .i3_template: &i3_template
     input: "{{.GitRoot}}/configs/desktop/i3.tmpl"
     output: "{{.Home}}/.config/i3/config"
@@ -220,6 +234,8 @@ instances:
             i3:
                 <<:  *i3_template
                 data: *i3_data_home
+            dunst:
+                <<: *dunst_default
 
     work:
         links:
@@ -232,6 +248,8 @@ instances:
             i3:
                 <<:  *i3_template
                 data: *i3_data_work
+            dunst:
+                <<: *dunst_default
 
     note:
         links:
@@ -244,3 +262,5 @@ instances:
             i3:
                 <<:  *i3_template
                 data: *i3_data_note
+            dunst:
+                <<: *dunst_note
