@@ -7,9 +7,12 @@
     tmux:
         target: "{{.GitRoot}}/configs/terminal/tmux"
         link: "{{.Home}}/.tmux.conf"
-    zsh:
-        target: "{{.GitRoot}}/configs/terminal/zshrc"
+    zshrc:
+        target: "{{.GitRoot}}/configs/terminal/zsh/zshrc"
         link: "{{.Home}}/.zshrc"
+    zsh-binds:
+        target: "{{.GitRoot}}/configs/terminal/zsh/binds"
+        link: "{{.Home}}/.zsh_binds"
     starship:
         target: "{{.GitRoot}}/configs/terminal/starship.toml"
         link: "{{.Home}}/.config/starship.toml"

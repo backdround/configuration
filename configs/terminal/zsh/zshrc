@@ -1,0 +1,209 @@
+################################################################################
+# GENERAL
+
+# vi mode
+bindkey -v
+export KEYTIMEOUT=1
+
+# Disable ctrl-s / ctrl-q feature.
+stty -ixon
+
+# history
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=30000
+
+setopt hist_expire_dups_first
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_verify
+setopt append_history
+setopt share_history
+setopt extended_history
+
+# completion
+autoload -U compinit && compinit
+zmodload -i zsh/complist
+
+eval "$(dircolors | sed -e "s/:di=[0-9;]*:/:di=01;35:/")"
+zstyle ':completion:*' menu select
+zstyle ':completion:*' completer _complete _correct _approximate
+zstyle ':completion:*:default' select-scroll 0
+
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' format "%B--- %F{magenta}%d%f ---%b"
+zstyle ':completion:*:options' list-colors "=(#b)*(-- [a-zA-Z0-9]*)=32=36"
+zstyle ':completion:*:commands' list-colors "=(#b)*(-- [a-zA-Z0-9]*)=32=36"
+
+# options
+setopt auto_cd
+setopt extended_glob
+
+################################################################################
+# VARIABLES
+
+export PATH="$HOME/.local/bin/:$PATH"
+export PATH="$HOME/go/bin/:$PATH"
+
+export EDITOR="editor.sh"
+export PAGER="editor.sh -R"
+export SYSTEMD_PAGER=
+export MANPAGER='nvim +Man!'
+
+# pass store
+export GOPASS_NO_NOTIFY=true
+
+################################################################################
+# PLUGIN CONFIGS
+
+# Uses `cat ~/.Xresources` instead of `xrdb -query`
+# `xrdb` doesn't work in virtual console.
+XRESOURCES_COLORS=$(cat ~/.Xresources | sed '/^ *!/d')
+get-color() {
+  QUERY="$1"
+  if [[ "$QUERY" =~ ^[0-9]+$ ]]; then
+    QUERY="color$QUERY"
+  fi
+
+  echo -n "$XRESOURCES_COLORS" \
+    | grep "${QUERY}:" \
+    | awk '{print $2}' \
+    | tr -d '\n'
+}
+
+
+FZF_COLORS="--color='\
+  border:$(get-color 2),\
+  bg+:$(get-color 8),fg+:$(get-color 15),\
+  bg:$(get-color background),fg:$(get-color foreground),\
+  gutter:$(get-color background),\
+  hl:$(get-color 1),\
+  hl+:$(get-color 9),\
+  preview-bg:$(get-color 0)\
+'"
+FZF_COLORS=$(echo $FZF_COLORS | tr -d ' ')
+
+export FZF_TMUX_HEIGHT=40%
+export FZF_DEFAULT_OPTS="--no-mouse --cycle --reverse --border $FZF_COLORS"
+export FZF_DEFAULT_COMMAND='fd --type file'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND='fd --type directory'
+
+ZSH_AUTOSUGGEST_USE_ASYNC=1
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=$(get-color 8)"
+
+ZLE_RPROMPT_INDENT=0
+
+zstyle ':filter-select' case-insensitive yes
+
+################################################################################
+# PLUGINS
+
+source /usr/share/zsh/share/antigen.zsh
+
+antigen bundle zdharma-continuum/fast-syntax-highlighting
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-completions
+antigen bundle backdround/zsh-vimode-visual
+
+antigen bundle extract
+
+antigen bundle djui/alias-tips
+antigen bundle hlissner/zsh-autopair
+
+antigen apply
+
+# fzf
+source /usr/share/fzf/completion.zsh
+source /usr/share/fzf/key-bindings.zsh
+
+# Prompt
+eval "$(starship init zsh)"
+
+################################################################################
+# ALIASES
+
+# hacks
+alias sudo='sudo '
+alias n='nvim'
+e() { eval "$EDITOR $*" }
+alias py='python'
+alias f='fd -IH'
+alias d='docker'
+alias dc='docker-compose'
+alias a='ansible'
+alias ap='ansible-playbook'
+alias drop='dragon-drop --and-exit'
+
+pg() { eval "pgrep -i -l \"$*\" | grep -i \"$*\"" }
+
+# pacman
+sp() { eval "sudo pacman -$*" }
+alias S='sudo pacman -S'
+alias Ss='sudo pacman -Ss'
+
+# gopass
+p() { PASS="$(gopass ls --flat | fzf)" && gopass show --clip "$PASS" }
+pe() { PASS="$(gopass ls --flat | fzf)" && gopass edit "$PASS" }
+ph() { PASS="$(gopass ls --flat | fzf)" && gopass show "$PASS" }
+
+# ssh
+alias sshi='ssh -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+alias scpi='scp -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+
+# fresh
+chg() { watchexec -c -- "$@" }
+alias chg='chg '
+alias wch='watch --color --interval 0.3 '
+
+# languages
+t() { trans en:ru "$*"}
+r() { trans ru:en "$*"}
+se() { echo "$@" | pylanguagetool -l en-US }
+sr() { echo "$@" | pylanguagetool -l ru-RU }
+say() { trans en:ru -speak "$*" }
+
+# git
+alias g='git'
+alias gs='git status'
+alias gd='git diff'
+alias gds='git diff --staged'
+alias ga='git add'
+alias gb='git branch'
+alias gp='git push'
+alias gl='git l'
+alias glg='git log'
+alias gch='git checkout'
+alias gcm='git commit'
+
+# global
+alias -g .g='| grep -i'
+alias -g .l='| less'
+alias -g .c="| wc -l"
+alias -g .h="--help"
+alias -g .p="| $PAGER"
+
+# color
+alias diff='diff --color=always'
+alias pacman='pacman --color=always'
+alias dmesg='dmesg --color=always'
+alias grep='grep -i --color=always'
+alias fgrep='fgrep --color=always'
+alias egrep='egrep --color=always'
+alias gcc='gcc -fdiagnostics-color=always'
+
+# ls
+alias l='lsd -t --color=always'
+alias ll='lsd -lt --color=always'
+alias la='lsd -At --color=always'
+alias lla='lsd -lAt --color=always'
+
+# confirm
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+
+################################################################################
+# BINDS
+source ~/.zsh_binds
