@@ -93,6 +93,9 @@ case $TEST_TYPE in
   "cue")
     CODE_FILE="schema.cue"
     ;;
+  "lua")
+    CODE_FILE="main.lua"
+    ;;
   *)
     error "Template settings not setted!"
 esac
