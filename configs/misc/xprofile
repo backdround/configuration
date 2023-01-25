@@ -9,10 +9,6 @@ if grep -q home ~/.instance; then
  xrandr --output DVI-D-0 --auto --primary --output DisplayPort-0 --auto --left-of DVI-D-0
 fi
 
-if grep -q work ~/.instance; then
-  xrandr --output HDMI-3 --output DP-2 --primary --left-of HDMI-3
-fi
-
 xset m 1/1 0
 xset r rate 200 30
 xkbcomp -I$HOME/.config/xkb ~/.config/xkb/keymap/config $DISPLAY -w 0

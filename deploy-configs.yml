@@ -224,12 +224,6 @@
         left: "DisplayPort-0"
         right: "DVI-D-0"
 
-i3_data_work: &i3_data_work
-    << : *i3_data_note
-    monitors:
-        left: "DP-2"
-        right: "HDMI-3"
-
 # --------------------------------------------------
 # Insnances
 instances:
@@ -244,22 +238,6 @@ instances:
             i3:
                 <<:  *i3_template
                 data: *i3_data_home
-            dunst:
-                <<: *dunst_default
-            rofi:
-                <<: *rofi_default
-
-    work:
-        links:
-            <<: [*terminal-links, *desktop-links]
-        commands: *commands
-        templates:
-            instance:
-                <<: *instance
-                data: work
-            i3:
-                <<:  *i3_template
-                data: *i3_data_work
             dunst:
                 <<: *dunst_default
             rofi:
