@@ -3,7 +3,7 @@
 
 * {
   default-spacing:               1.1em;
-  font:                          "FantasqueSansMono Nerd Font 13";
+  font:                          "FantasqueSansMono Nerd Font 14";
 
   background:                  #404759;
   foreground:                  #c6c8d1;
@@ -23,7 +23,7 @@ window {
   border-color:     #9BC2CA;
   padding:          var(default-spacing);
   background-color: var(background);
-  width: 35%;
+  width: 35em;
 }
 
 mainbox {
@@ -31,7 +31,7 @@ mainbox {
 }
 
 listview {
-  lines: 8;
+  lines: 9;
   columns: 1;
   scrollbar: false;
   spacing:   0.7em;

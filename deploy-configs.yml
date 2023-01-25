@@ -116,18 +116,13 @@
         target: "{{.GitRoot}}/configs/gtk/gtkrc-2.0"
         link: "{{.Home}}/.gtkrc-2.0"
 
-    # Rofi
-    rofi:
-        target: "{{.GitRoot}}/configs/rofi/config.rasi"
-        link: "{{.Home}}/.config/rofi/config.rasi"
-    rofi-style:
-        target: "{{.GitRoot}}/configs/rofi/style.rasi"
-        link: "{{.Home}}/.config/rofi/style.rasi"
-
     # Desktop
     picom:
         target: "{{.GitRoot}}/configs/desktop/picom.conf"
         link: "{{.Home}}/.config/picom.conf"
+    rofi-style:
+        target: "{{.GitRoot}}/configs/rofi/style.rasi"
+        link: "{{.Home}}/.config/rofi/style.rasi"
     mouse-theme:
         target: "{{.GitRoot}}/configs/desktop/mouse_index.theme"
         link: "{{.Home}}/.icons/default/index.theme"
@@ -173,6 +168,18 @@
 .instance: &instance
     input: "{{.GitRoot}}/configs/instance.tmpl"
     output: "{{.Home}}/.instance"
+
+# rofi
+.rofi_default: &rofi_default
+    input: "{{.GitRoot}}/configs/rofi/config.tmpl"
+    output: "{{.Home}}/.config/rofi/config.rasi"
+    data:
+        dpi: 1
+
+.rofi_note: &rofi_note
+    <<: *rofi_default
+    data:
+        dpi: 0
 
 # dunst
 .dunst_default: &dunst_default
@@ -236,6 +243,8 @@ instances:
                 data: *i3_data_home
             dunst:
                 <<: *dunst_default
+            rofi:
+                <<: *rofi_default
 
     work:
         links:
@@ -250,6 +259,8 @@ instances:
                 data: *i3_data_work
             dunst:
                 <<: *dunst_default
+            rofi:
+                <<: *rofi_default
 
     note:
         links:
@@ -264,3 +275,5 @@ instances:
                 data: *i3_data_note
             dunst:
                 <<: *dunst_note
+            rofi:
+                <<: *rofi_note
