@@ -1,6 +1,23 @@
 #!/bin/bash
+set -euo pipefail
 
-DESTDIR="$(dirname "$0")/build"
-cd "$DESTDIR"
+project_root="$(dirname "$(realpath "$0")")"
+build_dir="$project_root/build"
+mkdir -p build && cd "$build_dir"
 
-cmake .. && cmake --build . -j5 && ./bin/app
+install-conan-libraries() {
+  subdirectory_path="$1"
+
+  proceed="$project_root/$subdirectory_path"
+  result="$build_dir/$subdirectory_path"
+
+  test "$result/conanbuildinfo.cmake" -nt "$proceed/conanfile.txt" || {
+    conan install --install-folder="$result" --build=missing "$proceed"
+  }
+}
+
+install-conan-libraries "."
+install-conan-libraries "src"
+
+cmake .. && cmake --build . -j5
+exec ./bin/app

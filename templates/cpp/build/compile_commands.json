@@ -1,17 +1,12 @@
 [
 {
-  "directory": "/home/vlad/configuration/templates/cpp/build/src",
-  "command": "/usr/bin/c++   -g -std=gnu++17 -o CMakeFiles/app.dir/main.cpp.o -c /home/vlad/configuration/templates/cpp/src/main.cpp",
-  "file": "/home/vlad/configuration/templates/cpp/src/main.cpp"
+  "directory": "/home/vlad/configuration/templates/cpp/build",
+  "command": "/usr/bin/c++  -I/home/vlad/configuration/templates/cpp/src -g -std=gnu++17 -o CMakeFiles/app.dir/main.cpp.o -c /home/vlad/configuration/templates/cpp/main.cpp",
+  "file": "/home/vlad/configuration/templates/cpp/main.cpp"
 },
 {
   "directory": "/home/vlad/configuration/templates/cpp/build/src",
-  "command": "/usr/bin/c++   -g -std=gnu++17 -o CMakeFiles/main_lib.dir/main.cpp.o -c /home/vlad/configuration/templates/cpp/src/main.cpp",
-  "file": "/home/vlad/configuration/templates/cpp/src/main.cpp"
-},
-{
-  "directory": "/home/vlad/configuration/templates/cpp/build/tests",
-  "command": "/usr/bin/c++   -g -std=gnu++17 -o CMakeFiles/example_test.dir/example_test.cpp.o -c /home/vlad/configuration/templates/cpp/tests/example_test.cpp",
-  "file": "/home/vlad/configuration/templates/cpp/tests/example_test.cpp"
+  "command": "/usr/bin/c++  -I/home/vlad/configuration/templates/cpp/src -g  -std=gnu++17 -o CMakeFiles/main_lib.dir/greet.cpp.o -c /home/vlad/configuration/templates/cpp/src/greet.cpp",
+  "file": "/home/vlad/configuration/templates/cpp/src/greet.cpp"
 }
 ]
