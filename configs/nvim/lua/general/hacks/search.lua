@@ -15,7 +15,7 @@ local function normal(...)
   local success, err = pcall(vim.api.nvim_cmd, cmd, {})
 
   -- Prints error without file context
-  if err then
+  if not success then
     err = err:gsub(".*Vim[^:]*:", "", 1)
     vim.api.nvim_err_writeln(err)
   end
