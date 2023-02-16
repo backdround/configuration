@@ -128,7 +128,7 @@ alias sudo='sudo '
 alias n='nvim'
 e() { eval "$EDITOR $*" }
 alias py='python'
-alias f='fd -IH'
+alias f='fd --hidden --no-ignore --exclude .git'
 alias d='docker'
 alias dc='docker-compose'
 alias a='ansible'
