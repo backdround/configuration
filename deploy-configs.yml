@@ -39,18 +39,8 @@
 
     # Nvim
     nvim:
-        target: "{{.GitRoot}}/configs/nvim/init.vim"
-        link: "{{.Home}}/.config/nvim/init.vim"
-    nvim-coc:
-        target: "{{.GitRoot}}/configs/nvim/coc-settings.json"
-        link: "{{.Home}}/.config/nvim/coc-settings.json"
-    nvim-layout:
-        target: "{{.GitRoot}}/configs/nvim/keymap/custom_ru.vim"
-        link: "{{.Home}}/.config/nvim/keymap/custom_ru.vim"
-
-    snippets:
-        target: "{{.GitRoot}}/configs/nvim/UltiSnips/"
-        link: "{{.Home}}/.local/share/nvim/UltiSnips/s"
+        target: "{{.GitRoot}}/configs/nvim"
+        link: "{{.Home}}/.config/nvim"
 
     # Misc
     xprofile:
