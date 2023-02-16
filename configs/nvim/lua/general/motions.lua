@@ -67,25 +67,27 @@ local function scroll(addPlugin)
   u.map("U", scroll(-8.4))
 end
 
-
--- TODO: multiline k / z
 -- TODO: stable '(' / ')'
-local function findCharacter()
+local function findCharacter(addPlugin)
+  addPlugin("dahu/vim-fanfingtastic")
+
   -- Forward char
-  u.map("k", "f")
-  u.map("<M-k>", "t")
+  u.map("k", "<Plug>fanfingtastic_f")
+  u.map("<M-k>", "<Plug>fanfingtastic_t")
 
   -- Backward char
-  u.map("z", "F")
-  u.map("<M-z>", "T")
+  u.map("<M-z>", "<Plug>fanfingtastic_T")
+  u.map("z", "<Plug>fanfingtastic_F")
 
   -- Between chars
-  u.map(")", ";")
-  u.map("(", ",")
+  u.map(")", "<Plug>fanfingtastic_;")
+  u.map("(", "<Plug>fanfingtastic_,")
 
+  -- Jump through quotes
   u.map("+", function() hacks.jumpThrough("[\"'`]", true) end)
   u.map("-", function() hacks.jumpThrough("[\"'`]", false) end)
 
+  -- Jump through brackets
   u.map("^", function() hacks.jumpThrough("[()]", true) end)
   u.map("@", function() hacks.jumpThrough("[()]", false) end)
 end
@@ -153,7 +155,7 @@ local function apply(addPlugin)
   wordMotion(addPlugin)
   scroll(addPlugin)
   easymotion(addPlugin)
-  findCharacter()
+  findCharacter(addPlugin)
   marks()
   pageMovements()
   misc()
