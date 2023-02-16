@@ -26,13 +26,14 @@ local function setup()
       layout_strategy = "vertical",
       layout_config = {
         prompt_position = "top",
-        height = 0.9,
+        height = 0.95,
         width = 0.7,
         anchor = "CENTER",
         mirror = true,
         preview_height = 0.55,
         preview_cutoff = 45,
       },
+      borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
     },
     extensions = {
       fzf = {},
@@ -90,12 +91,12 @@ local function setMappings()
   u.nmap("<leader><C-t>", pickAnyFile)
 
   -- Tags
-  u.nmap("<leader>h", builtin.tags)
-  u.nmap("<leader><M-h>", builtin.current_buffer_tags)
+  u.nmap("<leader>n", u.wrap(builtin.tags, { fname_width = 60}))
+  u.nmap("<leader><M-n>", builtin.current_buffer_tags)
 
   -- Grep
-  u.nmap("<leader>n", builtin.live_grep)
-  u.nmap("<leader><M-n>", builtin.grep_string)
+  u.nmap("<leader>h", builtin.live_grep)
+  u.nmap("<leader><M-h>", builtin.current_buffer_fuzzy_find)
 
   -- Help-tags
   u.nmap("<leader>d", builtin.help_tags)
