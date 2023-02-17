@@ -11,10 +11,15 @@ local function apply(addPlugin)
 
   -- Indentation
   options.tabstop = 2
-  options.shiftwidth = 2
   options.expandtab = true
+
+  options.shiftwidth = 0
+  options.softtabstop = 0
+
+  options.shiftround = false
   options.smarttab = false
   options.smartindent = false
+  options.autoindent = false
 
   -- Backup
   local backupdir = vim.fn.expand("~/.neovim-backup")

@@ -56,15 +56,6 @@ local function textobjIndent(addPlugin)
   u.omap("<Plug>(virtual-visual-i)u", "<Plug>(textobj-indent-i)")
 end
 
-local function sideways(addPlugin)
-  addPlugin("AndrewRadev/sideways.vim")
-
-  u.nmap("b,", "<Cmd>SidewaysLeft<Cr>")
-  u.nmap("b.", "<Cmd>SidewaysRight<Cr>")
-  u.nmap("x,", "<Cmd>SidewaysJumpLeft<Cr>")
-  u.nmap("x.", "<Cmd>SidewaysJumpRight<Cr>")
-end
-
 local function surround(addPlugin)
   addPlugin("tpope/vim-surround")
 
@@ -112,7 +103,6 @@ local function apply(addPlugin)
   autopairs(addPlugin)
   targets(addPlugin)
   textobjIndent(addPlugin)
-  sideways(addPlugin)
   surround(addPlugin)
   exchange(addPlugin)
   niceblock(addPlugin)

@@ -34,5 +34,6 @@ apply("plugins/ui", pm.add)
 
 -- Plugins
 apply("plugins/telescope", pm.add)
+apply("plugins/treesitter", pm.add)
 
 pm.apply()
