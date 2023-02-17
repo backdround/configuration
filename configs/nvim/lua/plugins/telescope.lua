@@ -76,7 +76,7 @@ local function setMappings()
   local builtin = require("telescope.builtin")
 
   -- Maps
-  u.nmap("<leader>m", u.wrap(builtin.keymaps, {
+  u.nmap("<leader><M-m>", u.wrap(builtin.keymaps, {
     modes = {"n", "i", "x", "o", "c"}
   }))
   u.nmap("<M-m>", u.wrap(builtin.keymaps, { modes = {"n"} }))
@@ -98,8 +98,9 @@ local function setMappings()
   u.nmap("<leader>h", builtin.live_grep)
   u.nmap("<leader><M-h>", builtin.current_buffer_fuzzy_find)
 
-  -- Help-tags
+  -- Helps
   u.nmap("<leader>d", builtin.help_tags)
+  u.nmap("<leader><M-d>", u.wrap(builtin.man_pages, { sections = {"ALL"} }))
 end
 
 local function apply(addPlugin)
