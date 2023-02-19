@@ -50,9 +50,9 @@ local function textobjIndent(addPlugin)
   })
 
   vim.g.textobj_indent_no_default_key_mappings = 1
-  u.vmap("<Plug>(virtual-visual-a)u", "<Plug>(textobj-indent-a)")
+  u.xmap("<Plug>(virtual-visual-a)u", "<Plug>(textobj-indent-a)")
   u.omap("<Plug>(virtual-visual-a)u", "<Plug>(textobj-indent-a)")
-  u.vmap("<Plug>(virtual-visual-i)u", "<Plug>(textobj-indent-i)")
+  u.xmap("<Plug>(virtual-visual-i)u", "<Plug>(textobj-indent-i)")
   u.omap("<Plug>(virtual-visual-i)u", "<Plug>(textobj-indent-i)")
 end
 
@@ -92,10 +92,10 @@ local function move(addPlugin)
   u.nmap("<M-f>", "<Plug>MoveCharLeft")
   u.nmap("<M-r>", "<Plug>MoveCharRight")
 
-  u.vmap("<M-g>", "<Plug>MoveBlockDown")
-  u.vmap("<M-c>", "<Plug>MoveBlockUp")
-  u.vmap("<M-f>", "<Plug>MoveBlockLeft")
-  u.vmap("<M-r>", "<Plug>MoveBlockRight")
+  u.xmap("<M-g>", "<Plug>MoveBlockDown")
+  u.xmap("<M-c>", "<Plug>MoveBlockUp")
+  u.xmap("<M-f>", "<Plug>MoveBlockLeft")
+  u.xmap("<M-r>", "<Plug>MoveBlockRight")
 end
 
 local function apply(addPlugin)

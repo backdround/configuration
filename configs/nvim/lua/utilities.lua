@@ -13,11 +13,14 @@ local function fullmap(mode, lhs, rhs, options)
 end
 
 local mapTable = {}
-local modes = {"", "n", "i", "v", "c", "t", "o", "x", "s"}
+local modes = {"n", "i", "v", "c", "t", "o", "x", "s"}
 for _, mode in ipairs(modes) do
-  mapTable[mode .. "map"] = function(lhs, rhs)
-    fullmap(mode, lhs, rhs)
+  mapTable[mode .. "map"] = function(lhs, rhs, options)
+    fullmap(mode, lhs, rhs, options)
   end
+end
+mapTable["map"] = function(lhs, rhs, options)
+  fullmap({"n", "x", "o"}, lhs, rhs, options)
 end
 
 

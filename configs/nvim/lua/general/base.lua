@@ -42,15 +42,15 @@ local function visual()
   u.nmap("<C-n>", "<C-v>")
 
   -- Multiline editing
-  u.vmap("G", "I")
-  u.vmap("C", "A")
+  u.xmap("G", "I")
+  u.xmap("C", "A")
 
   -- Case switching
-  u.vmap("m", "gu")
-  u.vmap("M", "gU")
+  u.xmap("m", "gu")
+  u.xmap("M", "gU")
 
   -- Swap strat/end
-  u.vmap("r", "o")
+  u.xmap("r", "o")
 end
 
 local function copyPaste()
@@ -107,9 +107,9 @@ local function search(addPlugin)
   u.nmap("]", hacks.search.stableNext)
   u.nmap("[", hacks.search.stablePrevious)
 
-  u.vmap("!", hacks.search.selectedText)
-  u.vmap("*", hacks.search.selectedTextNext)
-  u.vmap("#", hacks.search.selectedTextPrevious)
+  u.xmap("!", hacks.search.selectedText)
+  u.xmap("*", hacks.search.selectedTextNext)
+  u.xmap("#", hacks.search.selectedTextPrevious)
 end
 
 local function substitute()
@@ -123,19 +123,19 @@ local function substitute()
   end
 
   u.nmap("bu", getFeedkeys(":%s///g<Left><Left><Left>"))
-  u.vmap("bu", getFeedkeys(":s///g<Left><Left><Left>"))
+  u.xmap("bu", getFeedkeys(":s///g<Left><Left><Left>"))
   u.nmap("bU", getFeedkeys(":%s///gc<Left><Left><Left><Left>"))
-  u.vmap("bU", getFeedkeys(":s///gc<Left><Left><Left><Left>"))
+  u.xmap("bU", getFeedkeys(":s///gc<Left><Left><Left><Left>"))
 
   u.nmap("be", getFeedkeys(":%s/<C-r><C-w>//g<Left><Left>"))
-  u.vmap("be", getFeedkeys(":s/<C-r><C-w>//g<Left><Left>"))
+  u.xmap("be", getFeedkeys(":s/<C-r><C-w>//g<Left><Left>"))
   u.nmap("bE", getFeedkeys(":%s/<C-r><C-w>//gc<Left><Left><Left>"))
-  u.vmap("bE", getFeedkeys(":s/<C-r><C-w>//gc<Left><Left><Left>"))
+  u.xmap("bE", getFeedkeys(":s/<C-r><C-w>//gc<Left><Left><Left>"))
 
   u.nmap("bo", getFeedkeys(":%s/<C-r>y//g<Left><Left>"))
-  u.vmap("bo", getFeedkeys(":s/<C-r>y//g<Left><Left>"))
+  u.xmap("bo", getFeedkeys(":s/<C-r>y//g<Left><Left>"))
   u.nmap("bO", getFeedkeys(":%s/<C-r>y//gc<Left><Left><Left>"))
-  u.vmap("bO", getFeedkeys(":s/<C-r>y//gc<Left><Left><Left>"))
+  u.xmap("bO", getFeedkeys(":s/<C-r>y//gc<Left><Left><Left>"))
 end
 
 local function foldings()

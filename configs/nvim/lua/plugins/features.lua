@@ -65,7 +65,7 @@ end
 local function searchInBrowser(addPlugin)
   addPlugin("tyru/open-browser.vim")
   u.nmap("<leader>/", "<Plug>(openbrowser-smart-search)")
-  u.vmap("<leader>/", "<Plug>(openbrowser-smart-search)")
+  u.xmap("<leader>/", "<Plug>(openbrowser-smart-search)")
 end
 
 local function gutentags(addPlugin)
