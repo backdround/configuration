@@ -77,14 +77,29 @@ local function setMappings()
 
   -- Maps
   u.nmap("<leader><M-m>", u.wrap(builtin.keymaps, {
-    modes = {"n", "i", "x", "o", "c", "s"}
+    modes = {"", "n", "i", "x", "o", "c", "s", "t"}
   }))
-  u.nmap("<M-m>", u.wrap(builtin.keymaps, { modes = {"n"} }))
-  u.imap("<M-m>", u.wrap(builtin.keymaps, { modes = {"i"} }))
-  u.xmap("<M-m>", u.wrap(builtin.keymaps, { modes = {"x"} }))
-  u.omap("<M-m>", u.wrap(builtin.keymaps, { modes = {"o"} }))
-  u.cmap("<M-m>", u.wrap(builtin.keymaps, { modes = {"c"} }))
-  u.smap("<M-m>", u.wrap(builtin.keymaps, { modes = {"s"} }))
+
+  modesToMap = {"n", "i", "x", "o", "c", "s"}
+  for _, mode in ipairs(modesToMap) do
+
+    local telescopeShowMaps = function()
+      builtin.keymaps({
+        modes = { mode },
+        show_plug = false,
+      })
+    end
+
+    local telescopeShowAllMaps = function()
+      builtin.keymaps({
+        modes = { mode },
+        show_plug = true,
+      })
+    end
+
+    u[mode .. "map"]("<M-m>", telescopeShowMaps)
+    u[mode .. "map"]("<C-M-m>", telescopeShowAllMaps)
+  end
 
   -- Files
   u.nmap("<leader>t", pickFile)
