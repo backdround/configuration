@@ -174,8 +174,7 @@ local function misc()
   -- Misc
   vim.opt.pastetoggle = "<F8>"
   u.nmap("_", "<Cmd>write<CR>")
-  -- TODO:
-  --u.nmap("<leader>r", "<Cmd>source ~/.config/nvim/init.lua<CR>")
+  u.map("<2-LeftMouse>", "<nop>")
 end
 
 local function apply(addPlugin)

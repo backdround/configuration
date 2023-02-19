@@ -84,6 +84,7 @@ local function apply(addPlugin)
   setTitle()
 
   -- Misc
+  options.completeopt = {"menu", "menuone", "noselect"}
   options.updatetime = 40
   options.timeout = false
   options.scrolloff = 10
