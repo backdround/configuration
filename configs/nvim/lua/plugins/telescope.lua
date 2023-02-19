@@ -77,13 +77,14 @@ local function setMappings()
 
   -- Maps
   u.nmap("<leader><M-m>", u.wrap(builtin.keymaps, {
-    modes = {"n", "i", "x", "o", "c"}
+    modes = {"n", "i", "x", "o", "c", "s"}
   }))
   u.nmap("<M-m>", u.wrap(builtin.keymaps, { modes = {"n"} }))
   u.imap("<M-m>", u.wrap(builtin.keymaps, { modes = {"i"} }))
   u.xmap("<M-m>", u.wrap(builtin.keymaps, { modes = {"x"} }))
   u.omap("<M-m>", u.wrap(builtin.keymaps, { modes = {"o"} }))
   u.cmap("<M-m>", u.wrap(builtin.keymaps, { modes = {"c"} }))
+  u.smap("<M-m>", u.wrap(builtin.keymaps, { modes = {"s"} }))
 
   -- Files
   u.nmap("<leader>t", pickFile)
@@ -98,9 +99,14 @@ local function setMappings()
   u.nmap("<leader>h", builtin.live_grep)
   u.nmap("<leader><M-h>", builtin.current_buffer_fuzzy_find)
 
+  -- Commands
+  u.nmap("<leader>c", builtin.commands)
+  u.nmap("<leader><M-c>", builtin.command_history)
+
+  -- TODO: check crispgm/telescope-heading.nvim
   -- Helps
   u.nmap("<leader>d", builtin.help_tags)
-  u.nmap("<leader><M-d>", u.wrap(builtin.man_pages, { sections = {"ALL"} }))
+  u.nmap("<leader><C-d>", u.wrap(builtin.man_pages, { sections = {"ALL"} }))
 end
 
 local function apply(addPlugin)
