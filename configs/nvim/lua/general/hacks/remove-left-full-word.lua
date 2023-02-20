@@ -1,13 +1,6 @@
 -- Returns start and stop indexes of a last word (space separated).
 local function getLastWordIndexes(line)
-  local reverseStart, reverseStop = line:reverse():find("%s*[^%s]+")
-  if not reverseStart then
-    return nil
-  end
-
-  local start = line:len() - reverseStop + 1
-  local stop = line:len() - reverseStart + 1
-  return start, stop
+  return line:find("[^%s]+%s*$")
 end
 
 local function getLine(lineNumber)

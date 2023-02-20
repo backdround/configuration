@@ -73,15 +73,8 @@ local function assertCallable(value, name, level)
     error("Name must be a string", 2)
   end
 
-  if type(value) == "function" then
+  if vim.is_callable(value) then
     return
-  end
-
-  if type(value) == "table" then
-    local mt = getmetatable(value)
-    if mt and mt.__call then
-      return
-    end
   end
 
   error(name .. " must be callable", level)
