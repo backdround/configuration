@@ -52,6 +52,10 @@ local function configure()
 
   -- Remove all and switch to insert mode on backspace
   vim.keymap.set("s", "<BS>", u.wrap(u.feedkeys, " <BS>"), { silent = true })
+
+  vim.api.nvim_create_user_command("LuaSnipEdit",
+    require("luasnip.loaders").edit_snippet_files,
+  {})
 end
 
 local function apply(addPlugin)
