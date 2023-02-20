@@ -50,10 +50,13 @@ local function scroll(addPlugin)
   vim.g.comfortable_motion_friction = 320.0
   vim.g.comfortable_motion_air_drag = 13
 
+  -- Save real updatetime for lambdas.
+  local realUpdateTime = vim.go.updatetime
+
   local function scroll(direction)
     return function()
       -- Temporary disables CursorHold events
-      hacks.delayUpdateTime(300)
+      hacks.delayUpdateTime(300, realUpdateTime)
 
       -- Scroll
       local height = vim.api.nvim_win_get_height(0)

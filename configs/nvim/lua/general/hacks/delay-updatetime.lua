@@ -1,6 +1,5 @@
 local function newUpdateTimeDelayer()
   local delayer = {
-    realUpdateTime = vim.go.updatetime,
     _fakeUpdateTime = 9999,
     _timer = vim.loop.new_timer(),
     -- Saves id who blocks option last
@@ -14,33 +13,26 @@ local function newUpdateTimeDelayer()
     end
   end
 
-  function delayer:_unblock(blockerId)
+  function delayer:_unblock(blockerId, realUpdateTime)
     -- Allows to unblock only last blocker id
     if blockerId ~= self._lastBlockerId then
       return
     end
 
-    if vim.go.updatetime == self.realUpdateTime then
+    if vim.go.updatetime == realUpdateTime then
       return
     end
 
-    -- Restores updatetime value
-    if vim.go.updatetime == self._fakeUpdateTime then
-      vim.go.updatetime = self.realUpdateTime
-      return
-    end
-
-    -- Real updatetime value has been changed
-    self.realUpdateTime = vim.go.updatetime
+    vim.go.updatetime = realUpdateTime
   end
 
-  function delayer:delay(time)
+  function delayer:delay(time, realUpdateTime)
     local blockerId = {}
     self._lastBlockerId = blockerId
     self:_block()
 
     local unblock = vim.schedule_wrap(function()
-      self:_unblock(blockerId)
+      self:_unblock(blockerId, realUpdateTime)
     end)
 
     self._timer:stop()
@@ -52,8 +44,8 @@ end
 -- Create only one delayer instance
 local updateTimeDelayer = newUpdateTimeDelayer()
 
-local function delayUpdateTime(time)
-  updateTimeDelayer:delay(time)
+local function delayUpdateTime(time, realUpdateTime)
+  updateTimeDelayer:delay(time, realUpdateTime)
 end
 
 return delayUpdateTime
