@@ -31,8 +31,8 @@ local function insert()
 
   -- Editing
   u.imap("<C-t>", "<Esc>cc")
-  u.imap("<C-h>", "<C-w>")
-  u.imap("<M-h>", hacks.removeLeftFullWord)
+  u.imap("<C-d>", "<C-w>")
+  u.imap("<M-d>", hacks.removeLeftFullWord)
 end
 
 local function visual()

@@ -87,13 +87,18 @@ local function wrap(f, ...)
   end
 end
 
+local function feedkeys(keys)
+  keys = vim.api.nvim_replace_termcodes(keys, true, true, true)
+  vim.api.nvim_feedkeys(keys, "n", false)
+end
+
 local utilities = {
   autocmd = autocmd,
   notify = notify,
-  updateTimeDelayer = updateTimeDelayer,
   assertStringOrTable = assertStringOrTable,
   assertCallable = assertCallable,
   wrap = wrap,
+  feedkeys = feedkeys,
 }
 
 utilities = vim.tbl_extend("error", utilities, mapTable)
