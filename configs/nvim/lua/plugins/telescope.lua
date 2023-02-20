@@ -2,10 +2,11 @@ local u = require("utilities")
 
 local dependencies = {
   "nvim-lua/plenary.nvim",
+  "benfowler/telescope-luasnip.nvim",
   {
     "nvim-telescope/telescope-fzf-native.nvim",
     build = "make",
-  }
+  },
 }
 
 local function setup()
@@ -36,10 +37,12 @@ local function setup()
       borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
     },
     extensions = {
+      luasnip = {},
       fzf = {},
     },
   })
 
+  telescope.load_extension("luasnip")
   telescope.load_extension("fzf")
 end
 
@@ -73,6 +76,7 @@ local function pickAnyFile()
 end
 
 local function setMappings()
+  local telescope = require("telescope")
   local builtin = require("telescope.builtin")
 
   -- Maps
@@ -122,6 +126,9 @@ local function setMappings()
   -- Helps
   u.nmap("<leader>d", builtin.help_tags)
   u.nmap("<leader><C-d>", u.wrap(builtin.man_pages, { sections = {"ALL"} }))
+
+  -- Other
+  u.nmap("<leader>s", telescope.extensions.luasnip.luasnip)
 end
 
 local function apply(addPlugin)
