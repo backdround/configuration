@@ -35,5 +35,7 @@ apply("plugins/ui", pm.add)
 -- Plugins
 apply("plugins/telescope", pm.add)
 apply("plugins/treesitter", pm.add)
+apply("plugins/nvim-cmp", pm.add)
+apply("plugins/luasnip", pm.add)
 
 pm.apply()
