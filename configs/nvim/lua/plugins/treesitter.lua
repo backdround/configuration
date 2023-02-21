@@ -42,7 +42,7 @@ local function textobjectsConfigure()
         set_jumps = false,
         goto_previous_start = {
           ["x,"] = "@parameter.inner",
-          ["x<M-f>"] = "@function.inner",
+          ["xF"] = "@function.inner",
         },
         goto_next_start = {
           ["x."] = "@parameter.inner",

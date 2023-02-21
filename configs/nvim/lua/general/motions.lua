@@ -122,6 +122,8 @@ local function pageMovements()
 end
 
 
+-- TODO: switch to hop (that doesn't write to buffer)
+-- in order to fix linter chaos.
 local function easymotion(addPlugin)
   addPlugin('easymotion/vim-easymotion')
 
