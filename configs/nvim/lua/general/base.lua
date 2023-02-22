@@ -140,7 +140,7 @@ end
 
 local function foldings()
   -- TODO: make foldings
-  u.map("x", function() print("make foldings")end)
+  u.map("x", function() print("make foldings") end)
 end
 
 local function improvedRepeat(addPlugin)
@@ -150,6 +150,28 @@ local function improvedRepeat(addPlugin)
   u.nmap(".", "<Plug>(RepeatDot)")
   u.nmap("m", "<Plug>(RepeatUndo)")
   u.nmap("M", "<Plug>(RepeatRedo)")
+end
+
+local function commands()
+  -- FilePath command, that prints current file path
+  local printCurrentFilePath = function()
+    print(vim.fn.expand("%:p"))
+  end
+  vim.api.nvim_create_user_command("FilePath", printCurrentFilePath, {})
+
+  -- Normal command that expands key notation like "<esc>", "<left>" and so on.
+  vim.api.nvim_create_user_command("Normal", function(opts)
+    local userSequence = vim.api.nvim_replace_termcodes(opts.args, true, true, true)
+    local bangSymbol = opts.bang and "!" or ""
+    local command = string.format("%s,%snormal%s %s",
+      opts.line1, opts.line2, bangSymbol, userSequence)
+    vim.cmd(command)
+  end, {
+    bang = true,
+    range = true,
+    nargs = 1,
+  })
+  vim.cmd(":cabbrev N Normal")
 end
 
 local function misc()
@@ -164,12 +186,6 @@ local function misc()
   -- Language key
   u.imap("<M-c>", "<C-^>")
   u.cmap("<M-c>", "<C-^>")
-
-  -- FilePath command, that prints current file path
-  local printCurrentFilePath = function()
-    print(vim.fn.expand("%:p"))
-  end
-  vim.api.nvim_create_user_command("FilePath", printCurrentFilePath, {})
 
   -- Misc
   vim.opt.pastetoggle = "<F8>"
@@ -187,6 +203,7 @@ local function apply(addPlugin)
   substitute()
   foldings()
   improvedRepeat(addPlugin)
+  commands()
 end
 
 return {
