@@ -114,6 +114,7 @@ local function setMappings()
   u.nmap("<leader>n", u.wrap(builtin.tags, { fname_width = 60}))
   u.nmap("<leader><M-n>", builtin.current_buffer_tags)
 
+  -- TODO: add fuzzy grep.
   -- Grep
   u.nmap("<leader>h", builtin.live_grep)
   u.nmap("<leader><M-h>", builtin.current_buffer_fuzzy_find)
@@ -129,8 +130,10 @@ local function setMappings()
 
   -- Other
   u.nmap("<leader>s", telescope.extensions.luasnip.luasnip)
+  u.nmap("<leader>b", builtin.builtin)
 end
 
+-- TODO: use telescope-ui-select
 local function apply(addPlugin)
   addPlugin({
     "nvim-telescope/telescope.nvim",

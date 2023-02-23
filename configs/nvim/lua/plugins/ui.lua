@@ -56,6 +56,7 @@ local function airline(addPlugin)
   })
 end
 
+-- TODO: check toggleterm.nvim
 local function floaterm(addPlugin)
   addPlugin("voldikss/vim-floaterm")
   vim.g.floaterm_width = 0.92

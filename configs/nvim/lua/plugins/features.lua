@@ -76,6 +76,10 @@ local function gutentags(addPlugin)
   vim.g.gutentags_file_list_command= "fd --type file --hidden --exclude .git"
 end
 
+local function quickfix(addPlugin)
+  _ = addPlugin
+  -- TODO: check nvim-bqf
+end
 
 local function apply(addPlugin)
   rooter(addPlugin)
@@ -83,6 +87,7 @@ local function apply(addPlugin)
   focus(addPlugin)
   searchInBrowser(addPlugin)
   gutentags(addPlugin)
+  quickfix(addPlugin)
 end
 
 return {

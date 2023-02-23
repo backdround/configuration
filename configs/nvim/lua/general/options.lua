@@ -90,6 +90,7 @@ local function apply(addPlugin)
   options.scrolloff = 10
   options.mouse = "a"
   options.swapfile = false
+  options.cpoptions:remove("_")
 end
 
 return {
