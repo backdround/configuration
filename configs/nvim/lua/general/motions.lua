@@ -99,8 +99,10 @@ end
 local function marks()
   u.map("y", "m")
   u.map("Y", "<C-o>")
+  u.map("<C-y>", "<C-t>")
   u.map("i", "`")
   u.map("I", "<C-i>")
+
 end
 
 
@@ -151,8 +153,7 @@ end
 
 local function misc()
   u.nmap("xh", "<C-]>")
-  u.nmap("xt", "<Cmd>tab Man<CR>")
-  u.nmap("xn", "gd")
+  u.nmap("xm", "<Cmd>tab Man<CR>")
 end
 
 
