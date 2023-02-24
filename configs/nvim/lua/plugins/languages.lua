@@ -1,5 +1,7 @@
 local u = require("utilities")
 
+local border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" }
+
 local function golang(_)
   u.autocmd("UserGolangIndentation", "FileType", {
     desc = "Use 4 width tabs in golang",
@@ -12,9 +14,13 @@ local function golang(_)
 end
 
 local function lspConfigure()
-  local function setBufferMappings()
-    local telescope = require("telescope.builtin")
+  local function setBufferMappings(client, _)
+    local format = function()
+      vim.lsp.buf.format({ id = client.id })
+      u.resetCurrentMode()
+    end
 
+    -- Makes mappings
     local function map(lhs, rhs)
       u.nmap(lhs, rhs, {buffer = 0})
     end
@@ -22,7 +28,11 @@ local function lspConfigure()
     -- Actions
     map("<leader>r", vim.lsp.buf.rename)
     map("<leader>u", vim.lsp.buf.hover)
-    map("<leader>o", vim.lsp.buf.code_action)
+    map("<leader>v", vim.lsp.buf.code_action)
+    u.nmap("<leader><M-o>", format, { buffer = 0 })
+    u.xmap("<leader><M-o>", format, { buffer = 0 })
+
+    local telescope = require("telescope.builtin")
 
     -- Goto symbols
     map("xh", telescope.lsp_definitions)
@@ -38,7 +48,10 @@ local function lspConfigure()
     map("xg", vim.diagnostic.goto_prev)
   end
 
-  local border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" }
+  -- Adds LspInfo border
+  require('lspconfig.ui.windows').default_options.border = border
+
+  -- Adds diagnostic border
   vim.diagnostic.config({
     float = {
       border = border,
@@ -77,6 +90,30 @@ local function lspConfigure()
   })
 end
 
+local function nullConfigure()
+  local function makeBufferMappings(client, _)
+    local format = function()
+      vim.lsp.buf.format({ id = client.id })
+      u.resetCurrentMode()
+    end
+    u.nmap("<leader>o", format, { buffer = 0 })
+    u.xmap("<leader>o", format, { buffer = 0 })
+  end
+
+  local null = require("null-ls")
+  null.setup({
+    on_attach = makeBufferMappings,
+    border = border,
+
+    sources = {
+      -- lua
+      null.builtins.formatting.stylua,
+      null.builtins.diagnostics.selene,
+      -- TODO: check ThePrimeagen/refactoring.nvim
+    },
+  })
+end
+
 -- TODO: add symbol highlighting under cursor
 -- TODO: check ray-x/lsp_signature
 local function apply(addPlugin)
@@ -88,6 +125,13 @@ local function apply(addPlugin)
     },
     config = lspConfigure,
   })
+
+  addPlugin({
+    "jose-elias-alvarez/null-ls.nvim",
+    dependencies = "nvim-lua/plenary.nvim",
+    config = nullConfigure,
+  })
+
   golang(addPlugin)
 end
 

@@ -92,6 +92,13 @@ local function feedkeys(keys)
   vim.api.nvim_feedkeys(keys, "n", false)
 end
 
+local function resetCurrentMode()
+  if vim.fn.mode() ~= "n" then
+    local keys = vim.api.nvim_replace_termcodes("<esc>", true, true, true)
+    vim.api.nvim_feedkeys(keys, "n", false)
+  end
+end
+
 local utilities = {
   autocmd = autocmd,
   notify = notify,
@@ -99,6 +106,7 @@ local utilities = {
   assertCallable = assertCallable,
   wrap = wrap,
   feedkeys = feedkeys,
+  resetCurrentMode = resetCurrentMode,
 }
 
 utilities = vim.tbl_extend("error", utilities, mapTable)
