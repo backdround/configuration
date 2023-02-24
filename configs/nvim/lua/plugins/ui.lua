@@ -100,11 +100,73 @@ local function startify(addPlugin)
   vim.g.startify_session_number = 9
 end
 
+local function messages(addPlugin)
+  addPlugin({
+    "AckslD/messages.nvim",
+    config = function()
+      local m = require("messages")
+      m.setup({
+        command_name = "Messages",
+
+        buffer_opts = function(_)
+          local height = vim.api.nvim_list_uis()[1].height
+          local width = vim.api.nvim_list_uis()[1].width
+          local border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" }
+          return {
+            relative = "editor",
+            border = border,
+            width = math.floor(0.7 * width),
+            height = math.floor(0.85 * height),
+            row = math.floor(0.05 * height),
+            col = math.floor(0.15 * width),
+          }
+        end,
+
+        post_open_float = function()
+          vim.opt.colorcolumn = ""
+          u.nmap("<esc>", ":q!<cr>", { buffer = 0, silent = true, })
+        end,
+      })
+
+      local function luaPrint(opts)
+        local api = require("messages.api")
+
+        local result, errorMessage = loadstring("return " .. opts.args)
+        if not result then
+          if not errorMessage then
+            return
+          end
+          errorMessage = errorMessage:gsub("^.*:%d+: ", "", 1)
+          api.open_float("unable to get data:\n" .. errorMessage)
+          return
+        end
+
+        while type(result) == "function" do
+          result = result()
+        end
+
+        if type(result) == "table" then
+          api.open_float(vim.inspect(result))
+          return
+        end
+
+        api.open_float(tostring(result))
+      end
+
+      vim.api.nvim_create_user_command("Print", luaPrint, {
+        nargs = 1,
+        complete = "lua",
+      })
+    end
+  })
+end
+
 local function apply(addPlugin)
   devicons(addPlugin)
   airline(addPlugin)
   floaterm(addPlugin)
   startify(addPlugin)
+  messages(addPlugin)
 end
 
 return {
