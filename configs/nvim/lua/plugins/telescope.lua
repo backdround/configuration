@@ -18,6 +18,7 @@ local function setup()
       mappings = {
         i = {
           ["<esc>"] = actions.close,
+          ["<M-o>"] = actions.select_default,
           ["<M-e>"] = actions.select_horizontal,
           ["<M-u>"] = actions.select_vertical,
           ["<M-i>"] = actions.select_tab,

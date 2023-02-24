@@ -70,6 +70,13 @@ local function floaterm(addPlugin)
   u.tmap("<F2>", "<C-\\><C-n>")
   u.nmap("<F2>", "<Cmd>FloatermToggle<Cr><C-\\><C-n>")
   vim.g.floaterm_keymap_kill = '<F3>'
+
+  u.autocmd("UserTerminalOptions", "TermOpen", {
+    desc = "Sets terminal options",
+    callback = function()
+      vim.opt.scrolloff = 0
+    end
+  })
 end
 
 local function startify(addPlugin)
