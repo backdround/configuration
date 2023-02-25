@@ -1,0 +1,11 @@
+{
+  "$schema": "https://raw.githubusercontent.com/luals/vscode-lua/master/setting/schema.json",
+  "Lua": {
+    "diagnostics": {
+      "disable": [ "undefined-global" ]
+    },
+    "runtime": {
+      "version": "LuaJIT",
+    },
+  }
+}

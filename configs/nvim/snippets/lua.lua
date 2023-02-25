@@ -1,3 +1,5 @@
+--# selene: allow(undefined_variable)
+
 local vim = {
   s({
     trig = "vimnotify",
