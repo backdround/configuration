@@ -3,6 +3,7 @@ local removeLeftFullWord = require("general.hacks.remove-left-full-word")
 local search = require("general.hacks.search")
 local delayUpdateTime = require("general.hacks.delay-updatetime")
 local visual = require("general.hacks.visual-mode")
+local createFormatFunctions = require("general.hacks.create-format-functions")
 
 return {
   jumpThrough = jumpThrough,
@@ -10,4 +11,5 @@ return {
   search = search,
   delayUpdateTime = delayUpdateTime,
   visual = visual,
+  createFormatFunctions = createFormatFunctions,
 }

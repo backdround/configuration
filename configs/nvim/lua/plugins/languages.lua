@@ -1,4 +1,5 @@
 local u = require("utilities")
+local hacks = require("general.hacks")
 
 local border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" }
 
@@ -15,11 +16,6 @@ end
 
 local function lspConfigure()
   local function setBufferMappings(client, _)
-    local format = function()
-      vim.lsp.buf.format({ id = client.id })
-      u.resetCurrentMode()
-    end
-
     -- Makes mappings
     local function map(lhs, rhs)
       u.nmap(lhs, rhs, {buffer = 0})
@@ -29,8 +25,11 @@ local function lspConfigure()
     map("<leader>r", vim.lsp.buf.rename)
     map("<leader>u", vim.lsp.buf.hover)
     map("<leader>v", vim.lsp.buf.code_action)
-    u.nmap("<leader><M-o>", format, { buffer = 0 })
-    u.xmap("<leader><M-o>", format, { buffer = 0 })
+
+    local format = hacks.createFormatFunctions(client.id)
+    u.nmap("<leader>q", format.operator, { buffer = 0 })
+    u.xmap("<leader>q", format.visual, { buffer = 0 })
+    u.nmap("<leader><M-q>", format.file, { buffer = 0 })
 
     local telescope = require("telescope.builtin")
 
@@ -92,12 +91,10 @@ end
 
 local function nullConfigure()
   local function makeBufferMappings(client, _)
-    local format = function()
-      vim.lsp.buf.format({ id = client.id })
-      u.resetCurrentMode()
-    end
-    u.nmap("<leader>o", format, { buffer = 0 })
-    u.xmap("<leader>o", format, { buffer = 0 })
+    local format = hacks.createFormatFunctions(client.id)
+    u.nmap("<leader>o", format.operator, { buffer = 0 })
+    u.xmap("<leader>o", format.visual, { buffer = 0 })
+    u.nmap("<leader><M-o>", format.file, { buffer = 0 })
   end
 
   local null = require("null-ls")
