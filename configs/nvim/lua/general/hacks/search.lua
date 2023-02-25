@@ -1,8 +1,19 @@
 local utilities = require("utilities")
 
 local function searchCurrentWordWithoutMoving()
+  local currentWord = vim.fn.expand("<cword>")
+  if currentWord == "" then
+    return
+  end
+
+  -- Sets highlight
   vim.fn.setreg("/", vim.fn.expand("<cword>"))
   vim.opt.hlsearch = true
+
+  -- Sets cursor to the first character of the currentWord
+  -- (for next search conviniece).
+  vim.fn.search(currentWord, "ce")
+  vim.fn.search(currentWord, "cb")
 end
 
 local function normal(...)
