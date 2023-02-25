@@ -1,6 +1,6 @@
 local utilities = require("utilities")
 
-local function currentWordWithoutMoving()
+local function searchCurrentWordWithoutMoving()
   vim.fn.setreg("/", vim.fn.expand("<cword>"))
   vim.opt.hlsearch = true
 end
@@ -21,7 +21,7 @@ local function normal(...)
   end
 end
 
-local function stableNext()
+local function searchStableNext()
   if vim.v.searchforward == 1 then
     normal("n")
   else
@@ -29,7 +29,7 @@ local function stableNext()
   end
 end
 
-local function stablePrevious()
+local function searchStablePrevious()
   if vim.v.searchforward == 0 then
     normal("n")
   else
@@ -59,7 +59,7 @@ local function getVisualSelectionRange()
   end
 end
 
-local function selectedText(doAfter)
+local function searchSelectedText(doAfter)
   -- Leaves visual mode
   utilities.resetCurrentMode()
 
@@ -87,20 +87,20 @@ local function selectedText(doAfter)
 end
 
 -- "*" in visual mode, that can search multiline-pattern
-local function selectedTextNext()
-  selectedText(stableNext)
+local function searchSelectedTextNext()
+  searchSelectedText(searchStableNext)
 end
 
 -- "#" in visual mode, that can search multiline-pattern
-local function selectedTextPrevious()
-  selectedText(stablePrevious)
+local function searchSelectedTextPrevious()
+  searchSelectedText(searchStablePrevious)
 end
 
 return {
-  currentWordWithoutMoving = currentWordWithoutMoving,
-  stableNext = stableNext,
-  stablePrevious = stablePrevious,
-  selectedText = selectedText,
-  selectedTextNext = selectedTextNext,
-  selectedTextPrevious = selectedTextPrevious,
+  currentWordWithoutMoving = searchCurrentWordWithoutMoving,
+  stableNext = searchStableNext,
+  stablePrevious = searchStablePrevious,
+  selectedText = searchSelectedText,
+  selectedTextNext = searchSelectedTextNext,
+  selectedTextPrevious = searchSelectedTextPrevious,
 }
