@@ -40,7 +40,6 @@ local function wordMotion(addPlugin)
   u.imap("<M-p>", "<C-o><Plug>WordMotion_e<Right>")
 end
 
-
 local function scroll(addPlugin)
   addPlugin("yuttie/comfortable-motion.vim")
 
@@ -87,14 +86,13 @@ local function findCharacter(addPlugin)
   u.map("(", "<Plug>fanfingtastic_,")
 
   -- Jump through quotes
-  u.map("+", function() hacks.jumpThrough("[\"'`]", true) end)
-  u.map("-", function() hacks.jumpThrough("[\"'`]", false) end)
+  u.map("+", u.wrap(hacks.jumpThrough, "[\"'`]", true))
+  u.map("-", u.wrap(hacks.jumpThrough, "[\"'`]", false))
 
   -- Jump through brackets
-  u.map("^", function() hacks.jumpThrough("[()]", true) end)
-  u.map("@", function() hacks.jumpThrough("[()]", false) end)
+  u.map("^", u.wrap(hacks.jumpThrough, "[()]", true))
+  u.map("@", u.wrap(hacks.jumpThrough, "[()]", false))
 end
-
 
 local function marks()
   u.map("y", "m")
@@ -102,9 +100,7 @@ local function marks()
   u.map("<C-y>", "<C-t>")
   u.map("i", "`")
   u.map("I", "<C-i>")
-
 end
-
 
 local function pageMovements()
   u.map("o", "<nop>")
@@ -123,14 +119,13 @@ local function pageMovements()
   u.map("o.", "+$")
 end
 
-
 -- TODO: switch to hop (that doesn't write to buffer)
 -- in order to fix linter chaos.
 local function easymotion(addPlugin)
-  addPlugin('easymotion/vim-easymotion')
+  addPlugin("easymotion/vim-easymotion")
 
   vim.g.EasyMotion_do_mapping = 0
-  vim.g.EasyMotion_keys = 'vrscjonetidpguhkxfmbwlay'
+  vim.g.EasyMotion_keys = "vrscjonetidpguhkxfmbwlay"
   vim.g.EasyMotion_grouping = 2
   vim.g.EasyMotion_smartcase = 1
   vim.g.EasyMotion_grouping = 1
@@ -156,7 +151,6 @@ local function misc()
   u.nmap("xm", "<Cmd>tab Man<CR>")
 end
 
-
 local function apply(addPlugin)
   wordMotion(addPlugin)
   scroll(addPlugin)
@@ -168,5 +162,5 @@ local function apply(addPlugin)
 end
 
 return {
-   apply = apply
+  apply = apply,
 }

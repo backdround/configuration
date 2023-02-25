@@ -12,7 +12,7 @@ end
 
 local function onLastColumn()
   local line, column = unpack(vim.api.nvim_win_get_cursor(0))
-  local lineString =  vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
+  local lineString = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
   return column == (lineString:len() - 1)
 end
 
@@ -27,7 +27,7 @@ local function jumpThroughForward(pattern)
     return
   end
 
-  vim.api.nvim_win_set_cursor(0, {line, col})
+  vim.api.nvim_win_set_cursor(0, { line, col })
 end
 
 local function onFirstColumn()
@@ -50,7 +50,7 @@ local function jumpThroughBackward(pattern)
   if col < 0 then
     col = 0
   end
-  vim.api.nvim_win_set_cursor(0, {line, col})
+  vim.api.nvim_win_set_cursor(0, { line, col })
 end
 
 -- jumpThrough is suitable for jumps in/out of parentheses or quotes

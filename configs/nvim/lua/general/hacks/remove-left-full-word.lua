@@ -8,7 +8,7 @@ local function getLine(lineNumber)
 end
 
 local function setLine(lineNumber, line)
-  vim.api.nvim_buf_set_lines(0, lineNumber - 1, lineNumber, true, {line})
+  vim.api.nvim_buf_set_lines(0, lineNumber - 1, lineNumber, true, { line })
 end
 
 local function removeLine(lineNumber)
@@ -35,7 +35,6 @@ local function removeLeftFullWord()
 
   -- If there are no words before cursor
   if wordStartIndex == nil then
-
     local previousLine = line - 1
     if previousLine < 1 then
       return
@@ -43,7 +42,7 @@ local function removeLeftFullWord()
 
     -- Concatenates line with previous line
     local previousLineString = getLine(line - 1)
-    local newCursorPosition = {previousLine, getLineWidth(previousLine)}
+    local newCursorPosition = { previousLine, getLineWidth(previousLine) }
 
     removeLine(line)
     setLine(previousLine, previousLineString .. rightPart)
@@ -54,10 +53,10 @@ local function removeLeftFullWord()
   -- Replace the line by new line with removed full word.
   local newLeftPart = leftPart:sub(1, wordStartIndex - 1)
   local newLine = newLeftPart .. rightPart
-  vim.api.nvim_buf_set_lines(0, line - 1, line, true, {newLine})
+  vim.api.nvim_buf_set_lines(0, line - 1, line, true, { newLine })
 
   -- Sets cursor after deletion
-  vim.api.nvim_win_set_cursor(0, {line, wordStartIndex - 1})
+  vim.api.nvim_win_set_cursor(0, { line, wordStartIndex - 1 })
 end
 
 return removeLeftFullWord

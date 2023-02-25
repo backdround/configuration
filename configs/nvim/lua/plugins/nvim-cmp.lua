@@ -48,7 +48,7 @@ local function configure()
       expand = function(args)
         local luasnip = require("luasnip")
         luasnip.lsp_expand(args.body)
-      end
+      end,
     },
 
     -- Disable autoselection
@@ -61,7 +61,6 @@ local function configure()
     formatting = {
       expandable_indicator = false,
       format = function(entry, vim_item)
-
         local kind = lspkind.cmp_format({
           mode = "symbol_text",
           preset = "default",
@@ -78,7 +77,7 @@ local function configure()
 
             path = "PATH",
             buffer = "BUF",
-          }
+          },
         })(entry, vim_item)
 
         -- Adds additional space between symbol and text
@@ -90,7 +89,7 @@ local function configure()
 
         return kind
       end,
-    }
+    },
   })
 end
 
@@ -110,5 +109,5 @@ local function apply(addPlugin)
 end
 
 return {
-  apply = apply
+  apply = apply,
 }

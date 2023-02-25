@@ -11,7 +11,7 @@ local function editing()
   u.map(",", "r")
   u.map("'", "x")
 
-  u.map("\"", "J")
+  u.map('"', "J")
 end
 
 local function insert()
@@ -85,7 +85,7 @@ local function copyPaste()
 
   -- Insert paste
   u.imap("<C-l>", '<C-r>"')
-  u.imap("<M-l>", '<C-r>y')
+  u.imap("<M-l>", "<C-r>y")
 
   -- Highlight yanked area
   u.autocmd("UserHightlightYankedText", "TextYankPost", {
@@ -94,7 +94,7 @@ local function copyPaste()
         higroup = "HighlightedyankRegion",
         timeout = 140,
       })
-    end
+    end,
   })
 end
 
@@ -140,11 +140,13 @@ end
 
 local function foldings()
   -- TODO: make foldings
-  u.map("x", function() print("make foldings") end)
+  u.map("x", function()
+    print("make foldings")
+  end)
 end
 
 local function improvedRepeat(addPlugin)
-  addPlugin('backdround/vim-repeat')
+  addPlugin("backdround/vim-repeat")
 
   vim.g.repeat_no_default_key_mappings = 1
   u.nmap(".", "<Plug>(RepeatDot)")
@@ -161,10 +163,16 @@ local function commands()
 
   -- Normal command that expands key notation like "<esc>", "<left>" and so on.
   vim.api.nvim_create_user_command("Normal", function(opts)
-    local userSequence = vim.api.nvim_replace_termcodes(opts.args, true, true, true)
+    local userSequence =
+      vim.api.nvim_replace_termcodes(opts.args, true, true, true)
     local bangSymbol = opts.bang and "!" or ""
-    local command = string.format("%s,%snormal%s %s",
-      opts.line1, opts.line2, bangSymbol, userSequence)
+    local command = string.format(
+      "%s,%snormal%s %s",
+      opts.line1,
+      opts.line2,
+      bangSymbol,
+      userSequence
+    )
     vim.cmd(command)
   end, {
     bang = true,
@@ -207,5 +215,5 @@ local function apply(addPlugin)
 end
 
 return {
-  apply = apply
+  apply = apply,
 }

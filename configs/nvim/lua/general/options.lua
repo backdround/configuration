@@ -44,9 +44,12 @@ local function apply(addPlugin)
 
   -- Colors
   options.termguicolors = true
-  addPlugin{ "backdround/melting", config = function()
-    vim.cmd.colorscheme("melting")
-  end }
+  addPlugin({
+    "backdround/melting",
+    config = function()
+      vim.cmd.colorscheme("melting")
+    end,
+  })
 
   -- Language
   options.keymap = "custom_ru"
@@ -67,7 +70,7 @@ local function apply(addPlugin)
   utilities.autocmd("UserDisableAutocomment", "BufEnter", {
     desc = "Disable auto insert comments when cursor is on comment line",
     callback = function()
-      vim.opt.formatoptions:remove({"r", "o"})
+      vim.opt.formatoptions:remove({ "r", "o" })
     end,
   })
 
@@ -84,7 +87,7 @@ local function apply(addPlugin)
   setTitle()
 
   -- Misc
-  options.completeopt = {"menu", "menuone", "noselect"}
+  options.completeopt = { "menu", "menuone", "noselect" }
   options.updatetime = 40
   options.timeout = false
   options.scrolloff = 10
@@ -94,5 +97,5 @@ local function apply(addPlugin)
 end
 
 return {
-  apply = apply
+  apply = apply,
 }

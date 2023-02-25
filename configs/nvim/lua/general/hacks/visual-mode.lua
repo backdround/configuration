@@ -14,5 +14,5 @@ local function enter()
 end
 
 return {
-  enter = enter
+  enter = enter,
 }

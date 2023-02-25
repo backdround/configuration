@@ -18,7 +18,7 @@ local function lspConfigure()
   local function setBufferMappings(client, _)
     -- Makes mappings
     local function map(lhs, rhs)
-      u.nmap(lhs, rhs, {buffer = 0})
+      u.nmap(lhs, rhs, { buffer = 0 })
     end
 
     -- Actions
@@ -48,7 +48,7 @@ local function lspConfigure()
   end
 
   -- Adds LspInfo border
-  require('lspconfig.ui.windows').default_options.border = border
+  require("lspconfig.ui.windows").default_options.border = border
 
   -- Adds diagnostic border
   vim.diagnostic.config({
@@ -74,13 +74,13 @@ local function lspConfigure()
         workspace = {
           checkThirdParty = false,
           library = vim.api.nvim_get_runtime_file("", true),
-          ignoreDir = { "./snippets", },
+          ignoreDir = { "./snippets" },
         },
         telemetry = {
           enable = false,
         },
-      }
-    }
+      },
+    },
   })
 
   lspconfig.gopls.setup({

@@ -9,7 +9,7 @@ local function normal(...)
   local cmd = {
     cmd = "normal",
     bang = true,
-    args = {...},
+    args = { ... },
   }
 
   local success, err = pcall(vim.api.nvim_cmd, cmd, {})
@@ -62,7 +62,8 @@ end
 local function selectedText(doAfter)
   -- Leaves visual mode
   if vim.fn.mode() ~= "n" then
-    escapeVisualKeys = vim.api.nvim_replace_termcodes("<esc>", true, false, true)
+    escapeVisualKeys =
+      vim.api.nvim_replace_termcodes("<esc>", true, false, true)
     vim.api.nvim_feedkeys(escapeVisualKeys, "n", true)
   end
 
@@ -70,11 +71,12 @@ local function selectedText(doAfter)
   vim.schedule(function()
     -- Gets selected text
     local startRow, startColumn, endRow, endColumn = getVisualSelectionRange()
-    local selectedText = vim.api.nvim_buf_get_text(0, startRow, startColumn, endRow, endColumn, {})
+    local selectedText =
+      vim.api.nvim_buf_get_text(0, startRow, startColumn, endRow, endColumn, {})
     selectedText = table.concat(selectedText, "\\n")
 
     -- Sets cursor to left part of selected text (for next search conviniece)
-    vim.api.nvim_win_set_cursor(0, {startRow + 1, startColumn})
+    vim.api.nvim_win_set_cursor(0, { startRow + 1, startColumn })
 
     -- Sets the selected text as a search text
     vim.fn.setreg("/", selectedText)

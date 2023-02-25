@@ -13,16 +13,15 @@ local function fullmap(mode, lhs, rhs, options)
 end
 
 local mapTable = {}
-local modes = {"n", "i", "v", "c", "t", "o", "x", "s"}
+local modes = { "n", "i", "v", "c", "t", "o", "x", "s" }
 for _, mode in ipairs(modes) do
   mapTable[mode .. "map"] = function(lhs, rhs, options)
     fullmap(mode, lhs, rhs, options)
   end
 end
 mapTable["map"] = function(lhs, rhs, options)
-  fullmap({"n", "x", "o"}, lhs, rhs, options)
+  fullmap({ "n", "x", "o" }, lhs, rhs, options)
 end
-
 
 local function autocmd(uniqueGroup, event, options)
   options.group = uniqueGroup
@@ -31,14 +30,15 @@ local function autocmd(uniqueGroup, event, options)
   vim.api.nvim_create_autocmd(event, options)
 end
 
-
 local function notify(message, time)
   time = time or "2000"
-  vim.fn.system {
-    "notify-send", "-t", tostring(time), message
-  }
+  vim.fn.system({
+    "notify-send",
+    "-t",
+    tostring(time),
+    message,
+  })
 end
-
 
 local function assertStringOrTable(value, name, level)
   if level then
@@ -81,7 +81,7 @@ local function assertCallable(value, name, level)
 end
 
 local function wrap(f, ...)
-  local args = {...}
+  local args = { ... }
   return function()
     f(unpack(args))
   end

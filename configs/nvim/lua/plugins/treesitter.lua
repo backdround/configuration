@@ -1,12 +1,37 @@
-
 local function baseConfigure()
   require("nvim-treesitter.configs").setup({
     ensure_installed = {
-      "c", "cpp", "cmake", "lua", "python",
-      "go", "gosum", "gomod",
-      "yaml", "toml", "json", "ini",
-      "bash", "dockerfile", "markdown",
-      "gitattributes", "gitcommit", "gitignore",
+      -- Base
+      "c",
+      "cpp",
+      "cmake",
+      "lua",
+      "python",
+
+      -- Golang
+      "go",
+      "gosum",
+      "gomod",
+      "gowork",
+
+      -- Formats
+      "yaml",
+      "toml",
+      "json",
+      "ini",
+
+      -- Git
+      "gitattributes",
+      "gitcommit",
+      "gitignore",
+
+      -- Automate
+      "bash",
+      "make",
+      "dockerfile",
+
+      -- Misc
+      "markdown",
     },
     syn_install = true,
 
@@ -33,8 +58,8 @@ local function textobjectsConfigure()
       },
       swap = {
         enable = true,
-        swap_previous = { ["b,"] = "@parameter.inner", },
-        swap_next = { ["b."] = "@parameter.inner", },
+        swap_previous = { ["b,"] = "@parameter.inner" },
+        swap_next = { ["b."] = "@parameter.inner" },
       },
       -- TODO: add abilite to jump next / previous
       move = {
@@ -49,7 +74,7 @@ local function textobjectsConfigure()
           ["xf"] = "@function.inner",
         },
       },
-    }
+    },
   })
 end
 
@@ -65,10 +90,10 @@ local function apply(addPlugin)
   addPlugin({
     "nvim-treesitter/nvim-treesitter-textobjects",
     dependencies = "nvim-treesitter/nvim-treesitter",
-    config = textobjectsConfigure
+    config = textobjectsConfigure,
   })
 end
 
 return {
-  apply = apply
+  apply = apply,
 }

@@ -2,7 +2,7 @@ local u = require("utilities")
 
 local function concatenateLists(...)
   local unitedList = {}
-  for _, list in ipairs({...}) do
+  for _, list in ipairs({ ... }) do
     unitedList = vim.list_extend(unitedList, list)
   end
   return unitedList
@@ -53,9 +53,11 @@ local function configure()
   -- Remove all and switch to insert mode on backspace
   vim.keymap.set("s", "<BS>", u.wrap(u.feedkeys, " <BS>"), { silent = true })
 
-  vim.api.nvim_create_user_command("LuaSnipEdit",
+  vim.api.nvim_create_user_command(
+    "LuaSnipEdit",
     require("luasnip.loaders").edit_snippet_files,
-  {})
+    {}
+  )
 end
 
 local function apply(addPlugin)
@@ -67,5 +69,5 @@ local function apply(addPlugin)
 end
 
 return {
-  apply = apply
+  apply = apply,
 }

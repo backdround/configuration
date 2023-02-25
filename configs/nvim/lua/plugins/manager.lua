@@ -12,10 +12,13 @@ local function ensureLazy()
 
   -- Installs lazy
   utils.notify("Lazy installation ...")
-  local cloneOutput = vim.fn.system {
-    "git", "clone", "--depth=1",
-    "https://github.com/folke/lazy.nvim.git", lazyPath,
-  }
+  local cloneOutput = vim.fn.system({
+    "git",
+    "clone",
+    "--depth=1",
+    "https://github.com/folke/lazy.nvim.git",
+    lazyPath,
+  })
 
   -- Checks error
   if vim.v.shell_error ~= 0 then

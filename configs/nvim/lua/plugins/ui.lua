@@ -12,12 +12,15 @@ end
 local function airline(addPlugin)
   addPlugin({
     "vim-airline/vim-airline",
-    dependencies = "ludovicchabant/vim-gutentags"
+    dependencies = "ludovicchabant/vim-gutentags",
   })
 
   vim.g["airline#extensions#disable_rtp_load"] = 1
   vim.g.airline_extensions = {
-    "tabline", "quickfix", "gutentags", "coc"
+    "tabline",
+    "quickfix",
+    "gutentags",
+    "coc",
   }
 
   vim.g.airline_highlighting_cache = 1
@@ -52,7 +55,7 @@ local function airline(addPlugin)
       function! airline#parts#mode()
         return airline#util#shorten(get(w:, 'airline_current_mode', ''), 50, 1)
       endfunction
-    ]]
+    ]],
   })
 end
 
@@ -69,13 +72,13 @@ local function floaterm(addPlugin)
   vim.g.floaterm_keymap_toggle = "<F1>"
   u.tmap("<F2>", "<C-\\><C-n>")
   u.nmap("<F2>", "<Cmd>FloatermToggle<Cr><C-\\><C-n>")
-  vim.g.floaterm_keymap_kill = '<F3>'
+  vim.g.floaterm_keymap_kill = "<F3>"
 
   u.autocmd("UserTerminalOptions", "TermOpen", {
     desc = "Sets terminal options",
     callback = function()
       vim.opt.scrolloff = 0
-    end
+    end,
   })
 end
 
@@ -90,15 +93,15 @@ local function startify(addPlugin)
   vim.g.startify_files_number = 5
 
   vim.g.startify_bookmarks = {
-    { ci = "~/.config/i3/config"},
-    { cv = "~/configuration/configs/nvim/init.vim"},
-    { cz = "~/configuration/configs/terminal/zshrc"},
+    { ci = "~/.config/i3/config" },
+    { cv = "~/configuration/configs/nvim/init.vim" },
+    { cz = "~/configuration/configs/terminal/zshrc" },
   }
 
   vim.g.startify_lists = {
-    { type = "sessions",  header = {"Sessions"}                           },
-    { type = "bookmarks", header = {"Bookmarks"}                          },
-    { type = "files",     header = {"MRU"},  indices = {"U", "E", "O", "A"}},
+    { type = "sessions", header = { "Sessions" } },
+    { type = "bookmarks", header = { "Bookmarks" } },
+    { type = "files", header = { "MRU" }, indices = { "U", "E", "O", "A" } },
   }
 
   vim.g.startify_session_dir = "~/.local/share/nvim/sessions/"
@@ -118,7 +121,8 @@ local function messages(addPlugin)
         buffer_opts = function(_)
           local height = vim.api.nvim_list_uis()[1].height
           local width = vim.api.nvim_list_uis()[1].width
-          local border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" }
+          local border =
+            { "┌", "─", "┐", "│", "┘", "─", "└", "│" }
           return {
             relative = "editor",
             border = border,
@@ -131,7 +135,7 @@ local function messages(addPlugin)
 
         post_open_float = function()
           vim.opt.colorcolumn = ""
-          u.nmap("<esc>", ":q!<cr>", { buffer = 0, silent = true, })
+          u.nmap("<esc>", ":q!<cr>", { buffer = 0, silent = true })
         end,
       })
 
@@ -164,7 +168,7 @@ local function messages(addPlugin)
         nargs = 1,
         complete = "lua",
       })
-    end
+    end,
   })
 end
 

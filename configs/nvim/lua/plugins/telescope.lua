@@ -52,7 +52,12 @@ local function pickLocalFile()
 
   local currentFileDirectory = vim.fn.expand("%:p:h")
   local command = {
-    "fd", "--hidden", "--type", "file", "--exclude", ".git",
+    "fd",
+    "--hidden",
+    "--type",
+    "file",
+    "--exclude",
+    ".git",
   }
   builtin.find_files({
     find_command = command,
@@ -63,7 +68,12 @@ end
 local function pickFile()
   local builtin = require("telescope.builtin")
   local command = {
-    "fd", "--hidden", "--type", "file", "--exclude", ".git",
+    "fd",
+    "--hidden",
+    "--type",
+    "file",
+    "--exclude",
+    ".git",
   }
   builtin.find_files({ find_command = command })
 end
@@ -72,7 +82,7 @@ local function pickAnyFile()
   local builtin = require("telescope.builtin")
   builtin.find_files({
     hidden = true,
-    no_ignore = true
+    no_ignore = true,
   })
 end
 
@@ -81,13 +91,12 @@ local function setMappings()
   local builtin = require("telescope.builtin")
 
   -- Maps
-  u.nmap("<leader><M-m>", u.wrap(builtin.keymaps, {
-    modes = {"", "n", "i", "x", "o", "c", "s", "t"}
-  }))
+  u.nmap("<leader><M-m>", function()
+    builtin.keymaps({ modes = { "", "n", "i", "x", "o", "c", "s", "t" } })
+  end)
 
-  modesToMap = {"n", "i", "x", "o", "c", "s"}
+  modesToMap = { "n", "i", "x", "o", "c", "s" }
   for _, mode in ipairs(modesToMap) do
-
     local telescopeShowMaps = function()
       builtin.keymaps({
         modes = { mode },
@@ -112,7 +121,7 @@ local function setMappings()
   u.nmap("<leader><C-t>", pickAnyFile)
 
   -- Tags
-  u.nmap("<leader>n", u.wrap(builtin.tags, { fname_width = 60}))
+  u.nmap("<leader>n", u.wrap(builtin.tags, { fname_width = 60 }))
   u.nmap("<leader><M-n>", builtin.current_buffer_tags)
 
   -- TODO: add fuzzy grep.
@@ -127,7 +136,7 @@ local function setMappings()
   -- TODO: check crispgm/telescope-heading.nvim
   -- Helps
   u.nmap("<leader>d", builtin.help_tags)
-  u.nmap("<leader><C-d>", u.wrap(builtin.man_pages, { sections = {"ALL"} }))
+  u.nmap("<leader><C-d>", u.wrap(builtin.man_pages, { sections = { "ALL" } }))
 
   -- Other
   u.nmap("<leader>s", telescope.extensions.luasnip.luasnip)
@@ -147,5 +156,5 @@ local function apply(addPlugin)
 end
 
 return {
-  apply = apply
+  apply = apply,
 }

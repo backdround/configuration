@@ -2,7 +2,7 @@ local u = require("utilities")
 local function rooter(addPlugin)
   addPlugin("airblade/vim-rooter")
 
-  vim.g.rooter_patterns = {".git/"}
+  vim.g.rooter_patterns = { ".git/" }
   vim.g.rooter_silent_chdir = 1
   vim.g.rooter_resolve_links = 1
 end
@@ -11,7 +11,7 @@ local function session(addPlugin)
   addPlugin({
     "xolox/vim-session",
     dependencies = {
-      "xolox/vim-misc"
+      "xolox/vim-misc",
     },
   })
 
@@ -22,7 +22,7 @@ local function session(addPlugin)
   vim.fn.mkdir(sessionDirectory, "p")
   vim.fn.mkdir(sessionLockDirectory, "p")
 
-  vim.g.session_directory =  sessionDirectory
+  vim.g.session_directory = sessionDirectory
   vim.g.session_lock_directory = sessionLockDirectory
 
   -- Sets options
@@ -54,11 +54,13 @@ local function focus(addPlugin)
   u.nmap("<M-n>", "<Cmd>Goyo<CR>")
 
   u.autocmd("UserFocusModeEnter", "User", {
-    pattern = "GoyoEnter", command = "Limelight",
+    pattern = "GoyoEnter",
+    command = "Limelight",
   })
 
   u.autocmd("UserFocusModeLeave", "User", {
-    pattern = "GoyoLeave", command = "Limelight!",
+    pattern = "GoyoLeave",
+    command = "Limelight!",
   })
 end
 
@@ -71,9 +73,9 @@ end
 local function gutentags(addPlugin)
   addPlugin("ludovicchabant/vim-gutentags")
   vim.g.gutentags_add_default_project_roots = 0
-  vim.g.gutentags_project_root = {".git"}
+  vim.g.gutentags_project_root = { ".git" }
   vim.g.gutentags_cache_dir = vim.fn.stdpath("data") .. "/tags"
-  vim.g.gutentags_file_list_command= "fd --type file --hidden --exclude .git"
+  vim.g.gutentags_file_list_command = "fd --type file --hidden --exclude .git"
 end
 
 local function quickfix(addPlugin)
@@ -91,5 +93,5 @@ local function apply(addPlugin)
 end
 
 return {
-  apply = apply
+  apply = apply,
 }

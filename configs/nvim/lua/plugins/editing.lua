@@ -31,13 +31,14 @@ end
 local function targets(addPlugin)
   addPlugin("wellle/targets.vim")
 
-  vim.g.targets_aiAI        = "gc  "
+  vim.g.targets_aiAI = "gc  "
   vim.g.targets_mapped_aiAI = {
     "<Plug>(virtual-visual-a)",
     "<Plug>(virtual-visual-i)",
-    "", ""
+    "",
+    "",
   }
-  vim.g.targets_nl = {"t", "h"}
+  vim.g.targets_nl = { "t", "h" }
 
   u.map("<Plug>(virtual-visual-a)", "a")
   u.map("<Plug>(virtual-visual-i)", "i")
@@ -84,7 +85,7 @@ local function niceblock(addPlugin)
 end
 
 local function move(addPlugin)
-  addPlugin('matze/vim-move')
+  addPlugin("matze/vim-move")
 
   vim.g.move_map_keys = 0
   u.nmap("<M-g>", "<Plug>MoveLineDown")
@@ -110,5 +111,5 @@ local function apply(addPlugin)
 end
 
 return {
-  apply = apply
+  apply = apply,
 }
