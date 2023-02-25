@@ -13,6 +13,7 @@ local function createFormatFunctions(clientId)
   local operatorFormat = function()
     local oldOperator = vim.go.operatorfunc
 
+    -- selene: allow(unused_variable)
     function MakeFormat()
       local start = vim.api.nvim_buf_get_mark(0, "[")
       local finish = vim.api.nvim_buf_get_mark(0, "]")
@@ -24,7 +25,8 @@ local function createFormatFunctions(clientId)
         },
       })
       vim.go.operatorfunc = oldOperator
-      MakeFormat = nil
+      -- selene: allow(global_usage)
+      _G.MakeFormat = nil
     end
 
     vim.go.operatorfunc = "v:lua.MakeFormat"

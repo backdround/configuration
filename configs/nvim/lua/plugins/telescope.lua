@@ -95,7 +95,7 @@ local function setMappings()
     builtin.keymaps({ modes = { "", "n", "i", "x", "o", "c", "s", "t" } })
   end)
 
-  modesToMap = { "n", "i", "x", "o", "c", "s" }
+  local modesToMap = { "n", "i", "x", "o", "c", "s" }
   for _, mode in ipairs(modesToMap) do
     local telescopeShowMaps = function()
       builtin.keymaps({

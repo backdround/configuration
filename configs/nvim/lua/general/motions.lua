@@ -51,8 +51,11 @@ local function scroll(addPlugin)
 
   -- Save real updatetime for lambdas.
   local realUpdateTime = vim.go.updatetime
+  if realUpdateTime > 900 then
+    error("updatetime is too high\n do you run it before updatetime is set?")
+  end
 
-  local function scroll(direction)
+  local function perform(direction)
     return function()
       -- Temporary disables CursorHold events
       hacks.delayUpdateTime(300, realUpdateTime)
@@ -63,10 +66,10 @@ local function scroll(addPlugin)
     end
   end
 
-  u.map("e", scroll(5))
-  u.map("u", scroll(-5))
-  u.map("E", scroll(8.4))
-  u.map("U", scroll(-8.4))
+  u.map("e", perform(5))
+  u.map("u", perform(-5))
+  u.map("E", perform(8.4))
+  u.map("U", perform(-8.4))
 end
 
 -- TODO: stable '(' / ')'

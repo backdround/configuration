@@ -61,11 +61,7 @@ end
 
 local function selectedText(doAfter)
   -- Leaves visual mode
-  if vim.fn.mode() ~= "n" then
-    escapeVisualKeys =
-      vim.api.nvim_replace_termcodes("<esc>", true, false, true)
-    vim.api.nvim_feedkeys(escapeVisualKeys, "n", true)
-  end
+  utilities.resetCurrentMode()
 
   -- Visual marks are saved in loop. So we continues the work in a defer function.
   vim.schedule(function()
