@@ -58,18 +58,6 @@ local general = {
     })
   ),
 
-  s(
-    {
-      trig = "a",
-      name = "assign",
-      dscr = "make an assignment",
-    },
-    fmt("{name} = {value}", {
-      name = i(1, "name"),
-      value = i(2, "value"),
-    })
-  ),
-
   s({
     trig = "r",
     name = "return",
@@ -149,7 +137,7 @@ local general = {
         list = i(1, "list"),
         index = i(2, "_"),
         value = i(3, "v"),
-        body = i(1),
+        body = i(4),
       }
     )
   ),
@@ -170,7 +158,7 @@ local general = {
         table = i(1, "table"),
         key = i(2, "k"),
         value = i(3, "v"),
-        body = i(1),
+        body = i(4),
       }
     )
   ),
@@ -189,25 +177,7 @@ local general = {
       ]],
       {
         condition = i(1),
-        body = i(1),
-      }
-    )
-  ),
-
-  s(
-    {
-      trig = "ei",
-      name = "elseif statement",
-      dscr = "create elseif statement",
-    },
-    fmt(
-      [[
-        elseif {condition} then
-          {body}
-      ]],
-      {
-        condition = i(1),
-        body = i(1),
+        body = i(2),
       }
     )
   ),
