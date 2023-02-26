@@ -122,31 +122,57 @@ local function pageMovements()
   u.map("o.", "+$")
 end
 
--- TODO: switch to hop (that doesn't write to buffer)
--- in order to fix linter chaos.
-local function easymotion(addPlugin)
-  addPlugin("easymotion/vim-easymotion")
+local function jumpMotions(addPlugin)
+  -- TODO: Use original plugin when fixes and camelCase will be merged.
+  addPlugin({
+    "backdround/hop.nvim",
+    config = function()
+      local hop = require("hop")
+      local hint = require("hop.hint")
 
-  vim.g.EasyMotion_do_mapping = 0
-  vim.g.EasyMotion_keys = "vrscjonetidpguhkxfmbwlay"
-  vim.g.EasyMotion_grouping = 2
-  vim.g.EasyMotion_smartcase = 1
-  vim.g.EasyMotion_grouping = 1
+      hop.setup({
+        teasing = false
+      })
 
-  u.map("a", "<Plug>(easymotion-lineanywhere)")
+      local hopUpBegin = u.wrap(hop.hint_camel_case, {
+        direction = hint.HintDirection.BEFORE_CURSOR,
+        hint_position = hint.HintPosition.BEGIN,
+      })
 
-  u.map("ow", "<Plug>(easymotion-b)")
-  u.map("oq", "<Plug>(easymotion-ge)")
-  u.map("oj", "<Plug>(easymotion-w)")
-  u.map("op", "<Plug>(easymotion-e)")
+      local hopUpEnd = u.wrap(hop.hint_camel_case, {
+        direction = hint.HintDirection.BEFORE_CURSOR,
+        hint_position = hint.HintPosition.END,
+      })
 
-  u.map("ok", "<Plug>(easymotion-f)")
-  u.map("oz", "<Plug>(easymotion-F)")
+      local hopDownBegin = u.wrap(hop.hint_camel_case, {
+        direction = hint.HintDirection.AFTER_CURSOR,
+        hint_position = hint.HintPosition.BEGIN,
+      })
 
-  u.map("oa", "<Plug>(easymotion-B)")
-  u.map("oo", "<Plug>(easymotion-gE)")
-  u.map("oe", "<Plug>(easymotion-W)")
-  u.map("ou", "<Plug>(easymotion-E)")
+      local hopDownEnd = u.wrap(hop.hint_camel_case, {
+        direction = hint.HintDirection.AFTER_CURSOR,
+        hint_position = hint.HintPosition.END,
+      })
+
+      local hopChar1Down = u.wrap(hop.hint_char1, {
+        direction = hint.HintDirection.AFTER_CURSOR,
+      })
+
+      local hopChar1Up = u.wrap(hop.hint_char1, {
+        direction = hint.HintDirection.BEFORE_CURSOR,
+      })
+
+      u.map("a", u.wrap(hop.hint_camel_case, { current_line_only = true }))
+
+      u.map("ow", hopUpBegin)
+      u.map("oq", hopUpEnd)
+      u.map("oj", hopDownBegin)
+      u.map("op", hopDownEnd)
+
+      u.map("ok", hopChar1Down)
+      u.map("oz", hopChar1Up)
+    end,
+  })
 end
 
 local function misc()
@@ -157,7 +183,7 @@ end
 local function apply(addPlugin)
   wordMotion(addPlugin)
   scroll(addPlugin)
-  easymotion(addPlugin)
+  jumpMotions(addPlugin)
   findCharacter(addPlugin)
   marks()
   pageMovements()
