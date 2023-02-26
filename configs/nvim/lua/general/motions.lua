@@ -41,35 +41,27 @@ local function wordMotion(addPlugin)
 end
 
 local function scroll(addPlugin)
-  addPlugin("yuttie/comfortable-motion.vim")
+  addPlugin({
+    "karb94/neoscroll.nvim",
+    config = function()
+      -- Save real updatetime restoration.
+      local realUpdateTime = vim.go.updatetime
 
-  vim.g.comfortable_motion_no_default_key_mappings = 1
-  vim.g.comfortable_motion_interval = 7
+      local neoscroll = require("neoscroll")
+      neoscroll.setup({
+        mappings = {},
+        cursor_scrolls_alone = true,
+        easing_function = "quadratic",
+        -- Temporary disables CursorHold events
+        pre_hook = u.wrap(hacks.delayUpdateTime, 200, realUpdateTime)
+      })
 
-  vim.g.comfortable_motion_friction = 320.0
-  vim.g.comfortable_motion_air_drag = 13
-
-  -- Save real updatetime for lambdas.
-  local realUpdateTime = vim.go.updatetime
-  if realUpdateTime > 900 then
-    error("updatetime is too high\n do you run it before updatetime is set?")
-  end
-
-  local function perform(direction)
-    return function()
-      -- Temporary disables CursorHold events
-      hacks.delayUpdateTime(300, realUpdateTime)
-
-      -- Scroll
-      local height = vim.api.nvim_win_get_height(0)
-      vim.fn["comfortable_motion#flick"](height * direction)
+      u.map("e", u.wrap(neoscroll.scroll, 0.31, false, 130))
+      u.map("u", u.wrap(neoscroll.scroll, -0.31, false, 130))
+      u.map("E", u.wrap(neoscroll.scroll, 0.55, false, 150))
+      u.map("U", u.wrap(neoscroll.scroll, -0.55, false, 150))
     end
-  end
-
-  u.map("e", perform(5))
-  u.map("u", perform(-5))
-  u.map("E", perform(8.4))
-  u.map("U", perform(-8.4))
+  })
 end
 
 -- TODO: stable '(' / ')'
