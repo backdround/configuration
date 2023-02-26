@@ -64,21 +64,59 @@ local function scroll(addPlugin)
   })
 end
 
--- TODO: stable '(' / ')'
 local function findCharacter(addPlugin)
   addPlugin("dahu/vim-fanfingtastic")
 
+  -- Saves direction to make a stable next / previous search
+  local directionForward = true
+
+  local find = function()
+    directionForward = true
+    u.feedkeys("<Plug>fanfingtastic_f")
+  end
+
+  local findPre = function()
+    directionForward = true
+    u.feedkeys("<Plug>fanfingtastic_t")
+  end
+
+  local findBackward = function()
+    directionForward = false
+    u.feedkeys("<Plug>fanfingtastic_F")
+  end
+
+  local findBackwardPre = function()
+    directionForward = false
+    u.feedkeys("<Plug>fanfingtastic_T")
+  end
+
+  local next = function()
+    if directionForward then
+      u.feedkeys("<Plug>fanfingtastic_;")
+    else
+      u.feedkeys("<Plug>fanfingtastic_,")
+    end
+  end
+
+  local previous = function()
+    if directionForward then
+      u.feedkeys("<Plug>fanfingtastic_,")
+    else
+      u.feedkeys("<Plug>fanfingtastic_;")
+    end
+  end
+
   -- Forward char
-  u.map("k", "<Plug>fanfingtastic_f")
-  u.map("<M-k>", "<Plug>fanfingtastic_t")
+  u.map("k", find)
+  u.map("<M-k>", findPre)
 
   -- Backward char
-  u.map("<M-z>", "<Plug>fanfingtastic_T")
-  u.map("z", "<Plug>fanfingtastic_F")
+  u.map("z", findBackward)
+  u.map("<M-z>", findBackwardPre)
 
   -- Between chars
-  u.map(")", "<Plug>fanfingtastic_;")
-  u.map("(", "<Plug>fanfingtastic_,")
+  u.map(")", next)
+  u.map("(", previous)
 
   -- Jump through quotes
   u.map("+", u.wrap(hacks.jumpThrough, "[\"'`]", true))
