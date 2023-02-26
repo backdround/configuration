@@ -153,7 +153,10 @@ local function pageMovements()
 end
 
 local function jumpMotions(addPlugin)
-  -- TODO: Use original plugin when fixes and camelCase will be merged.
+  -- TODO: Use original plugin when all things will be exist:
+  -- - You can jump from empty line (without error, lol).
+  -- - camelCase will be available.
+  -- - multiply position will be available (begin and end at the same time).
   addPlugin({
     "backdround/hop.nvim",
     config = function()
@@ -192,7 +195,15 @@ local function jumpMotions(addPlugin)
         direction = hint.HintDirection.BEFORE_CURSOR,
       })
 
-      u.map("a", u.wrap(hop.hint_camel_case, { current_line_only = true }))
+      local hopLine = u.wrap(hop.hint_camel_case, {
+        current_line_only = true,
+        hint_position = {
+          hint.HintPosition.BEGIN,
+          hint.HintPosition.END
+        },
+      })
+
+      u.map("a", hopLine)
 
       u.map("ow", hopUpBegin)
       u.map("oq", hopUpEnd)
