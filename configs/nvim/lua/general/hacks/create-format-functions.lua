@@ -11,25 +11,26 @@ local function createFormatFunctions(clientId)
   end
 
   local operatorFormat = function()
-    local oldOperator = vim.go.operatorfunc
+    local uniqFormatFunctionName = "UserDefinedMakeFormat" .. tostring(clientId)
 
-    -- selene: allow(unused_variable)
-    function MakeFormat()
-      local start = vim.api.nvim_buf_get_mark(0, "[")
-      local finish = vim.api.nvim_buf_get_mark(0, "]")
-      vim.lsp.buf.format({
-        id = clientId,
-        range = {
-          ["start"] = start,
-          ["end"] = finish,
-        },
-      })
-      vim.go.operatorfunc = oldOperator
-      -- selene: allow(global_usage)
-      _G.MakeFormat = nil
+    -- selene: allow(global_usage)
+    -- Creates uniq global format function
+    if not _G[uniqFormatFunctionName] then
+      _G[uniqFormatFunctionName] = function()
+        local start = vim.api.nvim_buf_get_mark(0, "[")
+        local finish = vim.api.nvim_buf_get_mark(0, "]")
+        vim.lsp.buf.format({
+          id = clientId,
+          range = {
+            ["start"] = start,
+            ["end"] = finish,
+          },
+        })
+      end
     end
 
-    vim.go.operatorfunc = "v:lua.MakeFormat"
+    -- Perform formatting.
+    vim.go.operatorfunc = "v:lua." .. uniqFormatFunctionName
     vim.api.nvim_feedkeys("g@", "n", false)
   end
 
