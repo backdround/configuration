@@ -140,13 +140,13 @@ local function findCharacter(addPlugin)
   u.omap("-", getOperatorValidJumpThroughMap("[\"'`]", false))
 
   -- Jump through brackets
-  u.nmap("^", u.wrap(hacks.jumpThrough, "[()]", true))
-  u.xmap("^", u.wrap(hacks.jumpThrough, "[()]", true))
-  u.omap("^", getOperatorValidJumpThroughMap("[()]", true))
+  u.nmap("&", u.wrap(hacks.jumpThrough, "[()]", true))
+  u.xmap("&", u.wrap(hacks.jumpThrough, "[()]", true))
+  u.omap("&", getOperatorValidJumpThroughMap("[()]", true))
 
-  u.nmap("@", u.wrap(hacks.jumpThrough, "[()]", false))
-  u.xmap("@", u.wrap(hacks.jumpThrough, "[()]", false))
-  u.omap("@", getOperatorValidJumpThroughMap("[()]", false))
+  u.nmap("=", u.wrap(hacks.jumpThrough, "[()]", false))
+  u.xmap("=", u.wrap(hacks.jumpThrough, "[()]", false))
+  u.omap("=", getOperatorValidJumpThroughMap("[()]", false))
 end
 
 local function marks()
