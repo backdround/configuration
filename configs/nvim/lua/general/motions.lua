@@ -72,51 +72,51 @@ local function findCharacter(addPlugin)
 
   local find = function()
     directionForward = true
-    u.feedkeys("<Plug>fanfingtastic_f")
+    return "<Plug>fanfingtastic_f"
   end
 
   local findPre = function()
     directionForward = true
-    u.feedkeys("<Plug>fanfingtastic_t")
+    return "<Plug>fanfingtastic_t"
   end
 
   local findBackward = function()
     directionForward = false
-    u.feedkeys("<Plug>fanfingtastic_F")
+    return "<Plug>fanfingtastic_F"
   end
 
   local findBackwardPre = function()
     directionForward = false
-    u.feedkeys("<Plug>fanfingtastic_T")
+    return "<Plug>fanfingtastic_T"
   end
 
   local next = function()
     if directionForward then
-      u.feedkeys("<Plug>fanfingtastic_;")
+      return "<Plug>fanfingtastic_;"
     else
-      u.feedkeys("<Plug>fanfingtastic_,")
+      return "<Plug>fanfingtastic_,"
     end
   end
 
   local previous = function()
     if directionForward then
-      u.feedkeys("<Plug>fanfingtastic_,")
+      return "<Plug>fanfingtastic_,"
     else
-      u.feedkeys("<Plug>fanfingtastic_;")
+      return "<Plug>fanfingtastic_;"
     end
   end
 
   -- Forward char
-  u.map("k", find)
-  u.map("<M-k>", findPre)
+  u.map("k", find, { expr = true })
+  u.map("<M-k>", findPre, { expr = true })
 
   -- Backward char
-  u.map("z", findBackward)
-  u.map("<M-z>", findBackwardPre)
+  u.map("z", findBackward, { expr = true })
+  u.map("<M-z>", findBackwardPre, { expr = true })
 
   -- Between chars
-  u.map(")", next)
-  u.map("(", previous)
+  u.map(")", next, { expr = true })
+  u.map("(", previous, { expr = true })
 
   -- Jump through quotes
   u.map("+", u.wrap(hacks.jumpThrough, "[\"'`]", true))
