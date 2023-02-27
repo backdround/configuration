@@ -102,14 +102,21 @@ local function search(addPlugin)
   addPlugin("romainl/vim-cool")
 
   u.nmap("!", hacks.search.currentWordWithoutMoving)
-  u.nmap("*", "g*")
-  u.nmap("#", "g#")
-  u.nmap("]", hacks.search.stableNext)
-  u.nmap("[", hacks.search.stablePrevious)
-
   u.xmap("!", hacks.search.selectedText)
+
+  u.nmap("*", "g*")
   u.xmap("*", hacks.search.selectedTextNext)
+
+  u.nmap("#", "g#")
   u.xmap("#", hacks.search.selectedTextPrevious)
+
+  u.nmap("]", hacks.search.stableNext)
+  u.xmap("]", hacks.search.stableNext)
+  u.omap("]", ':lua require("general.hacks").search.stableNext()<CR>')
+
+  u.nmap("[", hacks.search.stablePrevious)
+  u.xmap("[", hacks.search.stablePrevious)
+  u.omap("[", ':lua require("general.hacks").search.stablePrevious()<CR>')
 end
 
 local function substitute()
