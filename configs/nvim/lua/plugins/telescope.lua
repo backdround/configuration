@@ -111,6 +111,12 @@ local function setMappings()
       })
     end
 
+    -- Fix: https://github.com/nvim-telescope/telescope.nvim/issues/2404
+    if mode == "o" then
+      telescopeShowMaps = u.wrap(vim.schedule, telescopeShowMaps)
+      telescopeShowAllMaps = u.wrap(vim.schedule, telescopeShowAllMaps)
+    end
+
     u[mode .. "map"]("<M-m>", telescopeShowMaps)
     u[mode .. "map"]("<C-M-m>", telescopeShowAllMaps)
   end
