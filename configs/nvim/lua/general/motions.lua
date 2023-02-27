@@ -118,13 +118,35 @@ local function findCharacter(addPlugin)
   u.map(")", next, { expr = true })
   u.map("(", previous, { expr = true })
 
+  -- Gives jump through map for operator-pending mode.
+  -- If you use just jumpThrough function, then dot-repeat doesn't work.
+  local function getOperatorValidJumpThroughMap(pattern, forward)
+    pattern = pattern:gsub('"', '\\"')
+    forward = tostring(forward)
+    return vim.fn.printf(
+      ':lua require("general.hacks").jumpThrough("%s", %s)<CR>',
+      pattern,
+      forward
+    )
+  end
+
   -- Jump through quotes
-  u.map("+", u.wrap(hacks.jumpThrough, "[\"'`]", true))
-  u.map("-", u.wrap(hacks.jumpThrough, "[\"'`]", false))
+  u.nmap("+", u.wrap(hacks.jumpThrough, "[\"'`]", true))
+  u.xmap("+", u.wrap(hacks.jumpThrough, "[\"'`]", true))
+  u.omap("+", getOperatorValidJumpThroughMap("[\"'`]", true))
+
+  u.nmap("-", u.wrap(hacks.jumpThrough, "[\"'`]", false))
+  u.xmap("-", u.wrap(hacks.jumpThrough, "[\"'`]", false))
+  u.omap("-", getOperatorValidJumpThroughMap("[\"'`]", false))
 
   -- Jump through brackets
-  u.map("^", u.wrap(hacks.jumpThrough, "[()]", true))
-  u.map("@", u.wrap(hacks.jumpThrough, "[()]", false))
+  u.nmap("^", u.wrap(hacks.jumpThrough, "[()]", true))
+  u.xmap("^", u.wrap(hacks.jumpThrough, "[()]", true))
+  u.omap("^", getOperatorValidJumpThroughMap("[()]", true))
+
+  u.nmap("@", u.wrap(hacks.jumpThrough, "[()]", false))
+  u.xmap("@", u.wrap(hacks.jumpThrough, "[()]", false))
+  u.omap("@", getOperatorValidJumpThroughMap("[()]", false))
 end
 
 local function marks()
