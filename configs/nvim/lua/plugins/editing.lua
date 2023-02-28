@@ -9,9 +9,9 @@ local function nerdcommenter(addPlugin)
   vim.g.NERDCompactSexyComs = 1
 
   -- TODO: check normal (not visual) mode
-  u.map("bb", "<Plug>NERDCommenterComment")
-  u.map("bm", "<Plug>NERDCommenterUncomment")
-  u.map("bB", "<Plug>NERDCommenterYank")
+  u.map("bb", "<Plug>NERDCommenterComment", "Comment")
+  u.map("bm", "<Plug>NERDCommenterUncomment", "Uncomment")
+  u.map("bB", "<Plug>NERDCommenterYank", "Comment and yank commented")
 end
 
 local function autopairs(addPlugin)
@@ -23,7 +23,7 @@ local function autopairs(addPlugin)
         map_cr = false,
         map_bs = false,
         fast_wrap = {
-          map = "<Plug>(autopairs-fastwrap)",
+          map = "<Plug>(user-fastwrap)",
           keys = "htnueogcrpsvmkjq",
           end_key = "i",
         }
@@ -49,9 +49,11 @@ local function autopairs(addPlugin)
           vim.api.nvim_feedkeys(autopairFunction(), "n", false)
         end
       end
-      u.imap("<CR>", mapAutopair(nvimAutopairs.autopairs_cr))
-      u.imap("<BS>", mapAutopair(nvimAutopairs.autopairs_bs))
-      u.imap("<M-i>", "<Plug>(autopairs-fastwrap)")
+      local cr = mapAutopair(nvimAutopairs.autopairs_cr)
+      local bs = mapAutopair(nvimAutopairs.autopairs_bs)
+      u.imap("<CR>", cr, "Autopairs new line")
+      u.imap("<BS>", bs, "Autopairs backspace")
+      u.imap("<M-i>", "<Plug>(user-fastwrap)", "Autopairs fastwrap")
     end,
   })
 end
@@ -59,7 +61,19 @@ end
 local function targets(addPlugin)
   addPlugin("wellle/targets.vim")
 
-  vim.g.targets_aiAI = "gc  "
+  vim.g.targets_aiAI = {
+    "<Plug>(user-an-object)",
+    "<Plug>(user-in-object)",
+    "",
+    "",
+  }
+
+  u.omap("g", "<Plug>(user-an-object)", "Use an object")
+  u.xmap("g", "<Plug>(user-an-object)", "Select an object")
+
+  u.omap("c", "<Plug>(user-in-object)", "Use in object")
+  u.xmap("c", "<Plug>(user-in-object)", "Select in object")
+
   vim.g.targets_mapped_aiAI = {
     "<Plug>(virtual-visual-a)",
     "<Plug>(virtual-visual-i)",
@@ -79,52 +93,68 @@ local function textobjIndent(addPlugin)
   })
 
   vim.g.textobj_indent_no_default_key_mappings = 1
-  u.xmap("<Plug>(virtual-visual-a)u", "<Plug>(textobj-indent-a)")
-  u.omap("<Plug>(virtual-visual-a)u", "<Plug>(textobj-indent-a)")
-  u.xmap("<Plug>(virtual-visual-i)u", "<Plug>(textobj-indent-i)")
-  u.omap("<Plug>(virtual-visual-i)u", "<Plug>(textobj-indent-i)")
+  u.xmap(
+    "<Plug>(virtual-visual-a)u",
+    "<Plug>(textobj-indent-a)",
+    "Select current indent"
+  )
+  u.omap(
+    "<Plug>(virtual-visual-a)u",
+    "<Plug>(textobj-indent-a)",
+    "Use current indent"
+  )
+  u.xmap(
+    "<Plug>(virtual-visual-i)u",
+    "<Plug>(textobj-indent-i)",
+    "Select current paragraph indent"
+  )
+  u.omap(
+    "<Plug>(virtual-visual-i)u",
+    "<Plug>(textobj-indent-i)",
+    "Use current paragraph indent"
+  )
 end
 
 local function surround(addPlugin)
   addPlugin("tpope/vim-surround")
 
   vim.g.surround_no_mappings = 1
-  u.nmap("tn", "<Plug>Dsurround")
-  u.nmap("hn", "<Plug>Csurround")
-  u.nmap("hN", "<Plug>CSurround")
-  u.xmap("n", "<Plug>VSurround")
-  u.xmap("N", "<Plug>VgSurround")
+  u.nmap("tn", "<Plug>Dsurround", "Remove brackets")
+  u.nmap("hn", "<Plug>Csurround", "Change brackets inline")
+  u.nmap("hN", "<Plug>CSurround", "Change brackets multilne")
+  u.xmap("n", "<Plug>VSurround", "Surround brackets inline")
+  u.xmap("N", "<Plug>VgSurround", "Surround brackets multiline")
 end
 
 local function exchange(addPlugin)
   addPlugin("tommcdo/vim-exchange")
 
-  u.map("bc", "<Plug>(Exchange)")
-  u.nmap("bC", "<Plug>(ExchangeClear)")
-  u.nmap("br", "<Plug>(ExchangeLine)")
+  u.map("bc", "<Plug>(Exchange)", "Use exchange")
+  u.nmap("bC", "<Plug>(ExchangeClear)", "Clear exchange")
+  u.nmap("br", "<Plug>(ExchangeLine)", "Line exchange")
 end
 
 local function niceblock(addPlugin)
   addPlugin("kana/vim-niceblock")
 
   vim.g.niceblock_no_default_key_mappings = 1
-  u.xmap("G", "<Plug>(niceblock-I)")
-  u.xmap("C", "<Plug>(niceblock-A)")
+  u.xmap("G", "<Plug>(niceblock-I)", "Insert at the start of every line")
+  u.xmap("C", "<Plug>(niceblock-A)", "Insert at the end of every line")
 end
 
 local function move(addPlugin)
   addPlugin("matze/vim-move")
 
   vim.g.move_map_keys = 0
-  u.nmap("<M-g>", "<Plug>MoveLineDown")
-  u.nmap("<M-c>", "<Plug>MoveLineUp")
-  u.nmap("<M-f>", "<Plug>MoveCharLeft")
-  u.nmap("<M-r>", "<Plug>MoveCharRight")
+  u.nmap("<M-g>", "<Plug>MoveLineDown", "Move line down")
+  u.nmap("<M-c>", "<Plug>MoveLineUp", "Move line up")
+  u.nmap("<M-f>", "<Plug>MoveCharLeft", "Move current character left")
+  u.nmap("<M-r>", "<Plug>MoveCharRight", "Move current character right")
 
-  u.xmap("<M-g>", "<Plug>MoveBlockDown")
-  u.xmap("<M-c>", "<Plug>MoveBlockUp")
-  u.xmap("<M-f>", "<Plug>MoveBlockLeft")
-  u.xmap("<M-r>", "<Plug>MoveBlockRight")
+  u.xmap("<M-g>", "<Plug>MoveBlockDown", "Move selected lines down")
+  u.xmap("<M-c>", "<Plug>MoveBlockUp", "Move selected lines up")
+  u.xmap("<M-f>", "<Plug>MoveBlockLeft", "Move selected text left")
+  u.xmap("<M-r>", "<Plug>MoveBlockRight", "Move selected text right")
 end
 
 local function apply(addPlugin)

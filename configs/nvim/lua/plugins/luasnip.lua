@@ -28,30 +28,33 @@ local function configure()
   local luaSnipLoader = require("luasnip.loaders.from_lua")
   luaSnipLoader.load({ paths = "./snippets" })
 
-  local setMap = function(lhs, rhs)
-    vim.keymap.set({ "i", "s" }, lhs, rhs, { silent = true })
+  local setMap = function(lhs, rhs, desc)
+    vim.keymap.set({ "i", "s" }, lhs, rhs, { silent = true, desc = desc })
   end
 
   setMap("<C-t>", function()
     if ls.expand_or_jumpable() then
       ls.expand_or_jump()
     end
-  end)
+  end, "Expand snippet or jump to next snippet node")
 
   setMap("<C-h>", function()
     if ls.jumpable(-1) then
       ls.jump(-1)
     end
-  end)
+  end, "Jump to previous snippet node")
 
   setMap("<C-n>", function()
     if ls.choice_active() then
       ls.change_choice()
     end
-  end)
+  end, "Change node choice")
 
   -- Remove all and switch to insert mode on backspace
-  vim.keymap.set("s", "<BS>", u.wrap(u.feedkeys, " <BS>"), { silent = true })
+  vim.keymap.set("s", "<BS>", u.wrap(u.feedkeys, " <BS>"), {
+    silent = true,
+    desc = "Fixed <BS>",
+  })
 
   vim.api.nvim_create_user_command(
     "LuaSnipEdit",

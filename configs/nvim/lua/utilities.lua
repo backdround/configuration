@@ -1,5 +1,10 @@
-local function fullmap(mode, lhs, rhs, options)
-  options = options or {}
+local function fullmap(mode, lhs, rhs, optionsOrDesc)
+  local options = {}
+  if type(optionsOrDesc) == "table" then
+    options = optionsOrDesc
+  elseif type(optionsOrDesc) == "string" then
+    options.desc = optionsOrDesc
+  end
 
   if options.silent == nil then
     options.silent = true

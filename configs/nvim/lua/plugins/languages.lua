@@ -17,34 +17,37 @@ end
 local function lspConfigure()
   local function setBufferMappings(client, _)
     -- Makes mappings
-    local function map(lhs, rhs)
-      u.nmap(lhs, rhs, { buffer = 0 })
+    local function map(lhs, rhs, desc)
+      u.nmap(lhs, rhs, { buffer = 0, desc = desc })
     end
 
     -- Actions
-    map("<leader>r", vim.lsp.buf.rename)
-    map("<leader>u", vim.lsp.buf.hover)
-    map("<leader>v", vim.lsp.buf.code_action)
+    map("<leader>r", vim.lsp.buf.rename, "Rename symbol")
+    map("<leader>u", vim.lsp.buf.hover, "Show hover")
+    map("<leader>v", vim.lsp.buf.code_action, "Code action")
 
     local format = hacks.createFormatFunctions(client.id)
-    u.nmap("<leader>q", format.operator, { buffer = 0 })
-    u.xmap("<leader>q", format.visual, { buffer = 0 })
-    u.nmap("<leader><M-q>", format.file, { buffer = 0 })
+    local desc = "Format code by lsp server"
+    u.nmap("<leader>q", format.operator, { buffer = 0, desc = desc })
+    desc = "Format selected code by lsp server"
+    u.xmap("<leader>q", format.visual, { buffer = 0, desc = desc })
+    desc = "Format code in file by lsp server"
+    u.nmap("<leader><M-q>", format.file, { buffer = 0, desc = desc })
 
     local telescope = require("telescope.builtin")
 
     -- Goto symbols
-    map("xh", telescope.lsp_definitions)
-    map("xt", telescope.lsp_type_definitions)
-    map("xn", telescope.lsp_implementations)
-    map("xr", telescope.lsp_references)
-    map("<leader><M-n>", telescope.lsp_document_symbols)
+    map("xh", telescope.lsp_definitions, "Go to definition")
+    map("xt", telescope.lsp_type_definitions, "Go to type definition")
+    map("xn", telescope.lsp_implementations, "Go to implementation")
+    map("xr", telescope.lsp_references, "Go to reference")
+    map("<leader><M-n>", telescope.lsp_document_symbols, "Go to buffer symbol")
 
     -- Diagnostics
-    map("<leader>s", vim.diagnostic.open_float)
-    map("<leader>e", telescope.diagnostics)
-    map("xc", vim.diagnostic.goto_next)
-    map("xg", vim.diagnostic.goto_prev)
+    map("<leader>g", vim.diagnostic.open_float, "Open diagnostic float")
+    map("<leader>e", telescope.diagnostics, "Go to diagnostic")
+    map("xc", vim.diagnostic.goto_next, "Go to next diagnostic")
+    map("xg", vim.diagnostic.goto_prev, "Go to previous diagnostic")
   end
 
   -- Adds LspInfo border
@@ -92,9 +95,12 @@ end
 local function nullConfigure()
   local function makeBufferMappings(client, _)
     local format = hacks.createFormatFunctions(client.id)
-    u.nmap("<leader>o", format.operator, { buffer = 0 })
-    u.xmap("<leader>o", format.visual, { buffer = 0 })
-    u.nmap("<leader><M-o>", format.file, { buffer = 0 })
+    local desc = "Format code by null lsp server"
+    u.nmap("<leader>o", format.operator, { buffer = 0, desc = desc })
+    desc = "Format selected code by null lsp server"
+    u.xmap("<leader>o", format.visual, { buffer = 0, desc = desc })
+    desc = "Format code in file by null lsp server"
+    u.nmap("<leader><M-o>", format.file, { buffer = 0, desc = desc })
   end
 
   local null = require("null-ls")

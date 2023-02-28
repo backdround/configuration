@@ -1,3 +1,5 @@
+local u = require("utilities")
+
 local function configure()
   local cmp = require("cmp")
   local lspkind = require("lspkind")
@@ -22,14 +24,12 @@ local function configure()
     end
   end
 
-  cmp.setup({
-    mapping = {
-      ["<M-u>"] = { i = selectNext },
-      ["<M-e>"] = { i = selectPrevious },
-      ["<M-o>"] = { i = confirm },
-      ["<M-s>"] = { i = abort },
-    },
+  u.imap("<M-u>", selectNext, "Select next item or open completion")
+  u.imap("<M-e>", selectPrevious, "Select previous item or open completion")
+  u.imap("<M-o>", confirm, "Complete by selected item")
+  u.imap("<M-s>", abort, "Abort completion")
 
+  cmp.setup({
     sources = cmp.config.sources({
       { name = "luasnip" },
       { name = "nvim_lsp" },

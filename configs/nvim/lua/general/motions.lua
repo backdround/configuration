@@ -3,41 +3,45 @@ local hacks = require("general.hacks")
 
 local function wordMotion(addPlugin)
   -- Base mode
-  u.map("w", "b")
-  u.map("j", "w")
-  u.map("q", "ge")
-  u.map("p", "e")
+  u.map("w", "b", "To the start of the previous word")
+  u.map("j", "w", "To the start of the next word")
+  u.map("q", "ge", "To the end of the previous word")
+  u.map("p", "e", "To the end of the next word")
 
-  u.map("W", "B")
-  u.map("J", "W")
-  u.map("Q", "gE")
-  u.map("P", "E")
+  u.map("W", "B", "To the start of the previous full word")
+  u.map("J", "W", "To the start of the next full word")
+  u.map("Q", "gE", "To the end of the previous full word")
+  u.map("P", "E", "To the end of the next full word")
 
   -- Insert mode
-  u.imap("<C-w>", "<C-o>b")
-  u.imap("<C-q>", "<Esc>gea")
-  u.imap("<C-j>", "<C-o>w")
-  u.imap("<C-p>", "<Esc>ea")
+  u.imap("<C-w>", "<C-o>b", "To the start of the previous word")
+  u.imap("<C-q>", "<Esc>gea", "To the start of the next word")
+  u.imap("<C-j>", "<C-o>w", "To the end of the previous word")
+  u.imap("<C-p>", "<Esc>ea", "To the end of the next word")
 
-  u.imap("<C-a>", "<C-o>B")
-  u.imap("<C-o>", "<Esc>gEa")
-  u.imap("<C-e>", "<C-o>W")
-  u.imap("<C-u>", "<Esc>Ea")
+  u.imap("<C-a>", "<C-o>B", "To the start of the previous full word")
+  u.imap("<C-e>", "<C-o>W", "To the start of the next full word")
+  u.imap("<C-o>", "<Esc>gEa", "To the end of the previous full word")
+  u.imap("<C-u>", "<Esc>Ea", "To the end of the next full word")
 
   -- Wordmotion plugin
   vim.g.wordmotion_spaces = "()[]<>{},./%@^!?;:$~`\"\\#_|-+=&*' "
   vim.g.wordmotion_nomap = 1
   addPlugin("chaoren/vim-wordmotion")
 
-  u.map("<M-w>", "<Plug>WordMotion_b")
-  u.map("<M-q>", "<Plug>WordMotion_ge")
-  u.map("<M-j>", "<Plug>WordMotion_w")
-  u.map("<M-p>", "<Plug>WordMotion_e")
+  u.map("<M-w>", "<Plug>WordMotion_b", "To the start of the previous real word")
+  u.map("<M-q>", "<Plug>WordMotion_ge", "To the end of the previous real word")
+  u.map("<M-j>", "<Plug>WordMotion_w", "To the start of the next real word")
+  u.map("<M-p>", "<Plug>WordMotion_e", "To the end of the next real word")
 
-  u.imap("<M-w>", "<C-o><Plug>WordMotion_b")
-  u.imap("<M-q>", "<Left><C-o><Plug>WordMotion_ge<Right>")
-  u.imap("<M-j>", "<C-o><Plug>WordMotion_w")
-  u.imap("<M-p>", "<C-o><Plug>WordMotion_e<Right>")
+  local description = "To the start of the previous real word"
+  u.imap("<M-w>", "<C-o><Plug>WordMotion_b", description)
+  description = "To the start of the next real word"
+  u.imap("<M-j>", "<C-o><Plug>WordMotion_w", description)
+  description = "To the end of the previous real word"
+  u.imap("<M-q>", "<Left><C-o><Plug>WordMotion_ge<Right>", description)
+  description = "To the end of the next real word"
+  u.imap("<M-p>", "<C-o><Plug>WordMotion_e<Right>", description)
 end
 
 local function scroll(addPlugin)
@@ -56,10 +60,10 @@ local function scroll(addPlugin)
         pre_hook = u.wrap(hacks.delayUpdateTime, 200, realUpdateTime)
       })
 
-      u.map("e", u.wrap(neoscroll.scroll, 0.31, false, 130))
-      u.map("u", u.wrap(neoscroll.scroll, -0.31, false, 130))
-      u.map("E", u.wrap(neoscroll.scroll, 0.55, false, 150))
-      u.map("U", u.wrap(neoscroll.scroll, -0.55, false, 150))
+      u.map("e", u.wrap(neoscroll.scroll, 0.31, false, 130), "Scroll down")
+      u.map("u", u.wrap(neoscroll.scroll, -0.31, false, 130), "Scroll up")
+      u.map("E", u.wrap(neoscroll.scroll, 0.55, false, 150), "Fast scroll down")
+      u.map("U", u.wrap(neoscroll.scroll, -0.55, false, 150), "Fast scroll up")
     end
   })
 end
@@ -107,16 +111,22 @@ local function findCharacter(addPlugin)
   end
 
   -- Forward char
-  u.map("k", find, { expr = true })
-  u.map("<M-k>", findPre, { expr = true })
+  local desc = "Search next character operator"
+  u.map("k", find, { expr = true, desc = desc })
+  desc = "Search pre next character operator"
+  u.map("<M-k>", findPre, { expr = true, desc = desc })
 
   -- Backward char
-  u.map("z", findBackward, { expr = true })
-  u.map("<M-z>", findBackwardPre, { expr = true })
+  desc = "Search previous character operator"
+  u.map("z", findBackward, { expr = true, desc = desc })
+  desc = "Search pre previous character operator"
+  u.map("<M-z>", findBackwardPre, { expr = true, desc = desc })
 
   -- Between chars
-  u.map(")", next, { expr = true })
-  u.map("(", previous, { expr = true })
+  desc = "Search forward of the last searched character"
+  u.map(")", next, { expr = true, desc = desc })
+  desc = "Search backward of the last searched character"
+  u.map("(", previous, { expr = true, desc = desc })
 
   -- Gives jump through map for operator-pending mode.
   -- If you use just jumpThrough function, then dot-repeat doesn't work.
@@ -131,47 +141,51 @@ local function findCharacter(addPlugin)
   end
 
   -- Jump through quotes
-  u.nmap("+", u.wrap(hacks.jumpThrough, "[\"'`]", true))
-  u.xmap("+", u.wrap(hacks.jumpThrough, "[\"'`]", true))
-  u.omap("+", getOperatorValidJumpThroughMap("[\"'`]", true))
+  desc = "Jump forward through quotes"
+  u.nmap("+", u.wrap(hacks.jumpThrough, "[\"'`]", true), desc)
+  u.xmap("+", u.wrap(hacks.jumpThrough, "[\"'`]", true), desc)
+  u.omap("+", getOperatorValidJumpThroughMap("[\"'`]", true), desc)
 
-  u.nmap("-", u.wrap(hacks.jumpThrough, "[\"'`]", false))
-  u.xmap("-", u.wrap(hacks.jumpThrough, "[\"'`]", false))
-  u.omap("-", getOperatorValidJumpThroughMap("[\"'`]", false))
+  desc = "Jump backward through quotes"
+  u.nmap("-", u.wrap(hacks.jumpThrough, "[\"'`]", false), desc)
+  u.xmap("-", u.wrap(hacks.jumpThrough, "[\"'`]", false), desc)
+  u.omap("-", getOperatorValidJumpThroughMap("[\"'`]", false), desc)
 
   -- Jump through brackets
-  u.nmap("&", u.wrap(hacks.jumpThrough, "[()]", true))
-  u.xmap("&", u.wrap(hacks.jumpThrough, "[()]", true))
-  u.omap("&", getOperatorValidJumpThroughMap("[()]", true))
+  desc = "Jump forward through brackets"
+  u.nmap("&", u.wrap(hacks.jumpThrough, "[()]", true), desc)
+  u.xmap("&", u.wrap(hacks.jumpThrough, "[()]", true), desc)
+  u.omap("&", getOperatorValidJumpThroughMap("[()]", true), desc)
 
-  u.nmap("=", u.wrap(hacks.jumpThrough, "[()]", false))
-  u.xmap("=", u.wrap(hacks.jumpThrough, "[()]", false))
-  u.omap("=", getOperatorValidJumpThroughMap("[()]", false))
+  desc = "Jump backward through brackets"
+  u.nmap("=", u.wrap(hacks.jumpThrough, "[()]", false), desc)
+  u.xmap("=", u.wrap(hacks.jumpThrough, "[()]", false), desc)
+  u.omap("=", getOperatorValidJumpThroughMap("[()]", false), desc)
 end
 
 local function marks()
-  u.map("y", "m")
-  u.map("Y", "<C-o>")
-  u.map("<C-y>", "<C-t>")
-  u.map("i", "`")
-  u.map("I", "<C-i>")
+  u.map("y", "m", "Set a mark")
+  u.map("i", "`", "Jump to a mark")
+  u.map("Y", "<C-o>", "Jump backward in jump list")
+  u.map("I", "<C-i>", "Jump forward in jump list")
+  u.map("<C-y>", "<C-t>", "Jump backward in tag list")
 end
 
 local function pageMovements()
-  u.map("o", "<nop>")
+  u.map("o", "<nop>", "Movement key")
 
-  u.map("oh", "G")
-  u.map("ot", "gg")
-  u.map("og", "zH")
-  u.map("oc", "zL")
+  u.map("oh", "G", "Go to the end of the buffer")
+  u.map("ot", "gg", "Go to the start of the buffer")
+  u.map("og", "zH", "Move viewport left")
+  u.map("oc", "zL", "Move viewport right")
 
-  u.map("of", "-ze")
-  u.map("od", "^ze")
-  u.map("ob", "+ze")
+  u.map("of", "-ze", "Jump to the start of the previous line")
+  u.map("od", "^ze", "Jump to the start of the current line")
+  u.map("ob", "+ze", "Jump to the start of the next line")
 
-  u.map("or", "-$")
-  u.map("on", "$")
-  u.map("o.", "+$")
+  u.map("or", "-$", "Jump to the end of the previous line")
+  u.map("on", "$", "Jump to the end of the current line")
+  u.map("o.", "+$", "Jump to the end of the next line")
 end
 
 local function jumpMotions(addPlugin)
@@ -225,22 +239,29 @@ local function jumpMotions(addPlugin)
         },
       })
 
-      u.map("a", hopLine)
+      local description = "Hop jump in current line"
+      u.map("a", hopLine, description)
 
-      u.map("ow", hopUpBegin)
-      u.map("oq", hopUpEnd)
-      u.map("oj", hopDownBegin)
-      u.map("op", hopDownEnd)
+      description = "Hop jump to the start of words before the cursor"
+      u.map("ow", hopUpBegin, description)
+      description = "Hop jump to the end of words before the cursor"
+      u.map("oq", hopUpEnd, description)
+      description = "Hop jump to the start of words after the cursor"
+      u.map("oj", hopDownBegin, description)
+      description = "Hop jump to the end of words after the cursor"
+      u.map("op", hopDownEnd, description)
 
-      u.map("ok", hopChar1Down)
-      u.map("oz", hopChar1Up)
+      description = "Hop jump to the character after the cursor"
+      u.map("ok", hopChar1Down, description)
+      description = "Hop jump to the character before the cursor"
+      u.map("oz", hopChar1Up, description)
     end,
   })
 end
 
 local function misc()
-  u.nmap("xh", "<C-]>")
-  u.nmap("xm", "<Cmd>tab Man<CR>")
+  u.nmap("xh", "<C-]>", "Goto definition (non lsp)")
+  u.nmap("xm", "<Cmd>tab Man<CR>", "Search man page with name under the cursor")
 end
 
 local function apply(addPlugin)

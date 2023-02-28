@@ -51,7 +51,7 @@ local function focus(addPlugin)
   vim.g.goyo_height = "95"
   vim.g.goyo_linenr = 0
 
-  u.nmap("<M-n>", "<Cmd>Goyo<CR>")
+  u.nmap("<M-n>", "<Cmd>Goyo<CR>", "Toggle zen mode")
 
   u.autocmd("UserFocusModeEnter", "User", {
     pattern = "GoyoEnter",
@@ -66,8 +66,8 @@ end
 
 local function searchInBrowser(addPlugin)
   addPlugin("tyru/open-browser.vim")
-  u.nmap("<leader>/", "<Plug>(openbrowser-smart-search)")
-  u.xmap("<leader>/", "<Plug>(openbrowser-smart-search)")
+  u.nmap("<leader>/", "<Plug>(openbrowser-smart-search)", "Search in browser")
+  u.xmap("<leader>/", "<Plug>(openbrowser-smart-search)", "Search in browser")
 end
 
 local function gutentags(addPlugin)

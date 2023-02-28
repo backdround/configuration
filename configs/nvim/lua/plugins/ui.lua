@@ -71,11 +71,12 @@ local function floaterm(addPlugin)
           y = 0.4,
         },
       })
-      u.nmap("<F1>", fterm.toggle)
-      u.tmap("<F1>", fterm.toggle)
-      u.tmap("<F2>", "<C-\\><C-n>")
-      u.nmap("<F2>", [[<Cmd>lua require("FTerm").toggle()<Cr><C-\><C-n>]])
-      u.tmap("<F3>", fterm.exit)
+      u.nmap("<F1>", fterm.toggle, "Toggle terminal")
+      u.tmap("<F1>", fterm.toggle, "Close terminal")
+      local desc = "Browse termial"
+      u.tmap("<F2>", "<C-\\><C-n>", desc)
+      u.nmap("<F2>", "<Cmd>lua require('FTerm').toggle()<Cr><C-\\><C-n>", desc)
+      u.tmap("<F3>", fterm.exit, "Exit terminal")
     end,
   })
 end
@@ -133,7 +134,11 @@ local function messages(addPlugin)
 
         post_open_float = function()
           vim.opt.colorcolumn = ""
-          u.nmap("<esc>", ":q!<cr>", { buffer = 0, silent = true })
+          u.nmap("<esc>", ":q!<cr>", {
+            buffer = 0,
+            silent = true,
+            desc = "Close message window",
+          })
         end,
       })
 

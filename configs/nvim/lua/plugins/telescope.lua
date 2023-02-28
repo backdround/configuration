@@ -93,7 +93,7 @@ local function setMappings()
   -- Maps
   u.nmap("<leader><M-m>", function()
     builtin.keymaps({ modes = { "", "n", "i", "x", "o", "c", "s", "t" } })
-  end)
+  end, "Show all mappings")
 
   local modesToMap = { "n", "i", "x", "o", "c", "s" }
   for _, mode in ipairs(modesToMap) do
@@ -117,36 +117,39 @@ local function setMappings()
       telescopeShowAllMaps = u.wrap(vim.schedule, telescopeShowAllMaps)
     end
 
-    u[mode .. "map"]("<M-m>", telescopeShowMaps)
-    u[mode .. "map"]("<C-M-m>", telescopeShowAllMaps)
+    local mapsDescription = "Show mappings for mode " .. mode
+    local allMapsDescription = "Show all mappings for mode " .. mode
+    u[mode .. "map"]("<M-m>", telescopeShowMaps, mapsDescription)
+    u[mode .. "map"]("<C-M-m>", telescopeShowAllMaps, allMapsDescription)
   end
 
   -- Files
-  u.nmap("<leader>t", pickFile)
-  u.nmap("<leader><M-t>", pickLocalFile)
-  u.nmap("<leader><C-t>", pickAnyFile)
+  u.nmap("<leader>t", pickFile, "Open file in project")
+  u.nmap("<leader><M-t>", pickLocalFile, "Open file in current directory")
+  u.nmap("<leader><C-t>", pickAnyFile, "Open any file in project")
 
   -- Tags
-  u.nmap("<leader>n", u.wrap(builtin.tags, { fname_width = 60 }))
-  u.nmap("<leader><M-n>", builtin.current_buffer_tags)
+  u.nmap("<leader>n", u.wrap(builtin.tags, { fname_width = 60 }), "Go to tag")
+  u.nmap("<leader><M-n>", builtin.current_buffer_tags, "Go to local tag ")
 
   -- TODO: add fuzzy grep.
   -- Grep
-  u.nmap("<leader>h", builtin.live_grep)
-  u.nmap("<leader><M-h>", builtin.current_buffer_fuzzy_find)
+  u.nmap("<leader>h", builtin.live_grep, "Goto by grep")
+  u.nmap("<leader><M-h>", builtin.current_buffer_fuzzy_find, "Goto by file grep")
 
   -- Commands
-  u.nmap("<leader>c", builtin.commands)
-  u.nmap("<leader><M-c>", builtin.command_history)
+  u.nmap("<leader>c", builtin.commands, "Show commands")
+  u.nmap("<leader><M-c>", builtin.command_history, "Show command history")
 
   -- TODO: check crispgm/telescope-heading.nvim
   -- Helps
-  u.nmap("<leader>d", builtin.help_tags)
-  u.nmap("<leader><C-d>", u.wrap(builtin.man_pages, { sections = { "ALL" } }))
+  u.nmap("<leader>d", builtin.help_tags, "Goto by help tags")
+  local man_pages = u.wrap(builtin.man_pages, { sections = { "ALL" } })
+  u.nmap("<leader><C-d>", man_pages, "Open man page")
 
   -- Other
-  u.nmap("<leader>s", telescope.extensions.luasnip.luasnip)
-  u.nmap("<leader>b", builtin.builtin)
+  u.nmap("<leader>s", telescope.extensions.luasnip.luasnip, "Show snippets")
+  u.nmap("<leader>b", builtin.builtin, "Show telescope builtin pickers")
 end
 
 -- TODO: use telescope-ui-select
