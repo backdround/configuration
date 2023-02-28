@@ -82,8 +82,8 @@ local function targets(addPlugin)
   }
   vim.g.targets_nl = { "t", "h" }
 
-  u.map("<Plug>(virtual-visual-a)", "a")
-  u.map("<Plug>(virtual-visual-i)", "i")
+  u.map("<Plug>(virtual-visual-a)", "a", "An object mapping for 'targets'")
+  u.map("<Plug>(virtual-visual-i)", "i", "In object mapping for 'targets'")
 end
 
 local function textobjIndent(addPlugin)

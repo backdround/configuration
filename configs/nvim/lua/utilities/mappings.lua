@@ -6,6 +6,11 @@ local function fullFeaturedMap(mode, lhs, rhs, optionsOrDesc)
     options.desc = optionsOrDesc
   end
 
+  if not options.desc then
+    print("There is no description for mapping: " .. lhs)
+    print("Please add it!")
+  end
+
   if options.silent == nil then
     options.silent = true
   end
