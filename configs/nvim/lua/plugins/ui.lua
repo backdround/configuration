@@ -59,25 +59,23 @@ local function airline(addPlugin)
   })
 end
 
--- TODO: check toggleterm.nvim
 local function floaterm(addPlugin)
-  addPlugin("voldikss/vim-floaterm")
-  vim.g.floaterm_width = 0.92
-  vim.g.floaterm_height = 0.92
-  vim.g.floaterm_wintype = "floating"
-  vim.g.floaterm_position = "center"
-  vim.g.floaterm_title = ""
-  vim.g.floaterm_autoinsert = true
-
-  vim.g.floaterm_keymap_toggle = "<F1>"
-  u.tmap("<F2>", "<C-\\><C-n>")
-  u.nmap("<F2>", "<Cmd>FloatermToggle<Cr><C-\\><C-n>")
-  vim.g.floaterm_keymap_kill = "<F3>"
-
-  u.autocmd("UserTerminalOptions", "TermOpen", {
-    desc = "Sets terminal options",
-    callback = function()
-      vim.opt.scrolloff = 0
+  addPlugin({
+    "numToStr/FTerm.nvim",
+    config = function()
+      local fterm = require("FTerm")
+      fterm.setup({
+        dimensions = {
+          width = 0.91,
+          height = 0.91,
+          y = 0.4,
+        },
+      })
+      u.nmap("<F1>", fterm.toggle)
+      u.tmap("<F1>", fterm.toggle)
+      u.tmap("<F2>", "<C-\\><C-n>")
+      u.nmap("<F2>", [[<Cmd>lua require("FTerm").toggle()<Cr><C-\><C-n>]])
+      u.tmap("<F3>", fterm.exit)
     end,
   })
 end
