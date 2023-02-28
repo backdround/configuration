@@ -15,17 +15,45 @@ local function nerdcommenter(addPlugin)
 end
 
 local function autopairs(addPlugin)
-  addPlugin("jiangmiao/auto-pairs")
+  addPlugin({
+    "windwp/nvim-autopairs",
+    config = function()
+      local nvimAutopairs = require("nvim-autopairs")
+      nvimAutopairs.setup({
+        map_cr = false,
+        map_bs = false,
+        fast_wrap = {
+          map = "<Plug>(autopairs-fastwrap)",
+          keys = "htnueogcrpsvmkjq",
+          end_key = "i",
+        }
+      })
 
-  vim.g.AutoPairsFlyMode = 0
-  vim.g.AutoPairsMultilineClose = 0
-  vim.g.AutoPairsMapCh = 0
+      -- Add space inside curly braces.
+      local rule = require'nvim-autopairs.rule'
+      nvimAutopairs.add_rules({
+        rule(' ', ' ')
+          :with_pair(function (opts)
+            local pair = opts.line:sub(opts.col - 1, opts.col)
+            return pair == "{}"
+          end)
+          :with_del(function (opts)
+            local pair = opts.line:sub(opts.col - 1, opts.col + 2)
+            return pair == "{  }"
+          end)
+      })
 
-  vim.g.AutoPairsShortcutToggle = ""
-  vim.g.AutoPairsShortcutFastWrap = "<M-i>"
-  vim.g.AutoPairsShortcutBackInsert = "<M-y>"
-  vim.g.AutoPairsShortcutJump = ""
-  u.imap("<M-k>", "<Esc>:call AutoPairsJump()<CR>a")
+      -- Map keys
+      local mapAutopair = function(autopairFunction)
+        return function()
+          vim.api.nvim_feedkeys(autopairFunction(), "n", false)
+        end
+      end
+      u.imap("<CR>", mapAutopair(nvimAutopairs.autopairs_cr))
+      u.imap("<BS>", mapAutopair(nvimAutopairs.autopairs_bs))
+      u.imap("<M-i>", "<Plug>(autopairs-fastwrap)")
+    end,
+  })
 end
 
 local function targets(addPlugin)
