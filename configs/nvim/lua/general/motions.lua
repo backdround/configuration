@@ -71,6 +71,11 @@ end
 local function findCharacter(addPlugin)
   addPlugin("dahu/vim-fanfingtastic")
 
+  -- Disables fanfingtastic default mappings
+  for _, key in ipairs({"f", "F", "t", "T", ";", ","}) do
+    u.mapStab({ "n", "x", "o" }, { "<Plug>fanfingtastic_" .. key })
+  end
+
   -- Saves direction to make a stable next / previous search
   local directionForward = true
 

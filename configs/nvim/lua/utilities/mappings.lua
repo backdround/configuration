@@ -22,17 +22,30 @@ local function fullFeaturedMap(mode, lhs, rhs, optionsOrDesc)
   vim.keymap.set(mode, lhs, rhs, options)
 end
 
-local mapFunctions = {}
+local M = {}
 
-mapFunctions.map = function(lhs, rhs, options)
+M.map = function(lhs, rhs, options)
   fullFeaturedMap({ "n", "x", "o" }, lhs, rhs, options)
 end
 
 local modes = { "n", "i", "v", "c", "t", "o", "x", "s" }
 for _, mode in ipairs(modes) do
-  mapFunctions[mode .. "map"] = function(lhs, rhs, options)
+  M[mode .. "map"] = function(lhs, rhs, options)
     fullFeaturedMap(mode, lhs, rhs, options)
   end
 end
 
-return mapFunctions
+-- Map stab mapping to the given rhs' at the given mode.
+-- Use it to disable mappings that are checked with hasmapto()
+local stabCounter = 0
+M.mapStab =  function(mode, rhss)
+  for _, rhs in ipairs(rhss) do
+    stabCounter = stabCounter + 1
+    local stabMapping = string.format("<Plug>(user-stab-%s)", stabCounter)
+    local stabDescription = "User stab %s" .. stabCounter
+
+    fullFeaturedMap(mode, stabMapping, rhs, stabDescription)
+  end
+end
+
+return M
