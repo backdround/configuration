@@ -41,6 +41,13 @@ end
 local function apply()
   ensureLazy()
 
+  -- Changes default mappings
+  local config = require("lazy.view.config")
+  config.commands.update.key = "<M-U>"
+  config.commands.update.key_plugin = "<M-u>"
+  config.keys.diff = "<M-d>"
+
+  -- Loads plugins
   local lazy = require("lazy")
   lazy.setup(plugins)
 end

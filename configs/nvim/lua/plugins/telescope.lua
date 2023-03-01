@@ -94,6 +94,12 @@ local function setMappings()
   u.nmap("<leader><M-m>", function()
     builtin.keymaps({ modes = { "", "n", "i", "x", "o", "c", "s", "t" } })
   end, "Show all mappings")
+  u.nmap("<leader><C-M-m>", function()
+    builtin.keymaps({
+      modes = { "", "n", "i", "x", "o", "c", "s", "t" },
+      only_buf = true,
+    })
+  end, "Show buffer only mappings")
 
   local modesToMap = { "n", "i", "x", "o", "c", "s" }
   for _, mode in ipairs(modesToMap) do
