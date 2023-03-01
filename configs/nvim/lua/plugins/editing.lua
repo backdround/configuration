@@ -1,17 +1,65 @@
 local u = require("utilities")
 
-local function nerdcommenter(addPlugin)
-  addPlugin("scrooloose/nerdcommenter")
+local function commenting(addPlugin)
+  addPlugin({
+    "numToStr/Comment.nvim",
+    config = function()
+      require("Comment").setup({
+        ignore = "^$",
+        mappings = {
+          basic = false,
+          extra = false,
+        },
+        -- Copy commented lines
+        pre_hook = function(ctx)
+          local utils = require("Comment.utils")
 
-  vim.g.NERDCreateDefaultMappings = 0
-  vim.g.NERDRemoveExtraSpaces = 1
-  vim.g.NERDTrimTrailingWhitespace = 1
-  vim.g.NERDCompactSexyComs = 1
+          local cmotion = utils.cmotion
+          if ctx.cmotion ~= cmotion.line and ctx.cmotion ~= cmotion.V then
+            -- There aren't commenting in linewise motion
+            return
+          end
 
-  -- TODO: check normal (not visual) mode
-  u.map("bb", "<Plug>NERDCommenterComment", "Comment")
-  u.map("bm", "<Plug>NERDCommenterUncomment", "Uncomment")
-  u.map("bB", "<Plug>NERDCommenterYank", "Comment and yank commented")
+          -- Copies lines
+          local lines = utils.get_lines(ctx.range)
+          local textToCopy = table.concat(lines, "\n") .. "\n"
+          vim.fn.setreg("", textToCopy)
+        end,
+      })
+
+      local api = require("Comment.api")
+
+      -- Comment operations
+      local function visualComment()
+        u.resetCurrentMode()
+        api.locked("comment.linewise")(vim.fn.visualmode())
+      end
+      local currentLineComment = api.call("comment.linewise.current", "g@$")
+      local operatorComment = api.call("comment.linewise", "g@")
+
+      -- Uncomment operations
+      local function visualUncomment()
+        u.resetCurrentMode()
+        api.locked("uncomment.linewise")(vim.fn.visualmode())
+      end
+      local currentLineUncomment = api.call("uncomment.linewise.current", "g@$")
+      local operatorUncomment = api.call("uncomment.linewise", "g@")
+
+      -- Comment mappings
+      local description = "Comment current line"
+      u.nmap("bb", currentLineComment, { expr = true, desc = description })
+      u.xmap("bb", visualComment, "Comment selected area")
+      description = "Comment with motion"
+      u.nmap("bd", operatorComment, { expr = true, desc = description })
+
+      -- Uncomment mappings
+      description = "Uncomment current line"
+      u.nmap("bm", currentLineUncomment, { expr = true, desc = description })
+      u.xmap("bm", visualUncomment, "Uncomment selected area")
+      description = "Uncomment with motion"
+      u.nmap("bh", operatorUncomment, { expr = true, desc = description })
+    end,
+  })
 end
 
 local function autopairs(addPlugin)
@@ -158,7 +206,7 @@ local function move(addPlugin)
 end
 
 local function apply(addPlugin)
-  nerdcommenter(addPlugin)
+  commenting(addPlugin)
   autopairs(addPlugin)
   targets(addPlugin)
   textobjIndent(addPlugin)
