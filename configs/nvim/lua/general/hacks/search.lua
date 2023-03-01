@@ -74,27 +74,24 @@ local function searchSelectedText(doAfter)
   -- Leaves visual mode
   utilities.resetCurrentMode()
 
-  -- Visual marks are saved in loop. So we continues the work in a defer function.
-  vim.schedule(function()
-    -- Gets selected text
-    local startRow, startColumn, endRow, endColumn = getVisualSelectionRange()
-    local selectedText =
-      vim.api.nvim_buf_get_text(0, startRow, startColumn, endRow, endColumn, {})
-    selectedText = table.concat(selectedText, "\\n")
+  -- Gets selected text
+  local startRow, startColumn, endRow, endColumn = getVisualSelectionRange()
+  local selectedText =
+    vim.api.nvim_buf_get_text(0, startRow, startColumn, endRow, endColumn, {})
+  selectedText = table.concat(selectedText, "\\n")
 
-    -- Sets cursor to left part of selected text (for next search conviniece)
-    vim.api.nvim_win_set_cursor(0, { startRow + 1, startColumn })
+  -- Sets cursor to left part of selected text (for next search conviniece)
+  vim.api.nvim_win_set_cursor(0, { startRow + 1, startColumn })
 
-    -- Sets the selected text as a search text
-    vim.fn.setreg("/", selectedText)
-    vim.opt.hlsearch = true
+  -- Sets the selected text as a search text
+  vim.fn.setreg("/", selectedText)
+  vim.opt.hlsearch = true
 
-    -- Performs the given action after selection
-    if doAfter then
-      utilities.assertCallable(doAfter, "doAfter", 2)
-      doAfter()
-    end
-  end)
+  -- Performs the given action after selection
+  if doAfter then
+    utilities.assertCallable(doAfter, "doAfter", 2)
+    doAfter()
+  end
 end
 
 -- "*" in visual mode, that can search multiline-pattern

@@ -28,10 +28,8 @@ local function feedkeys(keys)
 end
 
 local function resetCurrentMode()
-  if vim.fn.mode() ~= "n" then
-    local keys = vim.api.nvim_replace_termcodes("<esc>", true, true, true)
-    vim.api.nvim_feedkeys(keys, "n", false)
-  end
+  local keys = vim.api.nvim_replace_termcodes("<esc>", true, false, true)
+  vim.api.nvim_feedkeys(keys, "nx", false)
 end
 
 return {
