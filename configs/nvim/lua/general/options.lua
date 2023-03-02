@@ -1,6 +1,6 @@
 local utilities = require("utilities")
 
-local function apply(addPlugin)
+local function apply()
   local options = vim.opt
 
   -- Search
@@ -41,15 +41,6 @@ local function apply(addPlugin)
   options.listchars = "tab:  ,trail:·"
   options.fillchars = "fold: ,"
   options.fillchars = "vert: ,"
-
-  -- Colors
-  options.termguicolors = true
-  addPlugin({
-    "backdround/melting",
-    config = function()
-      vim.cmd.colorscheme("melting")
-    end,
-  })
 
   -- Language
   options.keymap = "custom_ru"

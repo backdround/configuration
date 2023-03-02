@@ -175,12 +175,23 @@ local function messages(addPlugin)
   })
 end
 
+local function colors(addPlugin)
+  addPlugin({
+    "backdround/melting",
+    config = function()
+      vim.cmd.colorscheme("melting")
+    end,
+  })
+  vim.opt.termguicolors = true
+end
+
 local function apply(addPlugin)
   devicons(addPlugin)
   airline(addPlugin)
   floaterm(addPlugin)
   startify(addPlugin)
   messages(addPlugin)
+  colors(addPlugin)
 end
 
 return {
