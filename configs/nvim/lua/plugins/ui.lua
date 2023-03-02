@@ -185,6 +185,26 @@ local function colors(addPlugin)
   vim.opt.termguicolors = true
 end
 
+local function colorizer(addPlugin)
+  addPlugin({
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup({})
+      u.autocmd("UserHighlightColorsByPatterns", "FileType", {
+        desc = "Highlight colors in theme files by color patterns",
+        pattern = { "lua", "vim" },
+        callback = function()
+          local filepath = vim.fn.expand("%:h")
+          if not filepath:match("colors") then
+            return
+          end
+          vim.cmd("ColorizerAttachToBuffer")
+        end,
+      })
+    end
+  })
+end
+
 local function apply(addPlugin)
   devicons(addPlugin)
   airline(addPlugin)
@@ -192,6 +212,7 @@ local function apply(addPlugin)
   startify(addPlugin)
   messages(addPlugin)
   colors(addPlugin)
+  colorizer(addPlugin)
 end
 
 return {
