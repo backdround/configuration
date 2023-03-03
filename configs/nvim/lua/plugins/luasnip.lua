@@ -56,6 +56,12 @@ local function configure()
     desc = "Fixed <BS>",
   })
 
+  -- Add map to clear current line
+  vim.keymap.set("s", "<C-b>", "<Esc>cc", {
+    silent = true,
+    desc = "Remove all text on the current line",
+  })
+
   vim.api.nvim_create_user_command(
     "LuaSnipEdit",
     require("luasnip.loaders").edit_snippet_files,

@@ -30,7 +30,7 @@ local function insert()
   u.nmap("R", "O", "Enter insert mode in new line above")
 
   -- Editing
-  u.imap("<C-t>", "<Esc>cc", "Remove all text on the current line")
+  u.imap("<C-b>", "<Esc>cc", "Remove all text on the current line")
   u.imap("<C-d>", "<C-w>", "Remove a word before cursor")
   u.imap("<M-d>", hacks.removeLeftFullWord, "Remove a full word before cursor")
 end
