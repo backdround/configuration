@@ -1,61 +1,36 @@
 local u = require("utilities")
 
--- TODO: remove devicons after switch to lualine
-local function devicons(addPlugin)
-  addPlugin("ryanoasis/vim-devicons")
-  vim.g.WebDevIconsUnicodeDecorateFolderNodes = 1
-  vim.g.DevIconsEnableFoldersOpenClose = 1
-  vim.g.DevIconsEnableFolderExtensionPatternMatching = 1
-end
+-- TODO: use gitsigns to show diff
+local function lualine(addPlugin)
 
--- TODO: Switch to lualine
-local function airline(addPlugin)
+  local function location()
+    local line = vim.fn.line(".")
+    local countOfLines = vim.fn.line("$")
+    return line .. ":" .. countOfLines
+  end
+
   addPlugin({
-    "vim-airline/vim-airline",
-    dependencies = "ludovicchabant/vim-gutentags",
-  })
-
-  vim.g["airline#extensions#disable_rtp_load"] = 1
-  vim.g.airline_extensions = {
-    "tabline",
-    "quickfix",
-    "gutentags",
-    "coc",
-  }
-
-  vim.g.airline_highlighting_cache = 1
-  vim.g.airline_inactive_collapse = 0
-  vim.g.airline_powerline_fonts = 1
-
-  vim.g.airline_section_b = ""
-  vim.g.airline_section_y = ""
-  vim.g.airline_section_x = "%y"
-  vim.g.airline_section_c = "%t%m"
-  vim.g.airline_section_z = "%#__accent_bold#%p%% %l/%L%#__restore__#"
-
-  vim.g.airline_left_sep = ""
-  vim.g.airline_left_alt_sep = "╱"
-  vim.g.airline_right_sep = ""
-  vim.g.airline_right_alt_sep = "╱"
-
-  vim.g["airline#extensions#tabline#enabled"] = 1
-  vim.g["airline#extensions#tabline#show_close_button"] = 0
-  vim.g["airline#extensions#tabline#tab_nr_type"] = 1
-  vim.g["airline#extensions#tabline#fnamemod"] = ":t"
-
-  vim.g["airline#extensions#tabline#show_buffers"] = 0
-  vim.g["airline#extensions#tabline#show_splits"] = 1
-  vim.g["airline#extensions#tabline#show_tab_count"] = 0
-
-  -- Fix mode truncation (truncated at 79 symbols).
-  u.autocmd("UserDisableAirlineShortMode", "User", {
-    desc = "Sets less aggressive short mode",
-    pattern = "AirlineAfterInit",
-    command = [[
-      function! airline#parts#mode()
-        return airline#util#shorten(get(w:, 'airline_current_mode', ''), 50, 1)
-      endfunction
-    ]],
+    "nvim-lualine/lualine.nvim",
+    opts = {
+      options = {
+        theme = "melting",
+        component_separators = { left = "╱", right = "╱" },
+        section_separators = { left = "", right = "" },
+      },
+      sections = {
+        lualine_a = { "mode" },
+        lualine_b = { "branch" },
+        lualine_c = { { "filename", newfile_status = true } },
+        lualine_x = { "diagnostics", "filetype" },
+        lualine_y = { "encoding" },
+        lualine_z = { location }
+      },
+      inactive_sections = {
+        lualine_b = { { "filename", newfile_status = true } },
+        lualine_c = {},
+        lualine_x = { location },
+      },
+    }
   })
 end
 
@@ -206,8 +181,7 @@ local function colorizer(addPlugin)
 end
 
 local function apply(addPlugin)
-  devicons(addPlugin)
-  airline(addPlugin)
+  lualine(addPlugin)
   floaterm(addPlugin)
   startify(addPlugin)
   messages(addPlugin)
