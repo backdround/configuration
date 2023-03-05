@@ -78,9 +78,24 @@ local function tabs()
   u.nmap("vX", "<Cmd>quitall!<CR>", "Close neovim with force")
 end
 
-local function apply()
+local function buffers(addPlugin)
+  u.nmap("<M-u>", "<Cmd>:bnext<CR>", "Switch to next buffer")
+  u.nmap("<M-e>", "<Cmd>:bprevious<CR>", "Switch to previous buffer")
+
+  addPlugin({
+    "famiu/bufdelete.nvim",
+    config = function()
+      local bufdelete = require("bufdelete").bufdelete
+      u.nmap("<M-o>", u.wrap(bufdelete, 0), "Remove current buffer")
+      u.nmap("<S-M-o>", u.wrap(bufdelete, 0, true), "Remove current buffer with force")
+    end
+  })
+end
+
+local function apply(addPlugin)
   splits()
   tabs()
+  buffers(addPlugin)
 end
 
 return {

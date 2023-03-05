@@ -154,6 +154,7 @@ local function setMappings()
   u.nmap("<leader><C-d>", man_pages, "Open man page")
 
   -- Other
+  u.nmap("<M-d>", builtin.buffers, "Show buffers")
   u.nmap("<leader>s", telescope.extensions.luasnip.luasnip, "Show snippets")
   u.nmap("<leader>b", builtin.builtin, "Show telescope builtin pickers")
 end
