@@ -1,8 +1,71 @@
 local u = require("utilities")
 
+local function tabby(addPlugin)
+  addPlugin({
+    "nanozuki/tabby.nvim",
+    config = function()
+      require("tabby").setup({})
+      local theme = {
+        active = "TabLineSel",
+        inactive = "TabLine",
+        fill = "TabLineFill",
+        enclosure = "TabLine",
+      }
+      require("tabby.tabline").set(function(line)
+        local leftEnclosure = {
+          { " ", hl = theme.enclosure },
+          line.sep("", theme.enclosure, theme.fill),
+        }
+
+        local tabs = line.tabs().foreach(function(tab)
+          local hl = tab.is_current() and theme.active or theme.inactive
+          return {
+            line.sep("", hl, theme.fill),
+            tab.is_current() and { " ", hl = "TabLineSelLabel" } or " ",
+            tab.name():gsub("%[%d+.*$", ""),
+            line.sep("", hl, theme.fill),
+            hl = hl,
+            margin = " ",
+          }
+        end)
+
+        local buffers = require("general.hacks").buffers.get()
+        local bufferNodes = {}
+        for _, buffer in ipairs(buffers) do
+          local hl = buffer.isCurrent() and theme.active or theme.inactive
+          local bufferNode =  {
+            line.sep("", hl, theme.fill),
+            buffer.isCurrent() and { " ", hl = "TabLineSelLabel" } or " ",
+            buffer.name(),
+            line.sep("", hl, theme.fill),
+            hl = hl,
+            margin = " ",
+          }
+          table.insert(bufferNodes, bufferNode)
+        end
+
+        local rightEnclosure = {
+          line.sep("", theme.enclosure, theme.fill),
+          { " ", hl = theme.enclosure },
+        }
+
+        return {
+          leftEnclosure,
+          tabs,
+          line.spacer(),
+          bufferNodes,
+          rightEnclosure,
+          hl = theme.fill,
+        }
+      end)
+    end,
+  })
+  -- Always show tabline
+  vim.o.showtabline = 2
+end
+
 -- TODO: use gitsigns to show diff
 local function lualine(addPlugin)
-
   local function location()
     local line = vim.fn.line(".")
     local countOfLines = vim.fn.line("$")
@@ -181,6 +244,7 @@ local function colorizer(addPlugin)
 end
 
 local function apply(addPlugin)
+  tabby(addPlugin)
   lualine(addPlugin)
   floaterm(addPlugin)
   startify(addPlugin)

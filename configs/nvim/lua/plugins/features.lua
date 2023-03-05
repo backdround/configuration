@@ -78,6 +78,14 @@ local function gutentags(addPlugin)
   vim.g.gutentags_file_list_command = "fd --type file --hidden --exclude .git"
 end
 
+-- TODO: make more robust plugin.
+local function scope(addPlugin)
+  addPlugin({
+    "tiagovla/scope.nvim",
+    opts = {},
+  })
+end
+
 local function quickfix(addPlugin)
   _ = addPlugin
   -- TODO: check nvim-bqf
@@ -89,6 +97,7 @@ local function apply(addPlugin)
   focus(addPlugin)
   searchInBrowser(addPlugin)
   gutentags(addPlugin)
+  scope(addPlugin)
   quickfix(addPlugin)
 end
 

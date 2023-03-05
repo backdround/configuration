@@ -4,6 +4,7 @@ local search = require("general.hacks.search")
 local delayUpdateTime = require("general.hacks.delay-updatetime")
 local visual = require("general.hacks.visual-mode")
 local createFormatFunctions = require("general.hacks.create-format-functions")
+local buffers = require("general.hacks.buffers")
 
 return {
   jumpThrough = jumpThrough,
@@ -12,4 +13,5 @@ return {
   delayUpdateTime = delayUpdateTime,
   visual = visual,
   createFormatFunctions = createFormatFunctions,
+  buffers = buffers,
 }
