@@ -136,6 +136,7 @@ local function apply(addPlugin)
   })
 
   golang(addPlugin)
+  addPlugin("earthly/earthly.vim")
 end
 
 return {
