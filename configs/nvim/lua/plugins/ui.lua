@@ -74,26 +74,34 @@ local function lualine(addPlugin)
 
   addPlugin({
     "nvim-lualine/lualine.nvim",
-    opts = {
-      options = {
-        theme = "melting",
-        component_separators = { left = "╱", right = "╱" },
-        section_separators = { left = "", right = "" },
-      },
-      sections = {
-        lualine_a = { "mode" },
-        lualine_b = { "branch" },
-        lualine_c = { { "filename", newfile_status = true } },
-        lualine_x = { "diagnostics", "filetype" },
-        lualine_y = { "encoding" },
-        lualine_z = { location }
-      },
-      inactive_sections = {
-        lualine_b = { { "filename", newfile_status = true } },
-        lualine_c = {},
-        lualine_x = { location },
-      },
-    }
+    config = function()
+      local line = require("lualine")
+      line.setup({
+        options = {
+          theme = "melting",
+          component_separators = { left = "╱", right = "╱" },
+          section_separators = { left = "", right = "" },
+        },
+        sections = {
+          lualine_a = { "mode" },
+          lualine_b = { "branch" },
+          lualine_c = { { "filename", newfile_status = true } },
+          lualine_x = { "diagnostics", "filetype" },
+          lualine_y = { "encoding" },
+          lualine_z = { location },
+        },
+        inactive_sections = {
+          lualine_b = { { "filename", newfile_status = true } },
+          lualine_c = {},
+          lualine_x = { location },
+        },
+      })
+
+      u.autocmd("UserUpdateLualineAfterBufWrite", "BufWritePost", {
+        desc = "Refresh lualine after buffer was written (more responsive presentation)",
+        callback = line.refresh,
+      })
+    end,
   })
 end
 
