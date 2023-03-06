@@ -7,6 +7,7 @@ local function baseConfigure()
       "cmake",
       "lua",
       "python",
+      "markdown",
 
       -- Golang
       "go",
@@ -31,7 +32,8 @@ local function baseConfigure()
       "dockerfile",
 
       -- Misc
-      "markdown",
+      "query",
+      "help"
     },
     syn_install = true,
 
@@ -91,6 +93,12 @@ local function apply(addPlugin)
     "nvim-treesitter/nvim-treesitter-textobjects",
     dependencies = "nvim-treesitter/nvim-treesitter",
     config = textobjectsConfigure,
+  })
+
+  -- Playground
+  addPlugin({
+    "nvim-treesitter/playground",
+    dependencies = "nvim-treesitter/nvim-treesitter",
   })
 end
 
