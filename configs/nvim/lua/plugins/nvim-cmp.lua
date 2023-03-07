@@ -3,7 +3,6 @@ local u = require("utilities")
 local function configure()
   local cmp = require("cmp")
   local lspkind = require("lspkind")
-  local border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" }
 
   local confirm = cmp.mapping.confirm({ select = true })
   local abort = cmp.mapping.abort()
@@ -40,8 +39,8 @@ local function configure()
     }),
 
     window = {
-      completion = cmp.config.window.bordered({ border = border }),
-      documentation = cmp.config.window.bordered({ border = border }),
+      completion = cmp.config.window.bordered({ border = "single" }),
+      documentation = cmp.config.window.bordered({ border = "single" }),
     },
 
     snippet = {

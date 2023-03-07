@@ -112,6 +112,7 @@ local function floaterm(addPlugin)
       local fterm = require("FTerm")
       fterm.setup({
         dimensions = {
+          border = "single",
           width = 0.91,
           height = 0.91,
           y = 0.4,
@@ -166,11 +167,9 @@ local function messages(addPlugin)
         buffer_opts = function(_)
           local height = vim.api.nvim_list_uis()[1].height
           local width = vim.api.nvim_list_uis()[1].width
-          local border =
-            { "┌", "─", "┐", "│", "┘", "─", "└", "│" }
           return {
             relative = "editor",
-            border = border,
+            border = "single",
             width = math.floor(0.7 * width),
             height = math.floor(0.85 * height),
             row = math.floor(0.05 * height),

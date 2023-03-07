@@ -47,9 +47,16 @@ local function apply()
   config.commands.update.key_plugin = "<M-u>"
   config.keys.diff = "<M-d>"
 
+  -- Makes options
+  local options = {
+    ui = {
+      border = "single",
+    }
+  }
+
   -- Loads plugins
   local lazy = require("lazy")
-  lazy.setup(plugins)
+  lazy.setup(plugins, options)
 end
 
 return {
