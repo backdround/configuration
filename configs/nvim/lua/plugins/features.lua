@@ -7,6 +7,22 @@ local function rooter(addPlugin)
   vim.g.rooter_resolve_links = 1
 end
 
+local function markdown(addPlugin)
+  addPlugin({
+		"toppair/peek.nvim",
+		build = "deno task --quiet build:fast",
+		config = function()
+		  local peek = require("peek")
+			peek.setup({
+				auto_load = false,
+				app = "browser",
+			})
+
+			u.nmap("dm", peek.open, "Open preview")
+		end,
+	})
+end
+
 local function session(addPlugin)
   addPlugin({
     "xolox/vim-session",
@@ -99,6 +115,7 @@ end
 
 local function apply(addPlugin)
   rooter(addPlugin)
+	markdown(addPlugin)
   session(addPlugin)
   focus(addPlugin)
   searchInBrowser(addPlugin)

@@ -99,6 +99,7 @@ devs=(
   go
   python-pip
   yarn
+  deno
 )
 
 other=(
