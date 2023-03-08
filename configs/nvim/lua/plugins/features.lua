@@ -86,6 +86,12 @@ local function scope(addPlugin)
   })
 end
 
+-- TODO: remove this after switching to neovim 9.0 and beyond
+local function editorconfig(addPlugin)
+  addPlugin("gpanders/editorconfig.nvim")
+  vim.g.editorconfig = false
+end
+
 local function quickfix(addPlugin)
   _ = addPlugin
   -- TODO: check nvim-bqf
@@ -98,6 +104,7 @@ local function apply(addPlugin)
   searchInBrowser(addPlugin)
   gutentags(addPlugin)
   scope(addPlugin)
+  editorconfig(addPlugin)
   quickfix(addPlugin)
 end
 
