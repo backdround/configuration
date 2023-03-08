@@ -49,6 +49,9 @@ local function apply()
 
   -- Makes options
   local options = {
+    install = {
+      colorscheme = { "melting" },
+    },
     ui = {
       border = "single",
     }
