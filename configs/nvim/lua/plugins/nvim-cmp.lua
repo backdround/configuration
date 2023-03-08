@@ -39,8 +39,14 @@ local function configure()
     }),
 
     window = {
-      completion = cmp.config.window.bordered({ border = "single" }),
-      documentation = cmp.config.window.bordered({ border = "single" }),
+      completion = {
+        border = "single",
+        winhighlight = "Search:None,CursorLine:PmenuSel"
+      },
+      documentation = {
+        border = "single",
+        winhighlight = "Search:None"
+      },
     },
 
     snippet = {
