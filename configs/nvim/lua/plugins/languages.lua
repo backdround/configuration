@@ -1,8 +1,6 @@
 local u = require("utilities")
 local hacks = require("general.hacks")
 
-local border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" }
-
 local function golang(_)
   u.autocmd("UserGolangIndentation", "FileType", {
     desc = "Use 4 width tabs in golang",
@@ -51,12 +49,12 @@ local function lspConfigure()
   end
 
   -- Adds LspInfo border
-  require("lspconfig.ui.windows").default_options.border = border
+  require("lspconfig.ui.windows").default_options.border = "single"
 
   -- Adds diagnostic border
   vim.diagnostic.config({
     float = {
-      border = border,
+      border = "single",
       source = "always",
     },
   })
@@ -74,6 +72,12 @@ local function lspConfigure()
           callSnippet = "Replace",
           keywordSnippet = "Disable",
         },
+				diagnostics = {
+					disable = {
+						"duplicate-set-field",
+						"duplicate-set-index",
+					},
+				},
         workspace = {
           checkThirdParty = false,
           library = vim.api.nvim_get_runtime_file("", true),
@@ -106,7 +110,7 @@ local function nullConfigure()
   local null = require("null-ls")
   null.setup({
     on_attach = makeBufferMappings,
-    border = border,
+    border = "single",
 
     sources = {
       -- lua
@@ -115,6 +119,15 @@ local function nullConfigure()
       -- TODO: check ThePrimeagen/refactoring.nvim
     },
   })
+end
+
+local function setupHoverAppearance()
+	local originalOpenFloatingPreview = vim.lsp.util.open_floating_preview
+	vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
+		opts = opts or {}
+		opts.border = opts.border or "single"
+		return originalOpenFloatingPreview(contents, syntax, opts, ...)
+	end
 end
 
 -- TODO: add symbol highlighting under cursor
@@ -137,6 +150,7 @@ local function apply(addPlugin)
 
   golang(addPlugin)
   addPlugin("earthly/earthly.vim")
+	setupHoverAppearance()
 end
 
 return {
