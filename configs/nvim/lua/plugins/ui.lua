@@ -5,57 +5,100 @@ local function tabby(addPlugin)
     "nanozuki/tabby.nvim",
     config = function()
       require("tabby").setup({})
-      local theme = {
-        active = "TabLineSel",
-        inactive = "TabLine",
-        fill = "TabLineFill",
-        enclosure = "TabLine",
-      }
+
+      local c = require("melting.colors")
+
+      local getColor = function(active, changed, visible)
+        local color = {}
+
+        -- Gets foreground
+        if changed then
+          color.fg = c.match
+        elseif active then
+          color.fg = c.black
+        else
+          color.fg = c.foreground
+        end
+
+        -- Gets boldness
+        if changed or active then
+          color.style = "bold"
+        end
+
+        -- Gets background
+        if active then
+          color.bg = c.gray3
+        elseif visible then
+          color.bg = c.gray2
+        else
+          color.bg = c.black
+        end
+
+        return color
+      end
+
+      local getLabel = function(active, changed, visible)
+        local label = active and { " " } or { " " }
+
+        label.hl = getColor(active, changed, visible)
+        if active and not changed then
+          label.hl.fg = c.foreground
+        end
+        return label
+      end
+
+      local backgroundColor = "TabLineFill"
+      local enclosureColor = "TabLine"
+
       require("tabby.tabline").set(function(line)
         local leftEnclosure = {
-          { " ", hl = theme.enclosure },
-          line.sep("", theme.enclosure, theme.fill),
+          { " ", hl = enclosureColor },
+          line.sep("", enclosureColor, backgroundColor),
         }
-
-        local tabs = line.tabs().foreach(function(tab)
-          local hl = tab.is_current() and theme.active or theme.inactive
-          return {
-            line.sep("", hl, theme.fill),
-            tab.is_current() and { " ", hl = "TabLineSelLabel" } or " ",
-            tab.name():gsub("%[%d+.*$", ""),
-            line.sep("", hl, theme.fill),
-            hl = hl,
-            margin = " ",
-          }
-        end)
 
         local buffers = require("general.hacks").buffers.get()
         local bufferNodes = {}
         for _, buffer in ipairs(buffers) do
-          local hl = buffer.isCurrent() and theme.active or theme.inactive
-          local bufferNode =  {
-            line.sep("", hl, theme.fill),
-            buffer.isCurrent() and { " ", hl = "TabLineSelLabel" } or " ",
+          local hl = getColor(buffer.isCurrent(), false, buffer.isVisible())
+          local bufferNode = {
+            line.sep("", hl, backgroundColor),
+            getLabel(
+              buffer.isCurrent(),
+              buffer.isModified(),
+              buffer.isVisible()
+            ),
             buffer.name(),
-            line.sep("", hl, theme.fill),
+            line.sep("", hl, backgroundColor),
             hl = hl,
             margin = " ",
           }
           table.insert(bufferNodes, bufferNode)
         end
 
+        local tabs = line.tabs().foreach(function(tab)
+          local hl = getColor(tab.is_current(), false, true)
+          return {
+            line.sep("", hl, backgroundColor),
+            getLabel(tab.is_current(), false, true),
+            tab.name():gsub("%[%d+.*$", ""),
+            line.sep("", hl, backgroundColor),
+            hl = hl,
+            margin = " ",
+          }
+        end)
+
         local rightEnclosure = {
-          line.sep("", theme.enclosure, theme.fill),
-          { " ", hl = theme.enclosure },
+          line.sep("", enclosureColor, backgroundColor),
+          { " ", hl = enclosureColor },
         }
 
         return {
           leftEnclosure,
-          tabs,
-          line.spacer(),
           bufferNodes,
+          line.spacer(),
+          tabs,
           rightEnclosure,
-          hl = theme.fill,
+          hl = backgroundColor,
         }
       end)
     end,
@@ -223,9 +266,7 @@ end
 local function colors(addPlugin)
   addPlugin({
     "backdround/melting",
-    config = function()
-      vim.cmd.colorscheme("melting")
-    end,
+    opts = {},
   })
   vim.opt.termguicolors = true
 end

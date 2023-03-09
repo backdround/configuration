@@ -36,6 +36,14 @@ local function getBufferObject(id)
     return vim.api.nvim_win_get_buf(0) == id
   end
 
+  bufferObject.isModified = function()
+    return vim.bo[id].modified
+  end
+
+  bufferObject.isVisible = function()
+    return vim.fn.bufwinid(id) ~= -1
+  end
+
   return bufferObject
 end
 
