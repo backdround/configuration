@@ -7,7 +7,7 @@ local function configure()
   local confirm = cmp.mapping.confirm({ select = true })
   local abort = cmp.mapping.abort()
 
-  local selectNext = function()
+  local select_next = function()
     if cmp.visible() then
       cmp.select_prev_item({ behavior = cmp.SelectBehavior })
     else
@@ -15,7 +15,7 @@ local function configure()
     end
   end
 
-  local selectPrevious = function()
+  local select_previous = function()
     if cmp.visible() then
       cmp.select_next_item({ behavior = cmp.SelectBehavior })
     else
@@ -23,8 +23,8 @@ local function configure()
     end
   end
 
-  u.imap("<M-u>", selectNext, "Select next item or open completion")
-  u.imap("<M-e>", selectPrevious, "Select previous item or open completion")
+  u.imap("<M-u>", select_next, "Select next item or open completion")
+  u.imap("<M-e>", select_previous, "Select previous item or open completion")
   u.imap("<M-o>", confirm, "Complete by selected item")
   u.imap("<M-s>", abort, "Abort completion")
 
@@ -98,8 +98,8 @@ local function configure()
   })
 end
 
-local function apply(addPlugin)
-  addPlugin({
+local function apply(add_plugin)
+  add_plugin({
     "hrsh7th/nvim-cmp",
     dependencies = {
       "hrsh7th/cmp-buffer",

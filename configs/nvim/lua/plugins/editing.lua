@@ -1,7 +1,7 @@
 local u = require("utilities")
 
-local function commenting(addPlugin)
-  addPlugin({
+local function commenting(add_plugin)
+  add_plugin({
     "numToStr/Comment.nvim",
     config = function()
       require("Comment").setup({
@@ -22,52 +22,53 @@ local function commenting(addPlugin)
 
           -- Copies lines
           local lines = utils.get_lines(ctx.range)
-          local textToCopy = table.concat(lines, "\n") .. "\n"
-          vim.fn.setreg("", textToCopy)
+          local text_to_copy = table.concat(lines, "\n") .. "\n"
+          vim.fn.setreg("", text_to_copy)
         end,
       })
 
       local api = require("Comment.api")
 
       -- Comment operations
-      local function visualComment()
-        u.resetCurrentMode()
+      local function visual_comment()
+        u.reset_current_mode()
         api.locked("comment.linewise")(vim.fn.visualmode())
       end
-      local currentLineComment = api.call("comment.linewise.current", "g@$")
-      local operatorComment = api.call("comment.linewise", "g@")
+      local current_line_comment = api.call("comment.linewise.current", "g@$")
+      local operator_comment = api.call("comment.linewise", "g@")
 
       -- Uncomment operations
-      local function visualUncomment()
-        u.resetCurrentMode()
+      local function visual_uncomment()
+        u.reset_current_mode()
         api.locked("uncomment.linewise")(vim.fn.visualmode())
       end
-      local currentLineUncomment = api.call("uncomment.linewise.current", "g@$")
-      local operatorUncomment = api.call("uncomment.linewise", "g@")
+      local current_line_uncomment =
+        api.call("uncomment.linewise.current", "g@$")
+      local operator_uncomment = api.call("uncomment.linewise", "g@")
 
       -- Comment mappings
       local description = "Comment current line"
-      u.nmap("bb", currentLineComment, { expr = true, desc = description })
-      u.xmap("bb", visualComment, "Comment selected area")
+      u.nmap("bb", current_line_comment, { expr = true, desc = description })
+      u.xmap("bb", visual_comment, "Comment selected area")
       description = "Comment with motion"
-      u.nmap("bd", operatorComment, { expr = true, desc = description })
+      u.nmap("bd", operator_comment, { expr = true, desc = description })
 
       -- Uncomment mappings
       description = "Uncomment current line"
-      u.nmap("bm", currentLineUncomment, { expr = true, desc = description })
-      u.xmap("bm", visualUncomment, "Uncomment selected area")
+      u.nmap("bm", current_line_uncomment, { expr = true, desc = description })
+      u.xmap("bm", visual_uncomment, "Uncomment selected area")
       description = "Uncomment with motion"
-      u.nmap("bh", operatorUncomment, { expr = true, desc = description })
+      u.nmap("bh", operator_uncomment, { expr = true, desc = description })
     end,
   })
 end
 
-local function autopairs(addPlugin)
-  addPlugin({
+local function autopairs(add_plugin)
+  add_plugin({
     "windwp/nvim-autopairs",
     config = function()
-      local nvimAutopairs = require("nvim-autopairs")
-      nvimAutopairs.setup({
+      local nvim_autopairs = require("nvim-autopairs")
+      nvim_autopairs.setup({
         map_cr = false,
         map_bs = false,
         fast_wrap = {
@@ -79,7 +80,7 @@ local function autopairs(addPlugin)
 
       -- Add space inside curly braces.
       local rule = require("nvim-autopairs.rule")
-      nvimAutopairs.add_rules({
+      nvim_autopairs.add_rules({
         rule(" ", " ")
           :with_pair(function(opts)
             local pair = opts.line:sub(opts.col - 1, opts.col)
@@ -92,13 +93,13 @@ local function autopairs(addPlugin)
       })
 
       -- Map keys
-      local mapAutopair = function(autopairFunction)
+      local map_autopair = function(autopair_function)
         return function()
-          vim.api.nvim_feedkeys(autopairFunction(), "n", false)
+          vim.api.nvim_feedkeys(autopair_function(), "n", false)
         end
       end
-      local cr = mapAutopair(nvimAutopairs.autopairs_cr)
-      local bs = mapAutopair(nvimAutopairs.autopairs_bs)
+      local cr = map_autopair(nvim_autopairs.autopairs_cr)
+      local bs = map_autopair(nvim_autopairs.autopairs_bs)
       u.imap("<CR>", cr, "Autopairs new line")
       u.imap("<BS>", bs, "Autopairs backspace")
       u.imap("<M-i>", "<Plug>(user-fastwrap)", "Autopairs fastwrap")
@@ -106,8 +107,8 @@ local function autopairs(addPlugin)
   })
 end
 
-local function targets(addPlugin)
-  addPlugin("wellle/targets.vim")
+local function targets(add_plugin)
+  add_plugin("wellle/targets.vim")
 
   vim.g.targets_aiAI = {
     "<Plug>(user-an-object)",
@@ -134,8 +135,8 @@ local function targets(addPlugin)
   u.map("<Plug>(virtual-visual-i)", "i", "In object mapping for 'targets'")
 end
 
-local function textobjIndent(addPlugin)
-  addPlugin({
+local function textobj_indent(add_plugin)
+  add_plugin({
     "kana/vim-textobj-indent",
     dependencies = "kana/vim-textobj-user",
   })
@@ -163,8 +164,8 @@ local function textobjIndent(addPlugin)
   )
 end
 
-local function surround(addPlugin)
-  addPlugin("tpope/vim-surround")
+local function surround(add_plugin)
+  add_plugin("tpope/vim-surround")
 
   vim.g.surround_no_mappings = 1
   u.nmap("tn", "<Plug>Dsurround", "Remove brackets")
@@ -174,24 +175,24 @@ local function surround(addPlugin)
   u.xmap("N", "<Plug>VgSurround", "Surround brackets multiline")
 end
 
-local function exchange(addPlugin)
-  addPlugin("tommcdo/vim-exchange")
+local function exchange(add_plugin)
+  add_plugin("tommcdo/vim-exchange")
 
   u.map("bc", "<Plug>(Exchange)", "Use exchange")
   u.nmap("bC", "<Plug>(ExchangeClear)", "Clear exchange")
   u.nmap("br", "<Plug>(ExchangeLine)", "Line exchange")
 end
 
-local function niceblock(addPlugin)
-  addPlugin("kana/vim-niceblock")
+local function niceblock(add_plugin)
+  add_plugin("kana/vim-niceblock")
 
   vim.g.niceblock_no_default_key_mappings = 1
   u.xmap("G", "<Plug>(niceblock-I)", "Insert at the start of every line")
   u.xmap("C", "<Plug>(niceblock-A)", "Insert at the end of every line")
 end
 
-local function move(addPlugin)
-  addPlugin("matze/vim-move")
+local function move(add_plugin)
+  add_plugin("matze/vim-move")
 
   vim.g.move_map_keys = 0
   u.nmap("<M-g>", "<Plug>MoveLineDown", "Move line down")
@@ -205,15 +206,15 @@ local function move(addPlugin)
   u.xmap("<M-r>", "<Plug>MoveBlockRight", "Move selected text right")
 end
 
-local function apply(addPlugin)
-  commenting(addPlugin)
-  autopairs(addPlugin)
-  targets(addPlugin)
-  textobjIndent(addPlugin)
-  surround(addPlugin)
-  exchange(addPlugin)
-  niceblock(addPlugin)
-  move(addPlugin)
+local function apply(add_plugin)
+  commenting(add_plugin)
+  autopairs(add_plugin)
+  targets(add_plugin)
+  textobj_indent(add_plugin)
+  surround(add_plugin)
+  exchange(add_plugin)
+  niceblock(add_plugin)
+  move(add_plugin)
 end
 
 return {

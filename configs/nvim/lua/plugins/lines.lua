@@ -1,14 +1,14 @@
 local u = require("utilities")
 
-local function tabby(addPlugin)
-  addPlugin({
+local function tabby(add_plugin)
+  add_plugin({
     "nanozuki/tabby.nvim",
     config = function()
       require("tabby").setup({})
 
       local c = require("melting.colors")
 
-      local getColor = function(active, changed, visible)
+      local get_color = function(active, changed, visible)
         local color = {}
 
         -- Gets foreground
@@ -37,68 +37,68 @@ local function tabby(addPlugin)
         return color
       end
 
-      local getLabel = function(active, changed, visible)
+      local get_label = function(active, changed, visible)
         local label = active and { " " } or { " " }
 
-        label.hl = getColor(active, changed, visible)
+        label.hl = get_color(active, changed, visible)
         if active and not changed then
           label.hl.fg = c.foreground
         end
         return label
       end
 
-      local backgroundColor = "TabLineFill"
-      local enclosureColor = "TabLine"
+      local background_color = "TabLineFill"
+      local enclosure_color = "TabLine"
 
       require("tabby.tabline").set(function(line)
-        local leftEnclosure = {
-          { " ", hl = enclosureColor },
-          line.sep("", enclosureColor, backgroundColor),
+        local left_enclosure = {
+          { " ", hl = enclosure_color },
+          line.sep("", enclosure_color, background_color),
         }
 
         local buffers = require("general.hacks").buffers.get()
-        local bufferNodes = {}
+        local buffer_nodes = {}
         for _, buffer in ipairs(buffers) do
-          local hl = getColor(buffer.isCurrent(), false, buffer.isVisible())
-          local bufferNode = {
-            line.sep("", hl, backgroundColor),
-            getLabel(
-              buffer.isCurrent(),
-              buffer.isModified(),
-              buffer.isVisible()
+          local hl = get_color(buffer.is_current(), false, buffer.is_visible())
+          local buffer_node = {
+            line.sep("", hl, background_color),
+            get_label(
+              buffer.is_current(),
+              buffer.is_modified(),
+              buffer.is_visible()
             ),
             buffer.name(),
-            line.sep("", hl, backgroundColor),
+            line.sep("", hl, background_color),
             hl = hl,
             margin = " ",
           }
-          table.insert(bufferNodes, bufferNode)
+          table.insert(buffer_nodes, buffer_node)
         end
 
         local tabs = line.tabs().foreach(function(tab)
-          local hl = getColor(tab.is_current(), false, true)
+          local hl = get_color(tab.is_current(), false, true)
           return {
-            line.sep("", hl, backgroundColor),
-            getLabel(tab.is_current(), false, true),
+            line.sep("", hl, background_color),
+            get_label(tab.is_current(), false, true),
             tab.name():gsub("%[%d+.*$", ""),
-            line.sep("", hl, backgroundColor),
+            line.sep("", hl, background_color),
             hl = hl,
             margin = " ",
           }
         end)
 
-        local rightEnclosure = {
-          line.sep("", enclosureColor, backgroundColor),
-          { " ", hl = enclosureColor },
+        local right_enclosure = {
+          line.sep("", enclosure_color, background_color),
+          { " ", hl = enclosure_color },
         }
 
         return {
-          leftEnclosure,
-          bufferNodes,
+          left_enclosure,
+          buffer_nodes,
           line.spacer(),
           tabs,
-          rightEnclosure,
-          hl = backgroundColor,
+          right_enclosure,
+          hl = background_color,
         }
       end)
     end,
@@ -108,14 +108,14 @@ local function tabby(addPlugin)
 end
 
 -- TODO: use gitsigns to show diff
-local function lualine(addPlugin)
+local function lualine(add_plugin)
   local function location()
     local line = vim.fn.line(".")
-    local countOfLines = vim.fn.line("$")
-    return line .. ":" .. countOfLines
+    local count_of_lines = vim.fn.line("$")
+    return line .. ":" .. count_of_lines
   end
 
-  addPlugin({
+  add_plugin({
     "nvim-lualine/lualine.nvim",
     config = function()
       local line = require("lualine")
@@ -148,9 +148,9 @@ local function lualine(addPlugin)
   })
 end
 
-local function apply(addPlugin)
-  tabby(addPlugin)
-  lualine(addPlugin)
+local function apply(add_plugin)
+  tabby(add_plugin)
+  lualine(add_plugin)
 end
 
 return {

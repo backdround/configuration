@@ -1,8 +1,8 @@
 local utilities = require("utilities")
 
-local function searchCurrentWordWithoutMoving()
-  local currentWord = vim.fn.expand("<cword>")
-  if currentWord == "" then
+local function search_current_word_without_moving()
+  local current_word = vim.fn.expand("<cword>")
+  if current_word == "" then
     return
   end
 
@@ -10,10 +10,10 @@ local function searchCurrentWordWithoutMoving()
   vim.fn.setreg("/", vim.fn.expand("<cword>"))
   vim.opt.hlsearch = true
 
-  -- Sets cursor to the first character of the currentWord
+  -- Sets cursor to the first character of the current_word
   -- (for next search conviniece).
-  vim.fn.search(currentWord, "ce")
-  vim.fn.search(currentWord, "cb")
+  vim.fn.search(current_word, "ce")
+  vim.fn.search(current_word, "cb")
 end
 
 local function normal(...)
@@ -32,7 +32,7 @@ local function normal(...)
   end
 end
 
-local function searchStableNext()
+local function search_stable_next()
   if vim.v.searchforward == 1 then
     normal("n")
   else
@@ -40,7 +40,7 @@ local function searchStableNext()
   end
 end
 
-local function searchStablePrevious()
+local function search_stable_previous()
   if vim.v.searchforward == 0 then
     normal("n")
   else
@@ -48,67 +48,76 @@ local function searchStablePrevious()
   end
 end
 
-local function getMark(mark)
+local function get_mark(mark)
   local line, column = unpack(vim.api.nvim_buf_get_mark(0, mark))
 
   -- Checks that column unsigned(-1)
-  local lineString = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
-  if column > lineString:len() then
-    column = lineString:len()
+  local line_string = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
+  if column > line_string:len() then
+    column = line_string:len()
   end
 
   return line - 1, column
 end
 
-local function getVisualSelectionRange()
-  local startRow, startColumn = getMark("<")
-  local endRow, endColumn = getMark(">")
-  if startRow < endRow or (startRow == endRow and startColumn <= endColumn) then
-    return startRow, startColumn, endRow, endColumn + 1
+local function get_visual_selection_range()
+  local start_row, start_column = get_mark("<")
+  local end_row, end_column = get_mark(">")
+  if
+    start_row < end_row or (start_row == end_row and start_column <= end_column)
+  then
+    return start_row, start_column, end_row, end_column + 1
   else
-    return endRow, endColumn, startRow, startColumn + 1
+    return end_row, end_column, start_row, start_column + 1
   end
 end
 
-local function searchSelectedText(doAfter)
+local function search_selected_text(do_after)
   -- Leaves visual mode
-  utilities.resetCurrentMode()
+  utilities.reset_current_mode()
 
   -- Gets selected text
-  local startRow, startColumn, endRow, endColumn = getVisualSelectionRange()
-  local selectedText =
-    vim.api.nvim_buf_get_text(0, startRow, startColumn, endRow, endColumn, {})
-  selectedText = table.concat(selectedText, "\\n")
+  local start_row, start_column, end_row, end_column =
+    get_visual_selection_range()
+  local selected_text = vim.api.nvim_buf_get_text(
+    0,
+    start_row,
+    start_column,
+    end_row,
+    end_column,
+    {}
+  )
+  selected_text = table.concat(selected_text, "\\n")
 
   -- Sets cursor to left part of selected text (for next search conviniece)
-  vim.api.nvim_win_set_cursor(0, { startRow + 1, startColumn })
+  vim.api.nvim_win_set_cursor(0, { start_row + 1, start_column })
 
   -- Sets the selected text as a search text
-  vim.fn.setreg("/", selectedText)
+  vim.fn.setreg("/", selected_text)
   vim.opt.hlsearch = true
 
   -- Performs the given action after selection
-  if doAfter then
-    utilities.assertCallable(doAfter, "doAfter", 2)
-    doAfter()
+  if do_after then
+    utilities.assert_callable(do_after, "do_after", 2)
+    do_after()
   end
 end
 
 -- "*" in visual mode, that can search multiline-pattern
-local function searchSelectedTextNext()
-  searchSelectedText(searchStableNext)
+local function search_selected_text_next()
+  search_selected_text(search_stable_next)
 end
 
 -- "#" in visual mode, that can search multiline-pattern
-local function searchSelectedTextPrevious()
-  searchSelectedText(searchStablePrevious)
+local function search_selected_text_previous()
+  search_selected_text(search_stable_previous)
 end
 
 return {
-  currentWordWithoutMoving = searchCurrentWordWithoutMoving,
-  stableNext = searchStableNext,
-  stablePrevious = searchStablePrevious,
-  selectedText = searchSelectedText,
-  selectedTextNext = searchSelectedTextNext,
-  selectedTextPrevious = searchSelectedTextPrevious,
+  current_word_without_moving = search_current_word_without_moving,
+  stable_next = search_stable_next,
+  stable_previous = search_stable_previous,
+  selected_text = search_selected_text,
+  selected_text_next = search_selected_text_next,
+  selected_text_previous = search_selected_text_previous,
 }

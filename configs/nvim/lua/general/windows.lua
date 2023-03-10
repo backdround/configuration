@@ -50,8 +50,8 @@ local function tabs()
   -- Focusing
   u.nmap("ve", "gT", "Focus previous tab")
   u.nmap("vu", "gt", "Focus next tab")
-  u.nmap("v1", "<Cmd>tabfirst<CR>", "Focus the first tab")
-  u.nmap("v0", "<Cmd>tablast<CR>", "Focus the last tab")
+  u.nmap("vd", "<Cmd>tabfirst<CR>", "Focus the first tab")
+  u.nmap("vn", "<Cmd>tablast<CR>", "Focus the last tab")
 
   -- Movement
   description = "Move the current tab forward"
@@ -60,7 +60,7 @@ local function tabs()
   u.nmap("vs", "<Cmd>execute 'tabmove -' . v:count1<CR>", description)
 
   -- Closing
-  local function getCloseTabOrQuit(force)
+  local function get_close_tab_or_quit(force)
     return function()
       if #vim.api.nvim_list_tabpages() == 1 then
         vim.cmd(force and "quitall!" or "quitall")
@@ -71,19 +71,19 @@ local function tabs()
   end
 
   description = "Close the current tab or exit if the tab is last"
-  u.nmap("vq", getCloseTabOrQuit(false), description)
+  u.nmap("vq", get_close_tab_or_quit(false), description)
   description = "Close the current tab or exit if the tab is last with force"
-  u.nmap("vQ", getCloseTabOrQuit(true), description)
+  u.nmap("vQ", get_close_tab_or_quit(true), description)
 
   u.nmap("vx", "<Cmd>quitall<CR>", "Close neovim")
   u.nmap("vX", "<Cmd>quitall!<CR>", "Close neovim with force")
 end
 
-local function buffers(addPlugin)
+local function buffers(add_plugin)
   u.nmap("<M-u>", "<Cmd>:bnext<CR>", "Switch to next buffer")
   u.nmap("<M-e>", "<Cmd>:bprevious<CR>", "Switch to previous buffer")
 
-  addPlugin({
+  add_plugin({
     "famiu/bufdelete.nvim",
     config = function()
       local bufdelete = require("bufdelete").bufdelete
@@ -97,10 +97,10 @@ local function buffers(addPlugin)
   })
 end
 
-local function apply(addPlugin)
+local function apply(add_plugin)
   splits()
   tabs()
-  buffers(addPlugin)
+  buffers(add_plugin)
 end
 
 return {

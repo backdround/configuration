@@ -12,8 +12,8 @@ local function golang(_)
   })
 end
 
-local function lspConfigure()
-  local function setBufferMappings(client, _)
+local function lsp_configure()
+  local function set_buffer_mappings(client, _)
     -- Makes mappings
     local function map(lhs, rhs, desc)
       u.nmap(lhs, rhs, { buffer = 0, desc = desc })
@@ -24,7 +24,7 @@ local function lspConfigure()
     map("<leader>u", vim.lsp.buf.hover, "Show hover")
     map("<leader>v", vim.lsp.buf.code_action, "Code action")
 
-    local format = hacks.createFormatFunctions(client.id)
+    local format = hacks.create_format_functions(client.id)
     local desc = "Format code by lsp server"
     u.nmap("<leader>q", format.operator, { buffer = 0, desc = desc })
     desc = "Format selected code by lsp server"
@@ -64,7 +64,7 @@ local function lspConfigure()
   local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
   lspconfig.lua_ls.setup({
-    on_attach = setBufferMappings,
+    on_attach = set_buffer_mappings,
     capabilities = capabilities,
     settings = {
       Lua = {
@@ -91,14 +91,14 @@ local function lspConfigure()
   })
 
   lspconfig.gopls.setup({
-    on_attach = setBufferMappings,
+    on_attach = set_buffer_mappings,
     capabilities = capabilities,
   })
 end
 
-local function nullConfigure()
-  local function makeBufferMappings(client, _)
-    local format = hacks.createFormatFunctions(client.id)
+local function null_configure()
+  local function make_buffer_mappings(client, _)
+    local format = hacks.create_format_functions(client.id)
     local desc = "Format code by null lsp server"
     u.nmap("<leader>o", format.operator, { buffer = 0, desc = desc })
     desc = "Format selected code by null lsp server"
@@ -109,7 +109,7 @@ local function nullConfigure()
 
   local null = require("null-ls")
   null.setup({
-    on_attach = makeBufferMappings,
+    on_attach = make_buffer_mappings,
     border = "single",
 
     sources = {
@@ -121,36 +121,36 @@ local function nullConfigure()
   })
 end
 
-local function setupHoverAppearance()
-  local originalOpenFloatingPreview = vim.lsp.util.open_floating_preview
+local function setup_hover_appearance()
+  local original_open_floating_preview = vim.lsp.util.open_floating_preview
   vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
     opts = opts or {}
     opts.border = opts.border or "single"
-    return originalOpenFloatingPreview(contents, syntax, opts, ...)
+    return original_open_floating_preview(contents, syntax, opts, ...)
   end
 end
 
 -- TODO: add symbol highlighting under cursor
 -- TODO: check ray-x/lsp_signature
-local function apply(addPlugin)
-  addPlugin({
+local function apply(add_plugin)
+  add_plugin({
     "neovim/nvim-lspconfig",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "nvim-telescope/telescope.nvim",
     },
-    config = lspConfigure,
+    config = lsp_configure,
   })
 
-  addPlugin({
+  add_plugin({
     "jose-elias-alvarez/null-ls.nvim",
     dependencies = "nvim-lua/plenary.nvim",
-    config = nullConfigure,
+    config = null_configure,
   })
 
-  golang(addPlugin)
-  addPlugin("earthly/earthly.vim")
-  setupHoverAppearance()
+  golang(add_plugin)
+  add_plugin("earthly/earthly.vim")
+  setup_hover_appearance()
 end
 
 return {

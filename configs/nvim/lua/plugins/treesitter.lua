@@ -1,4 +1,4 @@
-local function baseConfigure()
+local function base_configure()
   require("nvim-treesitter.configs").setup({
     ensure_installed = {
       -- Base
@@ -48,7 +48,7 @@ local function baseConfigure()
   })
 end
 
-local function textobjectsConfigure()
+local function textobjects_configure()
   require("nvim-treesitter.configs").setup({
     textobjects = {
       select = {
@@ -81,23 +81,23 @@ local function textobjectsConfigure()
   })
 end
 
-local function apply(addPlugin)
+local function apply(add_plugin)
   -- Base
-  addPlugin({
+  add_plugin({
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    config = baseConfigure,
+    config = base_configure,
   })
 
   -- Textobjects
-  addPlugin({
+  add_plugin({
     "nvim-treesitter/nvim-treesitter-textobjects",
     dependencies = "nvim-treesitter/nvim-treesitter",
-    config = textobjectsConfigure,
+    config = textobjects_configure,
   })
 
   -- Playground
-  addPlugin({
+  add_plugin({
     "nvim-treesitter/playground",
     dependencies = "nvim-treesitter/nvim-treesitter",
   })

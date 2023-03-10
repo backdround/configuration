@@ -1,7 +1,7 @@
 local u = require("utilities")
 local hacks = require("general.hacks")
 
-local function wordMotion(addPlugin)
+local function word_motion(add_plugin)
   -- Base mode
   u.map("w", "b", "To the start of the previous word")
   u.map("j", "w", "To the start of the next word")
@@ -27,7 +27,7 @@ local function wordMotion(addPlugin)
   -- Wordmotion plugin
   vim.g.wordmotion_spaces = "()[]<>{},./%@^!?;:$~`\"\\#_|-+=&*' "
   vim.g.wordmotion_nomap = 1
-  addPlugin("chaoren/vim-wordmotion")
+  add_plugin("chaoren/vim-wordmotion")
 
   u.map("<M-w>", "<Plug>WordMotion_b", "To the start of the previous real word")
   u.map("<M-q>", "<Plug>WordMotion_ge", "To the end of the previous real word")
@@ -44,12 +44,12 @@ local function wordMotion(addPlugin)
   u.imap("<M-p>", "<C-o><Plug>WordMotion_e<Right>", description)
 end
 
-local function scroll(addPlugin)
-  addPlugin({
+local function scroll(add_plugin)
+  add_plugin({
     "karb94/neoscroll.nvim",
     config = function()
       -- Save real updatetime restoration.
-      local realUpdateTime = vim.go.updatetime
+      local real_update_time = vim.go.updatetime
 
       local neoscroll = require("neoscroll")
       neoscroll.setup({
@@ -57,7 +57,7 @@ local function scroll(addPlugin)
         cursor_scrolls_alone = true,
         easing_function = "quadratic",
         -- Temporary disables CursorHold events
-        pre_hook = u.wrap(hacks.delayUpdateTime, 200, realUpdateTime),
+        pre_hook = u.wrap(hacks.delay_update_time, 200, real_update_time),
       })
 
       u.map("e", u.wrap(neoscroll.scroll, 0.31, false, 130), "Scroll down")
@@ -68,39 +68,39 @@ local function scroll(addPlugin)
   })
 end
 
-local function findCharacter(addPlugin)
-  addPlugin("dahu/vim-fanfingtastic")
+local function find_character(add_plugin)
+  add_plugin("dahu/vim-fanfingtastic")
 
   -- Disables fanfingtastic default mappings
   for _, key in ipairs({ "f", "F", "t", "T", ";", "," }) do
-    u.mapStab({ "n", "x", "o" }, { "<Plug>fanfingtastic_" .. key })
+    u.map_stab({ "n", "x", "o" }, { "<Plug>fanfingtastic_" .. key })
   end
 
   -- Saves direction to make a stable next / previous search
-  local directionForward = true
+  local direction_forward = true
 
   local find = function()
-    directionForward = true
+    direction_forward = true
     return "<Plug>fanfingtastic_f"
   end
 
-  local findPre = function()
-    directionForward = true
+  local find_pre = function()
+    direction_forward = true
     return "<Plug>fanfingtastic_t"
   end
 
-  local findBackward = function()
-    directionForward = false
+  local find_backward = function()
+    direction_forward = false
     return "<Plug>fanfingtastic_F"
   end
 
-  local findBackwardPre = function()
-    directionForward = false
+  local find_backward_pre = function()
+    direction_forward = false
     return "<Plug>fanfingtastic_T"
   end
 
   local next = function()
-    if directionForward then
+    if direction_forward then
       return "<Plug>fanfingtastic_;"
     else
       return "<Plug>fanfingtastic_,"
@@ -108,7 +108,7 @@ local function findCharacter(addPlugin)
   end
 
   local previous = function()
-    if directionForward then
+    if direction_forward then
       return "<Plug>fanfingtastic_,"
     else
       return "<Plug>fanfingtastic_;"
@@ -119,13 +119,13 @@ local function findCharacter(addPlugin)
   local desc = "Search next character operator"
   u.map("k", find, { expr = true, desc = desc })
   desc = "Search pre next character operator"
-  u.map("<M-k>", findPre, { expr = true, desc = desc })
+  u.map("<M-k>", find_pre, { expr = true, desc = desc })
 
   -- Backward char
   desc = "Search previous character operator"
-  u.map("z", findBackward, { expr = true, desc = desc })
+  u.map("z", find_backward, { expr = true, desc = desc })
   desc = "Search pre previous character operator"
-  u.map("<M-z>", findBackwardPre, { expr = true, desc = desc })
+  u.map("<M-z>", find_backward_pre, { expr = true, desc = desc })
 
   -- Between chars
   desc = "Search forward of the last searched character"
@@ -134,12 +134,12 @@ local function findCharacter(addPlugin)
   u.map("(", previous, { expr = true, desc = desc })
 
   -- Gives jump through map for operator-pending mode.
-  -- If you use just jumpThrough function, then dot-repeat doesn't work.
-  local function getOperatorValidJumpThroughMap(pattern, forward)
+  -- If you use just jump_through function, then dot-repeat doesn't work.
+  local function get_operator_valid_jump_through_map(pattern, forward)
     pattern = pattern:gsub('"', '\\"')
     forward = tostring(forward)
     return vim.fn.printf(
-      ':lua require("general.hacks").jumpThrough("%s", %s)<CR>',
+      ':lua require("general.hacks").jump_through("%s", %s)<CR>',
       pattern,
       forward
     )
@@ -147,25 +147,25 @@ local function findCharacter(addPlugin)
 
   -- Jump through quotes
   desc = "Jump forward through quotes"
-  u.nmap("+", u.wrap(hacks.jumpThrough, "[\"'`]", true), desc)
-  u.xmap("+", u.wrap(hacks.jumpThrough, "[\"'`]", true), desc)
-  u.omap("+", getOperatorValidJumpThroughMap("[\"'`]", true), desc)
+  u.nmap("+", u.wrap(hacks.jump_through, "[\"'`]", true), desc)
+  u.xmap("+", u.wrap(hacks.jump_through, "[\"'`]", true), desc)
+  u.omap("+", get_operator_valid_jump_through_map("[\"'`]", true), desc)
 
   desc = "Jump backward through quotes"
-  u.nmap("-", u.wrap(hacks.jumpThrough, "[\"'`]", false), desc)
-  u.xmap("-", u.wrap(hacks.jumpThrough, "[\"'`]", false), desc)
-  u.omap("-", getOperatorValidJumpThroughMap("[\"'`]", false), desc)
+  u.nmap("-", u.wrap(hacks.jump_through, "[\"'`]", false), desc)
+  u.xmap("-", u.wrap(hacks.jump_through, "[\"'`]", false), desc)
+  u.omap("-", get_operator_valid_jump_through_map("[\"'`]", false), desc)
 
   -- Jump through brackets
   desc = "Jump forward through brackets"
-  u.nmap("&", u.wrap(hacks.jumpThrough, "[()]", true), desc)
-  u.xmap("&", u.wrap(hacks.jumpThrough, "[()]", true), desc)
-  u.omap("&", getOperatorValidJumpThroughMap("[()]", true), desc)
+  u.nmap("&", u.wrap(hacks.jump_through, "[()]", true), desc)
+  u.xmap("&", u.wrap(hacks.jump_through, "[()]", true), desc)
+  u.omap("&", get_operator_valid_jump_through_map("[()]", true), desc)
 
   desc = "Jump backward through brackets"
-  u.nmap("=", u.wrap(hacks.jumpThrough, "[()]", false), desc)
-  u.xmap("=", u.wrap(hacks.jumpThrough, "[()]", false), desc)
-  u.omap("=", getOperatorValidJumpThroughMap("[()]", false), desc)
+  u.nmap("=", u.wrap(hacks.jump_through, "[()]", false), desc)
+  u.xmap("=", u.wrap(hacks.jump_through, "[()]", false), desc)
+  u.omap("=", get_operator_valid_jump_through_map("[()]", false), desc)
 end
 
 local function marks()
@@ -176,7 +176,7 @@ local function marks()
   u.map("<C-y>", "<C-t>", "Jump backward in tag list")
 end
 
-local function pageMovements()
+local function page_movements()
   u.map("o", "<nop>", "Movement key")
 
   u.map("oh", "G", "Go to the end of the buffer")
@@ -193,12 +193,12 @@ local function pageMovements()
   u.map("o.", "+$", "Jump to the end of the next line")
 end
 
-local function jumpMotions(addPlugin)
+local function jump_motions(add_plugin)
   -- TODO: Use original plugin when all things will be exist:
   -- - You can jump from empty line (without error, lol).
   -- - camelCase will be available.
   -- - multiply position will be available (begin and end at the same time).
-  addPlugin({
+  add_plugin({
     "backdround/hop.nvim",
     config = function()
       local hop = require("hop")
@@ -208,35 +208,35 @@ local function jumpMotions(addPlugin)
         teasing = false,
       })
 
-      local hopUpBegin = u.wrap(hop.hint_camel_case, {
+      local hop_up_begin = u.wrap(hop.hint_camel_case, {
         direction = hint.HintDirection.BEFORE_CURSOR,
         hint_position = hint.HintPosition.BEGIN,
       })
 
-      local hopUpEnd = u.wrap(hop.hint_camel_case, {
+      local hop_up_end = u.wrap(hop.hint_camel_case, {
         direction = hint.HintDirection.BEFORE_CURSOR,
         hint_position = hint.HintPosition.END,
       })
 
-      local hopDownBegin = u.wrap(hop.hint_camel_case, {
+      local hop_down_begin = u.wrap(hop.hint_camel_case, {
         direction = hint.HintDirection.AFTER_CURSOR,
         hint_position = hint.HintPosition.BEGIN,
       })
 
-      local hopDownEnd = u.wrap(hop.hint_camel_case, {
+      local hop_down_end = u.wrap(hop.hint_camel_case, {
         direction = hint.HintDirection.AFTER_CURSOR,
         hint_position = hint.HintPosition.END,
       })
 
-      local hopChar1Down = u.wrap(hop.hint_char1, {
+      local hop_char1Down = u.wrap(hop.hint_char1, {
         direction = hint.HintDirection.AFTER_CURSOR,
       })
 
-      local hopChar1Up = u.wrap(hop.hint_char1, {
+      local hop_char1Up = u.wrap(hop.hint_char1, {
         direction = hint.HintDirection.BEFORE_CURSOR,
       })
 
-      local hopLine = u.wrap(hop.hint_camel_case, {
+      local hop_line = u.wrap(hop.hint_camel_case, {
         current_line_only = true,
         hint_position = {
           hint.HintPosition.BEGIN,
@@ -245,21 +245,21 @@ local function jumpMotions(addPlugin)
       })
 
       local description = "Hop jump in current line"
-      u.map("a", hopLine, description)
+      u.map("a", hop_line, description)
 
       description = "Hop jump to the start of words before the cursor"
-      u.map("ow", hopUpBegin, description)
+      u.map("ow", hop_up_begin, description)
       description = "Hop jump to the end of words before the cursor"
-      u.map("oq", hopUpEnd, description)
+      u.map("oq", hop_up_end, description)
       description = "Hop jump to the start of words after the cursor"
-      u.map("oj", hopDownBegin, description)
+      u.map("oj", hop_down_begin, description)
       description = "Hop jump to the end of words after the cursor"
-      u.map("op", hopDownEnd, description)
+      u.map("op", hop_down_end, description)
 
       description = "Hop jump to the character after the cursor"
-      u.map("ok", hopChar1Down, description)
+      u.map("ok", hop_char1Down, description)
       description = "Hop jump to the character before the cursor"
-      u.map("oz", hopChar1Up, description)
+      u.map("oz", hop_char1Up, description)
     end,
   })
 end
@@ -269,13 +269,13 @@ local function misc()
   u.nmap("xm", "<Cmd>tab Man<CR>", "Search man page with name under the cursor")
 end
 
-local function apply(addPlugin)
-  wordMotion(addPlugin)
-  scroll(addPlugin)
-  jumpMotions(addPlugin)
-  findCharacter(addPlugin)
+local function apply(add_plugin)
+  word_motion(add_plugin)
+  scroll(add_plugin)
+  jump_motions(add_plugin)
+  find_character(add_plugin)
   marks()
-  pageMovements()
+  page_movements()
   misc()
 end
 

@@ -1,12 +1,12 @@
-local function onLastColumn()
+local function on_last_column()
   local line, column = unpack(vim.api.nvim_win_get_cursor(0))
-  local lineString = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
-  return column == (lineString:len() - 1)
+  local line_string = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
+  return column == (line_string:len() - 1)
 end
 
-local function jumpThroughForward(pattern)
+local function jump_through_forward(pattern)
   local flags = "neW"
-  if not onLastColumn() then
+  if not on_last_column() then
     flags = flags .. "c"
   end
   local line, col = unpack(vim.fn.searchpos(pattern, flags))
@@ -18,14 +18,14 @@ local function jumpThroughForward(pattern)
   vim.api.nvim_win_set_cursor(0, { line, col })
 end
 
-local function onFirstColumn()
-  local _, currentColumn = unpack(vim.api.nvim_win_get_cursor(0))
-  return currentColumn == 0
+local function on_first_column()
+  local _, current_column = unpack(vim.api.nvim_win_get_cursor(0))
+  return current_column == 0
 end
 
-local function jumpThroughBackward(pattern)
+local function jump_through_backward(pattern)
   local flags = "nbW"
-  if not onFirstColumn() then
+  if not on_first_column() then
     flags = flags .. "c"
   end
   local line, col = unpack(vim.fn.searchpos(pattern, flags))
@@ -41,13 +41,13 @@ local function jumpThroughBackward(pattern)
   vim.api.nvim_win_set_cursor(0, { line, col })
 end
 
--- jumpThrough is suitable for jumps in/out of parentheses or quotes
-local function jumpThrough(pattern, forward)
+-- jump_through is suitable for jumps in/out of parentheses or quotes
+local function jump_through(pattern, forward)
   if forward then
-    jumpThroughForward(pattern)
+    jump_through_forward(pattern)
   else
-    jumpThroughBackward(pattern)
+    jump_through_backward(pattern)
   end
 end
 
-return jumpThrough
+return jump_through

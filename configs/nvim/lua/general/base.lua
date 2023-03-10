@@ -32,7 +32,11 @@ local function insert()
   -- Editing
   u.imap("<C-b>", "<Esc>cc", "Remove all text on the current line")
   u.imap("<C-d>", "<C-w>", "Remove a word before cursor")
-  u.imap("<M-d>", hacks.removeLeftFullWord, "Remove a full word before cursor")
+  u.imap(
+    "<M-d>",
+    hacks.remove_left_full_word,
+    "Remove a full word before cursor"
+  )
 end
 
 local function visual()
@@ -49,7 +53,7 @@ local function visual()
   u.xmap("r", "o", "Swap ends")
 end
 
-local function copyPaste()
+local function copy_paste()
   -- Normal copy/paste
   u.map("f", '"yy', "Yank operator")
   u.nmap("ff", '"yyy', "Yank the current line")
@@ -90,42 +94,43 @@ local function copyPaste()
   })
 end
 
-local function search(addPlugin)
-  addPlugin("romainl/vim-cool")
+local function search(add_plugin)
+  add_plugin("romainl/vim-cool")
 
   local description = "Search the word under the cursor"
-  u.nmap("!", hacks.search.currentWordWithoutMoving, description)
+  u.nmap("!", hacks.search.current_word_without_moving, description)
   description = "Search selected word"
-  u.xmap("!", hacks.search.selectedText, description)
+  u.xmap("!", hacks.search.selected_text, description)
 
   description = "Search a next word that matches the word under the cursor"
   u.nmap("*", "g*", description)
   description = "Search a next text that matches selected text"
-  u.xmap("*", hacks.search.selectedTextNext, description)
+  u.xmap("*", hacks.search.selected_text_next, description)
 
   description = "Search a previous word that matches the word under the cursor"
   u.nmap("#", "g#", description)
   description = "Search a previous text that matches selected text"
-  u.xmap("#", hacks.search.selectedTextPrevious, description)
+  u.xmap("#", hacks.search.selected_text_previous, description)
 
   description = "Search next searched text"
-  u.nmap("]", hacks.search.stableNext, description)
-  u.xmap("]", hacks.search.stableNext, description)
-  local searchNextMap = ':lua require("general.hacks").search.stableNext()<CR>'
-  u.omap("]", searchNextMap, description)
+  u.nmap("]", hacks.search.stable_next, description)
+  u.xmap("]", hacks.search.stable_next, description)
+  local search_next_map =
+    ':lua require("general.hacks").search.stable_next()<CR>'
+  u.omap("]", search_next_map, description)
 
   description = "Search previous searched text"
-  u.nmap("[", hacks.search.stablePrevious, description)
-  u.xmap("[", hacks.search.stablePrevious, description)
-  local searchPreviousMap =
-    ':lua require("general.hacks").search.stablePrevious()<CR>'
-  u.omap("[", searchPreviousMap, description)
+  u.nmap("[", hacks.search.stable_previous, description)
+  u.xmap("[", hacks.search.stable_previous, description)
+  local search_previous_map =
+    ':lua require("general.hacks").search.stable_previous()<CR>'
+  u.omap("[", search_previous_map, description)
 end
 
 local function substitute()
   u.map("b", "<nop>", "Change key")
 
-  local function getFeedkeys(keys)
+  local function get_feedkeys(keys)
     keys = vim.api.nvim_replace_termcodes(keys, true, false, true)
     return function()
       vim.api.nvim_feedkeys(keys, "c", false)
@@ -133,25 +138,27 @@ local function substitute()
   end
 
   local description = "Replace any text to another text"
-  u.nmap("bu", getFeedkeys(":%s///g<Left><Left><Left>"), description)
-  u.xmap("bu", getFeedkeys(":s///g<Left><Left><Left>"), description)
+  u.nmap("bu", get_feedkeys(":%s///g<Left><Left><Left>"), description)
+  u.xmap("bu", get_feedkeys(":s///g<Left><Left><Left>"), description)
   description = description .. " with confirmation"
-  u.nmap("bU", getFeedkeys(":%s///gc<Left><Left><Left><Left>"), description)
-  u.xmap("bU", getFeedkeys(":s///gc<Left><Left><Left><Left>"), description)
+  u.nmap("bU", get_feedkeys(":%s///gc<Left><Left><Left><Left>"), description)
+  u.xmap("bU", get_feedkeys(":s///gc<Left><Left><Left><Left>"), description)
 
   description = "Replace text under the cursor to another text"
-  u.nmap("be", getFeedkeys(":%s/<C-r><C-w>//g<Left><Left>"), description)
-  u.xmap("be", getFeedkeys(":s/<C-r><C-w>//g<Left><Left>"), description)
+  u.nmap("be", get_feedkeys(":%s/<C-r><C-w>//g<Left><Left>"), description)
   description = description .. " with confirmation"
-  u.nmap("bE", getFeedkeys(":%s/<C-r><C-w>//gc<Left><Left><Left>"), description)
-  u.xmap("bE", getFeedkeys(":s/<C-r><C-w>//gc<Left><Left><Left>"), description)
+  u.nmap(
+    "bE",
+    get_feedkeys(":%s/<C-r><C-w>//gc<Left><Left><Left>"),
+    description
+  )
 
   description = "Replace yanked text to another text"
-  u.nmap("bo", getFeedkeys(":%s/<C-r>y//g<Left><Left>"), description)
-  u.xmap("bo", getFeedkeys(":s/<C-r>y//g<Left><Left>"), description)
+  u.nmap("bo", get_feedkeys(":%s/<C-r>y//g<Left><Left>"), description)
+  u.xmap("bo", get_feedkeys(":s/<C-r>y//g<Left><Left>"), description)
   description = description .. " with confirmation"
-  u.nmap("bO", getFeedkeys(":%s/<C-r>y//gc<Left><Left><Left>"), description)
-  u.xmap("bO", getFeedkeys(":s/<C-r>y//gc<Left><Left><Left>"), description)
+  u.nmap("bO", get_feedkeys(":%s/<C-r>y//gc<Left><Left><Left>"), description)
+  u.xmap("bO", get_feedkeys(":s/<C-r>y//gc<Left><Left><Left>"), description)
 end
 
 local function foldings()
@@ -161,8 +168,8 @@ local function foldings()
   end, "Jump / fold key")
 end
 
-local function improvedRepeat(addPlugin)
-  addPlugin("backdround/vim-repeat")
+local function improved_repeat(add_plugin)
+  add_plugin("backdround/vim-repeat")
 
   vim.g.repeat_no_default_key_mappings = 1
   u.nmap(".", "<Plug>(RepeatDot)", "Repeat action")
@@ -171,23 +178,23 @@ local function improvedRepeat(addPlugin)
 end
 
 local function commands()
-  -- FilePath command, that prints current file path
-  local printCurrentFilePath = function()
+  -- file_path command, that prints current file path
+  local print_current_file_path = function()
     print(vim.fn.expand("%:p"))
   end
-  vim.api.nvim_create_user_command("FilePath", printCurrentFilePath, {})
+  vim.api.nvim_create_user_command("FilePath", print_current_file_path, {})
 
   -- Normal command that expands key notation like "<esc>", "<left>" and so on.
   vim.api.nvim_create_user_command("Normal", function(opts)
-    local userSequence =
+    local user_sequence =
       vim.api.nvim_replace_termcodes(opts.args, true, true, true)
-    local bangSymbol = opts.bang and "!" or ""
+    local bang_symbol = opts.bang and "!" or ""
     local command = string.format(
       "%s,%snormal%s %s",
       opts.line1,
       opts.line2,
-      bangSymbol,
-      userSequence
+      bang_symbol,
+      user_sequence
     )
     vim.cmd(command)
   end, {
@@ -217,16 +224,16 @@ local function misc()
   u.map("<2-LeftMouse>", "<nop>", "Don't do anything")
 end
 
-local function apply(addPlugin)
+local function apply(add_plugin)
   misc()
   editing()
   insert()
   visual()
-  copyPaste()
-  search(addPlugin)
+  copy_paste()
+  search(add_plugin)
   substitute()
   foldings()
-  improvedRepeat(addPlugin)
+  improved_repeat(add_plugin)
   commands()
 end
 

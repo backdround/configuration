@@ -1,7 +1,7 @@
 local u = require("utilities")
 
-local function focus(addPlugin)
-  addPlugin({
+local function focus(add_plugin)
+  add_plugin({
     "folke/twilight.nvim",
     opts = {
       dimming = {
@@ -12,12 +12,12 @@ local function focus(addPlugin)
     },
   })
 
-  addPlugin({
+  add_plugin({
     "folke/zen-mode.nvim",
     dependencies = "folke/twilight.nvim",
     config = function()
-      local zenMode = require("zen-mode")
-      zenMode.setup({
+      local zen_mode = require("zen-mode")
+      zen_mode.setup({
         window = {
           width = 0.70,
           height = 0.92,
@@ -34,13 +34,13 @@ local function focus(addPlugin)
         end,
       })
 
-      u.nmap("<M-n>", zenMode.toggle, "Toggle zen mode")
-    end
+      u.nmap("<M-n>", zen_mode.toggle, "Toggle zen mode")
+    end,
   })
 end
 
-local function floaterm(addPlugin)
-  addPlugin({
+local function floaterm(add_plugin)
+  add_plugin({
     "numToStr/FTerm.nvim",
     config = function()
       local fterm = require("FTerm")
@@ -62,9 +62,9 @@ local function floaterm(addPlugin)
   })
 end
 
-local function startify(addPlugin)
+local function startify(add_plugin)
   -- TODO: Switch thist to something simplier.
-  addPlugin("mhinz/vim-startify")
+  add_plugin("mhinz/vim-startify")
   vim.g.startify_change_to_dir = 0
   vim.g.startify_change_to_vcs_root = 0
   vim.g.startify_update_oldfiles = 1
@@ -90,8 +90,8 @@ local function startify(addPlugin)
   vim.g.startify_session_number = 9
 end
 
-local function messages(addPlugin)
-  addPlugin({
+local function messages(add_plugin)
+  add_plugin({
     "AckslD/messages.nvim",
     config = function()
       local m = require("messages")
@@ -121,16 +121,16 @@ local function messages(addPlugin)
         end,
       })
 
-      local function luaPrint(opts)
+      local function lua_print(opts)
         local api = require("messages.api")
 
-        local result, errorMessage = loadstring("return " .. opts.args)
+        local result, error_message = loadstring("return " .. opts.args)
         if not result then
-          if not errorMessage then
+          if not error_message then
             return
           end
-          errorMessage = errorMessage:gsub("^.*:%d+: ", "", 1)
-          api.open_float("unable to get data:\n" .. errorMessage)
+          error_message = error_message:gsub("^.*:%d+: ", "", 1)
+          api.open_float("unable to get data:\n" .. error_message)
           return
         end
 
@@ -146,7 +146,7 @@ local function messages(addPlugin)
         api.open_float(tostring(result))
       end
 
-      vim.api.nvim_create_user_command("Print", luaPrint, {
+      vim.api.nvim_create_user_command("Print", lua_print, {
         nargs = 1,
         complete = "lua",
       })
@@ -154,8 +154,8 @@ local function messages(addPlugin)
   })
 end
 
-local function viminput(addPlugin)
-  addPlugin({
+local function viminput(add_plugin)
+  add_plugin({
     "stevearc/dressing.nvim",
     opts = {
       input = {
@@ -178,8 +178,8 @@ local function viminput(addPlugin)
   })
 end
 
-local function colors(addPlugin)
-  addPlugin({
+local function colors(add_plugin)
+  add_plugin({
     "backdround/melting",
     config = function()
       local c = require("melting.colors")
@@ -193,8 +193,8 @@ local function colors(addPlugin)
   vim.opt.termguicolors = true
 end
 
-local function colorizer(addPlugin)
-  addPlugin({
+local function colorizer(add_plugin)
+  add_plugin({
     "NvChad/nvim-colorizer.lua",
     opts = {
       filetypes = {
@@ -207,14 +207,14 @@ local function colorizer(addPlugin)
   })
 end
 
-local function apply(addPlugin)
-  focus(addPlugin)
-  floaterm(addPlugin)
-  startify(addPlugin)
-  messages(addPlugin)
-  viminput(addPlugin)
-  colors(addPlugin)
-  colorizer(addPlugin)
+local function apply(add_plugin)
+  focus(add_plugin)
+  floaterm(add_plugin)
+  startify(add_plugin)
+  messages(add_plugin)
+  viminput(add_plugin)
+  colors(add_plugin)
+  colorizer(add_plugin)
 end
 
 return {

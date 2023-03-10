@@ -50,10 +50,10 @@ local function setup()
   telescope.load_extension("ui-select")
 end
 
-local function pickLocalFile()
+local function pick_local_file()
   local builtin = require("telescope.builtin")
 
-  local currentFileDirectory = vim.fn.expand("%:p:h")
+  local current_file_directory = vim.fn.expand("%:p:h")
   local command = {
     "fd",
     "--hidden",
@@ -64,11 +64,11 @@ local function pickLocalFile()
   }
   builtin.find_files({
     find_command = command,
-    search_dirs = { currentFileDirectory },
+    search_dirs = { current_file_directory },
   })
 end
 
-local function pickFile()
+local function pick_file()
   local builtin = require("telescope.builtin")
   local command = {
     "fd",
@@ -81,7 +81,7 @@ local function pickFile()
   builtin.find_files({ find_command = command })
 end
 
-local function pickAnyFile()
+local function pick_any_file()
   local builtin = require("telescope.builtin")
   builtin.find_files({
     hidden = true,
@@ -89,7 +89,7 @@ local function pickAnyFile()
   })
 end
 
-local function setMappings()
+local function set_mappings()
   local telescope = require("telescope")
   local builtin = require("telescope.builtin")
 
@@ -104,16 +104,16 @@ local function setMappings()
     })
   end, "Show buffer only mappings")
 
-  local modesToMap = { "n", "i", "x", "o", "c", "s" }
-  for _, mode in ipairs(modesToMap) do
-    local telescopeShowMaps = function()
+  local modes_to_map = { "n", "i", "x", "o", "c", "s" }
+  for _, mode in ipairs(modes_to_map) do
+    local telescope_show_maps = function()
       builtin.keymaps({
         modes = { mode },
         show_plug = false,
       })
     end
 
-    local telescopeShowAllMaps = function()
+    local telescope_show_all_maps = function()
       builtin.keymaps({
         modes = { mode },
         show_plug = true,
@@ -122,20 +122,20 @@ local function setMappings()
 
     -- Fix: https://github.com/nvim-telescope/telescope.nvim/issues/2404
     if mode == "o" then
-      telescopeShowMaps = u.wrap(vim.schedule, telescopeShowMaps)
-      telescopeShowAllMaps = u.wrap(vim.schedule, telescopeShowAllMaps)
+      telescope_show_maps = u.wrap(vim.schedule, telescope_show_maps)
+      telescope_show_all_maps = u.wrap(vim.schedule, telescope_show_all_maps)
     end
 
-    local mapsDescription = "Show mappings for mode " .. mode
-    local allMapsDescription = "Show all mappings for mode " .. mode
-    u[mode .. "map"]("<M-m>", telescopeShowMaps, mapsDescription)
-    u[mode .. "map"]("<C-M-m>", telescopeShowAllMaps, allMapsDescription)
+    local maps_description = "Show mappings for mode " .. mode
+    local all_maps_description = "Show all mappings for mode " .. mode
+    u[mode .. "map"]("<M-m>", telescope_show_maps, maps_description)
+    u[mode .. "map"]("<C-M-m>", telescope_show_all_maps, all_maps_description)
   end
 
   -- Files
-  u.nmap("<leader>t", pickFile, "Open file in project")
-  u.nmap("<leader><M-t>", pickLocalFile, "Open file in current directory")
-  u.nmap("<leader><C-t>", pickAnyFile, "Open any file in project")
+  u.nmap("<leader>t", pick_file, "Open file in project")
+  u.nmap("<leader><M-t>", pick_local_file, "Open file in current directory")
+  u.nmap("<leader><C-t>", pick_any_file, "Open any file in project")
 
   -- Tags
   u.nmap("<leader>n", u.wrap(builtin.tags, { fname_width = 60 }), "Go to tag")
@@ -166,13 +166,13 @@ local function setMappings()
   u.nmap("<leader>b", builtin.builtin, "Show telescope builtin pickers")
 end
 
-local function apply(addPlugin)
-  addPlugin({
+local function apply(add_plugin)
+  add_plugin({
     "nvim-telescope/telescope.nvim",
     dependencies = dependencies,
     config = function()
       setup()
-      setMappings()
+      set_mappings()
     end,
   })
 end

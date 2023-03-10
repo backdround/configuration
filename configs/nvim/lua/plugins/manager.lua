@@ -1,29 +1,29 @@
 local utils = require("utilities")
 
-local function ensureLazy()
+local function ensure_lazy()
   -- Sets lazy path
-  local lazyPath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-  vim.opt.runtimepath:prepend(lazyPath)
+  local lazy_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+  vim.opt.runtimepath:prepend(lazy_path)
 
   -- Checks lazy presence
-  if vim.loop.fs_stat(lazyPath) then
+  if vim.loop.fs_stat(lazy_path) then
     return "skipped"
   end
 
   -- Installs lazy
   utils.notify("Lazy installation ...")
-  local cloneOutput = vim.fn.system({
+  local clone_output = vim.fn.system({
     "git",
     "clone",
     "--depth=1",
     "https://github.com/folke/lazy.nvim.git",
-    lazyPath,
+    lazy_path,
   })
 
   -- Checks error
   if vim.v.shell_error ~= 0 then
-    local errorMessage = "Unable to clone lazy\n" .. cloneOutput
-    error(errorMessage)
+    local error_message = "Unable to clone lazy\n" .. clone_output
+    error(error_message)
   end
 
   -- Returns successfully
@@ -34,12 +34,12 @@ end
 local plugins = {}
 
 local function add(plugin)
-  utils.assertStringOrTable(plugin, "Plugin", 2)
+  utils.assert_string_or_table(plugin, "Plugin", 2)
   table.insert(plugins, plugin)
 end
 
 local function apply()
-  ensureLazy()
+  ensure_lazy()
 
   -- Changes default mappings
   local config = require("lazy.view.config")

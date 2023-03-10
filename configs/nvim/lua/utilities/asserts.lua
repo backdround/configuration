@@ -1,4 +1,4 @@
-local function assertStringOrTable(value, name, level)
+local function assert_string_or_table(value, name, level)
   if level then
     level = level + 1
   else
@@ -20,7 +20,7 @@ local function assertStringOrTable(value, name, level)
   error(name .. " must be a string or a table", level)
 end
 
-local function assertCallable(value, name, level)
+local function assert_callable(value, name, level)
   if level then
     level = level + 1
   else
@@ -39,6 +39,6 @@ local function assertCallable(value, name, level)
 end
 
 return {
-  assertStringOrTable = assertStringOrTable,
-  assertCallable = assertCallable,
+  assert_string_or_table = assert_string_or_table,
+  assert_callable = assert_callable,
 }

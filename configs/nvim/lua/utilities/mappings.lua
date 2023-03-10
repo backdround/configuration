@@ -1,9 +1,9 @@
-local function fullFeaturedMap(mode, lhs, rhs, optionsOrDesc)
+local function full_featured_map(mode, lhs, rhs, options_or_desc)
   local options = {}
-  if type(optionsOrDesc) == "table" then
-    options = optionsOrDesc
-  elseif type(optionsOrDesc) == "string" then
-    options.desc = optionsOrDesc
+  if type(options_or_desc) == "table" then
+    options = options_or_desc
+  elseif type(options_or_desc) == "string" then
+    options.desc = options_or_desc
   end
 
   if not options.desc then
@@ -25,26 +25,26 @@ end
 local M = {}
 
 M.map = function(lhs, rhs, options)
-  fullFeaturedMap({ "n", "x", "o" }, lhs, rhs, options)
+  full_featured_map({ "n", "x", "o" }, lhs, rhs, options)
 end
 
 local modes = { "n", "i", "v", "c", "t", "o", "x", "s" }
 for _, mode in ipairs(modes) do
   M[mode .. "map"] = function(lhs, rhs, options)
-    fullFeaturedMap(mode, lhs, rhs, options)
+    full_featured_map(mode, lhs, rhs, options)
   end
 end
 
 -- Map stab mapping to the given rhs' at the given mode.
 -- Use it to disable mappings that are checked with hasmapto()
-local stabCounter = 0
-M.mapStab = function(mode, rhss)
+local stab_counter = 0
+M.map_stab = function(mode, rhss)
   for _, rhs in ipairs(rhss) do
-    stabCounter = stabCounter + 1
-    local stabMapping = string.format("<Plug>(user-stab-%s)", stabCounter)
-    local stabDescription = "User stab %s" .. stabCounter
+    stab_counter = stab_counter + 1
+    local stab_mapping = string.format("<Plug>(user-stab-%s)", stab_counter)
+    local stab_description = "User stab %s" .. stab_counter
 
-    fullFeaturedMap(mode, stabMapping, rhs, stabDescription)
+    full_featured_map(mode, stab_mapping, rhs, stab_description)
   end
 end
 

@@ -1,11 +1,11 @@
 local u = require("utilities")
 
-local function concatenateLists(...)
-  local unitedList = {}
+local function concatenate_lists(...)
+  local united_list = {}
   for _, list in ipairs({ ... }) do
-    unitedList = vim.list_extend(unitedList, list)
+    united_list = vim.list_extend(united_list, list)
   end
-  return unitedList
+  return united_list
 end
 
 local function inspect(args)
@@ -20,31 +20,31 @@ local function configure()
     delete_check_events = { "CursorHold" },
     update_events = { "TextChanged", "TextChangedI" },
     snip_env = {
-      concatenateLists = concatenateLists,
+      concatenate_lists = concatenate_lists,
       inspect = inspect,
     },
   })
 
-  local luaSnipLoader = require("luasnip.loaders.from_lua")
-  luaSnipLoader.load({ paths = "./snippets" })
+  local lua_snip_loader = require("luasnip.loaders.from_lua")
+  lua_snip_loader.load({ paths = "./snippets" })
 
-  local setMap = function(lhs, rhs, desc)
+  local set_map = function(lhs, rhs, desc)
     vim.keymap.set({ "i", "s" }, lhs, rhs, { silent = true, desc = desc })
   end
 
-  setMap("<C-t>", function()
+  set_map("<C-t>", function()
     if ls.expand_or_jumpable() then
       ls.expand_or_jump()
     end
   end, "Expand snippet or jump to next snippet node")
 
-  setMap("<C-h>", function()
+  set_map("<C-h>", function()
     if ls.jumpable(-1) then
       ls.jump(-1)
     end
   end, "Jump to previous snippet node")
 
-  setMap("<C-n>", function()
+  set_map("<C-n>", function()
     if ls.choice_active() then
       ls.change_choice()
     end
@@ -69,8 +69,8 @@ local function configure()
   )
 end
 
-local function apply(addPlugin)
-  addPlugin({
+local function apply(add_plugin)
+  add_plugin({
     "L3MON4D3/LuaSnip",
     build = "make install_jsregexp",
     config = configure,

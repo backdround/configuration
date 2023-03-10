@@ -21,7 +21,7 @@ local vim = {
     },
     fmta(
       [[
-        local function apply(addPlugin)
+        local function apply(add_plugin)
           <>
         end
 
@@ -72,8 +72,8 @@ local general = {
     },
     fmt('local {variable} = require("{module}")', {
       variable = d(2, function(module)
-        local lastPart = module[1][1]:match("[^.]*$")
-        return sn(nil, i(1, lastPart))
+        local last_part = module[1][1]:match("[^.]*$")
+        return sn(nil, i(1, last_part))
       end, 1),
       module = i(1, "module"),
     })
@@ -183,4 +183,4 @@ local general = {
   ),
 }
 
-return concatenateLists(vim, general)
+return concatenate_lists(vim, general)

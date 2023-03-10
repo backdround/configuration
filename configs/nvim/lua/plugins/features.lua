@@ -1,14 +1,14 @@
 local u = require("utilities")
-local function rooter(addPlugin)
-  addPlugin("airblade/vim-rooter")
+local function rooter(add_plugin)
+  add_plugin("airblade/vim-rooter")
 
   vim.g.rooter_patterns = { ".git/" }
   vim.g.rooter_silent_chdir = 1
   vim.g.rooter_resolve_links = 1
 end
 
-local function markdown(addPlugin)
-  addPlugin({
+local function markdown(add_plugin)
+  add_plugin({
     "toppair/peek.nvim",
     build = "deno task --quiet build:fast",
     config = function()
@@ -23,8 +23,8 @@ local function markdown(addPlugin)
   })
 end
 
-local function session(addPlugin)
-  addPlugin({
+local function session(add_plugin)
+  add_plugin({
     "xolox/vim-session",
     dependencies = {
       "xolox/vim-misc",
@@ -33,13 +33,13 @@ local function session(addPlugin)
 
   -- Sets directories
   local base = vim.fn.stdpath("data")
-  local sessionDirectory = base .. "/sessions/"
-  local sessionLockDirectory = base .. "/session-locks/"
-  vim.fn.mkdir(sessionDirectory, "p")
-  vim.fn.mkdir(sessionLockDirectory, "p")
+  local session_directory = base .. "/sessions/"
+  local session_lock_directory = base .. "/session-locks/"
+  vim.fn.mkdir(session_directory, "p")
+  vim.fn.mkdir(session_lock_directory, "p")
 
-  vim.g.session_directory = sessionDirectory
-  vim.g.session_lock_directory = sessionLockDirectory
+  vim.g.session_directory = session_directory
+  vim.g.session_lock_directory = session_lock_directory
 
   -- Sets options
   vim.g.session_default_overwrite = 1
@@ -57,14 +57,14 @@ local function session(addPlugin)
   vim.g.session_command_aliases = 1
 end
 
-local function searchInBrowser(addPlugin)
-  addPlugin("tyru/open-browser.vim")
+local function search_in_browser(add_plugin)
+  add_plugin("tyru/open-browser.vim")
   u.nmap("<leader>/", "<Plug>(openbrowser-smart-search)", "Search in browser")
   u.xmap("<leader>/", "<Plug>(openbrowser-smart-search)", "Search in browser")
 end
 
-local function gutentags(addPlugin)
-  addPlugin("ludovicchabant/vim-gutentags")
+local function gutentags(add_plugin)
+  add_plugin("ludovicchabant/vim-gutentags")
   vim.g.gutentags_add_default_project_roots = 0
   vim.g.gutentags_project_root = { ".git" }
   vim.g.gutentags_cache_dir = vim.fn.stdpath("data") .. "/tags"
@@ -72,33 +72,33 @@ local function gutentags(addPlugin)
 end
 
 -- TODO: make more robust plugin.
-local function scope(addPlugin)
-  addPlugin({
+local function scope(add_plugin)
+  add_plugin({
     "tiagovla/scope.nvim",
     opts = {},
   })
 end
 
 -- TODO: remove this after switching to neovim 9.0 and beyond
-local function editorconfig(addPlugin)
-  addPlugin("gpanders/editorconfig.nvim")
+local function editorconfig(add_plugin)
+  add_plugin("gpanders/editorconfig.nvim")
   vim.g.editorconfig = false
 end
 
-local function quickfix(addPlugin)
-  _ = addPlugin
+local function quickfix(add_plugin)
+  _ = add_plugin
   -- TODO: check nvim-bqf
 end
 
-local function apply(addPlugin)
-  rooter(addPlugin)
-  markdown(addPlugin)
-  session(addPlugin)
-  searchInBrowser(addPlugin)
-  gutentags(addPlugin)
-  scope(addPlugin)
-  editorconfig(addPlugin)
-  quickfix(addPlugin)
+local function apply(add_plugin)
+  rooter(add_plugin)
+  markdown(add_plugin)
+  session(add_plugin)
+  search_in_browser(add_plugin)
+  gutentags(add_plugin)
+  scope(add_plugin)
+  editorconfig(add_plugin)
+  quickfix(add_plugin)
 end
 
 return {

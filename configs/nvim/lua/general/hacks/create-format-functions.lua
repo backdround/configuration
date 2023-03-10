@@ -1,26 +1,27 @@
 local u = require("utilities")
 
-local function createFormatFunctions(clientId)
-  local fileFormat = function()
-    vim.lsp.buf.format({ id = clientId })
+local function create_format_functions(client_id)
+  local file_format = function()
+    vim.lsp.buf.format({ id = client_id })
   end
 
-  local visualFormat = function()
-    vim.lsp.buf.format({ id = clientId })
-    u.resetCurrentMode()
+  local visual_format = function()
+    vim.lsp.buf.format({ id = client_id })
+    u.reset_current_mode()
   end
 
-  local operatorFormat = function()
-    local uniqFormatFunctionName = "UserDefinedMakeFormat" .. tostring(clientId)
+  local operator_format = function()
+    local uniq_format_function_name = "user_defined_make_format"
+      .. tostring(client_id)
 
     -- selene: allow(global_usage)
     -- Creates uniq global format function
-    if not _G[uniqFormatFunctionName] then
-      _G[uniqFormatFunctionName] = function()
+    if not _G[uniq_format_function_name] then
+      _G[uniq_format_function_name] = function()
         local start = vim.api.nvim_buf_get_mark(0, "[")
         local finish = vim.api.nvim_buf_get_mark(0, "]")
         vim.lsp.buf.format({
-          id = clientId,
+          id = client_id,
           range = {
             ["start"] = start,
             ["end"] = finish,
@@ -30,15 +31,15 @@ local function createFormatFunctions(clientId)
     end
 
     -- Perform formatting.
-    vim.go.operatorfunc = "v:lua." .. uniqFormatFunctionName
+    vim.go.operatorfunc = "v:lua." .. uniq_format_function_name
     vim.api.nvim_feedkeys("g@", "n", false)
   end
 
   return {
-    file = fileFormat,
-    visual = visualFormat,
-    operator = operatorFormat,
+    file = file_format,
+    visual = visual_format,
+    operator = operator_format,
   }
 end
 
-return createFormatFunctions
+return create_format_functions

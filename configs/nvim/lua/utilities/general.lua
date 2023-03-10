@@ -1,6 +1,6 @@
-local function autocmd(uniqueGroup, event, options)
-  options.group = uniqueGroup
-  vim.api.nvim_create_augroup(uniqueGroup, { clear = true })
+local function autocmd(unique_group, event, options)
+  options.group = unique_group
+  vim.api.nvim_create_augroup(unique_group, { clear = true })
 
   vim.api.nvim_create_autocmd(event, options)
 end
@@ -27,7 +27,7 @@ local function feedkeys(keys)
   vim.api.nvim_feedkeys(keys, "n", false)
 end
 
-local function resetCurrentMode()
+local function reset_current_mode()
   local keys = vim.api.nvim_replace_termcodes("<esc>", true, false, true)
   vim.api.nvim_feedkeys(keys, "nx", false)
 end
@@ -37,5 +37,5 @@ return {
   notify = notify,
   wrap = wrap,
   feedkeys = feedkeys,
-  resetCurrentMode = resetCurrentMode,
+  reset_current_mode = reset_current_mode,
 }

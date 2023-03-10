@@ -46,8 +46,13 @@ local function apply()
   options.keymap = "custom_ru"
   options.iminsert = 0
 
-  utilities.autocmd("UserResetLanguage", "InsertLeave", {
+  utilities.autocmd("UserResetLanguageInsert", "InsertLeave", {
     desc = "Reset language to english when leave insert",
+    command = "set iminsert=0",
+  })
+
+  utilities.autocmd("UserResetLanguageCmdline", "CmdlineLeave", {
+    desc = "Reset language to english when leave cmdline",
     command = "set iminsert=0",
   })
 
@@ -67,15 +72,15 @@ local function apply()
 
   -- Use current directory name (project name) as the app title.
   vim.opt.title = true
-  local function setTitle()
-    local currentDirectoryName = vim.fs.basename(vim.fn.getcwd())
-    vim.opt.titlestring = currentDirectoryName
+  local function set_title()
+    local current_directory_name = vim.fs.basename(vim.fn.getcwd())
+    vim.opt.titlestring = current_directory_name
   end
   utilities.autocmd("UserSetTitle", "DirChanged", {
     desc = "Set app title to project name (directory name)",
-    callback = setTitle,
+    callback = set_title,
   })
-  setTitle()
+  set_title()
 
   -- Misc
   options.completeopt = { "menu", "menuone", "noselect" }

@@ -1,16 +1,16 @@
 -- Require without cache
-local function load(moduleName)
-  package.loaded[moduleName] = nil
-  return require(moduleName)
+local function load(module_name)
+  package.loaded[module_name] = nil
+  return require(module_name)
 end
 
 -- Apply module
-local function apply(moduleName, ...)
-  local status, result = pcall(load, moduleName)
+local function apply(module_name, ...)
+  local status, result = pcall(load, module_name)
 
   if not status then
-    local errMessage = result
-    print(errMessage)
+    local error_message = result
+    print(error_message)
     return nil
   end
 
