@@ -33,7 +33,7 @@ local function baseConfigure()
 
       -- Misc
       "query",
-      "help"
+      "help",
     },
     syn_install = true,
 

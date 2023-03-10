@@ -41,11 +41,11 @@ local function configure()
     window = {
       completion = {
         border = "single",
-        winhighlight = "Search:None,CursorLine:PmenuSel"
+        winhighlight = "Search:None,CursorLine:PmenuSel",
       },
       documentation = {
         border = "single",
-        winhighlight = "Search:None"
+        winhighlight = "Search:None",
       },
     },
 

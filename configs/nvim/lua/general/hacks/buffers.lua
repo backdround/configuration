@@ -27,7 +27,7 @@ local function getBufferObject(id)
     if name == "" then
       name = "[No Name]"
     else
-      name = vim.fn.fnamemodify(name, ':t')
+      name = vim.fn.fnamemodify(name, ":t")
     end
     return name
   end

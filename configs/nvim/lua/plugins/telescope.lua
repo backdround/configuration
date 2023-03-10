@@ -141,7 +141,11 @@ local function setMappings()
   -- TODO: add fuzzy grep.
   -- Grep
   u.nmap("<leader>h", builtin.live_grep, "Goto by grep")
-  u.nmap("<leader><M-h>", builtin.current_buffer_fuzzy_find, "Goto by file grep")
+  u.nmap(
+    "<leader><M-h>",
+    builtin.current_buffer_fuzzy_find,
+    "Goto by file grep"
+  )
 
   -- Commands
   u.nmap("<leader>c", builtin.commands, "Show commands")

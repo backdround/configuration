@@ -72,12 +72,12 @@ local function lspConfigure()
           callSnippet = "Replace",
           keywordSnippet = "Disable",
         },
-				diagnostics = {
-					disable = {
-						"duplicate-set-field",
-						"duplicate-set-index",
-					},
-				},
+        diagnostics = {
+          disable = {
+            "duplicate-set-field",
+            "duplicate-set-index",
+          },
+        },
         workspace = {
           checkThirdParty = false,
           library = vim.api.nvim_get_runtime_file("", true),
@@ -122,12 +122,12 @@ local function nullConfigure()
 end
 
 local function setupHoverAppearance()
-	local originalOpenFloatingPreview = vim.lsp.util.open_floating_preview
-	vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
-		opts = opts or {}
-		opts.border = opts.border or "single"
-		return originalOpenFloatingPreview(contents, syntax, opts, ...)
-	end
+  local originalOpenFloatingPreview = vim.lsp.util.open_floating_preview
+  vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
+    opts = opts or {}
+    opts.border = opts.border or "single"
+    return originalOpenFloatingPreview(contents, syntax, opts, ...)
+  end
 end
 
 -- TODO: add symbol highlighting under cursor
@@ -150,7 +150,7 @@ local function apply(addPlugin)
 
   golang(addPlugin)
   addPlugin("earthly/earthly.vim")
-	setupHoverAppearance()
+  setupHoverAppearance()
 end
 
 return {

@@ -54,7 +54,7 @@ local function apply()
     },
     ui = {
       border = "single",
-    }
+    },
   }
 
   -- Loads plugins

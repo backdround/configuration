@@ -87,8 +87,12 @@ local function buffers(addPlugin)
     config = function()
       local bufdelete = require("bufdelete").bufdelete
       u.nmap("<M-o>", u.wrap(bufdelete, 0), "Remove current buffer")
-      u.nmap("<S-M-o>", u.wrap(bufdelete, 0, true), "Remove current buffer with force")
-    end
+      u.nmap(
+        "<S-M-o>",
+        u.wrap(bufdelete, 0, true),
+        "Remove current buffer with force"
+      )
+    end,
   })
 end
 

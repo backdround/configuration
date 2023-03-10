@@ -57,14 +57,14 @@ local function scroll(addPlugin)
         cursor_scrolls_alone = true,
         easing_function = "quadratic",
         -- Temporary disables CursorHold events
-        pre_hook = u.wrap(hacks.delayUpdateTime, 200, realUpdateTime)
+        pre_hook = u.wrap(hacks.delayUpdateTime, 200, realUpdateTime),
       })
 
       u.map("e", u.wrap(neoscroll.scroll, 0.31, false, 130), "Scroll down")
       u.map("u", u.wrap(neoscroll.scroll, -0.31, false, 130), "Scroll up")
       u.map("E", u.wrap(neoscroll.scroll, 0.55, false, 150), "Fast scroll down")
       u.map("U", u.wrap(neoscroll.scroll, -0.55, false, 150), "Fast scroll up")
-    end
+    end,
   })
 end
 
@@ -72,7 +72,7 @@ local function findCharacter(addPlugin)
   addPlugin("dahu/vim-fanfingtastic")
 
   -- Disables fanfingtastic default mappings
-  for _, key in ipairs({"f", "F", "t", "T", ";", ","}) do
+  for _, key in ipairs({ "f", "F", "t", "T", ";", "," }) do
     u.mapStab({ "n", "x", "o" }, { "<Plug>fanfingtastic_" .. key })
   end
 
@@ -205,7 +205,7 @@ local function jumpMotions(addPlugin)
       local hint = require("hop.hint")
 
       hop.setup({
-        teasing = false
+        teasing = false,
       })
 
       local hopUpBegin = u.wrap(hop.hint_camel_case, {
@@ -240,7 +240,7 @@ local function jumpMotions(addPlugin)
         current_line_only = true,
         hint_position = {
           hint.HintPosition.BEGIN,
-          hint.HintPosition.END
+          hint.HintPosition.END,
         },
       })
 

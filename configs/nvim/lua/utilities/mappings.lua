@@ -38,7 +38,7 @@ end
 -- Map stab mapping to the given rhs' at the given mode.
 -- Use it to disable mappings that are checked with hasmapto()
 local stabCounter = 0
-M.mapStab =  function(mode, rhss)
+M.mapStab = function(mode, rhss)
   for _, rhs in ipairs(rhss) do
     stabCounter = stabCounter + 1
     local stabMapping = string.format("<Plug>(user-stab-%s)", stabCounter)

@@ -74,21 +74,21 @@ local function autopairs(addPlugin)
           map = "<Plug>(user-fastwrap)",
           keys = "htnueogcrpsvmkjq",
           end_key = "i",
-        }
+        },
       })
 
       -- Add space inside curly braces.
-      local rule = require'nvim-autopairs.rule'
+      local rule = require("nvim-autopairs.rule")
       nvimAutopairs.add_rules({
-        rule(' ', ' ')
-          :with_pair(function (opts)
+        rule(" ", " ")
+          :with_pair(function(opts)
             local pair = opts.line:sub(opts.col - 1, opts.col)
             return pair == "{}"
           end)
-          :with_del(function (opts)
+          :with_del(function(opts)
             local pair = opts.line:sub(opts.col - 1, opts.col + 2)
             return pair == "{  }"
-          end)
+          end),
       })
 
       -- Map keys
