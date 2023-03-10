@@ -154,6 +154,30 @@ local function messages(addPlugin)
   })
 end
 
+local function viminput(addPlugin)
+  addPlugin({
+    "stevearc/dressing.nvim",
+    opts = {
+      input = {
+        enabled = true,
+        insert_only = false,
+        start_in_insert = false,
+        border = "single",
+        win_options = { winblend = 0 },
+        mappings = {
+          n = {
+            ["<M-x>"] = "Confirm",
+          },
+          i = {
+            ["<M-x>"] = "Confirm",
+          },
+        },
+      },
+      select = { enabled = false },
+    },
+  })
+end
+
 local function colors(addPlugin)
   addPlugin({
     "backdround/melting",
@@ -188,6 +212,7 @@ local function apply(addPlugin)
   floaterm(addPlugin)
   startify(addPlugin)
   messages(addPlugin)
+  viminput(addPlugin)
   colors(addPlugin)
   colorizer(addPlugin)
 end
