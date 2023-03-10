@@ -57,29 +57,6 @@ local function session(addPlugin)
   vim.g.session_command_aliases = 1
 end
 
-local function focus(addPlugin)
-  addPlugin("junegunn/limelight.vim")
-  vim.g.limelight_conceal_guifg = "#446666"
-  vim.g.limelight_paragraph_span = 4
-
-  addPlugin("junegunn/goyo.vim")
-  vim.g.goyo_width = "150"
-  vim.g.goyo_height = "95"
-  vim.g.goyo_linenr = 0
-
-  u.nmap("<M-n>", "<Cmd>Goyo<CR>", "Toggle zen mode")
-
-  u.autocmd("UserFocusModeEnter", "User", {
-    pattern = "GoyoEnter",
-    command = "Limelight",
-  })
-
-  u.autocmd("UserFocusModeLeave", "User", {
-    pattern = "GoyoLeave",
-    command = "Limelight!",
-  })
-end
-
 local function searchInBrowser(addPlugin)
   addPlugin("tyru/open-browser.vim")
   u.nmap("<leader>/", "<Plug>(openbrowser-smart-search)", "Search in browser")
@@ -117,7 +94,6 @@ local function apply(addPlugin)
   rooter(addPlugin)
   markdown(addPlugin)
   session(addPlugin)
-  focus(addPlugin)
   searchInBrowser(addPlugin)
   gutentags(addPlugin)
   scope(addPlugin)

@@ -1,5 +1,44 @@
 local u = require("utilities")
 
+local function focus(addPlugin)
+  addPlugin({
+    "folke/twilight.nvim",
+    opts = {
+      dimming = {
+        alpha = 0.25,
+      },
+      context = 30,
+      treesitter = false,
+    },
+  })
+
+  addPlugin({
+    "folke/zen-mode.nvim",
+    dependencies = "folke/twilight.nvim",
+    config = function()
+      local zenMode = require("zen-mode")
+      zenMode.setup({
+        window = {
+          width = 0.70,
+          height = 0.92,
+          options = {
+            signcolumn = "no",
+            number = false,
+            relativenumber = false,
+          },
+        },
+
+        -- Disables colorcolumn.
+        on_open = function()
+          vim.wo.colorcolumn = "0"
+        end,
+      })
+
+      u.nmap("<M-n>", zenMode.toggle, "Toggle zen mode")
+    end
+  })
+end
+
 local function floaterm(addPlugin)
   addPlugin({
     "numToStr/FTerm.nvim",
@@ -138,6 +177,7 @@ local function colorizer(addPlugin)
 end
 
 local function apply(addPlugin)
+  focus(addPlugin)
   floaterm(addPlugin)
   startify(addPlugin)
   messages(addPlugin)
