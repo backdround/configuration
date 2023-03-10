@@ -84,7 +84,7 @@ local function copyPaste()
     callback = function()
       vim.highlight.on_yank({
         higroup = "HighlightedyankRegion",
-        timeout = 140,
+        timeout = 80,
       })
     end,
   })

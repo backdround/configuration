@@ -157,7 +157,14 @@ end
 local function colors(addPlugin)
   addPlugin({
     "backdround/melting",
-    opts = {},
+    config = function()
+      local c = require("melting.colors")
+      require("melting").setup({
+        highlights = {
+          HighlightedyankRegion = { bg = c.gray2 },
+        },
+      })
+    end,
   })
   vim.opt.termguicolors = true
 end
