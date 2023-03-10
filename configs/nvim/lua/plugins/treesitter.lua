@@ -8,6 +8,7 @@ local function baseConfigure()
       "lua",
       "python",
       "markdown",
+      "comment",
 
       -- Golang
       "go",
