@@ -31,6 +31,7 @@ apply("plugins/editing", pm.add)
 apply("plugins/features", pm.add)
 apply("plugins/languages", pm.add)
 apply("plugins/ui", pm.add)
+apply("plugins/lines", pm.add)
 
 -- Plugins
 apply("plugins/telescope", pm.add)
