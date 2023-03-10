@@ -7,6 +7,7 @@ local dependencies = {
     "nvim-telescope/telescope-fzf-native.nvim",
     build = "make",
   },
+  "nvim-telescope/telescope-ui-select.nvim",
 }
 
 local function setup()
@@ -40,11 +41,13 @@ local function setup()
     extensions = {
       luasnip = {},
       fzf = {},
+      ["ui-select"] = {},
     },
   })
 
   telescope.load_extension("luasnip")
   telescope.load_extension("fzf")
+  telescope.load_extension("ui-select")
 end
 
 local function pickLocalFile()
@@ -163,7 +166,6 @@ local function setMappings()
   u.nmap("<leader>b", builtin.builtin, "Show telescope builtin pickers")
 end
 
--- TODO: use telescope-ui-select
 local function apply(addPlugin)
   addPlugin({
     "nvim-telescope/telescope.nvim",
