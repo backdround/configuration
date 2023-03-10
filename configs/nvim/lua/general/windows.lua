@@ -32,6 +32,7 @@ local function splits()
 
   -- Closing
   u.nmap("sq", "<Cmd>quit<CR>", "Close split")
+  u.nmap("s<M-q>", "<Cmd>bdelete<CR>", "Close split and delete buffer")
   u.nmap("<M-x>", "<Cmd>x<CR>", "Save and close split")
   u.imap("<M-x>", "<Cmd>x<CR>", "Save and close split")
 end
