@@ -62,34 +62,6 @@ local function floaterm(add_plugin)
   })
 end
 
-local function startify(add_plugin)
-  -- TODO: Switch thist to something simplier.
-  add_plugin("mhinz/vim-startify")
-  vim.g.startify_change_to_dir = 0
-  vim.g.startify_change_to_vcs_root = 0
-  vim.g.startify_update_oldfiles = 1
-  vim.g.startify_fortune_use_unicode = 1
-  vim.g.startify_padding_left = 8
-  vim.g.startify_files_number = 5
-
-  vim.g.startify_bookmarks = {
-    { ci = "~/.config/i3/config" },
-    { cv = "~/configuration/configs/nvim/init.vim" },
-    { cz = "~/configuration/configs/terminal/zshrc" },
-  }
-
-  vim.g.startify_lists = {
-    { type = "sessions", header = { "Sessions" } },
-    { type = "bookmarks", header = { "Bookmarks" } },
-    { type = "files", header = { "MRU" }, indices = { "U", "E", "O", "A" } },
-  }
-
-  vim.g.startify_session_dir = "~/.local/share/nvim/sessions/"
-  vim.g.startify_session_persistence = 1
-  vim.g.startify_session_sort = 1
-  vim.g.startify_session_number = 9
-end
-
 local function messages(add_plugin)
   add_plugin({
     "AckslD/messages.nvim",
@@ -210,7 +182,6 @@ end
 local function apply(add_plugin)
   focus(add_plugin)
   floaterm(add_plugin)
-  startify(add_plugin)
   messages(add_plugin)
   viminput(add_plugin)
   colors(add_plugin)

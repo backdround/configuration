@@ -25,36 +25,14 @@ end
 
 local function session(add_plugin)
   add_plugin({
-    "xolox/vim-session",
-    dependencies = {
-      "xolox/vim-misc",
-    },
+    "rmagatti/auto-session",
+    config = function()
+      require("auto-session").setup({
+        log_level = "error",
+        auto_session_suppress_dirs = { "~/", "/", "~/downloads/" },
+      })
+    end
   })
-
-  -- Sets directories
-  local base = vim.fn.stdpath("data")
-  local session_directory = base .. "/sessions/"
-  local session_lock_directory = base .. "/session-locks/"
-  vim.fn.mkdir(session_directory, "p")
-  vim.fn.mkdir(session_lock_directory, "p")
-
-  vim.g.session_directory = session_directory
-  vim.g.session_lock_directory = session_lock_directory
-
-  -- Sets options
-  vim.g.session_default_overwrite = 1
-  vim.g.session_extension = ""
-  vim.g.session_autoload = "no"
-  vim.g.session_autosave = "yes"
-  vim.g.session_autosave_periodic = 3
-  vim.g.session_autosave_silent = 1
-  vim.g.session_verbose_messages = 0
-  vim.g.session_persist_font = 0
-  vim.g.session_persist_collors = 0
-
-  -- TODO: Set my own commands after get rid of startify.
-  -- and switch this to 0.
-  vim.g.session_command_aliases = 1
 end
 
 local function search_in_browser(add_plugin)
