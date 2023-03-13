@@ -101,6 +101,11 @@ local function tabby(add_plugin)
           hl = background_color,
         }
       end)
+
+      u.autocmd("UserUpdateTabby", { "BufAdd", "BufDelete" }, {
+        desc = "Update tabby line when buffer delisted",
+        callback = require("tabby").update,
+      })
     end,
   })
   -- Always show tabline
