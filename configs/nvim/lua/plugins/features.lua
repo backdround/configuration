@@ -49,10 +49,9 @@ local function gutentags(add_plugin)
   vim.g.gutentags_file_list_command = "fd --type file --hidden --exclude .git"
 end
 
--- TODO: make more robust plugin.
-local function scope(add_plugin)
+local function tabscope(add_plugin)
   add_plugin({
-    "tiagovla/scope.nvim",
+    "backdround/tabscope.nvim",
     opts = {},
   })
 end
@@ -74,7 +73,7 @@ local function apply(add_plugin)
   session(add_plugin)
   search_in_browser(add_plugin)
   gutentags(add_plugin)
-  scope(add_plugin)
+  tabscope(add_plugin)
   editorconfig(add_plugin)
   quickfix(add_plugin)
 end
