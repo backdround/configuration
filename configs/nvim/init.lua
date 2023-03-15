@@ -25,11 +25,12 @@ apply("general.base", pm.add)
 apply("general.options", pm.add)
 apply("general.motions", pm.add)
 apply("general.windows", pm.add)
+apply("general.languages", pm.add)
 
 -- Plugins general
 apply("plugins/editing", pm.add)
 apply("plugins/features", pm.add)
-apply("plugins/languages", pm.add)
+apply("plugins/lsp", pm.add)
 apply("plugins/ui", pm.add)
 apply("plugins/lines", pm.add)
 
