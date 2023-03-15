@@ -13,8 +13,8 @@ local function apply()
   options.tabstop = 2
   options.expandtab = true
 
-  options.shiftwidth = 0
-  options.softtabstop = 0
+  options.shiftwidth = 0 -- use tabstop
+  options.softtabstop = -1 -- use shiftwidth
 
   options.shiftround = false
   options.smarttab = false
