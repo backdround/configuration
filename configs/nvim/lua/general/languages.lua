@@ -47,9 +47,19 @@ local function earthly(add_plugin)
   })
 end
 
+local function bats(add_plugin)
+  add_plugin("aliou/bats.vim")
+  u.autocmd("UserBatsIndentation", "FileType", {
+    desc = "Sets shell indentation for bats filetype",
+    pattern = "bats",
+    command = "runtime! indent/sh.vim",
+  })
+end
+
 local function apply(add_plugin)
   golang(add_plugin)
   earthly(add_plugin)
+  bats(add_plugin)
 end
 
 return {
