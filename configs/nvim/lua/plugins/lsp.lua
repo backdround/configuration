@@ -13,8 +13,13 @@ local function lsp_configure()
     map("<leader>u", vim.lsp.buf.hover, "Show hover")
     map("<leader>v", vim.lsp.buf.code_action, "Code action")
 
+    local desc = "Toggle signature window"
+    u.nmap("<M-v>", vim.lsp.buf.signature_help, { buffer = 0, desc = desc })
+    u.imap("<M-v>", vim.lsp.buf.signature_help, { buffer = 0, desc = desc })
+    u.smap("<M-v>", vim.lsp.buf.signature_help, { buffer = 0, desc = desc })
+
     local format = hacks.create_format_functions(client.id)
-    local desc = "Format code by lsp server"
+    desc = "Format code by lsp server"
     u.nmap("<leader>q", format.operator, { buffer = 0, desc = desc })
     desc = "Format selected code by lsp server"
     u.xmap("<leader>q", format.visual, { buffer = 0, desc = desc })
@@ -120,7 +125,6 @@ local function setup_hover_appearance()
 end
 
 -- TODO: add symbol highlighting under cursor
--- TODO: check ray-x/lsp_signature
 local function apply(add_plugin)
   add_plugin({
     "neovim/nvim-lspconfig",
