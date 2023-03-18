@@ -127,6 +127,10 @@ local function apply(add_plugin)
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "nvim-telescope/telescope.nvim",
+      {
+        "folke/neodev.nvim",
+        opts = {},
+      },
     },
     config = lsp_configure,
   })

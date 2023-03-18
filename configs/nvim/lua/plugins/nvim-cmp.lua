@@ -32,7 +32,6 @@ local function configure()
     sources = cmp.config.sources({
       { name = "luasnip" },
       { name = "nvim_lsp" },
-      { name = "nvim_lua" },
     }, {
       { name = "path" },
       { name = "buffer", keyword_length = 4 },
@@ -104,7 +103,6 @@ local function apply(add_plugin)
     dependencies = {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
-      "hrsh7th/cmp-nvim-lua",
       "onsails/lspkind.nvim",
       "saadparwaiz1/cmp_luasnip",
       "L3MON4D3/LuaSnip",
