@@ -84,11 +84,11 @@ local function autopairs(add_plugin)
         rule(" ", " ")
           :with_pair(function(opts)
             local pair = opts.line:sub(opts.col - 1, opts.col)
-            return pair == "{}"
+            return pair == "{}" or pair == "[]"
           end)
           :with_del(function(opts)
             local pair = opts.line:sub(opts.col - 1, opts.col + 2)
-            return pair == "{  }"
+            return pair == "{  }" or pair == "[  ]"
           end),
       })
 
