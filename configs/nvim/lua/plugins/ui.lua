@@ -150,6 +150,17 @@ local function viminput(add_plugin)
   })
 end
 
+local function illuminate(add_plugin)
+  add_plugin({
+    "RRethy/vim-illuminate",
+    config = function()
+      require("illuminate").configure({
+        delay = 150,
+      })
+    end,
+  })
+end
+
 local function colors(add_plugin)
   add_plugin({
     "backdround/melting",
@@ -184,6 +195,7 @@ local function apply(add_plugin)
   floaterm(add_plugin)
   messages(add_plugin)
   viminput(add_plugin)
+  illuminate(add_plugin)
   colors(add_plugin)
   colorizer(add_plugin)
 end

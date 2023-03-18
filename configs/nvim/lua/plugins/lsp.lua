@@ -124,7 +124,6 @@ local function setup_hover_appearance()
   end
 end
 
--- TODO: add symbol highlighting under cursor
 local function apply(add_plugin)
   add_plugin({
     "neovim/nvim-lspconfig",
