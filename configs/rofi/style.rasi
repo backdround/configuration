@@ -3,7 +3,7 @@
 
 * {
   default-spacing:               1.1em;
-  font:                          "FantasqueSansMono Nerd Font 14";
+  font:                          "FantasqueSansM Nerd Font 14";
 
   background:                  #404759;
   foreground:                  #c6c8d1;
@@ -82,7 +82,7 @@ inputbar {
   text-color: var(foreground);
   spacing:    0.2em;
   border:     0px 0px 0.15em;
-  font:       "FantasqueSansMono Nerd Font 14";
+  font:       "FantasqueSansM Nerd Font 14";
   children: [
     prompt,
     textbox-prompt-colon,

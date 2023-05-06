@@ -244,7 +244,7 @@ def set_style(c):
     font_size_str                    = '12pt'
     font_size_small_str              = '10pt'
 
-    c.fonts.default_family           = '"FantasqueSansMono", Menlo, "xos4 Terminus", Terminus, Monospace, Monaco, "Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace, Consolas, Terminal'
+    c.fonts.default_family           = '"FantasqueSansM", Menlo, "xos4 Terminus", Terminus, Monospace, Monaco, "Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace, Consolas, Terminal'
     c.fonts.completion.entry         = font_size_small_str
     c.fonts.completion.category      = 'bold'
     c.fonts.debug_console            = font_size_str
