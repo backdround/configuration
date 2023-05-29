@@ -34,7 +34,7 @@ local function base_configure()
 
       -- Misc
       "query",
-      "help",
+      "vimdoc",
     },
     syn_install = true,
 
