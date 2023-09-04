@@ -13,6 +13,11 @@ test -z "$1" && QUTE_COMMAND=":open --window" || QUTE_COMMAND=":open -t $1"
 TEMPLATE_MESSAGE='{"args": ["%s"], "target_arg": null, "version": "1.0.4", "protocol_version": 1, "cwd": "%s"}'
 MESSAGE=$(printf "$TEMPLATE_MESSAGE" "$QUTE_COMMAND" "`pwd`")
 
+# FIXME:
+# scroll is really sucks in PyQt6.
+# the following workaround downgrades to PyQt5.
+export QUTE_QT_WRAPPER=PyQt5
+
 # Бинарник для запуска
 QUTE_BIN="/usr/bin/qutebrowser"
 # Сокет для взаимодействия с имеющимся инстансом.
