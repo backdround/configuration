@@ -34,17 +34,17 @@ end
 
 local function search_stable_next()
   if vim.v.searchforward == 1 then
-    normal("n")
+    normal(vim.v.count1 .. "n")
   else
-    normal("N")
+    normal(vim.v.count1 .. "N")
   end
 end
 
 local function search_stable_previous()
   if vim.v.searchforward == 0 then
-    normal("n")
+    normal(vim.v.count1 .. "n")
   else
-    normal("N")
+    normal(vim.v.count1 .. "N")
   end
 end
 
