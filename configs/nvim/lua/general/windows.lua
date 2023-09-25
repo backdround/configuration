@@ -79,28 +79,24 @@ local function tabs()
   u.nmap("vX", "<Cmd>quitall!<CR>", "Close neovim with force")
 end
 
-local function buffers(add_plugin)
+local function tabscope(add_plugin)
   u.nmap("<M-u>", "<Cmd>:bnext<CR>", "Switch to next buffer")
   u.nmap("<M-e>", "<Cmd>:bprevious<CR>", "Switch to previous buffer")
 
   add_plugin({
-    "famiu/bufdelete.nvim",
+    "backdround/tabscope.nvim",
     config = function()
-      local bufdelete = require("bufdelete").bufdelete
-      u.nmap("<M-o>", u.wrap(bufdelete, 0), "Remove current buffer")
-      u.nmap(
-        "<S-M-o>",
-        u.wrap(bufdelete, 0, true),
-        "Remove current buffer with force"
-      )
-    end,
+      local scope = require("tabscope")
+      scope.setup()
+      u.nmap("<M-o>", scope.remove_tab_buffer, "Remove current buffer")
+    end
   })
 end
 
 local function apply(add_plugin)
   splits()
   tabs()
-  buffers(add_plugin)
+  tabscope(add_plugin)
 end
 
 return {

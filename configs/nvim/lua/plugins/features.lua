@@ -49,12 +49,6 @@ local function gutentags(add_plugin)
   vim.g.gutentags_file_list_command = "fd --type file --hidden --exclude .git"
 end
 
-local function tabscope(add_plugin)
-  add_plugin({
-    "backdround/tabscope.nvim",
-    opts = {},
-  })
-end
 
 -- TODO: remove this after switching to neovim 9.0 and beyond
 local function editorconfig(add_plugin)
@@ -73,7 +67,6 @@ local function apply(add_plugin)
   session(add_plugin)
   search_in_browser(add_plugin)
   gutentags(add_plugin)
-  tabscope(add_plugin)
   editorconfig(add_plugin)
   quickfix(add_plugin)
 end
