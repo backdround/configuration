@@ -49,6 +49,34 @@ local function gutentags(add_plugin)
   vim.g.gutentags_file_list_command = "fd --type file --hidden --exclude .git"
 end
 
+local function annotations(add_plugin)
+  add_plugin({
+    "danymat/neogen",
+    config = function()
+      local neogen = require("neogen")
+      neogen.setup({
+        snippet_engine = "luasnip",
+        placeholders_text = {
+          ["description"] = "[description]",
+          ["tparam"] = "[tparam]",
+          ["parameter"] = "[parameter]",
+          ["return"] = "[return]",
+          ["class"] = "[class]",
+          ["throw"] = "[throw]",
+          ["varargs"] = "[varargs]",
+          ["type"] = "[type]",
+          ["attribute"] = "[attribute]",
+          ["args"] = "[args]",
+          ["kwargs"] = "[kwargs]",
+        },
+      })
+      local description = "Generate annotation comment"
+      u.nmap("bk", u.wrap(neogen.generate, { type = "any" }), description)
+      description = "Generate annotation comment for file"
+      u.nmap("bj", u.wrap(neogen.generate, { type = "file" }), description)
+    end,
+  })
+end
 
 -- TODO: remove this after switching to neovim 9.0 and beyond
 local function editorconfig(add_plugin)
@@ -67,6 +95,7 @@ local function apply(add_plugin)
   session(add_plugin)
   search_in_browser(add_plugin)
   gutentags(add_plugin)
+  annotations(add_plugin)
   editorconfig(add_plugin)
   quickfix(add_plugin)
 end
