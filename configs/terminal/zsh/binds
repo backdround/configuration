@@ -3,7 +3,7 @@
 
 # missed default widgets
 function vi-kill-word() {
-  local WORDCHARS=${WORDCHARS/\//}
+  local WORDCHARS=""
   zle kill-word
 }
 zle -N vi-kill-word
