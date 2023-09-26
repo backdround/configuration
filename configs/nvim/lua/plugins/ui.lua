@@ -34,7 +34,7 @@ local function focus(add_plugin)
         end,
       })
 
-      u.nmap("<M-n>", zen_mode.toggle, "Toggle zen mode")
+      u.nmap("<M-.>", zen_mode.toggle, "Toggle zen mode")
     end,
   })
 end

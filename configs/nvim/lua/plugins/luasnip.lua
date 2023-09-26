@@ -32,19 +32,19 @@ local function configure()
     vim.keymap.set({ "i", "s" }, lhs, rhs, { silent = true, desc = desc })
   end
 
-  set_map("<C-t>", function()
+  set_map("<M-t>", function()
     if ls.expand_or_jumpable() then
       ls.expand_or_jump()
     end
   end, "Expand snippet or jump to next snippet node")
 
-  set_map("<C-h>", function()
+  set_map("<M-h>", function()
     if ls.jumpable(-1) then
       ls.jump(-1)
     end
   end, "Jump to previous snippet node")
 
-  set_map("<C-n>", function()
+  set_map("<M-n>", function()
     if ls.choice_active() then
       ls.change_choice()
     end

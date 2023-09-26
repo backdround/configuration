@@ -30,10 +30,11 @@ local function insert()
   u.nmap("R", "O", "Enter insert mode in new line above")
 
   -- Editing
-  u.imap("<C-b>", "<Esc>cc", "Remove all text on the current line")
-  u.imap("<C-d>", "<C-w>", "Remove a word before cursor")
+  -- TODO: make similar formard removal features
+  u.imap("<C-t>", "<Esc>cc", "Remove all text on the current line")
+  u.imap("<C-h>", "<C-w>", "Remove a word before cursor")
   u.imap(
-    "<M-d>",
+    "<C-M-h>",
     hacks.remove_left_full_word,
     "Remove a full word before cursor"
   )
