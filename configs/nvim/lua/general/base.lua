@@ -42,9 +42,9 @@ end
 
 local function visual()
   -- Enter mode
-  u.nmap("n", hacks.visual.enter, "Enter to visual mode")
-  u.nmap("N", "V", "Enter to linewise visual mode")
-  u.nmap("<C-n>", "<C-v>", "Enter to block visual mode")
+  u.nmap("n", hacks.visual.v, "Enter to visual mode")
+  u.nmap("N", hacks.visual.V, "Enter to linewise visual mode")
+  u.nmap("<C-n>", hacks.visual.b, "Enter to block visual mode")
 
   -- Case switching
   u.xmap("m", "gu", "Make selected text in lower case")
