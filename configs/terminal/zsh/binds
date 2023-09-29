@@ -137,29 +137,33 @@ function fzf-cd-widget-wrapper() {
 zle -N fzf-cd-widget-wrapper
 
 
-fzf-cd-file() {
+fzf-cd-directory() {
   zle -I
 
   # Choose root directory
   local root_directory="$(git rev-parse --show-toplevel 2> /dev/null)"
   if [ -z "$root_directory" ]; then
-    local root_directory=~
+    if [ "$(realpath .)" = "$(realpath ~)" ]; then
+      local root_directory=~
+    else
+      local root_directory=.
+    fi
   fi
 
-  # Find file
-  FZF_SELECT="fd -tf . \"$root_directory\""
-  local file=$(fzf-select)
+  # Find directory
+  FZF_SELECT="fd -td . \"$root_directory\""
+  local directory=$(fzf-select)
   zle reset-prompt
 
-  if [[ -z "$file" ]]; then
+  if [[ -z "$directory" ]]; then
     return 0
   fi
 
-  # cd to file dir
-  cd "$(dirname $file)"  &&
+  # cd to directory
+  cd "$directory"  &&
   zle custom-redraw-prompt
 }
-zle -N fzf-cd-file
+zle -N fzf-cd-directory
 
 # fzf kill
 k() {
@@ -382,7 +386,7 @@ vi_bind '\er' fzf-history-widget
 
 vi_bind '\eh' fzf-cd-project
 vi_bind '\et' cd-project-root
-vi_bind '\en' fzf-cd-file
+vi_bind '\en' fzf-cd-directory
 
 vi_bind '\eu' autosuggest-execute
 vi_bind '\ee' autosuggest-accept
