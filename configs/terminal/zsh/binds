@@ -423,7 +423,7 @@ vi_bind '^l' vi-put-before
 
 # cd
 vi_bind '\em' cd-home
-vi_bind "\eb" cd-up
+vi_bind '\e,' cd-up
 vi_bind '\e.' cd-back
 
 
