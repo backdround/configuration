@@ -131,6 +131,33 @@ function fzf-cd-project() {
 zle -N fzf-cd-project
 
 
+function fzf-paste-file() {
+  zle -I
+
+  # Choose root directory
+  local root_directory="$(git rev-parse --show-toplevel 2> /dev/null)"
+  if [ -z "$root_directory" ]; then
+    if [ "$(realpath .)" = "$(realpath ~)" ]; then
+      local root_directory=~
+    else
+      local root_directory=.
+    fi
+  fi
+
+  # Find directory to paste
+  FZF_SELECT="fd -tf . \"$root_directory\""
+  local file=$(fzf-select)
+  local ret=$?
+
+  # Paste file to zle buffer
+  LBUFFER="${LBUFFER}$file"
+
+  zle reset-prompt
+  return $ret
+}
+zle -N fzf-paste-file
+
+
 function fzf-paste-directory() {
   zle -I
 
@@ -401,7 +428,7 @@ vi_bind '\e.' cd-back
 
 
 # applications
-vi_bind '\eg' fzf-file-widget
+vi_bind '\eg' fzf-paste-file
 vi_bind '\ec' fzf-paste-directory
 vi_bind '\er' fzf-history-widget
 
