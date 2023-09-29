@@ -131,10 +131,31 @@ function fzf-cd-project() {
 zle -N fzf-cd-project
 
 
-function fzf-cd-widget-wrapper() {
-  FZF_ALT_C_COMMAND='fd -I --type directory' FZF_DEFAULT_OPTS="--height 40% --reverse $FZF_DEFAULT_OPTS" fzf-cd-widget
+function fzf-paste-directory() {
+  zle -I
+
+  # Choose root directory
+  local root_directory="$(git rev-parse --show-toplevel 2> /dev/null)"
+  if [ -z "$root_directory" ]; then
+    if [ "$(realpath .)" = "$(realpath ~)" ]; then
+      local root_directory=~
+    else
+      local root_directory=.
+    fi
+  fi
+
+  # Find directory to paste
+  FZF_SELECT="fd -td . \"$root_directory\""
+  local directory=$(fzf-select)
+  local ret=$?
+
+  # Paste directory to zle buffer
+  LBUFFER="${LBUFFER}$directory"
+
+  zle reset-prompt
+  return $ret
 }
-zle -N fzf-cd-widget-wrapper
+zle -N fzf-paste-directory
 
 
 fzf-cd-directory() {
@@ -381,7 +402,7 @@ vi_bind '\e.' cd-back
 
 # applications
 vi_bind '\eg' fzf-file-widget
-vi_bind '\ec' fzf-cd-widget-wrapper
+vi_bind '\ec' fzf-paste-directory
 vi_bind '\er' fzf-history-widget
 
 vi_bind '\eh' fzf-cd-project
