@@ -22,7 +22,9 @@ setopt share_history
 setopt extended_history
 
 # completion
-autoload -U compinit && compinit
+
+# We don't call compinit, because antigen calls it.
+# autoload -U compinit && compinit
 zmodload -i zsh/complist
 
 eval "$(dircolors | sed -e "s/:di=[0-9;]*:/:di=01;35:/")"
@@ -98,6 +100,10 @@ zstyle ':filter-select' case-insensitive yes
 
 ################################################################################
 # PLUGINS
+
+# set antigen to reset his cache when ANTIGEN_CHECK_FILES are changed.
+export ANTIGEN_AUTO_CONFIG=true
+export ANTIGEN_CHECK_FILES=(~/.zshrc ~/.zsh_binds)
 
 source /usr/share/zsh/share/antigen.zsh
 
