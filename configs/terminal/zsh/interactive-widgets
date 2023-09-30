@@ -185,22 +185,25 @@ zle -N iw-cd-directory
 
 
 # Interactive switching to a project.
+# Uses variables IW_PROJECT_PARENTS and IW_PROJECTS to search project paths.
 iw-cd-project() {
   zle -I
 
-  # Search all project paths
-  __iw-project-search() {
-    test -d "$1" && fd -H -td -d 1 . "$1"
-  }
+  # The variable contains a command that echoes all project directories.
+  FZF_SELECT='{
+    # Print all projects
+    for project in ${IW_PROJECTS[@]}; do
+      project="${project/#\~/$HOME}"
+      echo "$project"
+    done
 
-  FZF_SELECT="{                        \
-    { echo ~/configuration             & \
-    __iw-project-search ~/projects               & \
-    __iw-project-search ~/.local/share/nvim/lazy & \
-    __iw-project-search ~/.antigen/bundles       & \
-    __iw-project-search ~/.tmux/plugins } \
-    | __iw-make-paths-prettier-for-selection ~
-  }"
+    # Print all directories inside project parents
+    for project_parent in ${IW_PROJECT_PARENTS[@]}; do
+      project_parent="${project_parent/#\~/$HOME}"
+      test -d "$project_parent" && fd -H -td -d 1 . "$project_parent"
+    done
+
+  } | __iw-make-paths-prettier-for-selection ~'
 
   # Perform project selection
   local project_directory=$(__iw-fzf-select)

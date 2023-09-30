@@ -281,6 +281,13 @@ vi_bind '\eg' iw-paste-file
 vi_bind '\ec' iw-paste-directory
 vi_bind '\er' fzf-history-widget
 
+IW_PROJECT_PARENTS=(
+  "~/projects"
+  "~/.local/share/nvim/lazy"
+  "~/.antigen/bundles"
+  "~/.tmux/plugins"
+)
+IW_PROJECTS=("~/configuration")
 vi_bind '\eh' iw-cd-project
 vi_bind '\et' cd-current-git-root
 vi_bind '\en' iw-cd-directory
