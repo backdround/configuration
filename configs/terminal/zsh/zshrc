@@ -103,7 +103,7 @@ zstyle ':filter-select' case-insensitive yes
 
 # set antigen to reset his cache when ANTIGEN_CHECK_FILES are changed.
 export ANTIGEN_AUTO_CONFIG=true
-export ANTIGEN_CHECK_FILES=(~/.zshrc ~/.zsh_binds)
+export ANTIGEN_CHECK_FILES=(~/.zshrc ~/.zsh_binds ~/.zsh_interactive_widgets)
 
 source /usr/share/zsh/share/antigen.zsh
 

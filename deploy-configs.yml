@@ -13,6 +13,9 @@
     zsh-binds:
         target: "{{.GitRoot}}/configs/terminal/zsh/binds"
         link: "{{.Home}}/.zsh_binds"
+    zsh-interactive-widgets:
+        target: "{{.GitRoot}}/configs/terminal/zsh/interactive-widgets"
+        link: "{{.Home}}/.zsh_interactive_widgets"
     starship:
         target: "{{.GitRoot}}/configs/terminal/starship.toml"
         link: "{{.Home}}/.config/starship.toml"

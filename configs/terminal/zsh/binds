@@ -80,152 +80,6 @@ zle -N cd-home
 zle -N cd-up
 zle -N cd-back
 
-
-# fix redraw
-function custom-redraw-prompt() {
-  local precmd
-  for precmd in $precmd_functions; do
-    $precmd
-  done
-  zle reset-prompt
-}
-zle -N custom-redraw-prompt
-
-# fzf wrappers
-function fzf-select() {
-  setopt localoptions pipefail no_aliases 2> /dev/null
-  eval "$FZF_SELECT" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS" $(__fzfcmd) -m "$@" | while read item; do
-    echo -n "$item"
-  done
-  local ret=$?
-  echo
-  return $ret
-}
-
-
-function fzf-cd-project() {
-  zle -I
-
-  function _search() {
-    test -d "$1" && fd -H -td -d 1 . "$1"
-  }
-
-  FZF_SELECT="{                        \
-    echo ~/configuration             & \
-    _search ~/projects               & \
-    _search ~/.local/share/nvim/lazy & \
-    _search ~/.antigen/bundles       & \
-    _search ~/.tmux/plugins
-  }"
-
-  local PROJECT_DIR=$(fzf-select)
-  zle reset-prompt
-
-  if [[ -z "$PROJECT_DIR" ]]; then
-    return 0
-  fi
-
-  cd "$PROJECT_DIR" > /dev/null &&
-  zle custom-redraw-prompt
-}
-zle -N fzf-cd-project
-
-
-function fzf-paste-file() {
-  zle -I
-
-  # Choose root directory
-  local root_directory="$(git rev-parse --show-toplevel 2> /dev/null)"
-  if [ -z "$root_directory" ]; then
-    if [ "$(realpath .)" = "$(realpath ~)" ]; then
-      local root_directory=~
-    else
-      local root_directory=.
-    fi
-  fi
-
-  # Find directory to paste
-  FZF_SELECT="fd -tf . \"$root_directory\""
-  local file=$(fzf-select)
-  local ret=$?
-
-  # Paste file to zle buffer
-  LBUFFER="${LBUFFER}$file"
-
-  zle reset-prompt
-  return $ret
-}
-zle -N fzf-paste-file
-
-
-function fzf-paste-directory() {
-  zle -I
-
-  # Choose root directory
-  local root_directory="$(git rev-parse --show-toplevel 2> /dev/null)"
-  if [ -z "$root_directory" ]; then
-    if [ "$(realpath .)" = "$(realpath ~)" ]; then
-      local root_directory=~
-    else
-      local root_directory=.
-    fi
-  fi
-
-  # Find directory to paste
-  FZF_SELECT="fd -td . \"$root_directory\""
-  local directory=$(fzf-select)
-  local ret=$?
-
-  # Paste directory to zle buffer
-  LBUFFER="${LBUFFER}$directory"
-
-  zle reset-prompt
-  return $ret
-}
-zle -N fzf-paste-directory
-
-
-fzf-cd-directory() {
-  zle -I
-
-  # Choose root directory
-  local root_directory="$(git rev-parse --show-toplevel 2> /dev/null)"
-  if [ -z "$root_directory" ]; then
-    if [ "$(realpath .)" = "$(realpath ~)" ]; then
-      local root_directory=~
-    else
-      local root_directory=.
-    fi
-  fi
-
-  # Find directory
-  FZF_SELECT="fd -td . \"$root_directory\""
-  local directory=$(fzf-select)
-  zle reset-prompt
-
-  if [[ -z "$directory" ]]; then
-    return 0
-  fi
-
-  # cd to directory
-  cd "$directory"  &&
-  zle custom-redraw-prompt
-}
-zle -N fzf-cd-directory
-
-# fzf kill
-k() {
-  FZF_SELECT="ps cax | tail -n +2"
-  local process=$(fzf-select)
-
-  if [[ -z "$process" ]]; then
-    return 0
-  fi
-
-  local pid="$(echo "$process" | sed -r -e "s/\s*([[:digit:]]+).*/\1/")"
-  kill $@ $pid
-}
-
 vi_bind() {
   bindkey -M vicmd $@
   bindkey -M viins $@
@@ -428,13 +282,15 @@ vi_bind '\e.' cd-back
 
 
 # applications
-vi_bind '\eg' fzf-paste-file
-vi_bind '\ec' fzf-paste-directory
+source ~/.zsh_interactive_widgets
+
+vi_bind '\eg' iw-paste-file
+vi_bind '\ec' iw-paste-directory
 vi_bind '\er' fzf-history-widget
 
-vi_bind '\eh' fzf-cd-project
+vi_bind '\eh' iw-cd-project
 vi_bind '\et' cd-project-root
-vi_bind '\en' fzf-cd-directory
+vi_bind '\en' iw-cd-directory
 
 vi_bind '\eu' autosuggest-execute
 vi_bind '\ee' autosuggest-accept

@@ -1,0 +1,250 @@
+########################################
+# Utility functions
+
+# Prepends given text by pipeline.
+__iw-prepend() {
+  while read line; do
+    echo "$1$line"
+  done
+}
+
+__iw-path-consists-special-characters() {
+  local tested_path="$1"
+  if [[ ! $tested_path =~ ^[-+_/.0-9a-zA-Z]+$ ]]; then
+    return 0
+  fi
+  return 1
+}
+
+# Redraws prompt (useful after changing cwd).
+__iw-redraw-prompt() {
+  local precmd
+  for precmd in $precmd_functions; do
+    $precmd
+  done
+  zle reset-prompt
+}
+zle -N __iw-redraw-prompt
+
+# Performs interactive selection based on FZF_SELECT command.
+__iw-fzf-select() {
+  setopt localoptions pipefail no_aliases 2> /dev/null
+  eval "$FZF_SELECT" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS" $(__fzfcmd) -m "$@" | while read item; do
+    echo -n "$item"
+  done
+  local ret=$?
+  echo
+  return $ret
+}
+
+# Returns interactive root.
+__iw-get-root() {
+  git rev-parse --show-toplevel 2> /dev/null
+  if [ $? -ne 0 ]; then
+    realpath .
+  fi
+}
+
+__iw-is-path-git-root() {
+  local tested_path="$(realpath "$1")"
+  if [ "$(git rev-parse --show-toplevel 2> /dev/null)" = "$tested_path" ]; then
+    return 0
+  fi
+  return 1
+}
+
+# Transforms absolute paths to more concise for user selection.
+__iw-make-paths-prettier-for-selection() {
+  local root="$(realpath "$1")"
+
+  if __iw-is-path-git-root "$root"; then
+    local prefix_size="$(echo "$root" | wc --bytes)"
+    local new_prefix="$(basename "$root")"
+  elif [ "$root" = "$(realpath ~)" ]; then
+    local prefix_size="$(realpath ~ | wc --bytes)"
+    local new_prefix="~"
+  else
+    local prefix_size="$(realpath . | wc --bytes)"
+    local new_prefix="."
+  fi
+
+  cat | cut -c $prefix_size- | __iw-prepend "$new_prefix"
+}
+
+# Restores absolute path from a transformed path.
+__iw-restore-absolute-path() {
+  local root="$(realpath "$1")"
+  local real_path="$2"
+
+  local prefix_size=2
+  if __iw-is-path-git-root "$root"; then
+    prefix_size="$(basename "$root" | wc --bytes)"
+  fi
+  real_path="$root$(echo -n "$real_path" | cut -c $prefix_size-)"
+
+  echo "$real_path"
+}
+
+# Transforms a prettiered path back to a real path.
+__iw-restore-path-for-paste() {
+  local root="$(realpath "$1")"
+  local real_path="$2"
+
+  real_path="$(__iw-restore-absolute-path "$root" "$real_path")"
+
+  # If path consists a special character.
+  if __iw-path-consists-special-characters "$real_path"; then
+    real_path="${real_path/$(pwd)/.}"
+    real_path="'$real_path'"
+    echo "$real_path"
+    return 0
+  fi
+
+  # Substitute cwd or $HOME
+  real_path="${real_path/$(pwd)/.}"
+  real_path="${real_path/$HOME/~}"
+  echo "$real_path"
+}
+
+########################################
+# Interactive widgets
+
+
+# Interactive pasting a file into the buffer.
+# 1 - If the current directory is part of a project, then the widget suggests
+# files in that project.
+# 2 - If the current directory isn't part of a project, then the widget
+# suggests files in the current directory and all subdirectories.
+iw-paste-file() {
+  zle -I
+
+  local interactive_root="$(__iw-get-root)"
+
+  # Find file to paste
+  FZF_SELECT="fd -tf . \"$interactive_root\" \
+    | __iw-make-paths-prettier-for-selection \"$interactive_root\""
+  local file=$(__iw-fzf-select)
+  local fzf_status=$?
+
+  if [ -n "$file" ]; then
+    # Paste file to zle buffer
+    file="$(__iw-restore-path-for-paste "$interactive_root" "$file")"
+    LBUFFER="${LBUFFER}$file"
+  fi
+
+  zle reset-prompt
+  return $fzf_status
+}
+zle -N iw-paste-file
+
+
+# Interactive pasting a directory into the buffer.
+# 1 - If the current directory is part of a project, then the widget suggests
+# directories in that project.
+# 2 - If the current directory isn't part of a project, then the widget
+# suggests subdirectories of cwd.
+iw-paste-directory() {
+  zle -I
+
+  local interactive_root="$(__iw-get-root)"
+
+  # Find directory to paste
+  FZF_SELECT="fd -td . \"$interactive_root\" \
+    | __iw-make-paths-prettier-for-selection \"$interactive_root\""
+  local directory=$(__iw-fzf-select)
+  local fzf_status=$?
+
+  if [ -n "$directory" ]; then
+    # Paste directory to zle buffer
+    directory="$(__iw-restore-path-for-paste "$interactive_root" "$directory")"
+    LBUFFER="${LBUFFER}$directory"
+  fi
+
+  zle reset-prompt
+  return $fzf_status
+}
+zle -N iw-paste-directory
+
+
+# Interactive switching current directory.
+# 1 - If the current directory is part of a project, then the widget suggests
+# directories in that project.
+# 2 - If the current directory isn't part of a project, then the widget
+# suggests subdirectories of cwd.
+iw-cd-directory() {
+  zle -I
+
+  local interactive_root="$(__iw-get-root)"
+
+  # Find directory to paste
+  FZF_SELECT="fd -td . \"$interactive_root\" \
+    | __iw-make-paths-prettier-for-selection \"$interactive_root\""
+  local directory=$(__iw-fzf-select)
+  local fzf_status=$?
+
+  if [[ -z "$directory" ]]; then
+    zle reset-prompt
+    return $fzf_status
+  fi
+
+  # Go to the selected directory
+  directory="$(__iw-restore-absolute-path "$interactive_root" "$directory")"
+  cd $directory &&
+
+  zle __iw-redraw-prompt
+  return $fzf_status
+}
+zle -N iw-cd-directory
+
+
+# Interactive switching to a project.
+iw-cd-project() {
+  zle -I
+
+  # Search all project paths
+  __iw-project-search() {
+    test -d "$1" && fd -H -td -d 1 . "$1"
+  }
+
+  FZF_SELECT="{                        \
+    { echo ~/configuration             & \
+    __iw-project-search ~/projects               & \
+    __iw-project-search ~/.local/share/nvim/lazy & \
+    __iw-project-search ~/.antigen/bundles       & \
+    __iw-project-search ~/.tmux/plugins } \
+    | __iw-make-paths-prettier-for-selection ~
+  }"
+
+  # Perform project selection
+  local project_directory=$(__iw-fzf-select)
+  local fzf_status=$?
+
+  if [[ -z "$project_directory" ]]; then
+    zle reset-prompt
+    return $fzf_status
+  fi
+
+  # Go to the project directory
+  project_directory="$(__iw-restore-absolute-path ~ "$project_directory")"
+  cd "$project_directory" > /dev/null &&
+
+  zle __iw-redraw-prompt
+  return $fzf_status
+}
+zle -N iw-cd-project
+
+
+# Interactive killing a process.
+k() {
+  FZF_SELECT="ps cax | tail -n +2"
+  local process=$(__iw-fzf-select)
+
+  if [[ -z "$process" ]]; then
+    return
+  fi
+
+  local pid="$(echo "$process" | sed -r -e "s/\s*([[:digit:]]+).*/\1/")"
+  kill $@ $pid
+}
+
+# vim: set ft=zsh:
