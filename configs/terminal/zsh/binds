@@ -1,3 +1,6 @@
+#!/usr/bin/env zsh
+# File contains binds and corresponding widgets.
+
 ################################################################################
 # ZLE
 
@@ -295,5 +298,3 @@ vi_bind '\en' iw-cd-directory
 vi_bind '\eu' autosuggest-execute
 vi_bind '\ee' autosuggest-accept
 vi_bind '\eo' autosuggest-clear
-
-# vim: set ft=zsh:

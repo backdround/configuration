@@ -1,3 +1,10 @@
+#!/usr/bin/env zsh
+# File describes widgets that allow a user to interactively:
+# - jump to a project directory
+# - jump to a directory
+# - paste file path
+# - paste directory path
+
 ########################################
 # Utility functions
 
@@ -233,5 +240,3 @@ k() {
   local pid="$(echo "$process" | sed -r -e "s/\s*([[:digit:]]+).*/\1/")"
   kill $@ $pid
 }
-
-# vim: set ft=zsh:
