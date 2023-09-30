@@ -184,35 +184,16 @@ local function page_movements()
   u.map("og", "zH", "Move viewport left")
   u.map("oc", "zL", "Move viewport right")
 
-  -- Previous lines
-  local description = "Jump to the start of the previous line"
-  u.nmap("of", "-ze", description)
-  u.xmap("of", "-ze", description)
-  u.omap("of", ":execute 'normal!' . v:count1 . '-ze'<CR>", description)
+  local line_jump = hacks.jump_to_line
 
-  description = "Jump to the end of the previous line"
-  u.nmap("or", "-$", description)
-  u.xmap("or", "-$", description)
-  u.omap("or", ":execute 'normal!' . v:count1 . '-$'<CR>", description)
+  u.map("of", line_jump.start_previous, "Jump to the start of a previous line")
+  u.map("or", line_jump.end_previous, "Jump to the end of a previous line")
 
-  -- Current line
-  description = "Jump to the start of the current line"
-  u.nmap("od", "^ze", description)
-  u.xmap("od", "^ze", description)
-  u.omap("od", ":normal! ^ze<CR>", description)
-
+  u.map("od", line_jump.start, "Jump to the start of the current line")
   u.map("on", "$", "Jump to the end of the current line")
 
-  -- Next lines
-  description = "Jump to the start of the next line"
-  u.nmap("ob", "+ze", description)
-  u.xmap("ob", "+ze", description)
-  u.omap("ob", ":execute 'normal!' . v:count1 . '+ze'<CR>", description)
-
-  description = "Jump to the end of the next line"
-  u.nmap("o.", "+$", description)
-  u.xmap("o.", "+$", description)
-  u.omap("o.", ":execute 'normal!' . v:count1 . '+$'<CR>", description)
+  u.map("ob", line_jump.start_next, "Jump to the start of a next line")
+  u.map("o.", line_jump.end_next, "Jump to the end of a next line")
 end
 
 local function jump_motions(add_plugin)
