@@ -16,16 +16,6 @@ __iw-path-consists-special-characters() {
   return 1
 }
 
-# Redraws prompt (useful after changing cwd).
-__iw-redraw-prompt() {
-  local precmd
-  for precmd in $precmd_functions; do
-    $precmd
-  done
-  zle reset-prompt
-}
-zle -N __iw-redraw-prompt
-
 # Performs interactive selection based on FZF_SELECT command.
 __iw-fzf-select() {
   setopt localoptions pipefail no_aliases 2> /dev/null
@@ -182,16 +172,13 @@ iw-cd-directory() {
   local directory=$(__iw-fzf-select)
   local fzf_status=$?
 
-  if [[ -z "$directory" ]]; then
-    zle reset-prompt
-    return $fzf_status
+  # Go to the selected directory
+  if [[ -n "$directory" ]]; then
+    directory="$(__iw-restore-absolute-path "$interactive_root" "$directory")"
+    cd $directory
   fi
 
-  # Go to the selected directory
-  directory="$(__iw-restore-absolute-path "$interactive_root" "$directory")"
-  cd $directory &&
-
-  zle __iw-redraw-prompt
+  zle reset-prompt
   return $fzf_status
 }
 zle -N iw-cd-directory
@@ -219,16 +206,13 @@ iw-cd-project() {
   local project_directory=$(__iw-fzf-select)
   local fzf_status=$?
 
-  if [[ -z "$project_directory" ]]; then
-    zle reset-prompt
-    return $fzf_status
+  # Go to the project directory
+  if [[ -n "$project_directory" ]]; then
+    project_directory="$(__iw-restore-absolute-path ~ "$project_directory")"
+    cd "$project_directory" > /dev/null
   fi
 
-  # Go to the project directory
-  project_directory="$(__iw-restore-absolute-path ~ "$project_directory")"
-  cd "$project_directory" > /dev/null &&
-
-  zle __iw-redraw-prompt
+  zle reset-prompt
   return $fzf_status
 }
 zle -N iw-cd-project

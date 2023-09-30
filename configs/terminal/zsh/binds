@@ -55,29 +55,22 @@ vi-yank-x-line () {
 }
 zle -N vi-yank-x-line
 
-# reset prompt. copy from z4h.
-function custom_reset_promp() {
-  local f
-  for f in chpwd "${chpwd_functions[@]}" precmd "${precmd_functions[@]}"; do
-    [[ "${+functions[$f]}" == 0 ]] || "$f" &>/dev/null || true
-  done
-  zle .reset-prompt
-  zle -R
-}
-
 # cd
-function cd-project-root() {
+function cd-current-git-root() {
   local root_directory="$(git rev-parse --show-toplevel 2> /dev/null)"
   if [ $? ]; then
-    cd "$root_directory" > /dev/null && custom_reset_promp
+    cd "$root_directory" > /dev/null && zle reset-prompt
   fi
 }
-function cd-home() { cd ~ > /dev/null && custom_reset_promp }
-function cd-up() { cd .. > /dev/null && custom_reset_promp }
-function cd-back() { cd - > /dev/null && custom_reset_promp }
-zle -N cd-project-root
+zle -N cd-current-git-root
+
+function cd-home() { cd ~ > /dev/null && zle reset-prompt }
 zle -N cd-home
+
+function cd-up() { cd .. > /dev/null && zle reset-prompt }
 zle -N cd-up
+
+function cd-back() { cd - > /dev/null && zle reset-prompt }
 zle -N cd-back
 
 vi_bind() {
@@ -289,7 +282,7 @@ vi_bind '\ec' iw-paste-directory
 vi_bind '\er' fzf-history-widget
 
 vi_bind '\eh' iw-cd-project
-vi_bind '\et' cd-project-root
+vi_bind '\et' cd-current-git-root
 vi_bind '\en' iw-cd-directory
 
 vi_bind '\eu' autosuggest-execute
