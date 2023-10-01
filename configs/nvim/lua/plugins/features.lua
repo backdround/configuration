@@ -69,6 +69,13 @@ local function annotations(add_plugin)
           ["args"] = "[args]",
           ["kwargs"] = "[kwargs]",
         },
+        languages = {
+          lua = {
+            template = {
+              annotation_convention = "emmylua"
+            }
+          }
+        }
       })
       local description = "Generate annotation comment"
       u.nmap("bk", u.wrap(neogen.generate, { type = "any" }), description)
