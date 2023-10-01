@@ -70,11 +70,13 @@ local function textobjects_configure()
         set_jumps = false,
         goto_previous_start = {
           ["x,"] = "@parameter.inner",
+          ["xf"] = "@function.outer",
           ["xF"] = "@function.inner",
         },
         goto_next_start = {
           ["x."] = "@parameter.inner",
-          ["xf"] = "@function.inner",
+          ["xd"] = "@function.outer",
+          ["xD"] = "@function.inner",
         },
       },
     },
