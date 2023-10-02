@@ -34,13 +34,12 @@ map :     console
 
 
 # Base movements
-unmap b e u i o
-map e move down=1
-map u move up=1
-map b move left=1
-map i move right=1
-map od move left=1
-map on move right=1
+unmap o <left> <right> <up> <down>
+map <C-s> move down=1
+map <C-p> move up=1
+map <C-v> move left=1
+map <C-y> move right=1
+
 map ot move to=0
 map oh move to=-1
 

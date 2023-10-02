@@ -89,7 +89,11 @@ FZF_COLORS="--color='\
 FZF_COLORS=$(echo $FZF_COLORS | tr -d ' ')
 
 export FZF_TMUX_HEIGHT=40%
-export FZF_DEFAULT_OPTS="--no-mouse --cycle --reverse --border $FZF_COLORS"
+export FZF_DEFAULT_OPTS="--no-mouse --cycle --reverse --border $FZF_COLORS \
+  --bind=left:ignore,right:ignore,up:ignore,down:ignore \
+  --bind=esc:ignore,enter:ignore \
+  --bind=alt-o:accept,alt-s:abort \
+  --bind=ctrl-s:down,ctrl-p:up"
 export FZF_DEFAULT_COMMAND='fd --type file'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='fd --type directory'
