@@ -68,15 +68,15 @@ bind -T copy-mode-vi 'U' send -X halfpage-up
 bind -T copy-mode-vi 'e' send -N 12 -X scroll-down
 bind -T copy-mode-vi 'u' send -N 12 -X scroll-up
 
-bind -T copy-mode-vi 'j' send -X next-word
-bind -T copy-mode-vi 'p' send -X next-word-end
-bind -T copy-mode-vi 'w' send -X previous-word
+bind -T copy-mode-vi 'z' send -X previous-word
 bind -T copy-mode-vi 'q' "send -X cursor-left \; send -X next-word-end \; send -X previous-word \; send -X previous-word \; send -X next-word-end"
+bind -T copy-mode-vi 'j' send -X next-word
+bind -T copy-mode-vi 'k' send -X next-word-end
 
-bind -T copy-mode-vi 'J' send -X next-space
-bind -T copy-mode-vi 'P' send -X next-space-end
-bind -T copy-mode-vi 'W' send -X previous-space
+bind -T copy-mode-vi 'Z' send -X previous-space
 bind -T copy-mode-vi 'Q' "send -X cursor-left \; send -X next-word-end \; send -X previous-word \; send -X previous-word \; send -X next-word-end"
+bind -T copy-mode-vi 'J' send -X next-space
+bind -T copy-mode-vi 'K' send -X next-space-end
 
 bind -T copy-mode-vi 'o' switch-client -T multiKeyBindings
 bind -T multiKeyBindings 't' send -X history-top
@@ -89,10 +89,10 @@ bind -T copy-mode-vi End  send end-of-line
 
 bind -T copy-mode-vi ')' send -X jump-again
 bind -T copy-mode-vi '(' send -X jump-reverse
-bind -T copy-mode-vi 'k' command-prompt -1 -p "to:" "send -X jump-forward \"%%%\""
-bind -T copy-mode-vi 'z' command-prompt -1 -p "to:" "send -X jump-backward \"%%%\""
-bind -T copy-mode-vi 'K' command-prompt -1 -p "to:" "send -X jump-to-forward \"%%%\""
-bind -T copy-mode-vi 'Z' command-prompt -1 -p "to:" "send -X jump-to-backward \"%%%\""
+bind -T copy-mode-vi 'w' command-prompt -1 -p "to:" "send -X jump-backward \"%%%\""
+bind -T copy-mode-vi 'W' command-prompt -1 -p "to:" "send -X jump-to-backward \"%%%\""
+bind -T copy-mode-vi 'p' command-prompt -1 -p "to:" "send -X jump-forward \"%%%\""
+bind -T copy-mode-vi 'P' command-prompt -1 -p "to:" "send -X jump-to-forward \"%%%\""
 
 bind -T copy-mode-vi '}' send -X next-paragraph
 bind -T copy-mode-vi '{' send -X previous-paragraph

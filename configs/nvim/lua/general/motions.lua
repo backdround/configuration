@@ -3,21 +3,21 @@ local hacks = require("general.hacks")
 
 local function word_motion(add_plugin)
   -- Base mode
-  u.map("w", "b", "To the start of the previous word")
+  u.map("z", "b", "To the start of the previous word")
   u.map("j", "w", "To the start of the next word")
   u.map("q", "ge", "To the end of the previous word")
-  u.map("p", "e", "To the end of the next word")
+  u.map("k", "e", "To the end of the next word")
 
-  u.map("W", "B", "To the start of the previous full word")
+  u.map("Z", "B", "To the start of the previous full word")
   u.map("J", "W", "To the start of the next full word")
   u.map("Q", "gE", "To the end of the previous full word")
-  u.map("P", "E", "To the end of the next full word")
+  u.map("K", "E", "To the end of the next full word")
 
   -- Insert mode
-  u.imap("<C-w>", "<C-o>b", "To the start of the previous word")
+  u.imap("<C-z>", "<C-o>b", "To the start of the previous word")
   u.imap("<C-q>", "<Esc>gea", "To the start of the next word")
   u.imap("<C-j>", "<C-o>w", "To the end of the previous word")
-  u.imap("<C-p>", "<Esc>ea", "To the end of the next word")
+  u.imap("<C-k>", "<Esc>ea", "To the end of the next word")
 
   u.imap("<C-a>", "<C-o>B", "To the start of the previous full word")
   u.imap("<C-e>", "<C-o>W", "To the start of the next full word")
@@ -29,19 +29,19 @@ local function word_motion(add_plugin)
   vim.g.wordmotion_nomap = 1
   add_plugin("chaoren/vim-wordmotion")
 
-  u.map("<M-w>", "<Plug>WordMotion_b", "To the start of the previous real word")
+  u.map("<M-z>", "<Plug>WordMotion_b", "To the start of the previous real word")
   u.map("<M-q>", "<Plug>WordMotion_ge", "To the end of the previous real word")
   u.map("<M-j>", "<Plug>WordMotion_w", "To the start of the next real word")
-  u.map("<M-p>", "<Plug>WordMotion_e", "To the end of the next real word")
+  u.map("<M-k>", "<Plug>WordMotion_e", "To the end of the next real word")
 
   local description = "To the start of the previous real word"
-  u.imap("<M-w>", "<C-o><Plug>WordMotion_b", description)
+  u.imap("<M-z>", "<C-o><Plug>WordMotion_b", description)
   description = "To the start of the next real word"
   u.imap("<M-j>", "<C-o><Plug>WordMotion_w", description)
   description = "To the end of the previous real word"
   u.imap("<M-q>", "<Left><C-o><Plug>WordMotion_ge<Right>", description)
   description = "To the end of the next real word"
-  u.imap("<M-p>", "<C-o><Plug>WordMotion_e<Right>", description)
+  u.imap("<M-k>", "<C-o><Plug>WordMotion_e<Right>", description)
 end
 
 local function scroll(add_plugin)
@@ -117,15 +117,15 @@ local function find_character(add_plugin)
 
   -- Forward char
   local desc = "Search next character operator"
-  u.map("k", find, { expr = true, desc = desc })
+  u.map("p", find, { expr = true, desc = desc })
   desc = "Search pre next character operator"
-  u.map("<M-k>", find_pre, { expr = true, desc = desc })
+  u.map("<M-p>", find_pre, { expr = true, desc = desc })
 
   -- Backward char
   desc = "Search previous character operator"
-  u.map("z", find_backward, { expr = true, desc = desc })
+  u.map("w", find_backward, { expr = true, desc = desc })
   desc = "Search pre previous character operator"
-  u.map("<M-z>", find_backward_pre, { expr = true, desc = desc })
+  u.map("<M-w>", find_backward_pre, { expr = true, desc = desc })
 
   -- Between chars
   desc = "Search forward of the last searched character"

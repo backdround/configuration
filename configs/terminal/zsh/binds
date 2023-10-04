@@ -110,20 +110,20 @@ bindkey -r -M vivis 'jj'
 bindkey -r -M vivis 'o'
 
 # movements
-bindkey -M vivis 'w' vi-visual-backward-word
+bindkey -M vivis 'z' vi-visual-backward-word
 bindkey -M vivis 'q' vi-visual-backward-word-end
 bindkey -M vivis 'j' vi-visual-forward-word
-bindkey -M vivis 'p' vi-visual-forward-word-end
+bindkey -M vivis 'k' vi-visual-forward-word-end
 
-bindkey -M vivis 'W' vi-visual-backward-blank-word
+bindkey -M vivis 'Z' vi-visual-backward-blank-word
 bindkey -M vivis 'Q' vi-visual-backward-blank-word-end
 bindkey -M vivis 'J' vi-visual-forward-blank-word
-bindkey -M vivis 'P' vi-visual-forward-blank-word-end
+bindkey -M vivis 'K' vi-visual-forward-blank-word-end
 
-bindkey -M vivis 'z' vi-visual-find-prev-char
-bindkey -M vivis 'Z' vi-visual-find-prev-char-skip
-bindkey -M vivis 'k' vi-visual-find-next-char
-bindkey -M vivis 'K' vi-visual-find-next-char-skip
+bindkey -M vivis 'w' vi-visual-find-prev-char
+bindkey -M vivis 'W' vi-visual-find-prev-char-skip
+bindkey -M vivis 'p' vi-visual-find-next-char
+bindkey -M vivis 'P' vi-visual-find-next-char-skip
 bindkey -M vivis ')' vi-visual-repeat-find
 bindkey -M vivis '(' vi-visual-rev-repeat-find
 
@@ -181,18 +181,15 @@ bindkey -M vivli 'n' vi-vlines-exit-to-visual
 # INSERT KEYBINDINGS
 
 # movements
-bindkey -v '^w' vi-backward-word
+bindkey -v '^z' vi-backward-word
 bindkey -v '^q' vi-backward-word-end
 bindkey -v '^j' vi-forward-word
-bindkey -v '^p' vi-forward-word-end
+bindkey -v '^k' vi-forward-word-end
 
 bindkey -v '^a' vi-backward-blank-word
 bindkey -v '^o' vi-backward-blank-word-end
 bindkey -v '^e' vi-forward-blank-word
 bindkey -v '^u' vi-forward-blank-word-end
-
-bindkey -v '^k' vi-find-next-char
-bindkey -v '^z' vi-find-prev-char
 
 ########################################
 # NORMAL KEYBINDINGS
@@ -201,25 +198,25 @@ bindkey -a -r 'o'
 bindkey -a -r 'gg'
 
 # movement
-bindkey -a 'w' vi-backward-word
+bindkey -a 'z' vi-backward-word
 bindkey -a 'q' vi-backward-word-end
 bindkey -a 'j' vi-forward-word
-bindkey -a 'p' vi-forward-word-end
+bindkey -a 'k' vi-forward-word-end
 
-bindkey -a 'W' vi-backward-blank-word
+bindkey -a 'Z' vi-backward-blank-word
 bindkey -a 'Q' vi-backward-blank-word-end
 bindkey -a 'J' vi-forward-blank-word
-bindkey -a 'P' vi-forward-blank-word-end
+bindkey -a 'K' vi-forward-blank-word-end
 
 bindkey -a 'od' beginning-of-line
 bindkey -a 'on' end-of-line
 bindkey -a 'oh' end-of-buffer-or-history
 bindkey -a 'ot' beginning-of-buffer-or-history
 
-bindkey -a 'z' vi-find-prev-char
-bindkey -a 'Z' vi-find-prev-char-skip
-bindkey -a 'k' vi-find-next-char
-bindkey -a 'K' vi-find-next-char-skip
+bindkey -a 'w' vi-find-prev-char
+bindkey -a 'W' vi-find-prev-char-skip
+bindkey -a 'p' vi-find-next-char
+bindkey -a 'P' vi-find-next-char-skip
 bindkey -a ')' vi-repeat-find
 bindkey -a '(' vi-rev-repeat-find
 
