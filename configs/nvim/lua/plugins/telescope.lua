@@ -8,21 +8,55 @@ local dependencies = {
     build = "make",
   },
   "nvim-telescope/telescope-ui-select.nvim",
+  "backdround/telescope-file-browser.nvim",
 }
 
 local function setup()
   local actions = require("telescope.actions")
   local telescope = require("telescope")
+  local fb_actions = require("telescope._extensions.file_browser.actions")
 
   telescope.setup({
     defaults = {
+      default_mappings = {},
       mappings = {
         i = {
-          ["<esc>"] = actions.close,
+          ["<M-s>"] = actions.close,
+
+          ["<C-s>"] =  actions.move_selection_next,
+          ["<C-p>"] = actions.move_selection_previous,
+
           ["<M-o>"] = actions.select_default,
           ["<M-e>"] = actions.select_horizontal,
           ["<M-u>"] = actions.select_vertical,
           ["<M-i>"] = actions.select_tab,
+
+          ["<M-c>"] = actions.results_scrolling_right,
+          ["<M-g>"] = actions.results_scrolling_left,
+
+          ["<C-/>"] = actions.which_key,
+           -- It fixes <C-/>. It's been copied from telescope/mappings.lua.
+          ["<C-_>"] = actions.which_key,
+        },
+        n = {
+          ["<M-s>"] = actions.close,
+
+          ["<C-s>"] =  actions.move_selection_next,
+          ["<C-p>"] = actions.move_selection_previous,
+
+          ["<M-o>"] = actions.select_default,
+          ["<M-e>"] = actions.select_horizontal,
+          ["<M-u>"] = actions.select_vertical,
+          ["<M-i>"] = actions.select_tab,
+
+          ["oc"] = actions.results_scrolling_right,
+          ["og"] = actions.results_scrolling_left,
+          ["oh"] = actions.move_to_bottom,
+          ["ot"] = actions.move_to_top,
+
+          ["<C-/>"] = actions.which_key,
+           -- It fixes <C-/>. It's been copied from telescope/mappings.lua.
+          ["<C-_>"] = actions.which_key,
         },
       },
       sorting_strategy = "ascending",
@@ -42,12 +76,54 @@ local function setup()
       luasnip = {},
       fzf = {},
       ["ui-select"] = {},
+      file_browser = {
+        layout_strategy = "horizontal",
+        layout_config = {
+          prompt_position = "top",
+          height = 0.85,
+          width = 0.8,
+          mirror = false,
+          preview_cutoff = 190,
+          preview_width = 90,
+        },
+        mappings = {
+          i = {
+            ["<C-v>"] = fb_actions.goto_parent_dir,
+            ["<C-y>"] = actions.select_default,
+
+            ["<M-d>c"] = fb_actions.create,
+            ["<M-d><M-c>"] = fb_actions.create_from_prompt,
+            ["<M-d>t"] = fb_actions.remove,
+            ["<M-d>r"] = fb_actions.rename,
+            ["<M-d>f"] = fb_actions.copy,
+            ["<M-d>m"] = fb_actions.move,
+            ["<M-d>."] = fb_actions.toggle_hidden,
+          },
+
+          n = {
+            ["<C-v>"] = fb_actions.goto_parent_dir,
+            ["<C-y>"] = actions.select_default,
+
+            ["<M-d>c"] = fb_actions.create,
+            ["<M-d><M-c>"] = fb_actions.create_from_prompt,
+            ["<M-d>t"] = fb_actions.remove,
+            ["<M-d>r"] = fb_actions.rename,
+            ["<M-d>f"] = fb_actions.copy,
+            ["<M-d>m"] = fb_actions.move,
+            ["<M-d>."] = fb_actions.toggle_hidden,
+          },
+        },
+      },
     },
   })
+
+  -- Hack: Remove all default file_browser mappings
+  require("telescope._extensions.file_browser.config").values.mappings = {}
 
   telescope.load_extension("luasnip")
   telescope.load_extension("fzf")
   telescope.load_extension("ui-select")
+  telescope.load_extension("file_browser")
 end
 
 local function pick_local_file()
@@ -151,8 +227,8 @@ local function set_mappings()
   )
 
   -- Commands
-  u.nmap("<leader>c", builtin.commands, "Show commands")
-  u.nmap("<leader><M-c>", builtin.command_history, "Show command history")
+  u.nmap("<leader>w", builtin.commands, "Show commands")
+  u.nmap("<leader><M-w>", builtin.command_history, "Show command history")
 
   -- TODO: check crispgm/telescope-heading.nvim
   -- Helps
@@ -163,7 +239,17 @@ local function set_mappings()
   -- Other
   u.nmap("<M-d>", builtin.buffers, "Show buffers")
   u.nmap("<leader>s", telescope.extensions.luasnip.luasnip, "Show snippets")
-  u.nmap("<leader>b", builtin.builtin, "Show telescope builtin pickers")
+  u.nmap("<leader>p", builtin.builtin, "Show telescope builtin pickers")
+  u.nmap(
+    "<leader>c",
+    ":Telescope file_browser<CR>",
+    "Open file browser in root"
+  )
+  u.nmap(
+    "<leader><M-c>",
+    ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
+    "Open file browser near the current file"
+  )
 end
 
 local function apply(add_plugin)

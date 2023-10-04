@@ -138,10 +138,12 @@ local function viminput(add_plugin)
         win_options = { winblend = 0 },
         mappings = {
           n = {
-            ["<M-x>"] = "Confirm",
+            ["<M-s>"] = "Close",
+            ["<M-o>"] = "Confirm",
           },
           i = {
-            ["<M-x>"] = "Confirm",
+            ["<M-s>"] = "Close",
+            ["<M-o>"] = "Confirm",
           },
         },
       },
