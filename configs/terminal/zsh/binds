@@ -58,6 +58,11 @@ vi-yank-x-line () {
 }
 zle -N vi-yank-x-line
 
+exit-widget() {
+  exit
+}
+zle -N exit-widget
+
 # cd
 function cd-current-git-root() {
   local root_directory="$(git rev-parse --show-toplevel 2> /dev/null)"
@@ -180,6 +185,9 @@ bindkey -M vivli 'n' vi-vlines-exit-to-visual
 ########################################
 # INSERT KEYBINDINGS
 
+bindkey -v '\eo' accept-line
+bindkey -v '\es' exit-widget
+
 # movements
 bindkey -v '^z' vi-backward-word
 bindkey -v '^q' vi-backward-word-end
@@ -196,6 +204,10 @@ bindkey -v '^u' vi-forward-blank-word-end
 
 bindkey -a -r 'o'
 bindkey -a -r 'gg'
+
+bindkey -a '\eo' accept-line
+bindkey -a '\es' exit-widget
+
 
 # movement
 bindkey -a 'z' vi-backward-word
@@ -294,4 +306,4 @@ vi_bind '\en' iw-cd-directory
 
 vi_bind '\eu' autosuggest-execute
 vi_bind '\ee' autosuggest-accept
-vi_bind '\eo' autosuggest-clear
+vi_bind '\ei' autosuggest-clear
