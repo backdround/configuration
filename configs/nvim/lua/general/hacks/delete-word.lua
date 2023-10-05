@@ -1,3 +1,8 @@
+---@module "delete-word"
+--- The file contains functions that allow a user to delete a full or a simple
+--- word to the left or to the right. It is similar to <C-w>, but it works to
+--- any direction and it's more reliable (doesn't depend on just inserted text).
+
 ------------------------------------------------------------
 -- Utility functions
 
