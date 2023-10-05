@@ -1,24 +1,34 @@
 ------------------------------------------------------------
 -- Utility functions
 
--- Returns start and stop indices of a last big word (space separated).
-local function find_last_big_word_indices(s)
-  local result = s:match("[^%s]+%s*$")
-  if result then
-    return s:find("[^%s]+%s*$")
-  else
-    return s:find("%s+$")
-  end
+-- Returns start index of a last big word (space separated).
+local function find_last_big_word_start(s)
+  local word_start = s:find("[^%s]+%s*$")
+  local space_start = s:find("%s+$")
+  return word_start or space_start
 end
 
--- Returns start and stop indices of a first big word (space separated).
-local function find_first_big_word_indices(s)
-  local result = s:match("^%s*[^%s]+")
-  if result then
-    return s:find("^%s*[^%s]+")
-  else
-    return s:find("^%s+")
-  end
+-- Returns start index of a first big word (space separated).
+local function find_first_big_word_stop(s)
+  local _, word_stop = s:find("^%s*[^%s]+")
+  local _, space_stop = s:find("^%s+")
+  return word_stop or space_stop
+end
+
+-- Returns start index of a last word.
+local function find_last_word_start(s)
+  local word_start = s:find("[a-zA-Z0-9_]+%s*$")
+  local non_word_start = s:find("[^a-zA-Z0-9_%s]+%s*$")
+  local space_start = s:find("%s+$")
+  return word_start or non_word_start or space_start
+end
+
+-- Returns end index of a first word.
+local function find_first_word_stop(s)
+  local _, word_stop = s:find("^%s*[a-zA-Z0-9_]+")
+  local _, non_word_stop = s:find("^%s*[^a-zA-Z0-9_%s]+")
+  local _, space_stop = s:find("^%s+")
+  return word_stop or non_word_stop or space_stop
 end
 
 local function get_cursor_position()
@@ -96,7 +106,7 @@ local function delete_left_big_word()
   local line = get_line(line_index)
 
   local left_part = line:sub(0, column_index)
-  local target_index, _ = find_last_big_word_indices(left_part)
+  local target_index = find_last_big_word_start(left_part)
 
   if target_index == nil then
     concatenate_two_lines(false)
@@ -110,7 +120,35 @@ local function delete_right_big_word()
   local line = get_line(line_index)
 
   local right_part = line:sub(column_index + 1)
-  local _, target_index = find_first_big_word_indices(right_part)
+  local target_index = find_first_big_word_stop(right_part)
+
+  if target_index == nil then
+    concatenate_two_lines(true)
+  else
+    delete_string_to_position(target_index + column_index)
+  end
+end
+
+local function delete_left_word()
+  local line_index, column_index = get_cursor_position()
+  local line = get_line(line_index)
+
+  local left_part = line:sub(0, column_index)
+  local target_index, _ = find_last_word_start(left_part)
+
+  if target_index == nil then
+    concatenate_two_lines(false)
+  else
+    delete_string_to_position(target_index)
+  end
+end
+
+local function delete_right_word()
+  local line_index, column_index = get_cursor_position()
+  local line = get_line(line_index)
+
+  local right_part = line:sub(column_index + 1)
+  local target_index = find_first_word_stop(right_part)
 
   if target_index == nil then
     concatenate_two_lines(true)
@@ -120,6 +158,8 @@ local function delete_right_big_word()
 end
 
 return {
+  left = delete_left_word,
+  right = delete_right_word,
   full_left = delete_left_big_word,
   full_right = delete_right_big_word,
 }
