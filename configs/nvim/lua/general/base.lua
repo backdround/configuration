@@ -225,7 +225,20 @@ local function misc()
   -- Misc
   vim.opt.pastetoggle = "<F8>"
   u.nmap("_", "<Cmd>write<CR>", "Write buffer")
-  u.map("<2-LeftMouse>", "<nop>", "Don't do anything")
+
+  local maps_to_disable = {
+    "<MiddleMouse>",
+    "<2-MiddleMouse>",
+    "<3-MiddleMouse>",
+    "<4-MiddleMouse>",
+    "<RightMouse>",
+    "<2-RightMouse>",
+    "<3-RightMouse>",
+    "<4-RightMouse>",
+  }
+  for _, map in ipairs(maps_to_disable) do
+    u.map(map, "<nop>", "Don't do anything")
+  end
 end
 
 local function apply(add_plugin)
