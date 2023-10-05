@@ -83,6 +83,7 @@ local function apply()
   set_title()
 
   -- Misc
+  options.splitright = true
   options.completeopt = { "menu", "menuone", "noselect" }
   options.updatetime = 40
   options.timeout = false
