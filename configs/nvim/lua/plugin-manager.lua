@@ -1,17 +1,21 @@
+---@module "plugin-manager"
+--- The module adds ability to a user to load lazy's plugins.
+
 local utils = require("utilities")
 
-local function ensure_lazy()
-  -- Sets lazy path
+--- It installs lazy plugin manager if it is't present.
+local function ensure_lazy_presence()
+  -- Set lazy path
   local lazy_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
   vim.opt.runtimepath:prepend(lazy_path)
 
-  -- Checks lazy presence
+  -- Check lazy presence
   if vim.loop.fs_stat(lazy_path) then
-    return "skipped"
+    return
   end
 
-  -- Installs lazy
-  utils.notify("Lazy installation ...")
+  -- Install lazy
+  utils.notify("Lazy installation is in progress...")
   local clone_output = vim.fn.system({
     "git",
     "clone",
@@ -20,26 +24,28 @@ local function ensure_lazy()
     lazy_path,
   })
 
-  -- Checks error
+  -- Check the error code
   if vim.v.shell_error ~= 0 then
-    local error_message = "Unable to clone lazy\n" .. clone_output
+    local error_message = "Unable to clone lazy:\n" .. clone_output
     error(error_message)
   end
 
-  -- Returns successfully
-  utils.notify("Lazy installed success!")
-  return "installed"
+  -- Notify success.
+  utils.notify("Lazy's been installed successfully!")
 end
 
 local plugins = {}
 
-local function add(plugin)
+--- Adds a plugin to the list to dealt with.
+---@param plugin string|table: lazy's plugin
+local function add_plugin(plugin)
   utils.assert_string_or_table(plugin, "Plugin", 2)
   table.insert(plugins, plugin)
 end
 
-local function apply()
-  ensure_lazy()
+--- Load all previously given plugins.
+local function load()
+  ensure_lazy_presence()
 
   -- Changes default mappings
   local config = require("lazy.view.config")
@@ -63,6 +69,6 @@ local function apply()
 end
 
 return {
-  add = add,
-  apply = apply,
+  add_plugin = add_plugin,
+  load = load,
 }

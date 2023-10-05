@@ -6,7 +6,7 @@ local function autocmd(unique_group, event, options)
 end
 
 local function notify(message, time)
-  time = time or "2000"
+  time = time or "4000"
   vim.fn.system({
     "notify-send",
     "-t",
