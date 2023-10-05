@@ -1,43 +1,56 @@
--- Require without cache
-local function load(module_name)
+--- It is "require()" but without cache.
+local function load_module(module_name)
   package.loaded[module_name] = nil
   return require(module_name)
 end
 
--- Apply module
+--- It finds and performs a module with the given arguments.
 local function apply(module_name, ...)
-  local status, result = pcall(load, module_name)
+  -- Load module
+  local status, result = pcall(load_module, module_name)
 
   if not status then
-    local error_message = result
-    print(error_message)
-    return nil
+    vim.api.nvim_err_writeln(result)
+    return
   end
 
   local module = result
-  return module.apply(...)
+
+  -- Apply module
+  status, result = pcall(module.apply, ...)
+  if not status then
+    vim.api.nvim_err_writeln(result)
+  end
 end
 
--- Applies configs
-local pm = load("plugin-manager")
--- General
-apply("general.base", pm.add_plugin)
-apply("general.options", pm.add_plugin)
-apply("general.motions", pm.add_plugin)
-apply("general.windows", pm.add_plugin)
-apply("general.languages", pm.add_plugin)
 
--- Plugins general
-apply("plugins/editing", pm.add_plugin)
-apply("plugins/features", pm.add_plugin)
-apply("plugins/lsp", pm.add_plugin)
-apply("plugins/ui", pm.add_plugin)
-apply("plugins/lines", pm.add_plugin)
+local module_names = {
+  -- General modules
+  "general.base",
+  "general.options",
+  "general.motions",
+  "general.windows",
+  "general.languages",
 
--- Plugins
-apply("plugins/telescope", pm.add_plugin)
-apply("plugins/treesitter", pm.add_plugin)
-apply("plugins/nvim-cmp", pm.add_plugin)
-apply("plugins/luasnip", pm.add_plugin)
+  -- General plugin modules
+  "plugins/editing",
+  "plugins/features",
+  "plugins/lsp",
+  "plugins/ui",
+  "plugins/lines",
 
-pm.load()
+  -- Plugins
+  "plugins/telescope",
+  "plugins/treesitter",
+  "plugins/nvim-cmp",
+  "plugins/luasnip",
+}
+
+-- Apply all modules
+local plugin_manager = load_module("plugin-manager")
+for _, module_name in ipairs(module_names) do
+  apply(module_name, plugin_manager.add_plugin)
+end
+
+-- Load all registred plugins
+plugin_manager.load()
