@@ -64,6 +64,7 @@ local function commenting(add_plugin)
 end
 
 local function autopairs(add_plugin)
+  -- TODO: to make a request for floating buffer insteard of virsual line
   add_plugin({
     "windwp/nvim-autopairs",
     config = function()
@@ -73,8 +74,10 @@ local function autopairs(add_plugin)
         map_bs = false,
         fast_wrap = {
           map = "<Plug>(user-fastwrap)",
-          keys = "htnueogcrpsvmkjq",
+          pattern = [=[[ %'%"%>%]%)%}%,]]=],
+          keys = "htngcrmaoeu",
           end_key = "i",
+          manual_position = false,
         },
       })
 
