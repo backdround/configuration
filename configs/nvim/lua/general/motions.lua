@@ -190,7 +190,7 @@ local function page_movements()
   u.map("or", line_jump.end_previous, "Jump to the end of a previous line")
 
   u.map("od", line_jump.start, "Jump to the start of the current line")
-  u.map("on", "$", "Jump to the end of the current line")
+  u.map("on", line_jump["end"], "Jump to the end of the current line")
 
   u.map("ob", line_jump.start_next, "Jump to the start of a next line")
   u.map("o.", line_jump.end_next, "Jump to the end of a next line")

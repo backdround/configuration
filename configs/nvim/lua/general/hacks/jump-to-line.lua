@@ -170,10 +170,24 @@ local function jump_to_start_of_current_line()
   vim.api.nvim_win_set_cursor(0, { target_line, target_column })
 end
 
+local function jump_to_end_of_current_line()
+  local initial_line = current_line_index()
+  local initial_column = current_column_index()
+  local target_column = last_symbol_index(initial_line)
+
+  if not is_operator_pending_mode() then
+    vim.api.nvim_win_set_cursor(0, { initial_line, target_column })
+    return
+  end
+
+  select_region(initial_line, initial_column, initial_line, target_column - 1)
+end
+
 return {
   start_previous = jump_to_start_of_previous_line,
   end_previous = jump_to_end_of_previous_line,
   start_next = jump_to_start_of_next_line,
   end_next = jump_to_end_of_next_line,
   start = jump_to_start_of_current_line,
+  ["end"] = jump_to_end_of_current_line,
 }
