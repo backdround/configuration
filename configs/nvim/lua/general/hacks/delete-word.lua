@@ -60,30 +60,34 @@ local function get_last_line_index()
   return vim.fn.line("$")
 end
 
+local function wrap(f, ...)
+  local args = {...}
+  return function()
+    return f(unpack(args))
+  end
+end
+
 local function concatenate_two_lines(forward)
-  -- Get first line to concatenate.
+  -- Get lines to concatenate.
   local first_line_index , _ = get_cursor_position()
   if not forward then
     first_line_index = first_line_index - 1
   end
-  if first_line_index < 1 then
+  local second_line_index = first_line_index + 1
+
+  -- Check out of file
+  if first_line_index < 1 or second_line_index > get_last_line_index() then
     return
   end
 
-  -- Get second line to concatenate.
-  local second_line_index = first_line_index + 1
-  if second_line_index > get_last_line_index() then
-    return
-  end
+  -- Set cursor
+  local first_line_width = get_line(first_line_index):len()
+  set_cursor_position(first_line_index, first_line_width)
 
   -- Concatenate lines
   local new_line = get_line(first_line_index) .. get_line(second_line_index)
-  local first_line_width = get_line(first_line_index):len()
-
   set_line(first_line_index, new_line)
   delete_line(second_line_index)
-
-  set_cursor_position(first_line_index, first_line_width)
 end
 
 local function delete_string_to_position(target_column_index)
@@ -106,65 +110,35 @@ end
 ------------------------------------------------------------
 -- Delete functions
 
-local function delete_left_big_word()
+local function perform_deletion(forward, find_target_column)
   local line_index, column_index = get_cursor_position()
   local line = get_line(line_index)
 
-  local left_part = line:sub(0, column_index)
-  local target_index = find_last_big_word_start(left_part)
-
-  if target_index == nil then
-    concatenate_two_lines(false)
+  -- get target_column
+  local target_column
+  if forward then
+    local right_part = line:sub(column_index + 1)
+    target_column = find_target_column(right_part)
   else
-    delete_string_to_position(target_index)
+    local left_part = line:sub(0, column_index)
+    target_column = find_target_column(left_part)
   end
-end
 
-local function delete_right_big_word()
-  local line_index, column_index = get_cursor_position()
-  local line = get_line(line_index)
-
-  local right_part = line:sub(column_index + 1)
-  local target_index = find_first_big_word_stop(right_part)
-
-  if target_index == nil then
-    concatenate_two_lines(true)
-  else
-    delete_string_to_position(target_index + column_index)
+  -- If there is no match, then concatenate two lines
+  if target_column == nil then
+    concatenate_two_lines(forward)
+    return
   end
-end
 
-local function delete_left_word()
-  local line_index, column_index = get_cursor_position()
-  local line = get_line(line_index)
-
-  local left_part = line:sub(0, column_index)
-  local target_index, _ = find_last_word_start(left_part)
-
-  if target_index == nil then
-    concatenate_two_lines(false)
-  else
-    delete_string_to_position(target_index)
+  if forward then
+    target_column = target_column + column_index
   end
-end
-
-local function delete_right_word()
-  local line_index, column_index = get_cursor_position()
-  local line = get_line(line_index)
-
-  local right_part = line:sub(column_index + 1)
-  local target_index = find_first_word_stop(right_part)
-
-  if target_index == nil then
-    concatenate_two_lines(true)
-  else
-    delete_string_to_position(target_index + column_index)
-  end
+  delete_string_to_position(target_column)
 end
 
 return {
-  left = delete_left_word,
-  right = delete_right_word,
-  full_left = delete_left_big_word,
-  full_right = delete_right_big_word,
+  left = wrap(perform_deletion, false, find_last_word_start),
+  right = wrap(perform_deletion, true, find_first_word_stop),
+  full_left = wrap(perform_deletion, false, find_last_big_word_start),
+  full_right = wrap(perform_deletion, true, find_first_big_word_stop),
 }
