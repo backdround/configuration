@@ -184,16 +184,47 @@ local function page_movements()
   u.map("og", "zH", "Move viewport left")
   u.map("oc", "zL", "Move viewport right")
 
-  local line_jump = hacks.jump_to_line
+  local function map_line_jump(map, line_mode, column_mode, before_symbol)
+    local symbol_description
+    if column_mode == "first" and not before_symbol then
+      symbol_description = "the first symbol"
+    elseif column_mode == "first" and before_symbol then
+      symbol_description = "the second symbol"
+    elseif column_mode == "last" and not before_symbol then
+      symbol_description = "the last symbol"
+    elseif column_mode == "last" and before_symbol then
+      symbol_description = "the second to last symbol"
+    end
 
-  u.map("of", line_jump.start_previous, "Jump to the start of a previous line")
-  u.map("or", line_jump.end_previous, "Jump to the end of a previous line")
+    local line_description
+    if line_mode == "backward" then
+      line_description = "a previous line"
+    elseif line_mode == "current" then
+      line_description = "the current line"
+    elseif line_mode == "forward" then
+      line_description = "a next line"
+    end
+    local description = "Jump to "
+      .. symbol_description
+      .. " of "
+      .. line_description
 
-  u.map("od", line_jump.start, "Jump to the start of the current line")
-  u.map("on", line_jump["end"], "Jump to the end of the current line")
+    local line_jump = hacks.jump_to_line
+    u.map(map, line_jump(line_mode, column_mode, before_symbol), description)
+  end
 
-  u.map("ob", line_jump.start_next, "Jump to the start of a next line")
-  u.map("o.", line_jump.end_next, "Jump to the end of a next line")
+  map_line_jump("of", "backward", "first", false)
+  map_line_jump("o<M-f>", "backward", "first", true)
+  map_line_jump("or", "backward", "last", false)
+  map_line_jump("o<M-r>", "backward", "last", true)
+  map_line_jump("od", "current", "first", false)
+  map_line_jump("o<M-d>", "current", "first", true)
+  map_line_jump("on", "current", "last", false)
+  map_line_jump("o<M-n>", "current", "last", true)
+  map_line_jump("ob", "forward", "first", false)
+  map_line_jump("o<M-b>", "forward", "first", true)
+  map_line_jump("o.", "forward", "last", false)
+  map_line_jump("o<M-.>", "forward", "last", true)
 end
 
 local function jump_motions(add_plugin)

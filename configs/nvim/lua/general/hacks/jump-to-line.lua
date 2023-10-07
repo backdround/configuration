@@ -1,7 +1,8 @@
 ---@module "jump-to-line"
---- The file consists functions that allow user to move to starts or ends
---- of previous or next lines. It works like "-z" / "+z" / "+$" and so on,
---- but this works well with v:count and in operator-pending mode.
+--- The file contains functions that allow a user to move to starts or ends
+--- of previous, current or next lines. It works like "-z" / "+z" / "+$"
+--- and so on, but this works well with v:count, in operator-pending mode and
+--- in a way with motion one symbol before target.
 
 ------------------------------------------------------------
 -- Utility functions
@@ -131,47 +132,49 @@ end
 ------------------------------------------------------------
 -- Jump functions
 
-local function jump_to_start_of_previous_line()
-  local target_line = backward_line_index(vim.v.count1)
-  local target_column = first_symbol_index(target_line)
-  perform_motion(target_line, target_column)
+local function get_jump_function(line_mode, column_mode, before_symbol)
+  -- Select line function
+  local line_function
+  if line_mode == "forward" then
+    line_function = forward_line_index
+  elseif line_mode == "current" then
+    line_function = current_line_index
+  else
+    line_function = backward_line_index
+  end
+
+  -- Select column function
+  local column_function
+  if column_mode == "first" then
+    column_function = first_symbol_index
+  else
+    column_function = last_symbol_index
+  end
+
+  -- Select column shift function
+  local column_shift_function = function(column_index)
+    return column_index
+  end
+  if before_symbol then
+    column_shift_function = function(column_index)
+      if column_mode == "first" then
+        return column_index + 1
+      elseif mode() == "normal" then
+        return column_index - 2
+      else
+        return column_index - 1
+      end
+    end
+  end
+
+  local result_jump = function()
+    local target_line = line_function(vim.v.count1)
+    local target_column = column_function(target_line)
+    target_column = column_shift_function(target_column)
+    perform_motion(target_line, target_column)
+  end
+
+  return result_jump
 end
 
-local function jump_to_end_of_previous_line()
-  local target_line = backward_line_index(vim.v.count1)
-  local target_column = last_symbol_index(target_line)
-  perform_motion(target_line, target_column)
-end
-
-local function jump_to_start_of_next_line()
-  local target_line = forward_line_index(vim.v.count1)
-  local target_column = first_symbol_index(target_line)
-  perform_motion(target_line, target_column)
-end
-
-local function jump_to_end_of_next_line()
-  local target_line = forward_line_index(vim.v.count1)
-  local target_column = last_symbol_index(target_line)
-  perform_motion(target_line, target_column)
-end
-
-local function jump_to_start_of_current_line()
-  local target_line = current_line_index()
-  local target_column = first_symbol_index(target_line)
-  perform_motion(target_line, target_column)
-end
-
-local function jump_to_end_of_current_line()
-  local target_line = current_line_index()
-  local target_column = last_symbol_index(target_line)
-  perform_motion(target_line, target_column)
-end
-
-return {
-  start_previous = jump_to_start_of_previous_line,
-  end_previous = jump_to_end_of_previous_line,
-  start_next = jump_to_start_of_next_line,
-  end_next = jump_to_end_of_next_line,
-  start = jump_to_start_of_current_line,
-  ["end"] = jump_to_end_of_current_line,
-}
+return get_jump_function
