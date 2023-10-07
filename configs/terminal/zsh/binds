@@ -63,6 +63,31 @@ exit-widget() {
 }
 zle -N exit-widget
 
+function kill-left-word() {
+  LBUFFER="${LBUFFER%%([a-zA-Z0-9_]##|[^a-zA-Z0-9_[:space:]]##|)[[:space:]]#}"
+  zle redisplay
+}
+zle -N kill-left-word
+
+function kill-full-left-word() {
+  LBUFFER="${LBUFFER%%[^[:space:]]##[[:space:]]#}"
+  zle redisplay
+}
+zle -N kill-full-left-word
+
+function kill-right-word() {
+  RBUFFER="${RBUFFER##[[:space:]]#([a-zA-Z0-9_]##|[^a-zA-Z0-9_[:space:]]##|)}"
+  zle redisplay
+}
+zle -N kill-right-word
+
+function kill-full-right-word() {
+  RBUFFER="${RBUFFER##[[:space:]]#[^[:space:]]##}"
+  zle redisplay
+}
+zle -N kill-full-right-word
+
+
 # cd
 function cd-current-git-root() {
   local root_directory="$(git rev-parse --show-toplevel 2> /dev/null)"
@@ -270,11 +295,10 @@ vi_bind '^b' vi-quoted-insert
 
 # editing
 vi_bind '^t' kill-buffer
-
-vi_bind '\e^h' backward-kill-word
-vi_bind '^h' vi-backward-kill-word
-vi_bind '\e^n' kill-word
-vi_bind '^n' vi-kill-word
+vi_bind '^n' kill-right-word
+vi_bind '\e^n' kill-full-right-word
+vi_bind '^h' kill-left-word
+vi_bind '\e^h' kill-full-left-word
 
 # copy / paste
 vi_bind '^f' vi-yank-x-line
