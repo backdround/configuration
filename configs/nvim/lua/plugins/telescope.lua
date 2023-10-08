@@ -16,48 +16,44 @@ local function setup()
   local telescope = require("telescope")
   local fb_actions = require("telescope._extensions.file_browser.actions")
 
+  local telescope_mappings = {
+    ["<M-s>"] = actions.close,
+
+    ["<C-s>"] =  actions.move_selection_next,
+    ["<C-p>"] = actions.move_selection_previous,
+
+    ["<M-o>"] = actions.select_default,
+    ["<M-e>"] = actions.select_horizontal,
+    ["<M-u>"] = actions.select_vertical,
+    ["<M-i>"] = actions.select_tab,
+
+    ["<M-c>"] = actions.results_scrolling_right,
+    ["<M-g>"] = actions.results_scrolling_left,
+
+    ["<C-/>"] = actions.which_key,
+     -- It fixes <C-/>. It's been copied from telescope/mappings.lua.
+    ["<C-_>"] = actions.which_key,
+  }
+
+  local telescope_file_browser_mappings = {
+    ["<C-v>"] = fb_actions.goto_parent_dir,
+    ["<C-y>"] = actions.select_default,
+
+    ["<M-d>c"] = fb_actions.create,
+    ["<M-d><M-c>"] = fb_actions.create_from_prompt,
+    ["<M-d>t"] = fb_actions.remove,
+    ["<M-d>r"] = fb_actions.rename,
+    ["<M-d>f"] = fb_actions.copy,
+    ["<M-d>m"] = fb_actions.move,
+    ["<M-d>."] = fb_actions.toggle_hidden,
+  }
+
   telescope.setup({
     defaults = {
       default_mappings = {},
       mappings = {
-        i = {
-          ["<M-s>"] = actions.close,
-
-          ["<C-s>"] =  actions.move_selection_next,
-          ["<C-p>"] = actions.move_selection_previous,
-
-          ["<M-o>"] = actions.select_default,
-          ["<M-e>"] = actions.select_horizontal,
-          ["<M-u>"] = actions.select_vertical,
-          ["<M-i>"] = actions.select_tab,
-
-          ["<M-c>"] = actions.results_scrolling_right,
-          ["<M-g>"] = actions.results_scrolling_left,
-
-          ["<C-/>"] = actions.which_key,
-           -- It fixes <C-/>. It's been copied from telescope/mappings.lua.
-          ["<C-_>"] = actions.which_key,
-        },
-        n = {
-          ["<M-s>"] = actions.close,
-
-          ["<C-s>"] =  actions.move_selection_next,
-          ["<C-p>"] = actions.move_selection_previous,
-
-          ["<M-o>"] = actions.select_default,
-          ["<M-e>"] = actions.select_horizontal,
-          ["<M-u>"] = actions.select_vertical,
-          ["<M-i>"] = actions.select_tab,
-
-          ["oc"] = actions.results_scrolling_right,
-          ["og"] = actions.results_scrolling_left,
-          ["oh"] = actions.move_to_bottom,
-          ["ot"] = actions.move_to_top,
-
-          ["<C-/>"] = actions.which_key,
-           -- It fixes <C-/>. It's been copied from telescope/mappings.lua.
-          ["<C-_>"] = actions.which_key,
-        },
+        i = telescope_mappings,
+        n = telescope_mappings,
       },
       sorting_strategy = "ascending",
       layout_strategy = "vertical",
@@ -87,31 +83,8 @@ local function setup()
           preview_width = 90,
         },
         mappings = {
-          i = {
-            ["<C-v>"] = fb_actions.goto_parent_dir,
-            ["<C-y>"] = actions.select_default,
-
-            ["<M-d>c"] = fb_actions.create,
-            ["<M-d><M-c>"] = fb_actions.create_from_prompt,
-            ["<M-d>t"] = fb_actions.remove,
-            ["<M-d>r"] = fb_actions.rename,
-            ["<M-d>f"] = fb_actions.copy,
-            ["<M-d>m"] = fb_actions.move,
-            ["<M-d>."] = fb_actions.toggle_hidden,
-          },
-
-          n = {
-            ["<C-v>"] = fb_actions.goto_parent_dir,
-            ["<C-y>"] = actions.select_default,
-
-            ["<M-d>c"] = fb_actions.create,
-            ["<M-d><M-c>"] = fb_actions.create_from_prompt,
-            ["<M-d>t"] = fb_actions.remove,
-            ["<M-d>r"] = fb_actions.rename,
-            ["<M-d>f"] = fb_actions.copy,
-            ["<M-d>m"] = fb_actions.move,
-            ["<M-d>."] = fb_actions.toggle_hidden,
-          },
+          i = telescope_file_browser_mappings,
+          n = telescope_file_browser_mappings,
         },
       },
     },
