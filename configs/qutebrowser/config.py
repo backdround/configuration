@@ -360,15 +360,13 @@ config.bind('<Ctrl-K>',         'command-history-prev',                 mode='co
 config.bind('<Ctrl-E>',         'edit-command',                         mode='command')
 config.bind('<Ctrl-Y>',         'rl-yank',                              mode='command')
 
-config.bind('<Up>',             'completion-item-focus --history prev', mode='command')
-config.bind('<Down>',           'completion-item-focus --history next', mode='command')
-config.bind('<Escape>',         'mode-leave',                           mode='command')
-config.bind('<Ctrl-Return>',    'command-accept --rapid',               mode='command')
-config.bind('<Return>',         'command-accept',                       mode='command')
-config.bind('<Shift-Tab>',      'completion-item-focus prev',           mode='command')
-config.bind('<Tab>',            'completion-item-focus next',           mode='command')
-config.bind('<Ctrl-Shift-Tab>', 'completion-item-focus prev-category',  mode='command')
-config.bind('<Ctrl-Tab>',       'completion-item-focus next-category',  mode='command')
+config.bind('<Alt-s>',          'mode-leave',                           mode='command')
+config.bind('<Alt-o>',          'command-accept',                       mode='command')
+config.bind('<Alt-a>',          'command-accept --rapid',               mode='command')
+config.bind('<Ctrl-p>',         'completion-item-focus prev',           mode='command')
+config.bind('<Ctrl-s>',         'completion-item-focus next',           mode='command')
+config.bind('<Ctrl-v>',         'completion-item-focus prev-category',  mode='command')
+config.bind('<Ctrl-y>',         'completion-item-focus next-category',  mode='command')
 
 
 #  *****************************************************************************
