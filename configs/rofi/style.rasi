@@ -2,87 +2,45 @@
 /* MAIN */
 
 * {
-  default-spacing:               1.1em;
-  font:                          "FantasqueSansM Nerd Font 14";
+  font:                        "FantasqueSansM Nerd Font 15";
 
-  background:                  #404759;
-  foreground:                  #c6c8d1;
+  background:                  #1D212B;
+  foreground:                  #BABDCA;
 
-  element-background:          #23252E;
-  element-foreground:          var(foreground);
-  selected-element-background: #626C7A;
-  selected-element-foreground: #fff;
+  element-background:          #333744;
+  element-foreground:          @foreground;
+  element-highlight:           bold #FE0669;
 
-  border-color:                  var(foreground);
-  background-color:              #00000000;
-  text-color:                    #98A4B3;
+  selected-element-background: #898EA4;
+  selected-element-foreground: #0B0C0E;
+  selected-element-highlight:  bold underline;
+
+  error-message:               #FE1048;
+  entry-foreground:            #E1E8E7;
+
+  background-color:            @background;
 }
 
 window {
-  border:           0.2em;
-  border-color:     #9BC2CA;
-  padding:          var(default-spacing);
-  background-color: var(background);
-  width: 35em;
+  border:       0.1em;
+  border-color: #9ED7EB;
+  padding:      1.1em;
+  width:        30em;
 }
 
 mainbox {
   spacing: 0.9em;
 }
 
-listview {
-  lines: 9;
-  columns: 1;
-  scrollbar: false;
-  spacing:   0.7em;
-}
-
-
-/* ******************************************************* */
-/* ELEMENT */
-
-element {
-  padding: 1.3em 1.7em;
-}
-
-element normal.normal {
-  background-color: var(element-background);
-  text-color:       var(element-foreground);
-}
-
-element alternate.normal {
-  background-color: var(element-background);
-  text-color:       var(element-foreground);
-}
-
-element selected.normal {
-  background-color: var(selected-element-background);
-  text-color:       var(selected-element-foreground);
-}
-
-/* ******************************************************* */
-/* MESSAGE */
-
-error-message {
-  padding:      0.7em 1.1em 1.1em;
-  border:       0px 0px 0.15em;
-  border-color: var(foreground);
-}
-
-textbox {
-  text-color: var(foreground);
-}
-
-
 /* ******************************************************* */
 /* INPUT BOX */
 
 inputbar {
-  padding:    0.1em 0.6em 0.4em 0.6em;
-  text-color: var(foreground);
-  spacing:    0.2em;
-  border:     0px 0px 0.15em;
-  font:       "FantasqueSansM Nerd Font 14";
+  padding:      0.1em 0.6em 0.4em 0.6em;
+  spacing:      0.2em;
+  border:       0px 0px 0.13em;
+  border-color: @foreground;
+  text-color:   @foreground;
   children: [
     prompt,
     textbox-prompt-colon,
@@ -93,42 +51,79 @@ inputbar {
   ];
 }
 
-entry {
-  text-color: var(foreground);
-  font: inherit;
-}
-
-/* *********************************** */
-/* DISPLAY TEXT */
-
-prompt {
-  font: inherit;
+prompt,
+textbox-prompt-colon,
+num-filtered-rows,
+textbox-num-sep,
+num-rows {
+  font:       inherit;
+  text-color: inherit;
+  expand:     false;
 }
 
 textbox-prompt-colon {
-  margin: 0em 1em 0em 0em ;
-  expand: false;
-  str:    ":";
-  font:   inherit;
-}
-
-/* *********************************** */
-/* ROWS */
-
-num-filtered-rows {
-  expand: false;
-  font:   inherit;
+  text-color: inherit;
+  margin:     0em 1em 0em 0.3em ;
+  str:        ":";
 }
 
 textbox-num-sep {
-  expand: false;
-  str:    "/";
-  font:   inherit;
+  str: "/";
 }
 
-num-rows {
-  expand: false;
-  font:   inherit;
+entry {
+  text-color: @entry-foreground;
+}
+
+/* ******************************************************* */
+/* MESSAGE */
+
+error-message {
+  padding:      0.7em 1.1em 1.1em;
+  border:       0px 0px 0.15em 0px;
+  border-color: @error-message;
+}
+
+textbox {
+  text-color: @error-message;
+}
+
+/* ******************************************************* */
+/* ELEMENTS */
+
+listview {
+  lines:     9;
+  columns:   1;
+  scrollbar: false;
+  spacing:   0.5em;
+}
+
+element {
+  padding: 1.0em 1.1em;
+}
+
+element-icon, element-text {
+  background-color: inherit;
+  text-color:       inherit;
+  highlight:        inherit;
+}
+
+element.normal.normal {
+  background-color: @element-background;
+  text-color:       @element-foreground;
+  highlight:        @element-highlight;
+}
+
+element.alternate.normal {
+  background-color: @element-background;
+  text-color:       @element-foreground;
+  highlight:        @element-highlight;
+}
+
+element.selected.normal {
+  background-color: @selected-element-background;
+  text-color:       @selected-element-foreground;
+  highlight:        @selected-element-highlight;
 }
 
 // vim:syntax=css
