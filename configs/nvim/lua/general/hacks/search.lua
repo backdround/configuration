@@ -30,7 +30,7 @@ local function get_mark(mark)
   return line - 1, column
 end
 
-local function get_visual_selection_text()
+local function get_visual_selection_range()
   local start_row, start_column = get_mark("<")
   local end_row, end_column = get_mark(">")
   local selected_lines = vim.api.nvim_buf_get_text(
@@ -41,7 +41,7 @@ local function get_visual_selection_text()
     end_column + 1,
     {}
   )
-  return table.concat(selected_lines, "\\n")
+  return selected_lines
 end
 
 ------------------------------------------------------------
@@ -83,15 +83,25 @@ local function search_selected_text()
   -- Leaves visual mode
   require("utilities").reset_current_mode()
 
-  -- Gets selected text
-  local selected_text = get_visual_selection_text()
+  -- Gets text to search
+  local selected_lines = get_visual_selection_range()
+
+  local special_symbols = "^$\\"
+  if vim.api.nvim_get_option("magic") then
+    special_symbols = "*^$.~[]\\"
+  end
+
+  for index, line in ipairs(selected_lines) do
+    selected_lines[index] = vim.fn.escape(line, special_symbols)
+  end
+  local text_to_search = table.concat(selected_lines, "\\n")
 
   -- Sets cursor to left part of selected text (for next search conviniece)
   local start_row, start_column = get_mark("<")
   vim.api.nvim_win_set_cursor(0, { start_row + 1, start_column })
 
   -- Sets the selected text as a search text
-  vim.fn.setreg("/", selected_text)
+  vim.fn.setreg("/", text_to_search)
   vim.opt.hlsearch = true
 end
 
