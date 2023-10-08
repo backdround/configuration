@@ -108,27 +108,20 @@ local function search(add_plugin)
 
   description = "Search a next word that matches the word under the cursor"
   u.nmap("*", "g*", description)
+  u.omap("*", "g*", description)
   description = "Search a next text that matches selected text"
   u.xmap("*", hacks.search.selected_text_next, description)
 
   description = "Search a previous word that matches the word under the cursor"
   u.nmap("#", "g#", description)
+  u.omap("#", "g#", description)
   description = "Search a previous text that matches selected text"
   u.xmap("#", hacks.search.selected_text_previous, description)
 
   description = "Search next searched text"
-  u.nmap("]", hacks.search.stable_next, description)
-  u.xmap("]", hacks.search.stable_next, description)
-  local search_next_map =
-    ':lua require("general.hacks").search.stable_next()<CR>'
-  u.omap("]", search_next_map, description)
-
+  u.map("]", hacks.search.stable_next, description)
   description = "Search previous searched text"
-  u.nmap("[", hacks.search.stable_previous, description)
-  u.xmap("[", hacks.search.stable_previous, description)
-  local search_previous_map =
-    ':lua require("general.hacks").search.stable_previous()<CR>'
-  u.omap("[", search_previous_map, description)
+  u.map("[", hacks.search.stable_previous, description)
 end
 
 local function substitute()
