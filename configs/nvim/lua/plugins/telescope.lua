@@ -16,13 +16,25 @@ local function setup()
   local telescope = require("telescope")
   local fb_actions = require("telescope._extensions.file_browser.actions")
 
+  local open_buffer_with_previous_buffer_deletion = function(prompt_buffer)
+    actions.select_default(prompt_buffer)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local alternative_buffer = vim.fn.bufnr("#")
+
+    -- Remove buffer if it isn't visible in the current tab.
+    if vim.fn.bufwinid(alternative_buffer) == -1 then
+      require("tabscope").remove_tab_buffer(alternative_buffer)
+    end
+  end
+
   local telescope_mappings = {
     ["<M-s>"] = actions.close,
 
     ["<C-s>"] =  actions.move_selection_next,
     ["<C-p>"] = actions.move_selection_previous,
 
-    ["<M-o>"] = actions.select_default,
+    ["<M-a>"] = actions.select_default,
+    ["<M-o>"] = open_buffer_with_previous_buffer_deletion,
     ["<M-e>"] = actions.select_horizontal,
     ["<M-u>"] = actions.select_vertical,
     ["<M-i>"] = actions.select_tab,
