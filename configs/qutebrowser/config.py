@@ -355,11 +355,13 @@ config.bind('<Ctrl-Alt-P>',     'completion-item-focus prev-category',  mode='co
 config.bind('<Ctrl-N>',         'completion-item-focus next',           mode='command')
 config.bind('<Ctrl-P>',         'completion-item-focus prev',           mode='command')
 
-config.bind('<Ctrl-J>',         'command-history-next',                 mode='command')
-config.bind('<Ctrl-K>',         'command-history-prev',                 mode='command')
+config.bind('<Down>',           'command-history-next',                 mode='command')
+config.bind('<Up>',             'command-history-prev',                 mode='command')
 config.bind('<Ctrl-E>',         'edit-command',                         mode='command')
 config.bind('<Ctrl-Y>',         'rl-yank',                              mode='command')
 
+config.bind('<Escape>',         'mode-leave',                           mode='command')
+config.bind('<Return>',         'command-accept',                       mode='command')
 config.bind('<Alt-s>',          'mode-leave',                           mode='command')
 config.bind('<Alt-o>',          'command-accept',                       mode='command')
 config.bind('<Alt-a>',          'command-accept --rapid',               mode='command')
