@@ -133,39 +133,16 @@ local function find_character(add_plugin)
   desc = "Search backward of the last searched character"
   u.map("(", previous, { expr = true, desc = desc })
 
-  -- Gives jump through map for operator-pending mode.
-  -- If you use just jump_through function, then dot-repeat doesn't work.
-  local function get_operator_valid_jump_through_map(pattern, forward)
-    pattern = pattern:gsub('"', '\\"')
-    forward = tostring(forward)
-    return vim.fn.printf(
-      ':lua require("general.hacks").jump_through("%s", %s)<CR>',
-      pattern,
-      forward
-    )
-  end
+  local jump_forward_through = hacks.jump_through.forward
+  local jump_backward_through = hacks.jump_through.backward
 
   -- Jump through quotes
-  desc = "Jump forward through quotes"
-  u.nmap("+", u.wrap(hacks.jump_through, "[\"'`]", true), desc)
-  u.xmap("+", u.wrap(hacks.jump_through, "[\"'`]", true), desc)
-  u.omap("+", get_operator_valid_jump_through_map("[\"'`]", true), desc)
-
-  desc = "Jump backward through quotes"
-  u.nmap("-", u.wrap(hacks.jump_through, "[\"'`]", false), desc)
-  u.xmap("-", u.wrap(hacks.jump_through, "[\"'`]", false), desc)
-  u.omap("-", get_operator_valid_jump_through_map("[\"'`]", false), desc)
+  u.map("+", jump_forward_through("[\"'`]"), "Jump forward through quotes")
+  u.map("-", jump_backward_through("[\"'`]"), "Jump backward through quotes")
 
   -- Jump through brackets
-  desc = "Jump forward through brackets"
-  u.nmap("&", u.wrap(hacks.jump_through, "[()]", true), desc)
-  u.xmap("&", u.wrap(hacks.jump_through, "[()]", true), desc)
-  u.omap("&", get_operator_valid_jump_through_map("[()]", true), desc)
-
-  desc = "Jump backward through brackets"
-  u.nmap("=", u.wrap(hacks.jump_through, "[()]", false), desc)
-  u.xmap("=", u.wrap(hacks.jump_through, "[()]", false), desc)
-  u.omap("=", get_operator_valid_jump_through_map("[()]", false), desc)
+  u.map("&", jump_forward_through("[()]"), "Jump forward through brackets")
+  u.map("=", jump_backward_through("[()]"), "Jump backward through brackets")
 end
 
 local function marks()
