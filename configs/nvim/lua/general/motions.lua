@@ -263,18 +263,18 @@ local function jump_motions(add_plugin)
       u.map("a", hop_line, description)
 
       description = "Hop jump to the start of words before the cursor"
-      u.map("ow", hop_up_begin, description)
+      u.map("oz", hop_up_begin, description)
       description = "Hop jump to the end of words before the cursor"
       u.map("oq", hop_up_end, description)
       description = "Hop jump to the start of words after the cursor"
       u.map("oj", hop_down_begin, description)
       description = "Hop jump to the end of words after the cursor"
-      u.map("op", hop_down_end, description)
+      u.map("ok", hop_down_end, description)
 
       description = "Hop jump to the character after the cursor"
-      u.map("ok", hop_char1Down, description)
+      u.map("op", hop_char1Down, description)
       description = "Hop jump to the character before the cursor"
-      u.map("oz", hop_char1Up, description)
+      u.map("ow", hop_char1Up, description)
     end,
   })
 end
