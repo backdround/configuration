@@ -1,5 +1,16 @@
 local u = require("utilities")
 
+local function get_multiplied_action(key, default_count)
+  key = vim.api.nvim_replace_termcodes(key, true, true, true)
+  return function()
+    local count = default_count
+    if vim.v.count1 ~= 1 then
+      count = vim.v.count1
+    end
+    vim.cmd("normal!" .. count .. key)
+  end
+end
+
 local function splits()
   u.nmap("s", "<nop>", "Split key")
 
@@ -24,11 +35,11 @@ local function splits()
   u.nmap("ss", "<C-w>=", "Align splits")
   u.nmap("s|", "<C-w>|", "Change split width size")
   u.nmap("s_", "<C-w>_", "Change split height size")
-  -- TODO: Use counter = 7/9, when counter is't set
-  u.nmap("s+", "<C-w>+", "Increase split height")
-  u.nmap("s-", "<C-w>-", "Decrease split height")
-  u.nmap("s>", "<C-w>>", "Increase split width")
-  u.nmap("s<", "<C-w><", "Decrease split width")
+
+  u.nmap("s+", get_multiplied_action("<C-w>+", 14), "Increase split height")
+  u.nmap("s-", get_multiplied_action("<C-w>-", 14), "Decrease split height")
+  u.nmap("s>", get_multiplied_action("<C-w>>", 14), "Increase split width")
+  u.nmap("s<", get_multiplied_action("<C-w><", 14), "Decrease split width")
 
   -- Closing
   u.nmap("s<M-q>", "<Cmd>quit<CR>", "Close split")
