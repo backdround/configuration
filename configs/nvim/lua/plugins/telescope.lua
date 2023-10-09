@@ -27,6 +27,20 @@ local function setup()
     end
   end
 
+  local select_vertical_left = function(prompt_buffer)
+    local default_splitright = vim.api.nvim_get_option("splitright")
+    vim.opt.splitright = false
+    actions.select_vertical(prompt_buffer)
+    vim.opt.splitright = default_splitright
+  end
+
+  local select_vertical_right = function(prompt_buffer)
+    local default_splitright = vim.api.nvim_get_option("splitright")
+    vim.opt.splitright = true
+    actions.select_vertical(prompt_buffer)
+    vim.opt.splitright = default_splitright
+  end
+
   local telescope_mappings = {
     ["<M-s>"] = actions.close,
 
@@ -36,7 +50,8 @@ local function setup()
     ["<M-a>"] = actions.select_default,
     ["<M-o>"] = open_buffer_with_previous_buffer_deletion,
     ["<M-e>"] = actions.select_horizontal,
-    ["<M-u>"] = actions.select_vertical,
+    ["<M-u>"] = select_vertical_right,
+    ["<M-S-u>"] = select_vertical_left,
     ["<M-i>"] = actions.select_tab,
 
     ["<M-c>"] = actions.results_scrolling_right,
