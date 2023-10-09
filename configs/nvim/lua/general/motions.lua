@@ -143,6 +143,10 @@ local function find_character(add_plugin)
   -- Jump through brackets
   u.map("&", jump_forward_through("[()]"), "Jump forward through brackets")
   u.map("=", jump_backward_through("[()]"), "Jump backward through brackets")
+
+  -- Jump through dot
+  u.map("<End>", jump_forward_through("\\."), "Jump forward through dots")
+  u.map("<PageUp>", jump_backward_through("\\."), "Jump backward through dots")
 end
 
 local function marks()
