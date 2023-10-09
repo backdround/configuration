@@ -31,8 +31,7 @@ local function splits()
   u.nmap("s<", "<C-w><", "Decrease split width")
 
   -- Closing
-  u.nmap("sq", "<Cmd>quit<CR>", "Close split")
-  u.nmap("s<M-q>", "<Cmd>bdelete<CR>", "Close split and delete buffer")
+  u.nmap("s<M-q>", "<Cmd>quit<CR>", "Close split")
   u.nmap("<M-x>", "<Cmd>x<CR>", "Save and close split")
   u.imap("<M-x>", "<Cmd>x<CR>", "Save and close split")
 end
@@ -84,11 +83,20 @@ local function tabscope(add_plugin)
   u.nmap("<M-e>", "<Cmd>:bprevious<CR>", "Switch to previous buffer")
 
   add_plugin({
-    "backdround/tabscope.nvim",
+    "git@github.com:backdround/tabscope.nvim",
     config = function()
       local scope = require("tabscope")
       scope.setup()
       u.nmap("<M-o>", scope.remove_tab_buffer, "Remove current buffer")
+
+      local close_window_with_buffer = function()
+        local current_buffer = vim.api.nvim_get_current_buf()
+        vim.cmd("q")
+        if vim.fn.bufwinid(current_buffer) == -1 then
+          scope.remove_tab_buffer(current_buffer)
+        end
+      end
+      u.nmap("sq", close_window_with_buffer, "Close split and delete buffer")
     end
   })
 end
