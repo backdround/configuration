@@ -358,7 +358,6 @@ config.bind('<Ctrl-P>',         'completion-item-focus prev',           mode='co
 config.bind('<Down>',           'command-history-next',                 mode='command')
 config.bind('<Up>',             'command-history-prev',                 mode='command')
 config.bind('<Ctrl-E>',         'edit-command',                         mode='command')
-config.bind('<Ctrl-Y>',         'rl-yank',                              mode='command')
 
 config.bind('<Escape>',         'mode-leave',                           mode='command')
 config.bind('<Return>',         'command-accept',                       mode='command')
@@ -369,6 +368,9 @@ config.bind('<Ctrl-p>',         'completion-item-focus prev',           mode='co
 config.bind('<Ctrl-s>',         'completion-item-focus next',           mode='command')
 config.bind('<Ctrl-v>',         'completion-item-focus prev-category',  mode='command')
 config.bind('<Ctrl-y>',         'completion-item-focus next-category',  mode='command')
+
+config.bind('<Alt-l>',          'cmd-set-text --append -- {clipboard}', mode='command')
+config.bind('<Alt-f>',          'rl-yank',                              mode='command')
 
 
 #  *****************************************************************************
