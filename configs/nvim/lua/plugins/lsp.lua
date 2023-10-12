@@ -133,6 +133,10 @@ local function apply(add_plugin)
       {
         "folke/neodev.nvim",
         opts = {},
+        dependencies = {
+          "folke/neoconf.nvim",
+          opts = {},
+        },
       },
     },
     config = lsp_configure,
