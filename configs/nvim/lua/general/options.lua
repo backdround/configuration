@@ -70,6 +70,16 @@ local function apply()
     end,
   })
 
+  -- Disable auto editorconfig's trailing space deletion for markdown files.
+  local editorconfig = require("editorconfig")
+  local real_trim = editorconfig.properties.trim_trailing_whitespace
+  editorconfig.properties.trim_trailing_whitespace = function(bufnr, val)
+    if vim.bo.filetype == "markdown" then
+      return
+    end
+    real_trim(bufnr, val)
+  end
+
   -- Use current directory name (project name) as the app title.
   vim.opt.title = true
   local function set_title()
