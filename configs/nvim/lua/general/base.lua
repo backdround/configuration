@@ -101,27 +101,35 @@ end
 local function search(add_plugin)
   add_plugin("romainl/vim-cool")
 
-  local description = "Search the word under the cursor"
-  u.nmap("!", hacks.search.current_word_without_moving, description)
-  description = "Search selected word"
-  u.xmap("!", hacks.search.selected_text, description)
+  add_plugin({
+    url = "git@github.com:backdround/improved-search.nvim.git",
+    config = function()
+      local is = require("improved-search")
+      local description = "Search the word under the cursor"
+      u.nmap("!", is.current_word, description)
 
-  description = "Search a next word that matches the word under the cursor"
-  u.nmap("*", "g*", description)
-  u.omap("*", "g*", description)
-  description = "Search a next text that matches selected text"
-  u.xmap("*", hacks.search.selected_text_next, description)
+      description = "Search selected word"
+      u.xmap("!", is.in_place, description)
+      u.nmap("|", is.in_place, description)
 
-  description = "Search a previous word that matches the word under the cursor"
-  u.nmap("#", "g#", description)
-  u.omap("#", "g#", description)
-  description = "Search a previous text that matches selected text"
-  u.xmap("#", hacks.search.selected_text_previous, description)
+      description = "Search a next word that matches the word under the cursor"
+      u.nmap("*", "g*", description)
+      u.omap("*", "g*", description)
+      description = "Search a next text that matches selected text"
+      u.xmap("*", is.forward, description)
 
-  description = "Search next searched text"
-  u.map("]", hacks.search.stable_next, description)
-  description = "Search previous searched text"
-  u.map("[", hacks.search.stable_previous, description)
+      description = "Search a previous word that matches the word under the cursor"
+      u.nmap("#", "g#", description)
+      u.omap("#", "g#", description)
+      description = "Search a previous text that matches selected text"
+      u.xmap("#", is.backward, description)
+
+      description = "Search next searched text"
+      u.map("]", is.stable_next, description)
+      description = "Search previous searched text"
+      u.map("[", is.stable_previous, description)
+    end
+  })
 end
 
 local function substitute()
