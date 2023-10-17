@@ -58,34 +58,44 @@ local function visual()
 end
 
 local function copy_paste()
-  -- Normal copy/paste
+  -- Copy
+  u.map("<C-f>", 'y', "Yank operator (unnamed)")
+  u.nmap("<C-f><C-f>", 'yy', "Yank the current line (unnamed)")
   u.map("f", '"yy', "Yank operator")
   u.nmap("ff", '"yyy', "Yank the current line")
-  u.nmap("F", '"yy$', "Yank to the end of the line")
 
-  u.map("<M-l>", '"yp', "Paste yanked text after the cursor")
-  u.map("<M-L>", '"yP', "Paste yanked text before the cursor")
+  -- Copy all "y yanked text to all buffers.
+  u.autocmd("UserPutYankedTextInOsBuffers", "TextYankPost", {
+    callback = function()
+      if vim.v.event.regname ~= "y" then
+        return
+      end
+      local yanked_text = vim.fn.getreg("y")
+      vim.fn.setreg("+", yanked_text)
+      vim.fn.setreg("*", yanked_text)
+    end,
+  })
 
-  -- Clipboard copy/paste
-  u.map("<leader>f", '"+y', "Yank operator to the clipboard")
-  u.nmap("<leader>ff", '"+yy', "Yank the line to the clipboard")
-  u.nmap("<leader>fF", '"+y$', "Yank to the end of the line to the clipboard")
+  -- Paste
+  u.nmap("l", "p", "Paste unnamed register text after the cursor")
+  u.nmap("L", "P", "Paste unnamed register text before the cursor")
+  u.nmap("<M-l>", '"+p', "Paste yanked text after the cursor")
+  u.nmap("<M-L>", '"+P', "Paste yanked text before the cursor")
 
-  u.map("<leader>l", '"+p', "Paste from the clipboard after the cursor")
-  u.map("<leader>L", '"+P', "Paste from the clipboard before the cursor")
+  u.xmap("l", '""p', "Replace by unnamed register text")
+  u.xmap("<M-l>", '"+p', "Replace by yanked text after the cursor")
 
-  -- Primary copy
-  u.map("<leader>F", '"*y', "Yank operator to the primary")
-  u.nmap("<leader>Ff", '"*yy', "Yank the current line to the primary")
-  u.nmap("<leader>FF", '"*y$', "Yank to the end of the line to the primary")
+  local get_smart_insert = function(regname)
+    return function()
+      u.feedkeys("<C-r><C-p>" .. regname)
+      if vim.fn.getreg(regname):sub(-1) == "\n" then
+        u.feedkeys("<Esc>cc")
+      end
+    end
+  end
 
-  -- Unnamed paste
-  u.map("l", "p", "Paste from an unnamed register after the cursor")
-  u.map("L", "P", "Paste from an unnamed register before the cursor")
-
-  -- Insert paste
-  u.imap("<C-l>", '<C-r>"', "Paste from an unnamed register after the cursor")
-  u.imap("<M-l>", "<C-r>y", "Paste the yanked text after the cursor")
+  u.imap("<C-l>", get_smart_insert('"'), "Paste unnamed register")
+  u.imap("<M-l>", get_smart_insert("+"), "Paste yanked text")
 
   -- Highlight yanked area
   u.autocmd("UserHightlightYankedText", "TextYankPost", {
