@@ -23,8 +23,8 @@ local function configure()
     end
   end
 
-  u.imap("<M-u>", select_next, "Select next item or open completion")
-  u.imap("<M-e>", select_previous, "Select previous item or open completion")
+  u.imap("<C-s>", select_previous, "Select previous item or open completion")
+  u.imap("<C-p>", select_next, "Select next item or open completion")
   u.imap("<M-o>", confirm, "Complete by selected item")
   u.imap("<M-s>", abort, "Abort completion")
 
