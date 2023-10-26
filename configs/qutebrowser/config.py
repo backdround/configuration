@@ -369,8 +369,7 @@ config.bind('<Ctrl-s>',         'completion-item-focus next',           mode='co
 config.bind('<Ctrl-v>',         'completion-item-focus prev-category',  mode='command')
 config.bind('<Ctrl-y>',         'completion-item-focus next-category',  mode='command')
 
-config.bind('<Alt-l>',          'cmd-set-text --append -- {clipboard}', mode='command')
-config.bind('<Alt-f>',          'rl-yank',                              mode='command')
+config.bind('<Ctrl-Shift-v>',   'cmd-set-text --append -- {clipboard}', mode='command')
 
 
 #  *****************************************************************************
