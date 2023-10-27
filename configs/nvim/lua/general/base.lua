@@ -229,6 +229,10 @@ local function misc()
   u.nmap(";", "q", "Record macro")
   u.nmap("$", "@", "Perform macro")
 
+  -- Indentation
+  u.map("<C-b>", "=", "Indentation operator")
+  u.imap("<C-b>", "<C-f>", "Indent line")
+
   -- Language key
   u.imap("<M-c>", "<C-^>", "Toggle language")
   u.cmap("<M-c>", "<C-^>", "Toggle language")
