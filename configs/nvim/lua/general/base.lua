@@ -15,10 +15,18 @@ local function editing()
 end
 
 local function insert()
+  local insert_mode = function()
+    local cursor_line = vim.api.nvim_win_get_cursor(0)[1]
+    local current_line =
+      vim.api.nvim_buf_get_lines(0, cursor_line - 1, cursor_line, true)[1]
+    local empty_line = current_line:len() == 0
+    u.feedkeys(empty_line and "a<C-f>" or "a")
+  end
+
   -- Enter mode
   u.nmap("g", "i", "Enter insert mode before the cursor")
   u.nmap("G", "I", "Enter insert mode at the start of the line")
-  u.nmap("c", "a", "Enter insert mode after the cursor")
+  u.nmap("c", insert_mode, "Enter insert mode after the cursor")
   u.nmap("C", "A", "Enter insert mode at the end of the line")
 
   u.nmap("oB", "+zei", "Enter insert mode at the start of the line below")
