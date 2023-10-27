@@ -68,8 +68,11 @@ end
 local function copy_paste()
   -- Copy
   u.map("<C-f>", 'y', "Yank operator (unnamed)")
+  u.nmap("<C-M-f>", 'y$', "Yank (unnamed) to the end of the current line")
   u.nmap("<C-f><C-f>", 'yy', "Yank the current line (unnamed)")
+
   u.map("f", '"yy', "Yank operator")
+  u.nmap("F", '"yy$', "Yank operator")
   u.nmap("ff", '"yyy', "Yank the current line")
 
   -- Copy all "y yanked text to all buffers.
@@ -96,9 +99,17 @@ local function copy_paste()
   local get_smart_insert = function(regname)
     return function()
       u.feedkeys("<C-r><C-p>" .. regname)
-      if vim.fn.getreg(regname):sub(-1) == "\n" then
-        u.feedkeys("<Esc>cc")
+
+      if vim.fn.getreg(regname):sub(-1) ~= "\n" then
+        return
       end
+
+      vim.schedule(function()
+        local line = vim.api.nvim_get_current_line()
+        local cursor_position = vim.api.nvim_win_get_cursor(0)
+        cursor_position[2] = line:len()
+        vim.api.nvim_win_set_cursor(0, cursor_position)
+      end)
     end
   end
 
