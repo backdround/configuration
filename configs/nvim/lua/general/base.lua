@@ -275,6 +275,11 @@ local function misc()
   end
 end
 
+local function commandline()
+  u.cmap("<M-s>", "<C-c>", "Close command-line")
+  u.cmap("<M-o>", "<CR>", "Accept command")
+end
+
 local function apply(add_plugin)
   misc()
   editing()
@@ -286,6 +291,7 @@ local function apply(add_plugin)
   foldings()
   improved_repeat(add_plugin)
   commands()
+  commandline()
 end
 
 return {
