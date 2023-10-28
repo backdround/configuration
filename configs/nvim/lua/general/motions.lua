@@ -223,34 +223,6 @@ local function jump_motions(add_plugin)
         teasing = false,
       })
 
-      local hop_up_begin = u.wrap(hop.hint_camel_case, {
-        direction = hint.HintDirection.BEFORE_CURSOR,
-        hint_position = hint.HintPosition.BEGIN,
-      })
-
-      local hop_up_end = u.wrap(hop.hint_camel_case, {
-        direction = hint.HintDirection.BEFORE_CURSOR,
-        hint_position = hint.HintPosition.END,
-      })
-
-      local hop_down_begin = u.wrap(hop.hint_camel_case, {
-        direction = hint.HintDirection.AFTER_CURSOR,
-        hint_position = hint.HintPosition.BEGIN,
-      })
-
-      local hop_down_end = u.wrap(hop.hint_camel_case, {
-        direction = hint.HintDirection.AFTER_CURSOR,
-        hint_position = hint.HintPosition.END,
-      })
-
-      local hop_char1Down = u.wrap(hop.hint_char1, {
-        direction = hint.HintDirection.AFTER_CURSOR,
-      })
-
-      local hop_char1Up = u.wrap(hop.hint_char1, {
-        direction = hint.HintDirection.BEFORE_CURSOR,
-      })
-
       local hop_line = u.wrap(hop.hint_camel_case, {
         current_line_only = true,
         hint_position = {
@@ -259,22 +231,25 @@ local function jump_motions(add_plugin)
         },
       })
 
-      local description = "Hop jump in current line"
-      u.map("a", hop_line, description)
+      u.map("a", hop_line, "Hop jump in current line")
+    end,
+  })
 
-      description = "Hop jump to the start of words before the cursor"
-      u.map("oz", hop_up_begin, description)
-      description = "Hop jump to the end of words before the cursor"
-      u.map("oq", hop_up_end, description)
-      description = "Hop jump to the start of words after the cursor"
-      u.map("oj", hop_down_begin, description)
-      description = "Hop jump to the end of words after the cursor"
-      u.map("ok", hop_down_end, description)
-
-      description = "Hop jump to the character after the cursor"
-      u.map("op", hop_char1Down, description)
-      description = "Hop jump to the character before the cursor"
-      u.map("ow", hop_char1Up, description)
+  add_plugin({
+    "woosaaahh/sj.nvim",
+    config = function()
+      local sj = require("sj")
+      sj.setup({
+        prompt_prefix = "/",
+        pattern_type = "lua_plain",
+        separator = "",
+        stop_on_fail = false,
+        keymaps = {
+          cancel = "<M-s>",
+          validate = "<M-o>",
+        },
+      })
+      u.map("<space>", sj.run, "Jump to any string")
     end,
   })
 end
