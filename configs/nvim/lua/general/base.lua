@@ -164,35 +164,35 @@ end
 local function substitute()
   u.map("b", "<nop>", "Change key")
 
-  local function get_feedkeys(keys)
+  local function get_feedkeys(keys, go_left_amount)
+    local lefts = vim.api.nvim_replace_termcodes("<Left>", true, false, true)
+    lefts = lefts:rep(go_left_amount or 0, "")
+
     keys = vim.api.nvim_replace_termcodes(keys, true, false, true)
+    keys = keys .. lefts
     return function()
-      vim.api.nvim_feedkeys(keys, "c", false)
+      vim.api.nvim_feedkeys(keys, "n", false)
     end
   end
 
   local description = "Replace any text to another text"
-  u.nmap("bu", get_feedkeys(":%s///g<Left><Left><Left>"), description)
-  u.xmap("bu", get_feedkeys(":s///g<Left><Left><Left>"), description)
+  u.nmap("bu", get_feedkeys(":%s///g", 3), description)
+  u.xmap("bu", get_feedkeys(":s///g", 3), description)
   description = description .. " with confirmation"
-  u.nmap("bU", get_feedkeys(":%s///gc<Left><Left><Left><Left>"), description)
-  u.xmap("bU", get_feedkeys(":s///gc<Left><Left><Left><Left>"), description)
-
-  description = "Replace text under the cursor to another text"
-  u.nmap("be", get_feedkeys(":%s/<C-r><C-w>//g<Left><Left>"), description)
-  description = description .. " with confirmation"
-  u.nmap(
-    "bE",
-    get_feedkeys(":%s/<C-r><C-w>//gc<Left><Left><Left>"),
-    description
-  )
+  u.nmap("bU", get_feedkeys(":%s///gc", 4), description)
+  u.xmap("bU", get_feedkeys(":s///gc", 4), description)
 
   description = "Replace yanked text to another text"
-  u.nmap("bo", get_feedkeys(":%s/<C-r>y//g<Left><Left>"), description)
-  u.xmap("bo", get_feedkeys(":s/<C-r>y//g<Left><Left>"), description)
+  u.nmap("be", get_feedkeys(":%s/<C-r>y//g", 2), description)
+  u.xmap("be", get_feedkeys(":s/<C-r>y//g", 2), description)
   description = description .. " with confirmation"
-  u.nmap("bO", get_feedkeys(":%s/<C-r>y//gc<Left><Left><Left>"), description)
-  u.xmap("bO", get_feedkeys(":s/<C-r>y//gc<Left><Left><Left>"), description)
+  u.nmap("bE", get_feedkeys(":%s/<C-r>y//gc", 3), description)
+  u.xmap("bE", get_feedkeys(":s/<C-r>y//gc", 3), description)
+
+  description = "Replace text under the cursor to another text"
+  u.nmap("bo", get_feedkeys(":%s/<C-r><C-w>//g", 2), description)
+  description = description .. " with confirmation"
+  u.nmap("bO", get_feedkeys(":%s/<C-r><C-w>//gc", 3), description)
 end
 
 local function foldings()
