@@ -257,7 +257,6 @@ local function misc()
   u.cmap("<M-c>", "<C-^>", "Toggle language")
 
   -- Misc
-  vim.opt.pastetoggle = "<F8>"
   u.nmap("_", "<Cmd>write<CR>", "Write buffer")
 
   local maps_to_disable = {
