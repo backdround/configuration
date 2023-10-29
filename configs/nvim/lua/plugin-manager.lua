@@ -1,9 +1,8 @@
----@module "plugin-manager"
---- The module adds ability to a user to load lazy's plugins.
+-- The module adds ability to a user to load plugins.
 
 local utils = require("utilities")
 
---- It installs lazy plugin manager if it is't present.
+---It installs lazy plugin manager if it is't present.
 local function ensure_lazy_presence()
   -- Set lazy path
   local lazy_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -30,31 +29,30 @@ local function ensure_lazy_presence()
     error(error_message)
   end
 
-  -- Notify success.
+  -- Notify success
   utils.notify("Lazy's been installed successfully!")
 end
 
 local plugins = {}
 
---- Adds a plugin to the list to dealt with.
+---Adds a plugin to a list to dealt with it later.
 ---@param plugin string|table: lazy's plugin
 local function add_plugin(plugin)
   utils.assert_string_or_table(plugin, "Plugin", 2)
   table.insert(plugins, plugin)
 end
 
---- Load all previously given plugins.
+---Loads all previously given plugins.
 local function load()
   ensure_lazy_presence()
 
-  -- Changes default mappings
+  -- Change default mappings
   local config = require("lazy.view.config")
   config.commands.update.key = "<M-U>"
   config.commands.update.key_plugin = "<M-u>"
   config.keys.diff = "<M-d>"
 
-  -- Makes options
-  local options = {
+  local lazy_options = {
     install = {
       colorscheme = { "melting" },
     },
@@ -63,9 +61,9 @@ local function load()
     },
   }
 
-  -- Loads plugins
+  -- Load plugins
   local lazy = require("lazy")
-  lazy.setup(plugins, options)
+  lazy.setup(plugins, lazy_options)
 end
 
 return {

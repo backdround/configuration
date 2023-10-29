@@ -1,28 +1,3 @@
---- It is "require()" but without cache.
-local function load_module(module_name)
-  package.loaded[module_name] = nil
-  return require(module_name)
-end
-
---- It finds and performs a module with the given arguments.
-local function apply(module_name, ...)
-  -- Load module
-  local status, result = pcall(load_module, module_name)
-
-  if not status then
-    vim.api.nvim_err_writeln(result)
-    return
-  end
-
-  local module = result
-
-  -- Apply module
-  status, result = pcall(module.apply, ...)
-  if not status then
-    vim.api.nvim_err_writeln(result)
-  end
-end
-
 
 local module_names = {
   -- General modules
@@ -46,8 +21,29 @@ local module_names = {
   "plugins/luasnip",
 }
 
+---Finds and performs the given module by name
+---@param module_name string
+---@param register_plugin function
+local function apply(module_name, register_plugin)
+  -- Load module
+  local status, result = pcall(require, module_name)
+
+  if not status then
+    vim.api.nvim_err_writeln(result)
+    return
+  end
+
+  local module = result
+
+  -- Apply module
+  status, result = pcall(module.apply, register_plugin)
+  if not status then
+    vim.api.nvim_err_writeln(result)
+  end
+end
+
 -- Apply all modules
-local plugin_manager = load_module("plugin-manager")
+local plugin_manager = require("plugin-manager")
 for _, module_name in ipairs(module_names) do
   apply(module_name, plugin_manager.add_plugin)
 end
