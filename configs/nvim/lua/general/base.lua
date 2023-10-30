@@ -24,6 +24,8 @@ local function insert()
   end
 
   -- Enter mode
+  -- https://github.com/neovim/neovim/issues/25841
+  vim.keymap.del({ "n", "x" }, "gx")
   u.nmap("g", "i", "Enter insert mode before the cursor")
   u.nmap("G", "I", "Enter insert mode at the start of the line")
   u.nmap("c", insert_mode, "Enter insert mode after the cursor")
