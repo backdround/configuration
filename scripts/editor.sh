@@ -1,2 +1,2 @@
-#!/bin/sh
-exec nvim --cmd 'let g:editor = 1' "$@"
+#!/usr/bin/env sh
+exec nvim +'set nobackup | set nowritebackup | set noswapfile' "$@"
