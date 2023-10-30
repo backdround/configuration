@@ -118,7 +118,7 @@ iw-paste-file() {
   local interactive_root="$(__iw-get-root)"
 
   # Find file to paste
-  FZF_SELECT="fd -tf . \"$interactive_root\" \
+  FZF_SELECT="fd --type file --hidden --exclude .git . \"$interactive_root\" \
     | __iw-make-paths-prettier-for-selection \"$interactive_root\""
   local file=$(__iw-fzf-select)
   local fzf_status=$?
@@ -146,7 +146,7 @@ iw-paste-directory() {
   local interactive_root="$(__iw-get-root)"
 
   # Find directory to paste
-  FZF_SELECT="fd -td . \"$interactive_root\" \
+  FZF_SELECT="fd --type directory --hidden --exclude .git . \"$interactive_root\" \
     | __iw-make-paths-prettier-for-selection \"$interactive_root\""
   local directory=$(__iw-fzf-select)
   local fzf_status=$?
@@ -174,7 +174,7 @@ iw-cd-directory() {
   local interactive_root="$(__iw-get-root)"
 
   # Find directory to paste
-  FZF_SELECT="fd -td . \"$interactive_root\" \
+  FZF_SELECT="fd --type directory --hidden --exclude .git . \"$interactive_root\" \
     | __iw-make-paths-prettier-for-selection \"$interactive_root\""
   local directory=$(__iw-fzf-select)
   local fzf_status=$?
