@@ -209,6 +209,19 @@ local function move(add_plugin)
   u.xmap("<M-r>", "<Plug>MoveBlockRight", "Move selected text right")
 end
 
+local function align(add_plugin)
+  add_plugin({
+    "Vonr/align.nvim",
+    config = function()
+      local a = require("align")
+      local align_to_char = u.wrap(a.operator, a.align_to_char)
+      local align_to_string = u.wrap(a.operator, a.align_to_string)
+      u.map("ba", align_to_char, "Align to a character")
+      u.map("b<M-a>", align_to_string, "Align to a string")
+    end,
+  })
+end
+
 local function apply(add_plugin)
   commenting(add_plugin)
   autopairs(add_plugin)
@@ -218,6 +231,7 @@ local function apply(add_plugin)
   exchange(add_plugin)
   niceblock(add_plugin)
   move(add_plugin)
+  align(add_plugin)
 end
 
 return {
