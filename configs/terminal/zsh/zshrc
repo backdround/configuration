@@ -191,6 +191,7 @@ alias gcm='git commit'
 
 # global
 alias -g .g='| grep -i'
+alias -g .n='| grep -i -v'
 alias -g .l='| less'
 alias -g .c="| wc -l"
 alias -g .h="--help"
