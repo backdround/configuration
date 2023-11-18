@@ -147,6 +147,7 @@ alias dc='docker-compose'
 alias a='ansible'
 alias ap='ansible-playbook'
 alias drop='dragon-drop --and-exit'
+alias h='tldr'
 
 pg() { eval "pgrep -i -l \"$*\" | grep -i \"$*\"" }
 
