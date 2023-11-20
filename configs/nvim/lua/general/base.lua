@@ -19,8 +19,11 @@ local function insert()
     local cursor_line = vim.api.nvim_win_get_cursor(0)[1]
     local current_line =
       vim.api.nvim_buf_get_lines(0, cursor_line - 1, cursor_line, true)[1]
-    local empty_line = current_line:len() == 0
-    u.feedkeys(empty_line and "a<C-f>" or "a")
+    if current_line:len() == 0 then
+      u.feedkeys(vim.v.count1 .. "a<C-f>")
+    else
+      u.feedkeys(vim.v.count1 .. "a")
+    end
   end
 
   -- Enter mode
