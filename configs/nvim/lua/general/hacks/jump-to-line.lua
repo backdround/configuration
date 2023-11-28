@@ -97,6 +97,10 @@ local function select_region(row1, column1, row2, column2)
   vim.api.nvim_buf_set_mark(0, "<", row1, column1, {})
   vim.api.nvim_buf_set_mark(0, ">", row2, column2, {})
   vim.cmd("normal! gv")
+
+  if vim.fn.visualmode() ~= "v" then
+    vim.cmd("normal! v")
+  end
 end
 
 local function perform_motion(target_line, target_column)
