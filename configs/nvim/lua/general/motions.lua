@@ -68,85 +68,50 @@ local function scroll(add_plugin)
   })
 end
 
-local function find_character(add_plugin)
-  add_plugin("dahu/vim-fanfingtastic")
+local function jump_between_characters(add_plugin)
+  add_plugin({
+    url = "git@github.com:backdround/improved-ft.nvim.git",
+    config = function()
+      local ft = require("improved-ft")
 
-  -- Disables fanfingtastic default mappings
-  for _, key in ipairs({ "f", "F", "t", "T", ";", "," }) do
-    u.map_stab({ "n", "x", "o" }, { "<Plug>fanfingtastic_" .. key })
-  end
+      local jump = function(direction, offset, pattern)
+        return function()
+          ft.jump({
+            direction = direction,
+            offset = offset,
+            pattern = pattern,
+          })
+        end
+      end
 
-  -- Saves direction to make a stable next / previous search
-  local direction_forward = true
+      u.map("p", jump("forward", "none"), "Jump forward to a char")
+      u.map("<M-p>", jump("forward", "pre"), "Jump forward to a pre char")
+      u.map("<S-p>", jump("forward", "post"), "Jump forward to a post char")
 
-  local find = function()
-    direction_forward = true
-    return "<Plug>fanfingtastic_f"
-  end
+      u.map("w", jump("backward", "none"), "Jump backward to a char")
+      u.map("<M-w>", jump("backward", "pre"), "Jump backward to a pre char")
+      u.map("<S-w>", jump("backward", "post"), "Jump backward to a post char")
 
-  local find_pre = function()
-    direction_forward = true
-    return "<Plug>fanfingtastic_t"
-  end
+      u.map(")", ft.repeat_forward, "Repeat jump forward to a character")
+      u.map("(", ft.repeat_backward, "Repeat jump backward to a character")
 
-  local find_backward = function()
-    direction_forward = false
-    return "<Plug>fanfingtastic_F"
-  end
+      -- Jump through quotes
+      local p = "\\v[\"'`]"
+      u.map("+", jump("forward", "post", p), "Jump forward post quotes")
+      u.map("-", jump("backward", "post", p), "Jump backward post quotes")
 
-  local find_backward_pre = function()
-    direction_forward = false
-    return "<Plug>fanfingtastic_T"
-  end
+      -- Jump through brackets
+      p = "\\v([\\][(]|\\)$@!)"
+      u.map("&", jump("forward", "post", p), "Jump forward post brackets")
+      p = "\\v[\\][()]"
+      u.map("=", jump("backward", "post", p), "Jump backward post brackets")
 
-  local next = function()
-    if direction_forward then
-      return "<Plug>fanfingtastic_;"
-    else
-      return "<Plug>fanfingtastic_,"
-    end
-  end
-
-  local previous = function()
-    if direction_forward then
-      return "<Plug>fanfingtastic_,"
-    else
-      return "<Plug>fanfingtastic_;"
-    end
-  end
-
-  -- Forward char
-  local desc = "Search next character operator"
-  u.map("p", find, { expr = true, desc = desc })
-  desc = "Search pre next character operator"
-  u.map("<M-p>", find_pre, { expr = true, desc = desc })
-
-  -- Backward char
-  desc = "Search previous character operator"
-  u.map("w", find_backward, { expr = true, desc = desc })
-  desc = "Search pre previous character operator"
-  u.map("<M-w>", find_backward_pre, { expr = true, desc = desc })
-
-  -- Between chars
-  desc = "Search forward of the last searched character"
-  u.map(")", next, { expr = true, desc = desc })
-  desc = "Search backward of the last searched character"
-  u.map("(", previous, { expr = true, desc = desc })
-
-  local jump_forward_through = hacks.jump_through.forward
-  local jump_backward_through = hacks.jump_through.backward
-
-  -- Jump through quotes
-  u.map("+", jump_forward_through("[\"'`]"), "Jump forward through quotes")
-  u.map("-", jump_backward_through("[\"'`]"), "Jump backward through quotes")
-
-  -- Jump through brackets
-  u.map("&", jump_forward_through("[\\][()]"), "Jump forward through brackets")
-  u.map("=", jump_backward_through("[\\][()]"), "Jump backward through brackets")
-
-  -- Jump through dot
-  u.map("<PageUp>", jump_forward_through("\\."), "Jump forward through dots")
-  u.map("<PageDown>", jump_backward_through("\\."), "Jump backward through dots")
+      -- Jump through dot
+      p = "\\v\\."
+      u.map("<PageUp>", jump("forward", "post", p), "Jump forward post dots")
+      u.map("<PageDown>", jump("backward", "post", p), "Jump backward post dots")
+    end,
+  })
 end
 
 local function marks()
@@ -263,7 +228,7 @@ local function apply(add_plugin)
   word_motion(add_plugin)
   scroll(add_plugin)
   jump_motions(add_plugin)
-  find_character(add_plugin)
+  jump_between_characters(add_plugin)
   marks()
   page_movements()
   misc()
