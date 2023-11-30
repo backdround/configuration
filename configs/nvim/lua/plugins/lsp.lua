@@ -127,6 +127,7 @@ end
 local function apply(add_plugin)
   add_plugin({
     "neovim/nvim-lspconfig",
+    enabled = not LightWeight,
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "nvim-telescope/telescope.nvim",
@@ -144,6 +145,7 @@ local function apply(add_plugin)
 
   add_plugin({
     "jose-elias-alvarez/null-ls.nvim",
+    enabled = not LightWeight,
     dependencies = "nvim-lua/plenary.nvim",
     config = null_configure,
   })

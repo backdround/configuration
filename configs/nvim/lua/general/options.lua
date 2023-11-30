@@ -22,13 +22,20 @@ local function apply()
   options.autoindent = false
 
   -- Backup
-  local backupdir = vim.fn.expand("~/.neovim-backup")
-  vim.fn.mkdir(backupdir, "p")
+  if LightWeight then
+    options.backup = false
+    options.writebackup = false
+  else
+    local backupdir = vim.fn.expand("~/.neovim-backup")
+    vim.fn.mkdir(backupdir, "p")
 
-  options.backup = true
-  options.backupext = ".back"
-  options.backupdir = backupdir
-  options.backupskip = options.backupskip + "/dev/shm/*" + backupdir
+    options.backup = true
+    options.backupext = ".back"
+    options.backupdir = backupdir
+    options.backupskip = options.backupskip + "/dev/shm/*" + backupdir
+  end
+  options.swapfile = false
+  options.undofile = false
 
   -- Visual representation
   options.number = true
@@ -99,7 +106,6 @@ local function apply()
   options.timeout = false
   options.scrolloff = 10
   options.mouse = "a"
-  options.swapfile = false
   options.cpoptions:remove("_")
 end
 

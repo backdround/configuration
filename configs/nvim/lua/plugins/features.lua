@@ -26,6 +26,7 @@ end
 local function session(add_plugin)
   add_plugin({
     "rmagatti/auto-session",
+    enabled = not LightWeight,
     config = function()
       require("auto-session").setup({
         log_level = "error",
@@ -42,7 +43,10 @@ local function search_in_browser(add_plugin)
 end
 
 local function gutentags(add_plugin)
-  add_plugin("ludovicchabant/vim-gutentags")
+  add_plugin({
+    "ludovicchabant/vim-gutentags",
+    enabled = not LightWeight,
+  })
   vim.g.gutentags_add_default_project_roots = 0
   vim.g.gutentags_project_root = { ".git" }
   vim.g.gutentags_cache_dir = vim.fn.stdpath("data") .. "/tags"
@@ -52,6 +56,7 @@ end
 local function annotations(add_plugin)
   add_plugin({
     "danymat/neogen",
+    enabled = not LightWeight,
     config = function()
       local neogen = require("neogen")
       neogen.setup({

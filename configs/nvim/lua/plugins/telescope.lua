@@ -255,6 +255,7 @@ end
 local function apply(add_plugin)
   add_plugin({
     "nvim-telescope/telescope.nvim",
+    enabled = not LightWeight,
     dependencies = dependencies,
     config = function()
       setup()

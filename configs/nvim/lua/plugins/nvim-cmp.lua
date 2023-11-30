@@ -100,6 +100,7 @@ end
 local function apply(add_plugin)
   add_plugin({
     "hrsh7th/nvim-cmp",
+    enabled = not LightWeight,
     dependencies = {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",

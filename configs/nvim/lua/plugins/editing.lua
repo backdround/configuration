@@ -3,6 +3,7 @@ local u = require("utilities")
 local function commenting(add_plugin)
   add_plugin({
     "numToStr/Comment.nvim",
+    enabled = not LightWeight,
     config = function()
       require("Comment").setup({
         ignore = "^$",

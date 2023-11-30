@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-exec nvim +'set nobackup | set nowritebackup | set noswapfile' "$@"
+exec nvim --cmd 'lua LightWeight = true' "$@"

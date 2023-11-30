@@ -72,6 +72,7 @@ end
 local function apply(add_plugin)
   add_plugin({
     "L3MON4D3/LuaSnip",
+    enabled = not LightWeight,
     build = "make install_jsregexp",
     config = configure,
   })
