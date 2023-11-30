@@ -11,7 +11,7 @@
   ch = checkout
   br = branch
   cm = commit
-  lb = log --oneline --graph --all
+  ll = log --oneline --graph --all
   l = log --oneline --graph --all -n 15
 
 [pull]
@@ -30,4 +30,4 @@
   status = always
   ui = always
 [init]
-	defaultBranch = master
+	defaultBranch = main
