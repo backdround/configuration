@@ -1,7 +1,7 @@
 local u = require("utilities")
 local hacks = require("general.hacks")
 
-local function word_motion(add_plugin)
+local function word_motion(plugin_manager)
   -- Base mode
   u.map("z", "b", "To the start of the previous word")
   u.map("j", "w", "To the start of the next word")
@@ -27,7 +27,7 @@ local function word_motion(add_plugin)
   -- Wordmotion plugin
   vim.g.wordmotion_spaces = "()[]<>{},./%@^!?;:$~`\"\\#_|-+=&*' "
   vim.g.wordmotion_nomap = 1
-  add_plugin("chaoren/vim-wordmotion")
+  plugin_manager.add("chaoren/vim-wordmotion")
 
   u.map("<M-z>", "<Plug>WordMotion_b", "To the start of the previous real word")
   u.map("<M-q>", "<Plug>WordMotion_ge", "To the end of the previous real word")
@@ -44,9 +44,9 @@ local function word_motion(add_plugin)
   u.imap("<M-k>", "<C-o><Plug>WordMotion_e<Right>", description)
 end
 
-local function scroll(add_plugin)
-  add_plugin({
-    "karb94/neoscroll.nvim",
+local function scroll(plugin_manager)
+  plugin_manager.add({
+    url = "https://github.com/karb94/neoscroll.nvim",
     config = function()
       -- Save real updatetime restoration.
       local real_update_time = vim.go.updatetime
@@ -68,8 +68,8 @@ local function scroll(add_plugin)
   })
 end
 
-local function jump_between_characters(add_plugin)
-  add_plugin({
+local function jump_between_characters(plugin_manager)
+  plugin_manager.add({
     url = "git@github.com:backdround/improved-ft.nvim.git",
     config = function()
       local ft = require("improved-ft")
@@ -173,13 +173,13 @@ local function page_movements()
   map_line_jump("o<M-.>", "forward", "last", true)
 end
 
-local function jump_motions(add_plugin)
+local function jump_motions(plugin_manager)
   -- TODO: Use original plugin when all things will be exist:
   -- - You can jump from empty line (without error, lol).
   -- - camelCase will be available.
   -- - multiply position will be available (begin and end at the same time).
-  add_plugin({
-    "backdround/hop.nvim",
+  plugin_manager.add({
+    url = "https://github.com/backdround/hop.nvim",
     config = function()
       local hop = require("hop")
       local hint = require("hop.hint")
@@ -200,8 +200,8 @@ local function jump_motions(add_plugin)
     end,
   })
 
-  add_plugin({
-    "woosaaahh/sj.nvim",
+  plugin_manager.add({
+    url = "https://github.com/woosaaahh/sj.nvim",
     config = function()
       local sj = require("sj")
       sj.setup({
@@ -224,11 +224,12 @@ local function misc()
   u.nmap("xm", "<Cmd>tab Man<CR>", "Search man page with name under the cursor")
 end
 
-local function apply(add_plugin)
-  word_motion(add_plugin)
-  scroll(add_plugin)
-  jump_motions(add_plugin)
-  jump_between_characters(add_plugin)
+---@param plugin_manager UserPluginManager
+local function apply(plugin_manager)
+  word_motion(plugin_manager)
+  scroll(plugin_manager)
+  jump_motions(plugin_manager)
+  jump_between_characters(plugin_manager)
   marks()
   page_movements()
   misc()

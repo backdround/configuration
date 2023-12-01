@@ -124,18 +124,18 @@ local function setup_hover_appearance()
   end
 end
 
-local function apply(add_plugin)
-  add_plugin({
-    "neovim/nvim-lspconfig",
+local function apply(plugin_manager)
+  plugin_manager.add({
+    url = "https://github.com/neovim/nvim-lspconfig",
     enabled = not LightWeight,
     dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "nvim-telescope/telescope.nvim",
+      "https://github.com/hrsh7th/cmp-nvim-lsp",
+      "https://github.com/nvim-telescope/telescope.nvim",
       {
-        "folke/neodev.nvim",
+        url = "https://github.com/folke/neodev.nvim",
         opts = {},
         dependencies = {
-          "folke/neoconf.nvim",
+          url = "https://github.com/folke/neoconf.nvim",
           opts = {},
         },
       },
@@ -143,8 +143,8 @@ local function apply(add_plugin)
     config = lsp_configure,
   })
 
-  add_plugin({
-    "jose-elias-alvarez/null-ls.nvim",
+  plugin_manager.add({
+    url = "https://github.com/jose-elias-alvarez/null-ls.nvim",
     enabled = not LightWeight,
     dependencies = "nvim-lua/plenary.nvim",
     config = null_configure,

@@ -1,9 +1,10 @@
--- The module adds ability to a user to load plugins.
+-- The file works with lazy.nvim
+local u = require("utilities")
 
-local utils = require("utilities")
+local M = {}
 
----It installs lazy plugin manager if it is't present.
-local function ensure_lazy_presence()
+---Installs lazy plugin manager if it is't present.
+M.ensure_presence = function()
   -- Set lazy path
   local lazy_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
   vim.opt.runtimepath:prepend(lazy_path)
@@ -14,7 +15,7 @@ local function ensure_lazy_presence()
   end
 
   -- Install lazy
-  utils.notify("Lazy installation is in progress...")
+  u.notify("Lazy installation is in progress...")
   local clone_output = vim.fn.system({
     "git",
     "clone",
@@ -30,23 +31,10 @@ local function ensure_lazy_presence()
   end
 
   -- Notify success
-  utils.notify("Lazy's been installed successfully!")
+  u.notify("Lazy's been installed successfully!")
 end
 
-local plugins = {}
-
----Adds a plugin to a list to dealt with it later.
----@param plugin string|table: lazy's plugin
-local function add_plugin(plugin)
-  utils.assert_string_or_table(plugin, "Plugin", 2)
-  table.insert(plugins, plugin)
-end
-
----Loads all previously given plugins.
-local function load()
-  ensure_lazy_presence()
-
-  -- Change default mappings
+M.set_mappings = function()
   local leader = vim.api.nvim_replace_termcodes("<leader>", true, false, true)
   local keys = require("lazy.view.config").keys
   local commands = require("lazy.view.config").commands
@@ -77,7 +65,11 @@ local function load()
   commands.debug.key          = leader .. "D"
   commands.help.key           = "<C-_>" -- <C-/>
   commands.build.key_plugin   = leader .. "b"
+end
 
+---Loads given plugins.
+---@param plugins UserPluginSpecification[]
+M.load = function(plugins)
   local lazy_options = {
     install = {
       colorscheme = { "melting" },
@@ -87,12 +79,8 @@ local function load()
     },
   }
 
-  -- Load plugins
   local lazy = require("lazy")
   lazy.setup(plugins, lazy_options)
 end
 
-return {
-  add_plugin = add_plugin,
-  load = load,
-}
+return M

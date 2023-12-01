@@ -1,8 +1,8 @@
 local u = require("utilities")
 
-local function focus(add_plugin)
-  add_plugin({
-    "folke/twilight.nvim",
+local function focus(plugin_manager)
+  plugin_manager.add({
+    url = "https://github.com/folke/twilight.nvim",
     opts = {
       dimming = {
         alpha = 0.25,
@@ -12,8 +12,8 @@ local function focus(add_plugin)
     },
   })
 
-  add_plugin({
-    "folke/zen-mode.nvim",
+  plugin_manager.add({
+    url = "https://github.com/folke/zen-mode.nvim",
     dependencies = "folke/twilight.nvim",
     config = function()
       local zen_mode = require("zen-mode")
@@ -39,9 +39,9 @@ local function focus(add_plugin)
   })
 end
 
-local function floaterm(add_plugin)
-  add_plugin({
-    "numToStr/FTerm.nvim",
+local function floaterm(plugin_manager)
+  plugin_manager.add({
+    url = "https://github.com/numToStr/FTerm.nvim",
     config = function()
       local fterm = require("FTerm")
       fterm.setup({
@@ -62,9 +62,9 @@ local function floaterm(add_plugin)
   })
 end
 
-local function messages(add_plugin)
-  add_plugin({
-    "AckslD/messages.nvim",
+local function messages(plugin_manager)
+  plugin_manager.add({
+    url = "https://github.com/AckslD/messages.nvim",
     config = function()
       local m = require("messages")
       m.setup({
@@ -126,9 +126,9 @@ local function messages(add_plugin)
   })
 end
 
-local function viminput(add_plugin)
-  add_plugin({
-    "stevearc/dressing.nvim",
+local function viminput(plugin_manager)
+  plugin_manager.add({
+    url = "https://github.com/stevearc/dressing.nvim",
     opts = {
       input = {
         enabled = true,
@@ -152,9 +152,9 @@ local function viminput(add_plugin)
   })
 end
 
-local function illuminate(add_plugin)
-  add_plugin({
-    "RRethy/vim-illuminate",
+local function illuminate(plugin_manager)
+  plugin_manager.add({
+    url = "https://github.com/RRethy/vim-illuminate",
     config = function()
       require("illuminate").configure({
         delay = 150,
@@ -163,9 +163,9 @@ local function illuminate(add_plugin)
   })
 end
 
-local function colors(add_plugin)
-  add_plugin({
-    "backdround/melting",
+local function colors(plugin_manager)
+  plugin_manager.add({
+    url = "git@github.com:backdround/melting",
     config = function()
       local c = require("melting.colors")
       require("melting").setup({
@@ -178,9 +178,9 @@ local function colors(add_plugin)
   vim.opt.termguicolors = true
 end
 
-local function colorizer(add_plugin)
-  add_plugin({
-    "NvChad/nvim-colorizer.lua",
+local function colorizer(plugin_manager)
+  plugin_manager.add({
+    url = "https://github.com/NvChad/nvim-colorizer.lua",
     opts = {
       filetypes = {
         "lua",
@@ -192,14 +192,14 @@ local function colorizer(add_plugin)
   })
 end
 
-local function apply(add_plugin)
-  focus(add_plugin)
-  floaterm(add_plugin)
-  messages(add_plugin)
-  viminput(add_plugin)
-  illuminate(add_plugin)
-  colors(add_plugin)
-  colorizer(add_plugin)
+local function apply(plugin_manager)
+  focus(plugin_manager)
+  floaterm(plugin_manager)
+  messages(plugin_manager)
+  viminput(plugin_manager)
+  illuminate(plugin_manager)
+  colors(plugin_manager)
+  colorizer(plugin_manager)
 end
 
 return {

@@ -83,24 +83,24 @@ local function textobjects_configure()
   })
 end
 
-local function apply(add_plugin)
+local function apply(plugin_manager)
   -- Base
-  add_plugin({
-    "nvim-treesitter/nvim-treesitter",
+  plugin_manager.add({
+    url = "https://github.com/nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = base_configure,
   })
 
   -- Textobjects
-  add_plugin({
-    "nvim-treesitter/nvim-treesitter-textobjects",
+  plugin_manager.add({
+    url = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
     dependencies = "nvim-treesitter/nvim-treesitter",
     config = textobjects_configure,
   })
 
   -- Playground
-  add_plugin({
-    "nvim-treesitter/playground",
+  plugin_manager.add({
+    url = "https://github.com/nvim-treesitter/playground",
     dependencies = "nvim-treesitter/nvim-treesitter",
   })
 end

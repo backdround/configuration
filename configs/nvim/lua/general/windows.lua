@@ -89,12 +89,12 @@ local function tabs()
   u.nmap("vX", "<Cmd>quitall!<CR>", "Close neovim with force")
 end
 
-local function tabscope(add_plugin)
+local function tabscope(plugin_manager)
   u.nmap("<M-u>", "<Cmd>:bnext<CR>", "Switch to next buffer")
   u.nmap("<M-e>", "<Cmd>:bprevious<CR>", "Switch to previous buffer")
 
-  add_plugin({
-    "git@github.com:backdround/tabscope.nvim",
+  plugin_manager.add({
+    url = "git@github.com:backdround/tabscope.nvim",
     config = function()
       local scope = require("tabscope")
       scope.setup()
@@ -112,10 +112,11 @@ local function tabscope(add_plugin)
   })
 end
 
-local function apply(add_plugin)
+---@param plugin_manager UserPluginManager
+local function apply(plugin_manager)
   splits()
   tabs()
-  tabscope(add_plugin)
+  tabscope(plugin_manager)
 end
 
 return {

@@ -1,6 +1,6 @@
 local u = require("utilities")
 
-local function golang(_)
+local function golang()
   u.autocmd("UserGolangIndentation", "FileType", {
     desc = "Use 4 width tabs in golang",
     pattern = "go",
@@ -11,8 +11,8 @@ local function golang(_)
   })
 end
 
-local function earthly(add_plugin)
-  add_plugin("earthly/earthly.vim")
+local function earthly(plugin_manager)
+  plugin_manager.add("earthly/earthly.vim")
 
   local earthly_indent_after_target = function()
     -- Gets previous not empty line
@@ -47,8 +47,8 @@ local function earthly(add_plugin)
   })
 end
 
-local function bats(add_plugin)
-  add_plugin("aliou/bats.vim")
+local function bats(plugin_manager)
+  plugin_manager.add("aliou/bats.vim")
   u.autocmd("UserBatsIndentation", "FileType", {
     desc = "Sets shell indentation for bats filetype",
     pattern = "bats",
@@ -56,10 +56,11 @@ local function bats(add_plugin)
   })
 end
 
-local function apply(add_plugin)
-  golang(add_plugin)
-  earthly(add_plugin)
-  bats(add_plugin)
+---@param plugin_manager UserPluginManager
+local function apply(plugin_manager)
+  golang()
+  earthly(plugin_manager)
+  bats(plugin_manager)
 end
 
 return {

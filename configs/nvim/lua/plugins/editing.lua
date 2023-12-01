@@ -1,8 +1,8 @@
 local u = require("utilities")
 
-local function commenting(add_plugin)
-  add_plugin({
-    "numToStr/Comment.nvim",
+local function commenting(plugin_manager)
+  plugin_manager.add({
+    url = "https://github.com/numToStr/Comment.nvim",
     enabled = not LightWeight,
     config = function()
       require("Comment").setup({
@@ -64,10 +64,10 @@ local function commenting(add_plugin)
   })
 end
 
-local function autopairs(add_plugin)
+local function autopairs(plugin_manager)
   -- TODO: to make a request for floating buffer insteard of virsual line
-  add_plugin({
-    "windwp/nvim-autopairs",
+  plugin_manager.add({
+    url = "https://github.com/windwp/nvim-autopairs",
     config = function()
       local nvim_autopairs = require("nvim-autopairs")
       nvim_autopairs.setup({
@@ -111,8 +111,8 @@ local function autopairs(add_plugin)
   })
 end
 
-local function targets(add_plugin)
-  add_plugin("wellle/targets.vim")
+local function targets(plugin_manager)
+  plugin_manager.add("wellle/targets.vim")
 
   vim.g.targets_aiAI = {
     "<Plug>(user-an-object)",
@@ -139,9 +139,9 @@ local function targets(add_plugin)
   u.map("<Plug>(virtual-visual-i)", "i", "In object mapping for 'targets'")
 end
 
-local function textobj_indent(add_plugin)
-  add_plugin({
-    "kana/vim-textobj-indent",
+local function textobj_indent(plugin_manager)
+  plugin_manager.add({
+    url = "https://github.com/kana/vim-textobj-indent",
     dependencies = "kana/vim-textobj-user",
   })
 
@@ -168,8 +168,8 @@ local function textobj_indent(add_plugin)
   )
 end
 
-local function surround(add_plugin)
-  add_plugin("tpope/vim-surround")
+local function surround(plugin_manager)
+  plugin_manager.add("tpope/vim-surround")
 
   vim.g.surround_no_mappings = 1
   u.nmap("tn", "<Plug>Dsurround", "Remove brackets")
@@ -179,24 +179,24 @@ local function surround(add_plugin)
   u.xmap("N", "<Plug>VgSurround", "Surround brackets multiline")
 end
 
-local function exchange(add_plugin)
-  add_plugin("tommcdo/vim-exchange")
+local function exchange(plugin_manager)
+  plugin_manager.add("tommcdo/vim-exchange")
 
   u.map("bc", "<Plug>(Exchange)", "Use exchange")
   u.nmap("bC", "<Plug>(ExchangeClear)", "Clear exchange")
   u.nmap("br", "<Plug>(ExchangeLine)", "Line exchange")
 end
 
-local function niceblock(add_plugin)
-  add_plugin("kana/vim-niceblock")
+local function niceblock(plugin_manager)
+  plugin_manager.add("kana/vim-niceblock")
 
   vim.g.niceblock_no_default_key_mappings = 1
   u.xmap("G", "<Plug>(niceblock-I)", "Insert at the start of every line")
   u.xmap("C", "<Plug>(niceblock-A)", "Insert at the end of every line")
 end
 
-local function move(add_plugin)
-  add_plugin("matze/vim-move")
+local function move(plugin_manager)
+  plugin_manager.add("matze/vim-move")
 
   vim.g.move_map_keys = 0
   u.nmap("<M-g>", "<Plug>MoveLineDown", "Move line down")
@@ -210,9 +210,9 @@ local function move(add_plugin)
   u.xmap("<M-r>", "<Plug>MoveBlockRight", "Move selected text right")
 end
 
-local function align(add_plugin)
-  add_plugin({
-    "Vonr/align.nvim",
+local function align(plugin_manager)
+  plugin_manager.add({
+    url = "https://github.com/Vonr/align.nvim",
     config = function()
       local a = require("align")
       local align_to_char = u.wrap(a.operator, a.align_to_char)
@@ -223,16 +223,17 @@ local function align(add_plugin)
   })
 end
 
-local function apply(add_plugin)
-  commenting(add_plugin)
-  autopairs(add_plugin)
-  targets(add_plugin)
-  textobj_indent(add_plugin)
-  surround(add_plugin)
-  exchange(add_plugin)
-  niceblock(add_plugin)
-  move(add_plugin)
-  align(add_plugin)
+---@param plugin_manager UserPluginManager
+local function apply(plugin_manager)
+  commenting(plugin_manager)
+  autopairs(plugin_manager)
+  targets(plugin_manager)
+  textobj_indent(plugin_manager)
+  surround(plugin_manager)
+  exchange(plugin_manager)
+  niceblock(plugin_manager)
+  move(plugin_manager)
+  align(plugin_manager)
 end
 
 return {

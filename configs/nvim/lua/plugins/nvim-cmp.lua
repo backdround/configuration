@@ -97,9 +97,9 @@ local function configure()
   })
 end
 
-local function apply(add_plugin)
-  add_plugin({
-    "hrsh7th/nvim-cmp",
+local function apply(plugin_manager)
+  plugin_manager.add({
+    url = "https://github.com/hrsh7th/nvim-cmp",
     enabled = not LightWeight,
     dependencies = {
       "hrsh7th/cmp-buffer",

@@ -1,8 +1,8 @@
 local u = require("utilities")
 
-local function tabby(add_plugin)
-  add_plugin({
-    "nanozuki/tabby.nvim",
+local function tabby(plugin_manager)
+  plugin_manager.add({
+    url = "https://github.com/nanozuki/tabby.nvim",
     config = function()
       require("tabby").setup({})
 
@@ -113,15 +113,15 @@ local function tabby(add_plugin)
 end
 
 -- TODO: use gitsigns to show diff
-local function lualine(add_plugin)
+local function lualine(plugin_manager)
   local function location()
     local line = vim.fn.line(".")
     local count_of_lines = vim.fn.line("$")
     return line .. ":" .. count_of_lines
   end
 
-  add_plugin({
-    "nvim-lualine/lualine.nvim",
+  plugin_manager.add({
+    url = "https://github.com/nvim-lualine/lualine.nvim",
     config = function()
       local line = require("lualine")
       line.setup({
@@ -153,9 +153,9 @@ local function lualine(add_plugin)
   })
 end
 
-local function apply(add_plugin)
-  tabby(add_plugin)
-  lualine(add_plugin)
+local function apply(plugin_manager)
+  tabby(plugin_manager)
+  lualine(plugin_manager)
 end
 
 return {

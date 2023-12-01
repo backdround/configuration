@@ -132,10 +132,10 @@ local function copy_paste()
   })
 end
 
-local function search(add_plugin)
-  add_plugin("romainl/vim-cool")
+local function search(plugin_manager)
+  plugin_manager.add("romainl/vim-cool")
 
-  add_plugin({
+  plugin_manager.add({
     url = "git@github.com:backdround/improved-search.nvim.git",
     config = function()
       local is = require("improved-search")
@@ -207,8 +207,8 @@ local function foldings()
   end, "Jump / fold key")
 end
 
-local function improved_repeat(add_plugin)
-  add_plugin("backdround/vim-repeat")
+local function improved_repeat(plugin_manager)
+  plugin_manager.add("backdround/vim-repeat")
 
   vim.g.repeat_no_default_key_mappings = 1
   u.nmap(".", "<Plug>(RepeatDot)", "Repeat action")
@@ -284,16 +284,17 @@ local function commandline()
   u.cmap("<M-o>", "<CR>", "Accept command")
 end
 
-local function apply(add_plugin)
+---@param plugin_manager UserPluginManager
+local function apply(plugin_manager)
   misc()
   editing()
   insert()
   visual()
   copy_paste()
-  search(add_plugin)
+  search(plugin_manager)
   substitute()
   foldings()
-  improved_repeat(add_plugin)
+  improved_repeat(plugin_manager)
   commands()
   commandline()
 end

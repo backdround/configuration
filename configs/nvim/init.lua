@@ -23,8 +23,8 @@ local module_names = {
 
 ---Finds and performs the given module by name
 ---@param module_name string
----@param register_plugin function
-local function apply(module_name, register_plugin)
+---@param plugin_manager UserPluginManager
+local function apply(module_name, plugin_manager)
   -- Load module
   local status, result = pcall(require, module_name)
 
@@ -36,16 +36,16 @@ local function apply(module_name, register_plugin)
   local module = result
 
   -- Apply module
-  status, result = pcall(module.apply, register_plugin)
+  status, result = pcall(module.apply, plugin_manager)
   if not status then
     vim.api.nvim_err_writeln(result)
   end
 end
 
 -- Apply all modules
-local plugin_manager = require("plugin-manager")
+local plugin_manager = require("plugin-manager").new()
 for _, module_name in ipairs(module_names) do
-  apply(module_name, plugin_manager.add_plugin)
+  apply(module_name, plugin_manager)
 end
 
 -- Load all registred plugins

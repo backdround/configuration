@@ -12,26 +12,6 @@ local vim = {
     name = "vim out",
     dscr = "print variable with vim.inspect",
   }, fmt("print(vim.inspect({}))", { i(1) })),
-
-  s(
-    {
-      trig = "vimmod",
-      name = "vim lua template module",
-      dscr = "create new vim lua template module",
-    },
-    fmta(
-      [[
-        local function apply(add_plugin)
-          <>
-        end
-
-        return {
-          apply = apply
-        }
-      ]],
-      { i(1) }
-    )
-  ),
 }
 
 local general = {

@@ -1,15 +1,16 @@
 local u = require("utilities")
-local function rooter(add_plugin)
-  add_plugin("airblade/vim-rooter")
+
+local function rooter(plugin_manager)
+  plugin_manager.add("airblade/vim-rooter")
 
   vim.g.rooter_patterns = { ".git/" }
   vim.g.rooter_silent_chdir = 1
   vim.g.rooter_resolve_links = 1
 end
 
-local function markdown(add_plugin)
-  add_plugin({
-    "toppair/peek.nvim",
+local function markdown(plugin_manager)
+  plugin_manager.add({
+    url = "https://github.com/toppair/peek.nvim",
     build = "deno task --quiet build:fast",
     config = function()
       local peek = require("peek")
@@ -23,9 +24,9 @@ local function markdown(add_plugin)
   })
 end
 
-local function session(add_plugin)
-  add_plugin({
-    "rmagatti/auto-session",
+local function session(plugin_manager)
+  plugin_manager.add({
+    url = "https://github.com/rmagatti/auto-session",
     enabled = not LightWeight,
     config = function()
       require("auto-session").setup({
@@ -36,15 +37,15 @@ local function session(add_plugin)
   })
 end
 
-local function search_in_browser(add_plugin)
-  add_plugin("tyru/open-browser.vim")
+local function search_in_browser(plugin_manager)
+  plugin_manager.add("tyru/open-browser.vim")
   u.nmap("<leader>/", "<Plug>(openbrowser-smart-search)", "Search in browser")
   u.xmap("<leader>/", "<Plug>(openbrowser-smart-search)", "Search in browser")
 end
 
-local function gutentags(add_plugin)
-  add_plugin({
-    "ludovicchabant/vim-gutentags",
+local function gutentags(plugin_manager)
+  plugin_manager.add({
+    url = "https://github.com/ludovicchabant/vim-gutentags",
     enabled = not LightWeight,
   })
   vim.g.gutentags_add_default_project_roots = 0
@@ -53,9 +54,9 @@ local function gutentags(add_plugin)
   vim.g.gutentags_file_list_command = "fd --type file --hidden --exclude .git"
 end
 
-local function annotations(add_plugin)
-  add_plugin({
-    "danymat/neogen",
+local function annotations(plugin_manager)
+  plugin_manager.add({
+    url = "https://github.com/danymat/neogen",
     enabled = not LightWeight,
     config = function()
       local neogen = require("neogen")
@@ -90,19 +91,19 @@ local function annotations(add_plugin)
   })
 end
 
-local function quickfix(add_plugin)
-  _ = add_plugin
+local function quickfix(plugin_manager)
+  _ = plugin_manager
   -- TODO: check nvim-bqf
 end
 
-local function apply(add_plugin)
-  rooter(add_plugin)
-  markdown(add_plugin)
-  session(add_plugin)
-  search_in_browser(add_plugin)
-  gutentags(add_plugin)
-  annotations(add_plugin)
-  quickfix(add_plugin)
+local function apply(plugin_manager)
+  rooter(plugin_manager)
+  markdown(plugin_manager)
+  session(plugin_manager)
+  search_in_browser(plugin_manager)
+  gutentags(plugin_manager)
+  annotations(plugin_manager)
+  quickfix(plugin_manager)
 end
 
 return {

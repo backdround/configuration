@@ -4,7 +4,7 @@ local dependencies = {
   "nvim-lua/plenary.nvim",
   "benfowler/telescope-luasnip.nvim",
   {
-    "nvim-telescope/telescope-fzf-native.nvim",
+    url = "https://github.com/nvim-telescope/telescope-fzf-native.nvim",
     build = "make",
   },
   "nvim-telescope/telescope-ui-select.nvim",
@@ -252,9 +252,9 @@ local function set_mappings()
   )
 end
 
-local function apply(add_plugin)
-  add_plugin({
-    "nvim-telescope/telescope.nvim",
+local function apply(plugin_manager)
+  plugin_manager.add({
+    url = "https://github.com/nvim-telescope/telescope.nvim",
     enabled = not LightWeight,
     dependencies = dependencies,
     config = function()
