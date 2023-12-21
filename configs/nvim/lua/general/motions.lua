@@ -2,46 +2,82 @@ local u = require("utilities")
 local hacks = require("general.hacks")
 
 local function word_motion(plugin_manager)
-  -- Base mode
-  u.map("z", "b", "To the start of the previous word")
-  u.map("j", "w", "To the start of the next word")
-  u.map("q", "ge", "To the end of the previous word")
-  u.map("k", "e", "To the end of the next word")
-
   u.map("Z", "B", "To the start of the previous full word")
   u.map("J", "W", "To the start of the next full word")
   u.map("Q", "gE", "To the end of the previous full word")
   u.map("K", "E", "To the end of the next full word")
 
-  -- Insert mode
-  u.imap("<C-z>", "<C-o>b", "To the start of the previous word")
-  u.imap("<C-q>", "<Esc>gea", "To the start of the next word")
-  u.imap("<C-j>", "<C-o>w", "To the end of the previous word")
-  u.imap("<C-k>", "<Esc>ea", "To the end of the next word")
+  u.imap("<C-z>", "<C-o>B", "To the start of the previous full word")
+  u.imap("<C-j>", "<C-o>W", "To the start of the next full word")
+  u.imap("<C-q>", "<Esc>gEa", "To the end of the previous full word")
+  u.imap("<C-k>", "<Esc>Ea", "To the end of the next full word")
 
-  u.imap("<C-a>", "<C-o>B", "To the start of the previous full word")
-  u.imap("<C-e>", "<C-o>W", "To the start of the next full word")
-  u.imap("<C-o>", "<Esc>gEa", "To the end of the previous full word")
-  u.imap("<C-u>", "<Esc>Ea", "To the end of the next full word")
+  plugin_manager.add({
+    url = "git@github.com:backdround/neowords.nvim.git",
+    config = function()
 
-  -- Wordmotion plugin
-  vim.g.wordmotion_spaces = "()[]<>{},./%@^!?;:$~`\"\\#_|-+=&*' "
-  vim.g.wordmotion_nomap = 1
-  plugin_manager.add("chaoren/vim-wordmotion")
+      local nw = require("neowords")
+      local pp = nw.pattern_presets
 
-  u.map("<M-z>", "<Plug>WordMotion_b", "To the start of the previous real word")
-  u.map("<M-q>", "<Plug>WordMotion_ge", "To the end of the previous real word")
-  u.map("<M-j>", "<Plug>WordMotion_w", "To the start of the next real word")
-  u.map("<M-k>", "<Plug>WordMotion_e", "To the end of the next real word")
+      -- Big words
+      local bigword_hops = nw.get_word_hops(pp.any_word, pp.number, pp.hex_color)
 
-  local description = "To the start of the previous real word"
-  u.imap("<M-z>", "<C-o><Plug>WordMotion_b", description)
-  description = "To the start of the next real word"
-  u.imap("<M-j>", "<C-o><Plug>WordMotion_w", description)
-  description = "To the end of the previous real word"
-  u.imap("<M-q>", "<Left><C-o><Plug>WordMotion_ge<Right>", description)
-  description = "To the end of the next real word"
-  u.imap("<M-k>", "<C-o><Plug>WordMotion_e<Right>", description)
+      local description = "Hop to the start of the previous big word"
+      u.map("z", bigword_hops.backward_start, description)
+      u.imap("<M-z>", bigword_hops.backward_start, description)
+      description = "Hop to the end of the previous big word"
+      u.map("q", bigword_hops.backward_end, description)
+      u.imap("<M-q>", bigword_hops.backward_end, description)
+      description = "Hop to the start of the next big word"
+      u.map("j", bigword_hops.forward_start, description)
+      u.imap("<M-j>", bigword_hops.forward_start, description)
+      description = "Hop to the end of the next big word"
+      u.map("k", bigword_hops.forward_end, description)
+      u.imap("<M-k>", bigword_hops.forward_end, description)
+
+      -- Sub words
+      local subword_hops = nw.get_word_hops(
+        pp.sneak_case,
+        pp.camel_case,
+        pp.upper_case,
+        pp.number,
+        pp.hex_color
+      )
+
+      description = "To the start of the previous real word"
+      u.map("<F21>", subword_hops.backward_start, description)
+      u.imap("<F21>", subword_hops.backward_start, description)
+      description = "To the end of the previous real word"
+      u.map("<F22>", subword_hops.backward_end, description)
+      u.imap("<F22>", subword_hops.backward_end, description)
+      description = "To the start of the next real word"
+      u.map("<F23>", subword_hops.forward_start, description)
+      u.imap("<F23>", subword_hops.forward_start, description)
+      description = "To the end of the next real word"
+      u.map("<F24>", subword_hops.forward_end, description)
+      u.imap("<F24>", subword_hops.forward_end, description)
+
+      -- Number words
+      local number_hops = nw.get_word_hops(pp.number, pp.hex_color)
+
+      description = "Hop to the start of the previous number"
+      u.map("<F17>", number_hops.backward_start, description)
+      u.imap("<F17>", number_hops.backward_start, description)
+      description = "Hop to the start of the next number"
+      u.map("<F18>", number_hops.forward_start, description)
+      u.imap("<F18>", number_hops.forward_start, description)
+
+      -- Non word symbols
+      local nonword_hops = nw.get_word_hops("\\v[^[:alnum:][:blank:]_]")
+
+      description = "To the start of a previous non word symbol"
+      u.map("<F19>", nonword_hops.backward_start, description)
+      u.imap("<F19>", nonword_hops.backward_start, description)
+      description = "To the start of the next non word symbol"
+      u.map("<F20>", nonword_hops.forward_start, description)
+      u.imap("<F20>", nonword_hops.forward_start, description)
+    end
+  })
 end
 
 local function scroll(plugin_manager)
@@ -74,42 +110,67 @@ local function jump_between_characters(plugin_manager)
     config = function()
       local ft = require("improved-ft")
 
-      local jump = function(direction, offset, pattern)
+      u.map("p", ft.hop_forward_to_char, "Hop forward to a char")
+      u.map("<M-p>", ft.hop_forward_to_pre_char, "Hop forward to a pre char")
+      u.map("<S-p>", ft.hop_forward_to_post_char, "Hop forward to a post char")
+
+      u.map("w", ft.hop_backward_to_char, "Hop backward to a char")
+      u.map("<M-w>", ft.hop_backward_to_pre_char, "Hop backward to a pre char")
+      u.map("<S-w>", ft.hop_backward_to_post_char, "Hop backward to a post char")
+
+      u.map(")", ft.repeat_forward, "Repeat hop forward to a character")
+      u.map("(", ft.repeat_backward, "Repeat hop backward to a character")
+
+      -- Insert mode
+      u.imap("<M-p>", ft.hop_forward_to_char, "Hop forward to a char")
+      u.imap("<M-w>", ft.hop_backward_to_char, "Hop backward to a char")
+
+      u.imap("<M-u>", ft.repeat_forward, "Repeat hop forward to a character")
+      u.imap("<M-e>", ft.repeat_backward, "Repeat hop backward to a character")
+    end,
+  })
+
+  plugin_manager.add({
+    url = "git@github.com:backdround/rabbit-hop.nvim.git",
+    config = function()
+      local rh = require("rabbit-hop")
+
+      local hop_forward_through = function(pattern)
         return function()
-          ft.jump({
-            direction = direction,
-            offset = offset,
-            pattern = pattern,
+          rh.hop({
+            direction = "forward",
+            offset = "post",
+            insert_mode_target_side = "left",
+            pattern = pattern
           })
         end
       end
 
-      u.map("p", jump("forward", "none"), "Jump forward to a char")
-      u.map("<M-p>", jump("forward", "pre"), "Jump forward to a pre char")
-      u.map("<S-p>", jump("forward", "post"), "Jump forward to a post char")
-
-      u.map("w", jump("backward", "none"), "Jump backward to a char")
-      u.map("<M-w>", jump("backward", "pre"), "Jump backward to a pre char")
-      u.map("<S-w>", jump("backward", "post"), "Jump backward to a post char")
-
-      u.map(")", ft.repeat_forward, "Repeat jump forward to a character")
-      u.map("(", ft.repeat_backward, "Repeat jump backward to a character")
+      local hop_backward_through = function(pattern)
+        return function()
+          rh.hop({
+            direction = "backward",
+            offset = "post",
+            insert_mode_target_side = "right",
+            pattern = pattern
+          })
+        end
+      end
 
       -- Jump through quotes
       local p = "\\v[\"'`]"
-      u.map("+", jump("forward", "post", p), "Jump forward post quotes")
-      u.map("-", jump("backward", "post", p), "Jump backward post quotes")
+      u.map("<F13>", hop_backward_through(p), "Jump backward post quotes")
+      u.imap("<F13>", hop_backward_through(p), "Jump backward post quotes")
+      u.map("<F14>", hop_forward_through(p), "Jump forward post quotes")
+      u.imap("<F14>", hop_forward_through(p), "Jump forward post quotes")
 
       -- Jump through brackets
-      p = "\\v([\\][(]|\\)$@!)"
-      u.map("&", jump("forward", "post", p), "Jump forward post brackets")
       p = "\\v[\\][()]"
-      u.map("=", jump("backward", "post", p), "Jump backward post brackets")
-
-      -- Jump through dot
-      p = "\\v\\."
-      u.map("<PageUp>", jump("forward", "post", p), "Jump forward post dots")
-      u.map("<PageDown>", jump("backward", "post", p), "Jump backward post dots")
+      u.map("<F15>", hop_backward_through(p), "Jump backward post brackets")
+      u.imap("<F15>", hop_backward_through(p), "Jump backward post brackets")
+      p = "\\v([\\][(]|\\)$@!)"
+      u.map("<F16>", hop_forward_through(p), "Jump forward post brackets")
+      u.imap("<F16>", hop_forward_through(p), "Jump forward post brackets")
     end,
   })
 end
