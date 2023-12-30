@@ -74,7 +74,7 @@ local function lsp_configure()
         },
         workspace = {
           checkThirdParty = false,
-          library = vim.api.nvim_get_runtime_file("", true),
+          library = vim.api.nvim_get_runtime_file("lua", true),
           ignoreDir = { "./snippets" },
         },
         telemetry = {
