@@ -185,6 +185,15 @@ local function jump_between_characters(plugin_manager)
       p = "\\v([\\][(]|\\)$@!)"
       u.map("<F16>", hop_forward_through(p), "Jump forward post brackets")
       u.imap("<F16>", hop_forward_through(p), "Jump forward post brackets")
+
+      -- Jumps between lines
+      local to_line = hacks.jump_to_line(rh.hop)
+      u.map("of", to_line.upward_left, "Jump to the start of an upward line")
+      u.map("or", to_line.upward_right, "Jump to the end of an upward line")
+      u.map("od", to_line.left, "Jump to the start of the current line")
+      u.map("on", to_line.right, "Jump to the end of the current line")
+      u.map("ob", to_line.downward_left, "Jump to the start of a downward line")
+      u.map("o.", to_line.downward_right, "Jump to the end of a downward line")
     end,
   })
 end
@@ -204,48 +213,6 @@ local function page_movements()
   u.map("ot", "gg", "Go to the start of the buffer")
   u.map("og", "zH", "Move viewport left")
   u.map("oc", "zL", "Move viewport right")
-
-  local function map_line_jump(map, line_mode, column_mode, before_symbol)
-    local symbol_description
-    if column_mode == "first" and not before_symbol then
-      symbol_description = "the first symbol"
-    elseif column_mode == "first" and before_symbol then
-      symbol_description = "the second symbol"
-    elseif column_mode == "last" and not before_symbol then
-      symbol_description = "the last symbol"
-    elseif column_mode == "last" and before_symbol then
-      symbol_description = "the second to last symbol"
-    end
-
-    local line_description
-    if line_mode == "backward" then
-      line_description = "a previous line"
-    elseif line_mode == "current" then
-      line_description = "the current line"
-    elseif line_mode == "forward" then
-      line_description = "a next line"
-    end
-    local description = "Jump to "
-      .. symbol_description
-      .. " of "
-      .. line_description
-
-    local line_jump = hacks.jump_to_line
-    u.map(map, line_jump(line_mode, column_mode, before_symbol), description)
-  end
-
-  map_line_jump("of", "backward", "first", false)
-  map_line_jump("o<M-f>", "backward", "first", true)
-  map_line_jump("or", "backward", "last", false)
-  map_line_jump("o<M-r>", "backward", "last", true)
-  map_line_jump("od", "current", "first", false)
-  map_line_jump("o<M-d>", "current", "first", true)
-  map_line_jump("on", "current", "last", false)
-  map_line_jump("o<M-n>", "current", "last", true)
-  map_line_jump("ob", "forward", "first", false)
-  map_line_jump("o<M-b>", "forward", "first", true)
-  map_line_jump("o.", "forward", "last", false)
-  map_line_jump("o<M-.>", "forward", "last", true)
 end
 
 local function jump_motions(plugin_manager)
