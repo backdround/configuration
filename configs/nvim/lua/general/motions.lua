@@ -37,7 +37,7 @@ local function word_motion(plugin_manager)
 
       -- Sub words
       local subword_hops = nw.get_word_hops(
-        pp.sneak_case,
+        pp.snake_case,
         pp.camel_case,
         pp.upper_case,
         pp.number,
@@ -135,13 +135,26 @@ local function jump_between_characters(plugin_manager)
     config = function()
       local rh = require("rabbit-hop")
 
+      local get_through_offset = function(direction)
+        local operator_pending_mode = vim.fn.mode("true"):find("o") ~= nil
+        if operator_pending_mode then
+          return 0
+        end
+
+        if direction == "forward" then
+          return 1
+        end
+        return -1
+      end
+
       local hop_forward_through = function(pattern)
         return function()
           rh.hop({
+            pattern = pattern,
             direction = "forward",
-            offset = "post",
+            match_position = "end",
+            offset = get_through_offset("forward"),
             insert_mode_target_side = "left",
-            pattern = pattern
           })
         end
       end
@@ -149,10 +162,11 @@ local function jump_between_characters(plugin_manager)
       local hop_backward_through = function(pattern)
         return function()
           rh.hop({
+            pattern = pattern,
             direction = "backward",
-            offset = "post",
+            match_position = "start",
+            offset = get_through_offset("backward"),
             insert_mode_target_side = "right",
-            pattern = pattern
           })
         end
       end
