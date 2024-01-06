@@ -1,12 +1,10 @@
 local u = require("utilities")
 
--- Enters into a visual mode.
--- It proxies v:count inside a visual mode
+-- Enters into a visual mode and proxies v:count inside.
 local function enter(mode)
   local saved_count = nil
   if vim.v.count > 1 then
     saved_count = vim.v.count
-    vim.v.count = 0
   end
 
   mode = vim.api.nvim_replace_termcodes(mode, true, true, true)
