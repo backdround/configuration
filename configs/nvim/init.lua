@@ -21,6 +21,8 @@ local module_names = {
   "plugins/luasnip",
 }
 
+require("utilities.mappings").init()
+
 ---Finds and performs the given module by name
 ---@param module_name string
 ---@param plugin_manager UserPluginManager
