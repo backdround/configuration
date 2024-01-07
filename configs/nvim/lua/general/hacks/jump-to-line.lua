@@ -36,9 +36,11 @@ local get_to_line_functions = function(hop)
       direction = "backward",
       match_position = "end",
     }
+
     if not hop(options) then
       options.direction = "forward"
-      options.offset = -1
+      options.offset = is_operator_pending_mode() and -1 or 0
+      options.accept_policy = "from-cursor"
       hop(options)
     end
   end
