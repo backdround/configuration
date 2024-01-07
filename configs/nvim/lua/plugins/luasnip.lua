@@ -28,39 +28,35 @@ local function configure()
   local lua_snip_loader = require("luasnip.loaders.from_lua")
   lua_snip_loader.load({ paths = "./snippets" })
 
-  local set_map = function(lhs, rhs, desc)
-    vim.keymap.set({ "i", "s" }, lhs, rhs, { silent = true, desc = desc })
-  end
-
-  set_map("<M-t>", function()
+  u.adapted_map({ "i", "s", }, "<M-t>", function()
     if ls.expand_or_jumpable() then
       ls.expand_or_jump()
     end
   end, "Expand snippet or jump to next snippet node")
 
-  set_map("<M-h>", function()
+  u.adapted_map({ "i", "s", }, "<M-h>", function()
     if ls.jumpable(-1) then
       ls.jump(-1)
     end
   end, "Jump to previous snippet node")
 
-  set_map("<M-n>", function()
+  u.adapted_map({ "i", "s", }, "<M-n>", function()
     if ls.choice_active() then
       ls.change_choice()
     end
   end, "Change node choice")
 
-  -- Remove all and switch to insert mode on backspace
-  vim.keymap.set("s", "<BS>", u.wrap(u.feedkeys, " <BS>"), {
-    silent = true,
-    desc = "Fixed <BS>",
-  })
+  u.smap(
+    "<BS>",
+    u.wrap(u.feedkeys, " <BS>"),
+    "Remove selection and enter insert mode"
+  )
 
-  -- Add map to clear current line
-  vim.keymap.set("s", "<C-b>", "<Esc>cc", {
-    silent = true,
-    desc = "Remove all text on the current line",
-  })
+  u.smap(
+    "<C-t>",
+    "<Esc>cc",
+    "Remove all text on the current line"
+  )
 
   vim.api.nvim_create_user_command(
     "LuaSnipEdit",
