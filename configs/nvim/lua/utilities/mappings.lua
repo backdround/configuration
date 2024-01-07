@@ -35,17 +35,4 @@ for _, mode in ipairs(modes) do
   end
 end
 
--- Map stab mapping to the given rhs' at the given mode.
--- Use it to disable mappings that are checked with hasmapto()
-local stab_counter = 0
-M.map_stab = function(mode, rhss)
-  for _, rhs in ipairs(rhss) do
-    stab_counter = stab_counter + 1
-    local stab_mapping = string.format("<Plug>(user-stab-%s)", stab_counter)
-    local stab_description = "User stab %s" .. stab_counter
-
-    full_featured_map(mode, stab_mapping, rhs, stab_description)
-  end
-end
-
 return M
