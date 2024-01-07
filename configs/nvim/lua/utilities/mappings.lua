@@ -1,14 +1,27 @@
 local M = {}
 
+---Hijacks vim.set.keymap and allows only buffer-local mappings.
+---Also logs all attempts to mappings.log
 M._hijack_set_keymap = function()
   M._nvim_set_keymap = vim.api.nvim_set_keymap
   M._vim_keymap_set = vim.keymap.set
+
+  local mappings_log = vim.fn.stdpath("log") .. "/mappings.log"
+  os.remove(mappings_log)
 
   vim.api.nvim_set_keymap = function() end
   vim.keymap.set = function(mode, lhs, rhs, opts)
     local plug = lhs:find("<plug>") ~= nil or lhs:find("<Plug>") ~= nil
     if opts and opts.buffer or plug then
       M._perform_keymap_set(mode, lhs, rhs)
+    else
+      local log = io.open(mappings_log, "a")
+      if log ~= nil then
+        local entry =
+          vim.inspect({ mode = mode, lhs = lhs, rhs = rhs, opts = opts })
+        log:write( entry .. "\n\n")
+        io.close(log)
+      end
     end
   end
 
@@ -29,7 +42,7 @@ M.init = function()
   M._hijack_set_keymap()
 end
 
-M.full_featured_map = function(mode, lhs, rhs, options_or_desc)
+M.adapted_map = function(mode, lhs, rhs, options_or_desc)
   local options = {}
   if type(options_or_desc) == "table" then
     options = options_or_desc
@@ -52,13 +65,13 @@ M.full_featured_map = function(mode, lhs, rhs, options_or_desc)
 end
 
 M.map = function(lhs, rhs, options)
-  M.full_featured_map({ "n", "x", "o" }, lhs, rhs, options)
+  M.adapted_map({ "n", "x", "o" }, lhs, rhs, options)
 end
 
 local modes = { "n", "i", "v", "c", "t", "o", "x", "s", "l" }
 for _, mode in ipairs(modes) do
   M[mode .. "map"] = function(lhs, rhs, options)
-    M.full_featured_map(mode, lhs, rhs, options)
+    M.adapted_map(mode, lhs, rhs, options)
   end
 end
 
