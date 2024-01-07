@@ -2,81 +2,84 @@ local u = require("utilities")
 local hacks = require("general.hacks")
 
 local function word_motion(plugin_manager)
-  u.map("Z", "B", "To the start of the previous full word")
-  u.map("J", "W", "To the start of the next full word")
-  u.map("Q", "gE", "To the end of the previous full word")
-  u.map("K", "E", "To the end of the next full word")
-
-  u.imap("<C-z>", "<C-o>B", "To the start of the previous full word")
-  u.imap("<C-j>", "<C-o>W", "To the start of the next full word")
-  u.imap("<C-q>", "<Esc>gEa", "To the end of the previous full word")
-  u.imap("<C-k>", "<Esc>Ea", "To the end of the next full word")
-
   plugin_manager.add({
     url = "git@github.com:backdround/neowords.nvim.git",
     config = function()
+      local neowords = require("neowords")
+      local pp = neowords.pattern_presets
 
-      local nw = require("neowords")
-      local pp = nw.pattern_presets
+      local map = function(lhs, rhs, description)
+        if lhs ~= nil and lhs ~= "" then
+          u.map(lhs, rhs, description)
+        end
+      end
+
+      local imap = function(lhs, rhs, description)
+        if lhs ~= nil and lhs ~= "" then
+          u.imap(lhs, rhs, description)
+        end
+      end
+
+      local map_hops = function(patterns, name, keys, insert_keys)
+        local hops = neowords.get_word_hops(unpack(patterns))
+
+        local description = "Hop to the start of th previous " .. name
+        map(keys[1], hops.backward_start, description)
+        imap(insert_keys[1], hops.backward_start, description)
+
+        description = "Hop to the end of the previous " .. name
+        map(keys[2], hops.backward_end, description)
+        imap(insert_keys[2], hops.backward_end, description)
+
+        description = "Hop to the start of the next " .. name
+        map(keys[3], hops.forward_start, description)
+        imap(insert_keys[3], hops.forward_start, description)
+
+        description = "Hop to the end of the next " .. name
+        map(keys[4], hops.forward_end, description)
+        imap(insert_keys[4], hops.forward_end, description)
+      end
 
       -- Big words
-      local bigword_hops = nw.get_word_hops(pp.any_word, pp.number, pp.hex_color)
-
-      local description = "Hop to the start of the previous big word"
-      u.map("z", bigword_hops.backward_start, description)
-      u.imap("<M-z>", bigword_hops.backward_start, description)
-      description = "Hop to the end of the previous big word"
-      u.map("q", bigword_hops.backward_end, description)
-      u.imap("<M-q>", bigword_hops.backward_end, description)
-      description = "Hop to the start of the next big word"
-      u.map("j", bigword_hops.forward_start, description)
-      u.imap("<M-j>", bigword_hops.forward_start, description)
-      description = "Hop to the end of the next big word"
-      u.map("k", bigword_hops.forward_end, description)
-      u.imap("<M-k>", bigword_hops.forward_end, description)
-
-      -- Sub words
-      local subword_hops = nw.get_word_hops(
-        pp.snake_case,
-        pp.camel_case,
-        pp.upper_case,
-        pp.number,
-        pp.hex_color
+      map_hops(
+        { "\\v[^[:blank:]]+" },
+        "big word",
+        { "Z", "Q", "J", "K" },
+        { "<C-Z>", "<C-Q>", "<C-J>", "<C-K>" }
       )
 
-      description = "To the start of the previous real word"
-      u.map("<F21>", subword_hops.backward_start, description)
-      u.imap("<F21>", subword_hops.backward_start, description)
-      description = "To the end of the previous real word"
-      u.map("<F22>", subword_hops.backward_end, description)
-      u.imap("<F22>", subword_hops.backward_end, description)
-      description = "To the start of the next real word"
-      u.map("<F23>", subword_hops.forward_start, description)
-      u.imap("<F23>", subword_hops.forward_start, description)
-      description = "To the end of the next real word"
-      u.map("<F24>", subword_hops.forward_end, description)
-      u.imap("<F24>", subword_hops.forward_end, description)
+      -- Full words
+      map_hops(
+        { pp.any_word, pp.number, pp.hex_color },
+        "full word",
+        { "z", "q", "j", "k" },
+        { "<M-Z>", "<M-Q>", "<M-J>", "<M-K>" }
+      )
+
+      -- Sub words
+      map_hops(
+        { pp.snake_case, pp.camel_case, pp.upper_case, pp.number, pp.hex_color },
+        "sub word",
+        { "<F21>", "<F22>", "<F23>", "<F24>" },
+        { "<F21>", "<F22>", "<F23>", "<F24>" }
+      )
 
       -- Number words
-      local number_hops = nw.get_word_hops(pp.number, pp.hex_color)
-
-      description = "Hop to the start of the previous number"
-      u.map("<F17>", number_hops.backward_start, description)
-      u.imap("<F17>", number_hops.backward_start, description)
-      description = "Hop to the start of the next number"
-      u.map("<F18>", number_hops.forward_start, description)
-      u.imap("<F18>", number_hops.forward_start, description)
+      map_hops(
+        { pp.number, pp.hex_color },
+        "number",
+        { "<F17>", "", "<F18>", "" },
+        { "<F17>", "", "<F18>", "" }
+      )
 
       -- Non word symbols
-      local nonword_hops = nw.get_word_hops("\\v[^[:alnum:][:blank:]_]")
-
-      description = "To the start of a previous non word symbol"
-      u.map("<F19>", nonword_hops.backward_start, description)
-      u.imap("<F19>", nonword_hops.backward_start, description)
-      description = "To the start of the next non word symbol"
-      u.map("<F20>", nonword_hops.forward_start, description)
-      u.imap("<F20>", nonword_hops.forward_start, description)
-    end
+      map_hops(
+        { "\\v[^[:alnum:][:blank:]_]" },
+        "non a word symbol",
+        { "<F19>", "", "<F20>", "" },
+        { "<F19>", "", "<F20>", "" }
+      )
+    end,
   })
 end
 
