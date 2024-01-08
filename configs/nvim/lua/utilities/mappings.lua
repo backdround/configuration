@@ -8,22 +8,41 @@ M._hijack_set_keymap = function()
 
   vim.api.nvim_set_keymap = function() end
   vim.keymap.set = function(mode, lhs, rhs, opts)
-    local plug_mapping = lhs:find("<plug>") ~= nil or lhs:find("<Plug>") ~= nil
-    local buffer_mapping = opts and opts.buffer
-    local own_mapping = opts and opts.own
 
-    if opts then
+    local is_allowed = function()
+      local caller = debug.getinfo(3, "S")
+      for _, allowed_source in ipairs(M._allowed_sources) do
+        if caller.source:find(allowed_source) ~= nil then
+          return true
+        end
+      end
+      return false
+    end
+
+    local pass_through = false
+      or (opts and opts.buffer ~= nil)
+      or (opts and opts.own)
+      or (lhs:find("<plug>") ~= nil or lhs:find("<Plug>") ~= nil)
+      or is_allowed()
+
+    if opts and opts.own then
       opts.own = nil
     end
 
-    if buffer_mapping or plug_mapping or own_mapping then
+    if pass_through then
       vim.api.nvim_set_keymap = M._nvim_set_keymap
       M._vim_keymap_set(mode, lhs, rhs, opts)
       vim.api.nvim_set_keymap = function() end
       return
     end
 
-    M._log(vim.inspect({ mode = mode, lhs = lhs, rhs = rhs, opts = opts }))
+    M._log(vim.inspect({
+      caller = debug.getinfo(3, "S"),
+      mode = mode,
+      lhs = lhs,
+      rhs = rhs,
+      opts = opts
+    }))
   end
 end
 
@@ -49,6 +68,14 @@ M.init = function()
   os.remove(M._log_file)
 
   M._hijack_set_keymap()
+end
+
+M._allowed_sources = {}
+M.allow_mapping_from = function(source)
+  if vim.tbl_contains(M._allowed_sources, source) then
+    return
+  end
+  table.insert(M._allowed_sources, source)
 end
 
 M.adapted_map = function(mode, lhs, rhs, options_or_desc)

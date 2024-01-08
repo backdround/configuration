@@ -97,6 +97,7 @@ M.load = function(plugins)
   }
 
   local lazy = require("lazy")
+  u.allow_mapping_from("lua/lazy/core/handler/keys.lua")
   lazy.setup(plugins, lazy_options)
 end
 
