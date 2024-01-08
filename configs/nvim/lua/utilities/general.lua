@@ -39,6 +39,20 @@ local function reset_current_mode()
   vim.api.nvim_feedkeys(keys, "nx", false)
 end
 
+local function array_concatenate(array1, array2)
+  local output_array = {}
+
+  for _, value in ipairs(array1) do
+    table.insert(output_array, value)
+  end
+
+  for _, value in ipairs(array2) do
+    table.insert(output_array, value)
+  end
+
+  return output_array
+end
+
 return {
   autocmd = autocmd,
   notify = notify,
@@ -46,4 +60,5 @@ return {
   wrap = wrap,
   feedkeys = feedkeys,
   reset_current_mode = reset_current_mode,
+  array_concatenate = array_concatenate,
 }
