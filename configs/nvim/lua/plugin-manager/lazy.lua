@@ -77,6 +77,23 @@ M.load = function(plugins)
     ui = {
       border = "single",
     },
+    performance = {
+      cache = {
+        enabled = true,
+      },
+      rtp = {
+        disabled_plugins = {
+          "gzip",
+          "matchit",
+          "matchparen",
+          "netrwPlugin",
+          "tarPlugin",
+          "tohtml",
+          "tutor",
+          "zipPlugin",
+        },
+      }
+    },
   }
 
   local lazy = require("lazy")
