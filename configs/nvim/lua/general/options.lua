@@ -107,6 +107,10 @@ local function apply()
   options.scrolloff = 10
   options.mouse = "a"
   options.cpoptions:remove("_")
+
+  if LightWeight then
+    options.shada = ""
+  end
 end
 
 return {
