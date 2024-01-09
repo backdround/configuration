@@ -150,9 +150,11 @@ local function apply(plugin_manager)
     config = null_configure,
   })
 
-  setup_hover_appearance()
+  if not LightWeight then
+    setup_hover_appearance()
+  end
 end
 
 return {
-  apply = apply,
+  apply = apply
 }

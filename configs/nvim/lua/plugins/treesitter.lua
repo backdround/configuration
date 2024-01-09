@@ -88,6 +88,7 @@ local function apply(plugin_manager)
   plugin_manager.add({
     url = "https://github.com/nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
+    enabled = not LightWeight,
     config = base_configure,
   })
 
@@ -95,6 +96,7 @@ local function apply(plugin_manager)
   plugin_manager.add({
     url = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
     dependencies = "nvim-treesitter/nvim-treesitter",
+    enabled = not LightWeight,
     config = textobjects_configure,
   })
 end

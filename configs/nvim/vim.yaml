@@ -4,3 +4,5 @@ name: vim
 globals:
   vim:
     any: true
+  LightWeight:
+    any: true

@@ -1,7 +1,10 @@
 local u = require("utilities")
 
 local function rooter(plugin_manager)
-  plugin_manager.add("airblade/vim-rooter")
+  plugin_manager.add({
+    url = "https://github.com/airblade/vim-rooter",
+    enabled = not LightWeight,
+  })
 
   vim.g.rooter_patterns = { ".git/" }
   vim.g.rooter_silent_chdir = 1

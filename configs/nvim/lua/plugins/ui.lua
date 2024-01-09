@@ -129,6 +129,7 @@ end
 local function viminput(plugin_manager)
   plugin_manager.add({
     url = "https://github.com/stevearc/dressing.nvim",
+    enabled = not LightWeight,
     opts = {
       input = {
         enabled = true,
@@ -155,6 +156,7 @@ end
 local function illuminate(plugin_manager)
   plugin_manager.add({
     url = "https://github.com/RRethy/vim-illuminate",
+    enabled = not LightWeight,
     config = function()
       require("illuminate").configure({
         delay = 150,
@@ -163,7 +165,7 @@ local function illuminate(plugin_manager)
   })
 end
 
-local function colors(plugin_manager)
+local function theme(plugin_manager)
   plugin_manager.add({
     url = "git@github.com:backdround/melting",
     config = function()
@@ -181,6 +183,7 @@ end
 local function colorizer(plugin_manager)
   plugin_manager.add({
     url = "https://github.com/NvChad/nvim-colorizer.lua",
+    enabled = not LightWeight,
     opts = {
       filetypes = {
         "lua",
@@ -198,7 +201,7 @@ local function apply(plugin_manager)
   messages(plugin_manager)
   viminput(plugin_manager)
   illuminate(plugin_manager)
-  colors(plugin_manager)
+  theme(plugin_manager)
   colorizer(plugin_manager)
 end
 
