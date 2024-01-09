@@ -114,10 +114,10 @@ local function scroll(plugin_manager)
         pre_hook = u.wrap(hacks.delay_update_time, 200, real_update_time),
       })
 
-      u.map("e", u.wrap(neoscroll.scroll, 0.31, false, 130), "Scroll down")
-      u.map("u", u.wrap(neoscroll.scroll, -0.31, false, 130), "Scroll up")
-      u.map("E", u.wrap(neoscroll.scroll, 0.55, false, 150), "Fast scroll down")
-      u.map("U", u.wrap(neoscroll.scroll, -0.55, false, 150), "Fast scroll up")
+      u.map("e", u.wrap(neoscroll.scroll, 0.31, false, 105), "Scroll down")
+      u.map("u", u.wrap(neoscroll.scroll, -0.31, false, 105), "Scroll up")
+      u.map("E", u.wrap(neoscroll.scroll, 0.55, false, 140), "Fast scroll down")
+      u.map("U", u.wrap(neoscroll.scroll, -0.55, false, 140), "Fast scroll up")
     end,
   })
 end
