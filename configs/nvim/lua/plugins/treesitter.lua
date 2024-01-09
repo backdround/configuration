@@ -97,12 +97,6 @@ local function apply(plugin_manager)
     dependencies = "nvim-treesitter/nvim-treesitter",
     config = textobjects_configure,
   })
-
-  -- Playground
-  plugin_manager.add({
-    url = "https://github.com/nvim-treesitter/playground",
-    dependencies = "nvim-treesitter/nvim-treesitter",
-  })
 end
 
 return {
