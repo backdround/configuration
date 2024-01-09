@@ -12,6 +12,7 @@ local function markdown(plugin_manager)
   plugin_manager.add({
     url = "https://github.com/toppair/peek.nvim",
     build = "deno task --quiet build:fast",
+    ft = "markdown",
     config = function()
       local peek = require("peek")
       peek.setup({
@@ -38,9 +39,15 @@ local function session(plugin_manager)
 end
 
 local function search_in_browser(plugin_manager)
-  plugin_manager.add("tyru/open-browser.vim")
-  u.nmap("<leader>/", "<Plug>(openbrowser-smart-search)", "Search in browser")
-  u.xmap("<leader>/", "<Plug>(openbrowser-smart-search)", "Search in browser")
+  plugin_manager.add({
+    url = "https://github.com/tyru/open-browser.vim",
+    keys = { "<leader>/", { "<leader>/", mode = "x" } },
+    config = function()
+      local description = "Search in browser"
+      u.nmap("<leader>/", "<Plug>(openbrowser-smart-search)", description)
+      u.xmap("<leader>/", "<Plug>(openbrowser-smart-search)", description)
+    end
+  })
 end
 
 local function gutentags(plugin_manager)
@@ -58,6 +65,7 @@ local function annotations(plugin_manager)
   plugin_manager.add({
     url = "https://github.com/danymat/neogen",
     enabled = not LightWeight,
+    keys = { "bk", "bj" },
     config = function()
       local neogen = require("neogen")
       neogen.setup({

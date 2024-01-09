@@ -101,6 +101,7 @@ local function apply(plugin_manager)
   plugin_manager.add({
     url = "https://github.com/hrsh7th/nvim-cmp",
     enabled = not LightWeight,
+    event = "InsertEnter",
     dependencies = {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",

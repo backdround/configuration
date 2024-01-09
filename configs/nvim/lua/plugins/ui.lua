@@ -1,4 +1,5 @@
 local u = require("utilities")
+local hacks = require("general.hacks")
 
 local function focus(plugin_manager)
   plugin_manager.add({
@@ -10,38 +11,36 @@ local function focus(plugin_manager)
       context = 30,
       treesitter = false,
     },
+    lazy = true,
   })
 
   plugin_manager.add({
     url = "https://github.com/folke/zen-mode.nvim",
     dependencies = "folke/twilight.nvim",
-    config = function()
-      local zen_mode = require("zen-mode")
-      zen_mode.setup({
-        window = {
-          width = 0.70,
-          height = 0.92,
-          options = {
-            signcolumn = "no",
-            number = false,
-            relativenumber = false,
-          },
+    keys = { { "<M-.>", "<cmd>ZenMode<cr>", desc = "Toggle zen mode" } },
+    opts = {
+      window = {
+        width = 0.70,
+        height = 0.92,
+        options = {
+          signcolumn = "no",
+          number = false,
+          relativenumber = false,
         },
+      },
 
-        -- Disables colorcolumn.
-        on_open = function()
-          vim.wo.colorcolumn = "0"
-        end,
-      })
-
-      u.nmap("<M-.>", zen_mode.toggle, "Toggle zen mode")
-    end,
+      -- Disables colorcolumn.
+      on_open = function()
+        vim.wo.colorcolumn = "0"
+      end,
+    },
   })
 end
 
 local function floaterm(plugin_manager)
   plugin_manager.add({
     url = "https://github.com/numToStr/FTerm.nvim",
+    keys = hacks.lazy.generate_keys("nt", { "<F1>", "<F2>", "<F3>" }),
     config = function()
       local fterm = require("FTerm")
       fterm.setup({
@@ -65,6 +64,7 @@ end
 local function messages(plugin_manager)
   plugin_manager.add({
     url = "https://github.com/AckslD/messages.nvim",
+    cmd = { "Messages", "Print" },
     config = function()
       local m = require("messages")
       m.setup({

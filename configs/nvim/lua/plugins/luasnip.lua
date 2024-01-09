@@ -69,6 +69,7 @@ local function apply(plugin_manager)
   plugin_manager.add({
     url = "https://github.com/L3MON4D3/LuaSnip",
     enabled = not LightWeight,
+    event = "InsertEnter",
     build = "make install_jsregexp",
     config = configure,
   })

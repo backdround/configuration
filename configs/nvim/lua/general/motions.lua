@@ -2,8 +2,22 @@ local u = require("utilities")
 local hacks = require("general.hacks")
 
 local function word_motion(plugin_manager)
+  local loading_fkeys =
+    { "<F17>", "<F18>", "<F19>", "<F20>", "<F21>", "<F22>", "<F23>", "<F24>" }
+
+  local loading_nkeys = { "z", "q", "j", "k", "Z", "Q", "J", "K", }
+  local loading_ikeys =
+    { "<C-Z>", "<C-Q>", "<C-J>", "<C-K>", "<M-Z>", "<M-Q>", "<M-J>", "<M-K>" }
+
+  loading_ikeys = u.array_concatenate(loading_ikeys, loading_fkeys)
+  loading_nkeys = u.array_concatenate(loading_nkeys, loading_fkeys)
+
   plugin_manager.add({
     url = "git@github.com:backdround/neowords.nvim.git",
+    keys = u.array_concatenate(
+      hacks.lazy.generate_keys("nxo", loading_nkeys),
+      hacks.lazy.generate_keys("i", loading_ikeys)
+    ),
     config = function()
       local neowords = require("neowords")
       local pp = neowords.pattern_presets
@@ -86,6 +100,7 @@ end
 local function scroll(plugin_manager)
   plugin_manager.add({
     url = "https://github.com/karb94/neoscroll.nvim",
+    keys = hacks.lazy.generate_keys("nxo", { "e", "u", "E", "U" }),
     config = function()
       -- Save real updatetime restoration.
       local real_update_time = vim.go.updatetime
@@ -108,8 +123,16 @@ local function scroll(plugin_manager)
 end
 
 local function jump_between_characters(plugin_manager)
+  local loading_nkeys =
+    { "p", "<M-p>", "<S-p>", "w", "<M-w>", "<S-w>", "(", ")" }
+  local loading_ikeys = { "<M-p>", "<M-w>", "<M-u>", "<M-e>" }
+
   plugin_manager.add({
     url = "git@github.com:backdround/improved-ft.nvim.git",
+    keys = u.array_concatenate(
+      hacks.lazy.generate_keys("nxo", loading_nkeys),
+      hacks.lazy.generate_keys("i", loading_ikeys)
+    ),
     config = function()
       local ft = require("improved-ft")
 
@@ -133,8 +156,16 @@ local function jump_between_characters(plugin_manager)
     end,
   })
 
+  loading_nkeys =
+    { "<F13>", "<F14>", "<F15>", "<F16>", "of", "or", "od", "on", "ob", "o." }
+  loading_ikeys = { "<F13>", "<F14>", "<F15>", "<F16>" }
+
   plugin_manager.add({
     url = "git@github.com:backdround/rabbit-hop.nvim.git",
+    keys = u.array_concatenate(
+      hacks.lazy.generate_keys("nxo", loading_nkeys),
+      hacks.lazy.generate_keys("i", loading_ikeys)
+    ),
     config = function()
       local rh = require("rabbit-hop")
 
@@ -225,6 +256,7 @@ local function jump_motions(plugin_manager)
   -- - multiply position will be available (begin and end at the same time).
   plugin_manager.add({
     url = "https://github.com/backdround/hop.nvim",
+    keys = hacks.lazy.generate_keys("nxo", { "a" }),
     config = function()
       local hop = require("hop")
       local hint = require("hop.hint")
@@ -247,6 +279,7 @@ local function jump_motions(plugin_manager)
 
   plugin_manager.add({
     url = "https://github.com/woosaaahh/sj.nvim",
+    keys = hacks.lazy.generate_keys("nxo", { "<space>" }),
     config = function()
       local sj = require("sj")
       sj.setup({
@@ -259,7 +292,7 @@ local function jump_motions(plugin_manager)
           validate = "<M-o>",
         },
       })
-      u.map("<space>", sj.run, "Jump to any string")
+      u.map("<space>", sj.run, "Jump interactively to anywhere")
     end,
   })
 end

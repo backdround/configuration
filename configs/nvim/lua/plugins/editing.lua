@@ -1,9 +1,11 @@
 local u = require("utilities")
+local hacks = require("general.hacks")
 
 local function commenting(plugin_manager)
   plugin_manager.add({
     url = "https://github.com/numToStr/Comment.nvim",
     enabled = not LightWeight,
+    keys = hacks.lazy.generate_keys("nx", { "bb", "bd", "bh", "bm" }),
     config = function()
       require("Comment").setup({
         ignore = "^$",
@@ -68,6 +70,7 @@ local function autopairs(plugin_manager)
   -- TODO: to make a request for floating buffer insteard of virsual line
   plugin_manager.add({
     url = "https://github.com/windwp/nvim-autopairs",
+    event = "InsertEnter",
     config = function()
       local nvim_autopairs = require("nvim-autopairs")
       nvim_autopairs.setup({
@@ -112,7 +115,13 @@ local function autopairs(plugin_manager)
 end
 
 local function targets(plugin_manager)
-  plugin_manager.add("wellle/targets.vim")
+  plugin_manager.add({
+    url = "https://github.com/wellle/targets.vim",
+    event = {
+      { event = "ModeChanged", pattern = "*:[vV\\x16]*" },
+      { event = "ModeChanged", pattern = "*:*o*" },
+    },
+  })
 
   vim.g.targets_aiAI = {
     "<Plug>(user-an-object)",
@@ -143,6 +152,10 @@ local function textobj_indent(plugin_manager)
   plugin_manager.add({
     url = "https://github.com/kana/vim-textobj-indent",
     dependencies = "kana/vim-textobj-user",
+    event = {
+      { event = "ModeChanged", pattern = "*:[vV\\x16]*" },
+      { event = "ModeChanged", pattern = "*:*o*" },
+    },
   })
 
   vim.g.textobj_indent_no_default_key_mappings = 1
@@ -169,50 +182,71 @@ local function textobj_indent(plugin_manager)
 end
 
 local function surround(plugin_manager)
-  plugin_manager.add("tpope/vim-surround")
-
   vim.g.surround_no_mappings = 1
-  u.nmap("tn", "<Plug>Dsurround", "Remove brackets")
-  u.nmap("hn", "<Plug>Csurround", "Change brackets inline")
-  u.nmap("hN", "<Plug>CSurround", "Change brackets multilne")
-  u.xmap("n", "<Plug>VSurround", "Surround brackets inline")
-  u.xmap("N", "<Plug>VgSurround", "Surround brackets multiline")
+
+  plugin_manager.add({
+    url = "https://github.com/tpope/vim-surround",
+    keys = {
+      "tn", "hn", "hN", { "n", mode = "x" }, { "N", mode = "x" },
+    },
+    config = function()
+      u.nmap("tn", "<Plug>Dsurround", "Remove brackets")
+      u.nmap("hn", "<Plug>Csurround", "Change brackets inline")
+      u.nmap("hN", "<Plug>CSurround", "Change brackets multilne")
+      u.xmap("n", "<Plug>VSurround", "Surround brackets inline")
+      u.xmap("N", "<Plug>VgSurround", "Surround brackets multiline")
+    end,
+  })
 end
 
 local function exchange(plugin_manager)
-  plugin_manager.add("tommcdo/vim-exchange")
-
-  u.map("bc", "<Plug>(Exchange)", "Use exchange")
-  u.nmap("bC", "<Plug>(ExchangeClear)", "Clear exchange")
-  u.nmap("br", "<Plug>(ExchangeLine)", "Line exchange")
+  plugin_manager.add({
+    url = "https://github.com/tommcdo/vim-exchange",
+    keys = { "bC", "br", { "bc", mode = { "n", "x", "o" } } },
+    config = function()
+      u.map("bc", "<Plug>(Exchange)", "Use exchange")
+      u.nmap("bC", "<Plug>(ExchangeClear)", "Clear exchange")
+      u.nmap("br", "<Plug>(ExchangeLine)", "Line exchange")
+    end,
+  })
 end
 
 local function niceblock(plugin_manager)
-  plugin_manager.add("kana/vim-niceblock")
-
   vim.g.niceblock_no_default_key_mappings = 1
-  u.xmap("G", "<Plug>(niceblock-I)", "Insert at the start of every line")
-  u.xmap("C", "<Plug>(niceblock-A)", "Insert at the end of every line")
+  plugin_manager.add({
+    url = "https://github.com/kana/vim-niceblock",
+    keys = { { "G", mode = "x" }, { "C", mode = "x" } },
+    config = function()
+      u.xmap("G", "<Plug>(niceblock-I)", "Insert at the start of every line")
+      u.xmap("C", "<Plug>(niceblock-A)", "Insert at the end of every line")
+    end,
+  })
 end
 
 local function move(plugin_manager)
-  plugin_manager.add("matze/vim-move")
-
   vim.g.move_map_keys = 0
-  u.nmap("<M-g>", "<Plug>MoveLineDown", "Move line down")
-  u.nmap("<M-c>", "<Plug>MoveLineUp", "Move line up")
-  u.nmap("<M-f>", "<Plug>MoveCharLeft", "Move current character left")
-  u.nmap("<M-r>", "<Plug>MoveCharRight", "Move current character right")
+  local keys = { "<M-g>", "<M-c>", "<M-f>", "<M-r>" }
+  plugin_manager.add({
+    url = "https://github.com/matze/vim-move",
+    keys = hacks.lazy.generate_keys("nx", keys),
+    config = function()
+      u.nmap("<M-g>", "<Plug>MoveLineDown", "Move line down")
+      u.nmap("<M-c>", "<Plug>MoveLineUp", "Move line up")
+      u.nmap("<M-f>", "<Plug>MoveCharLeft", "Move current character left")
+      u.nmap("<M-r>", "<Plug>MoveCharRight", "Move current character right")
 
-  u.xmap("<M-g>", "<Plug>MoveBlockDown", "Move selected lines down")
-  u.xmap("<M-c>", "<Plug>MoveBlockUp", "Move selected lines up")
-  u.xmap("<M-f>", "<Plug>MoveBlockLeft", "Move selected text left")
-  u.xmap("<M-r>", "<Plug>MoveBlockRight", "Move selected text right")
+      u.xmap("<M-g>", "<Plug>MoveBlockDown", "Move selected lines down")
+      u.xmap("<M-c>", "<Plug>MoveBlockUp", "Move selected lines up")
+      u.xmap("<M-f>", "<Plug>MoveBlockLeft", "Move selected text left")
+      u.xmap("<M-r>", "<Plug>MoveBlockRight", "Move selected text right")
+    end
+  })
 end
 
 local function align(plugin_manager)
   plugin_manager.add({
     url = "https://github.com/Vonr/align.nvim",
+    keys = hacks.lazy.generate_keys("nxo", { "ba", "b<M-a>" }),
     config = function()
       local a = require("align")
       local align_to_char = u.wrap(a.operator, a.align_to_char)

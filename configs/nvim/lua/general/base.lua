@@ -135,6 +135,7 @@ local function search(plugin_manager)
 
   plugin_manager.add({
     url = "git@github.com:backdround/improved-search.nvim.git",
+    keys = hacks.lazy.generate_keys("nxo", { "!", "*", "#", "[", "]" }),
     config = function()
       local is = require("improved-search")
       local description = "Search the word under the cursor"
