@@ -102,16 +102,26 @@ local function scroll(plugin_manager)
     url = "https://github.com/karb94/neoscroll.nvim",
     keys = hacks.lazy.generate_keys("nxo", { "e", "u", "E", "U" }),
     config = function()
-      -- Save real updatetime restoration.
-      local real_update_time = vim.go.updatetime
+
+      local illuminate_do = function(action)
+        local status, module  = pcall(require, "illuminate")
+        if status then
+          module[action]()
+        end
+      end
+
+      local illuminate_pauser = hacks.debouncer.new(
+        u.wrap(illuminate_do, "pause_buf"),
+        u.wrap(illuminate_do, "resume_buf"),
+        350
+      )
 
       local neoscroll = require("neoscroll")
       neoscroll.setup({
         mappings = {},
         cursor_scrolls_alone = true,
         easing_function = "quadratic",
-        -- Temporary disables CursorHold events
-        pre_hook = u.wrap(hacks.delay_update_time, 200, real_update_time),
+        pre_hook = illuminate_pauser.run,
       })
 
       u.map("e", u.wrap(neoscroll.scroll, 0.31, false, 105), "Scroll down")
