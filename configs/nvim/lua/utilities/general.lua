@@ -39,9 +39,11 @@ M.wrap = function(f, ...)
   end
 end
 
----@param keys string
+---@param keys string|any
 ---@param wait_for_finish? boolean
 M.feedkeys = function(keys, wait_for_finish)
+  keys = tostring(keys)
+
   local flags = "n"
   if wait_for_finish then
     flags = "nx"
@@ -71,6 +73,21 @@ M.array_extend = function(...)
   end
 
   return output_array
+end
+
+---@return "operator-pending"|"visual"|"normal"|"insert"
+M.mode = function()
+  local m = vim.api.nvim_get_mode().mode
+
+  if m:find("o") then
+    return "operator-pending"
+  elseif m:find("[vV]") then
+    return "visual"
+  elseif m:find("i") then
+    return "insert"
+  else
+    return "normal"
+  end
 end
 
 return M

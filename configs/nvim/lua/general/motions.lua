@@ -231,7 +231,8 @@ local function jump_between_characters(plugin_manager)
       u.imap("<F16>", hop_forward_through(p), "Jump forward post brackets")
 
       -- Jumps between lines
-      local to_line = hacks.jump_to_line(rh.hop)
+      local rh_api_hop = require("rabbit-hop.api").hop
+      local to_line = hacks.jump_to_line(rh_api_hop)
       u.map("of", to_line.upward_left, "Jump to the start of an upward line")
       u.map("or", to_line.upward_right, "Jump to the end of an upward line")
       u.map("od", to_line.left, "Jump to the start of the current line")
