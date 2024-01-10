@@ -6,3 +6,5 @@ globals:
     any: true
   LightWeight:
     any: true
+  nvimpager:
+    any: true

@@ -99,6 +99,11 @@ local function apply()
   })
   set_title()
 
+  -- Nvimpager
+  if nvimpager ~= nil then
+    nvimpager.maps = false
+  end
+
   -- Misc
   options.splitright = true
   options.completeopt = { "menu", "menuone", "noselect" }
