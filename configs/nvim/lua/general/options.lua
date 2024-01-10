@@ -108,6 +108,11 @@ local function apply()
   options.mouse = "a"
   options.cpoptions:remove("_")
 
+  vim.schedule(function()
+    vim.cmd("clearjumps")
+  end)
+
+  options.shada = "'0,s2,h"
   if LightWeight then
     options.shada = ""
   end
