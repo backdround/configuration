@@ -180,8 +180,7 @@ local function jump_between_characters(plugin_manager)
       local rh = require("rabbit-hop")
 
       local get_through_offset = function(direction)
-        local operator_pending_mode = vim.fn.mode("true"):find("o") ~= nil
-        if operator_pending_mode then
+        if u.mode() == "operator-pending" then
           return 0
         end
 
@@ -231,8 +230,7 @@ local function jump_between_characters(plugin_manager)
       u.imap("<F16>", hop_forward_through(p), "Jump forward post brackets")
 
       -- Jumps between lines
-      local rh_api_hop = require("rabbit-hop.api").hop
-      local to_line = hacks.jump_to_line(rh_api_hop)
+      local to_line = hacks.jump_to_line(rh.hop)
       u.map("of", to_line.upward_left, "Jump to the start of an upward line")
       u.map("or", to_line.upward_right, "Jump to the end of an upward line")
       u.map("od", to_line.left, "Jump to the start of the current line")
