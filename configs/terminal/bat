@@ -1,6 +1,6 @@
 # Set the theme to "TwoDark"
 --theme="TwoDark"
 
---pager="less -FR"
+--pager="nvimpager.sh"
 
 --map-syntax h:cpp

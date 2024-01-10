@@ -5,4 +5,5 @@ AUR_PACKAGES=(
   breeze-hacked-cursor-theme
   dragon-drop
   google-chrome
+  nvimpager
 )

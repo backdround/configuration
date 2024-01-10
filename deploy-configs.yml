@@ -25,9 +25,6 @@
     ranger:
         target: "{{.GitRoot}}/configs/terminal/ranger"
         link: "{{.Home}}/.config/ranger/rc.conf"
-    less:
-        target: "{{.GitRoot}}/configs/terminal/lesskeys"
-        link: "{{.Home}}/.lesskey"
     tealdeer:
         target: "{{.GitRoot}}/configs/terminal/tealdeer.toml"
         link: "{{.Home}}/.config/tealdeer/config.toml"

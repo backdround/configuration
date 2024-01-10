@@ -4,7 +4,7 @@
 
 [core]
   excludesfile = ~/.gitignore_global
-  pager = diff-so-fancy | less --tabs=4 -RFX
+  pager = diff-so-fancy --colors | ~/.local/bin/nvimpager.sh
 
 [alias]
   st = status
