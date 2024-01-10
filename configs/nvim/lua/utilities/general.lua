@@ -40,16 +40,11 @@ M.wrap = function(f, ...)
 end
 
 ---@param keys string|any
----@param wait_for_finish? boolean
-M.feedkeys = function(keys, wait_for_finish)
+---@param flags? string
+M.feedkeys = function(keys, flags)
   keys = tostring(keys)
-
-  local flags = "n"
-  if wait_for_finish then
-    flags = "nx"
-  end
-
   keys = replace_termcodes(keys)
+  flags = flags or "n"
   vim.api.nvim_feedkeys(keys, flags, false)
 end
 
