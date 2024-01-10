@@ -36,7 +36,8 @@ local function earthly(plugin_manager)
     -- Uses vim autoindent feature
     return -1
   end
-  u.set_global_once("user_earthly_indent", earthly_indent_after_target)
+  -- selene: allow(global_usage)
+  _G.user_earthly_indent = earthly_indent_after_target
 
   u.autocmd("UserEarthlyIndentation", "FileType", {
     pattern = "Earthfile",

@@ -15,13 +15,6 @@ local function notify(message, time)
   })
 end
 
--- selene: allow(global_usage)
-local function set_global_once(name, fn)
-  if _G[name] == nil then
-    _G[name] = fn
-  end
-end
-
 local function wrap(f, ...)
   local args = { ... }
   return function()
@@ -56,7 +49,6 @@ end
 return {
   autocmd = autocmd,
   notify = notify,
-  set_global_once = set_global_once,
   wrap = wrap,
   feedkeys = feedkeys,
   reset_current_mode = reset_current_mode,
