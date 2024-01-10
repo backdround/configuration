@@ -35,7 +35,7 @@ M.ensure_presence = function()
 end
 
 M.set_mappings = function()
-  local leader = vim.api.nvim_replace_termcodes("<leader>", true, false, true)
+  local leader = "<M-d>"
   local keys = require("lazy.view.config").keys
   local commands = require("lazy.view.config").commands
 
@@ -48,18 +48,18 @@ M.set_mappings = function()
   keys.abort          = "<C-c>"
 
   commands.home.key           = "Y"
-  commands.install.key        = leader .. "<M-i>"
+  commands.install.key        = leader .. "I"
   commands.install.key_plugin = leader .. "i"
-  commands.update.key         = leader .. "<M-u>"
+  commands.update.key         = leader .. "U"
   commands.update.key_plugin  = leader .. "u"
   commands.sync.key           = leader .. "s"
-  commands.clean.key          = leader .. "<M-x>"
+  commands.clean.key          = leader .. "X"
   commands.clean.key_plugin   = leader .. "x"
-  commands.check.key          = leader .. "<M-c>"
+  commands.check.key          = leader .. "C"
   commands.check.key_plugin   = leader .. "c"
-  commands.log.key            = leader .. "<M-l>"
+  commands.log.key            = leader .. "L"
   commands.log.key_plugin     = leader .. "l"
-  commands.restore.key        = leader .. "<M-r>"
+  commands.restore.key        = leader .. "R"
   commands.restore.key_plugin = leader .. "r"
   commands.profile.key        = leader .. "p"
   commands.debug.key          = leader .. "D"
