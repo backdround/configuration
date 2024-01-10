@@ -9,12 +9,12 @@ local function word_motion(plugin_manager)
   local loading_ikeys =
     { "<C-Z>", "<C-Q>", "<C-J>", "<C-K>", "<M-Z>", "<M-Q>", "<M-J>", "<M-K>" }
 
-  loading_ikeys = u.array_concatenate(loading_ikeys, loading_fkeys)
-  loading_nkeys = u.array_concatenate(loading_nkeys, loading_fkeys)
+  loading_ikeys = u.array_extend(loading_ikeys, loading_fkeys)
+  loading_nkeys = u.array_extend(loading_nkeys, loading_fkeys)
 
   plugin_manager.add({
     url = "git@github.com:backdround/neowords.nvim.git",
-    keys = u.array_concatenate(
+    keys = u.array_extend(
       hacks.lazy.generate_keys("nxo", loading_nkeys),
       hacks.lazy.generate_keys("i", loading_ikeys)
     ),
@@ -139,7 +139,7 @@ local function jump_between_characters(plugin_manager)
 
   plugin_manager.add({
     url = "git@github.com:backdround/improved-ft.nvim.git",
-    keys = u.array_concatenate(
+    keys = u.array_extend(
       hacks.lazy.generate_keys("nxo", loading_nkeys),
       hacks.lazy.generate_keys("i", loading_ikeys)
     ),
@@ -172,7 +172,7 @@ local function jump_between_characters(plugin_manager)
 
   plugin_manager.add({
     url = "git@github.com:backdround/rabbit-hop.nvim.git",
-    keys = u.array_concatenate(
+    keys = u.array_extend(
       hacks.lazy.generate_keys("nxo", loading_nkeys),
       hacks.lazy.generate_keys("i", loading_ikeys)
     ),

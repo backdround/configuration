@@ -1,56 +1,76 @@
-local function autocmd(unique_group, event, options)
+local M = {}
+
+local replace_termcodes = function(key)
+  return vim.api.nvim_replace_termcodes(key, true, false, true)
+end
+
+---Creates an autocmd with its own group.
+---@param unique_group string
+---@param event string
+---@param options table
+M.autocmd = function(unique_group, event, options)
   options.group = unique_group
   vim.api.nvim_create_augroup(unique_group, { clear = true })
 
   vim.api.nvim_create_autocmd(event, options)
 end
 
-local function notify(message, time)
-  time = time or "4000"
+---Sends a desktop notification.
+---@param data any
+---@param time? number
+M.notify = function(data, time)
+  data = vim.inspect(data)
   vim.fn.system({
     "notify-send",
     "-t",
-    tostring(time),
-    message,
+    tostring(time) or "9000",
+    data,
   })
 end
 
-local function wrap(f, ...)
+---Binds a given function to parameters.
+---@param f function
+---@param ... any
+---@return function
+M.wrap = function(f, ...)
   local args = { ... }
   return function()
     f(unpack(args))
   end
 end
 
-local function feedkeys(keys)
-  keys = vim.api.nvim_replace_termcodes(keys, true, true, true)
-  vim.api.nvim_feedkeys(keys, "n", false)
-end
-
-local function reset_current_mode()
-  local keys = vim.api.nvim_replace_termcodes("<esc>", true, false, true)
-  vim.api.nvim_feedkeys(keys, "nx", false)
-end
-
-local function array_concatenate(array1, array2)
-  local output_array = {}
-
-  for _, value in ipairs(array1) do
-    table.insert(output_array, value)
+---@param keys string
+---@param wait_for_finish? boolean
+M.feedkeys = function(keys, wait_for_finish)
+  local flags = "n"
+  if wait_for_finish then
+    flags = "nx"
   end
 
-  for _, value in ipairs(array2) do
-    table.insert(output_array, value)
+  keys = replace_termcodes(keys)
+  vim.api.nvim_feedkeys(keys, flags, false)
+end
+
+M.reset_current_mode = function()
+  local exit = replace_termcodes("<C-\\><C-n>")
+  local escape = replace_termcodes("<Esc>")
+  vim.api.nvim_feedkeys(exit, "nx", false)
+  vim.api.nvim_feedkeys(escape, "n", false)
+end
+
+---Unites all given arrays.
+---@param ... table arrays to concatenate
+---@return table
+M.array_extend = function(...)
+  local output_array = {}
+
+  for _, array in ipairs({ ... }) do
+    for _, value in ipairs(array) do
+      table.insert(output_array, value)
+    end
   end
 
   return output_array
 end
 
-return {
-  autocmd = autocmd,
-  notify = notify,
-  wrap = wrap,
-  feedkeys = feedkeys,
-  reset_current_mode = reset_current_mode,
-  array_concatenate = array_concatenate,
-}
+return M
