@@ -1,3 +1,4 @@
+local u = require("utilities.general")
 local M = {}
 
 ---Hijacks vim.set.keymap and allows only buffer-local, <plug> or own mappings.
@@ -78,12 +79,34 @@ M.allow_mapping_from = function(source)
   table.insert(M._allowed_sources, source)
 end
 
-M.adapted_map = function(mode, lhs, rhs, options_or_desc)
+---More convinient wrapper for vim.keymap.set
+---@param modes string|table
+---@param lhs string
+---@param rhs string|function
+---@param options_or_description table|string
+M.adapted_map = function(modes, lhs, rhs, options_or_description)
+  u.assert_types({
+    mode = { modes, "string", "table" },
+    lhs = { lhs, "string" },
+    rhs = { rhs, "string", "function" },
+    options_or_description = { options_or_description, "string", "table" },
+  })
+
+  local mode = {}
+  if type(modes) == "string" then
+    for i = 1, #modes do
+      local m = modes:sub(i, i)
+      table.insert(mode, m)
+    end
+  else
+    mode = modes
+  end
+
   local options = {}
-  if type(options_or_desc) == "table" then
-    options = options_or_desc
-  elseif type(options_or_desc) == "string" then
-    options.desc = options_or_desc
+  if type(options_or_description) == "table" then
+    options = options_or_description
+  elseif type(options_or_description) == "string" then
+    options.desc = options_or_description
   end
 
   if not options.desc then

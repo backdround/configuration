@@ -28,19 +28,19 @@ local function configure()
   local lua_snip_loader = require("luasnip.loaders.from_lua")
   lua_snip_loader.load({ paths = "./snippets" })
 
-  u.adapted_map({ "i", "s", }, "<M-t>", function()
+  u.adapted_map("is", "<M-t>", function()
     if ls.expand_or_jumpable() then
       ls.expand_or_jump()
     end
   end, "Expand snippet or jump to next snippet node")
 
-  u.adapted_map({ "i", "s", }, "<M-h>", function()
+  u.adapted_map("is", "<M-h>", function()
     if ls.jumpable(-1) then
       ls.jump(-1)
     end
   end, "Jump to previous snippet node")
 
-  u.adapted_map({ "i", "s", }, "<M-n>", function()
+  u.adapted_map("is", "<M-n>", function()
     if ls.choice_active() then
       ls.change_choice()
     end
