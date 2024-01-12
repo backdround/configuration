@@ -200,10 +200,16 @@ local function substitute()
 end
 
 local function foldings()
-  -- TODO: make foldings
-  u.map("x", function()
-    print("make foldings")
-  end, "Jump / fold key")
+  u.map("x", "<Nop>", "Jump / fold key")
+  u.adapted_map("nx", "xo", "zo", "Open a folding")
+  u.adapted_map("nx", "xe", "zc", "Close a folding")
+  u.adapted_map("nx", "x<M-o>", "zO", "Open all folding under the cursor")
+  u.adapted_map("nx", "x<M-e>", "zC", "Close all folding under the cursor")
+  u.adapted_map("nx", "xO", "zR", "Open all foldings")
+  u.adapted_map("nx", "xE", "zM", "Close all foldings")
+
+  u.adapted_map("nx", "xu", "zf", "Create a folding")
+  u.adapted_map("nx", "xi", "zd", "Delete a folding")
 end
 
 local function improved_repeat(plugin_manager)

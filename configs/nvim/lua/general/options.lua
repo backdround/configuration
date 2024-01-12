@@ -49,6 +49,38 @@ local function apply()
   options.fillchars = "fold: ,"
   options.fillchars = "vert: ,"
 
+  -- Folds
+  -- selene: allow(global_usage)
+  _G.fold_text = function()
+    local count_of_lines = vim.v.foldend - vim.v.foldstart + 1
+
+    local start_line = vim.v.foldstart
+    local line =
+      vim.api.nvim_buf_get_lines(0, start_line - 1, start_line, true)[1]
+
+    local indent, rest = line:match("(%s*)(.*)")
+    local indent_virtual_width = vim.fn.virtcol({ vim.v.foldstart, #indent })
+
+    local new_virtual_indent_width = math.max(indent_virtual_width - 2, 0)
+    local new_indent = "> " .. (" "):rep(new_virtual_indent_width)
+
+    local title = new_indent .. rest .. ": " .. count_of_lines .. " lines"
+    local free_space = tonumber(options.colorcolumn:get()[1]) - #title
+    if free_space > 2 then
+      title = title .. (" "):rep(free_space - 1) .. "<"
+    end
+    return title
+  end
+
+  options.foldenable = true
+  options.foldtext = "v:lua.fold_text()"
+  options.foldcolumn = "0"
+  options.foldlevel = 8
+  options.foldminlines = 1
+  options.foldopen:remove("block")
+  options.foldexpr = "nvim_treesitter#foldexpr()"
+  options.foldmethod = "expr"
+
   -- Language
   options.keymap = "custom_ru"
   options.iminsert = 0
