@@ -95,4 +95,57 @@ M.perform_empty_keymap = function(mode)
   vim.keymap.del(mode, label)
 end
 
+---@class Config_TypeAssert
+---@field [1] any Real value
+---@field [...] string Possible types
+
+---@param data table<string, Config_TypeAssert>
+M.assert_types = function(data)
+  -- Data asserts
+  if type(data) ~= "table" then
+    error("The given validation data must be a table", 2)
+  end
+
+  for name, parameter in pairs(data) do
+    if type(name) ~= "string" then
+      local message = "The validation name must be a string, but it's "
+        .. type(name)
+      error(message, 2)
+    end
+
+    if #parameter < 2 then
+      error(name .. " possible types aren't set", 2)
+    end
+
+    for i = 2,#parameter do
+      local potential_type = parameter[i]
+      if type(potential_type) ~= "string" then
+        error("The validation type must be a string", 2)
+      end
+    end
+  end
+
+  -- Type checks
+  for name, parameter in pairs(data) do
+    local parameter_type = type(parameter[1])
+    local ok = false
+    for i = 2,#parameter do
+      local potential_type = parameter[i]
+      if parameter_type == potential_type then
+        ok = true
+        break
+      end
+    end
+
+    if not ok then
+      local message = "The " .. name .. " must be " .. parameter[2]
+      for i = 3,#parameter do
+        message = message .. "|" .. parameter[i]
+      end
+      message = message .. " but it's " .. type(parameter[1])
+      error(message, 2)
+    end
+  end
+end
+
 return M
