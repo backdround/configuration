@@ -17,13 +17,23 @@ end
 
 ---Sends a desktop notification.
 ---@param data any
----@param time? number
+---@param time? number|string
 M.notify = function(data, time)
-  data = vim.inspect(data)
+  if type(data) ~= "string" then
+    data = vim.inspect(data)
+  end
+
+  if time == nil then
+    time = "9000"
+  else
+    time = tostring(time)
+  end
+
   vim.fn.system({
     "notify-send",
     "-t",
-    tostring(time) or "9000",
+    time,
+    "--",
     data,
   })
 end
