@@ -31,8 +31,12 @@ local function apply()
 
     options.backup = true
     options.backupext = ".back"
-    options.backupdir = backupdir
-    options.backupskip = options.backupskip + "/dev/shm/*" + backupdir
+    options.backupdir = { backupdir }
+    options.backupskip:append({
+      "/dev/shm/*",
+      "~/.zsh_history",
+      backupdir .. "/*",
+    })
   end
   options.swapfile = false
   options.undofile = false
@@ -45,9 +49,15 @@ local function apply()
   options.colorcolumn = "80"
 
   options.list = true
-  options.listchars = "tab:  ,trail:·"
-  options.fillchars = "fold: ,"
-  options.fillchars = "vert: ,"
+  options.listchars = {
+    tab = "  ",
+    trail = "·",
+  }
+  options.fillchars = {
+    eob = "-",
+    fold = " ",
+    vert = " ",
+  }
 
   -- Folds
   -- selene: allow(global_usage)
@@ -78,6 +88,7 @@ local function apply()
   options.foldlevel = 8
   options.foldminlines = 1
   options.foldopen:remove("block")
+  options.foldopen:remove("hor")
   options.foldexpr = "nvim_treesitter#foldexpr()"
   options.foldmethod = "expr"
 
@@ -122,14 +133,19 @@ local function apply()
   -- Use current directory name (project name) as the app title.
   vim.opt.title = true
   local function set_title()
-    local current_directory_name = vim.fs.basename(vim.fn.getcwd())
-    vim.opt.titlestring = current_directory_name
+    local cwd = { vim.loop.cwd() }
+    if cwd[1] then
+      vim.opt.titlestring = vim.fs.basename(cwd[1]) or "-"
+    else
+      vim.opt.titlestring = cwd[3]
+    end
   end
+  set_title()
+
   utilities.autocmd("UserSetTitle", "DirChanged", {
-    desc = "Set app title to project name (directory name)",
+    desc = "Sets app title to a project name (directory name)",
     callback = set_title,
   })
-  set_title()
 
   -- Nvimpager
   if nvimpager ~= nil then
