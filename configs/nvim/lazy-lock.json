@@ -12,7 +12,7 @@
   "dressing.nvim": { "branch": "master", "commit": "94b0d24483d56f3777ee0c8dc51675f21709318c" },
   "earthly.vim": { "branch": "main", "commit": "8f6beb9158cfb40b2a3d9b8c28da708e1b23d7a3" },
   "hop.nvim": { "branch": "master", "commit": "2d21a0c649b7835574cba47346fe81c5617671b2" },
-  "improved-ft.nvim": { "branch": "main", "commit": "d408f864ca9125b829c25db66b93bdaee899c19d" },
+  "improved-ft.nvim": { "branch": "main", "commit": "f2259e9c4123339cb99430befcabf22f4689b97c" },
   "improved-search.nvim": { "branch": "main", "commit": "9480bfb0e05f990a1658464c1d349dd2acfb9c34" },
   "lazy.nvim": { "branch": "main", "commit": "96584866b9c5e998cbae300594d0ccfd0c464627" },
   "lspkind.nvim": { "branch": "master", "commit": "7f26cf5e27e2bd910ce0ea00c514da2bf97423b8" },

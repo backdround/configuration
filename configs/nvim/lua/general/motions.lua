@@ -146,23 +146,31 @@ local function jump_between_characters(plugin_manager)
     config = function()
       local ft = require("improved-ft")
 
-      u.map("p", ft.hop_forward_to_char, "Hop forward to a char")
-      u.map("<M-p>", ft.hop_forward_to_pre_char, "Hop forward to a pre char")
-      u.map("<S-p>", ft.hop_forward_to_post_char, "Hop forward to a post char")
+      local map = function(key, fn, description)
+        u.map(key, fn, { desc = description, expr = true })
+      end
 
-      u.map("w", ft.hop_backward_to_char, "Hop backward to a char")
-      u.map("<M-w>", ft.hop_backward_to_pre_char, "Hop backward to a pre char")
-      u.map("<S-w>", ft.hop_backward_to_post_char, "Hop backward to a post char")
+      local imap = function(key, fn, description)
+        u.imap(key, fn, { desc = description, expr = true })
+      end
 
-      u.map(")", ft.repeat_forward, "Repeat hop forward to a character")
-      u.map("(", ft.repeat_backward, "Repeat hop backward to a character")
+      map("p", ft.hop_forward_to_char, "Hop forward to a char")
+      map("<M-p>", ft.hop_forward_to_pre_char, "Hop forward to a pre char")
+      map("<S-p>", ft.hop_forward_to_post_char, "Hop forward to a post char")
+
+      map("w", ft.hop_backward_to_char, "Hop backward to a char")
+      map("<M-w>", ft.hop_backward_to_pre_char, "Hop backward to a pre char")
+      map("<S-w>", ft.hop_backward_to_post_char, "Hop backward to a post char")
+
+      map(")", ft.repeat_forward, "Repeat hop forward to a character")
+      map("(", ft.repeat_backward, "Repeat hop backward to a character")
 
       -- Insert mode
-      u.imap("<M-p>", ft.hop_forward_to_char, "Hop forward to a char")
-      u.imap("<M-w>", ft.hop_backward_to_char, "Hop backward to a char")
+      imap("<M-p>", ft.hop_forward_to_char, "Hop forward to a char")
+      imap("<M-w>", ft.hop_backward_to_char, "Hop backward to a char")
 
-      u.imap("<M-u>", ft.repeat_forward, "Repeat hop forward to a character")
-      u.imap("<M-e>", ft.repeat_backward, "Repeat hop backward to a character")
+      imap("<M-u>", ft.repeat_forward, "Repeat hop forward to a character")
+      imap("<M-e>", ft.repeat_backward, "Repeat hop backward to a character")
     end,
   })
 
