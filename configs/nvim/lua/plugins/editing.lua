@@ -217,6 +217,7 @@ local function surround(plugin_manager)
 end
 
 local function exchange(plugin_manager)
+  vim.g.exchange_no_mappings = true
   plugin_manager.add({
     url = "https://github.com/tommcdo/vim-exchange",
     keys = { "bC", "br", { "bc", mode = { "n", "x", "o" } } },
