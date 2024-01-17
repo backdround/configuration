@@ -13,7 +13,7 @@ M._hijack_set_keymap = function()
     local is_allowed = function()
       local caller = debug.getinfo(3, "S")
       for _, allowed_source in ipairs(M._allowed_sources) do
-        if caller.source:find(allowed_source) ~= nil then
+        if caller.source:find(allowed_source, 1, true) ~= nil then
           return true
         end
       end
