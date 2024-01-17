@@ -237,6 +237,14 @@ local function jump_between_characters(plugin_manager)
       u.map("<F16>", hop_forward_through(p), "Jump forward post brackets")
       u.imap("<F16>", hop_forward_through(p), "Jump forward post brackets")
 
+      -- TODO: use the mapping as soon as switch from targets.vim.
+      -- targets.vim maps `@(targets)`
+      -- -- Jump to a next bracket
+      -- u.map("@", u.wrap(rh.hop, {
+      --   pattern = "\\v[\\][(){}]",
+      --   direction = "forward",
+      -- }), "Jump to a next bracket")
+
       -- Jumps between lines
       local to_line = hacks.jump_to_line(rh.hop)
       u.map("of", to_line.upward_left, "Jump to the start of an upward line")
