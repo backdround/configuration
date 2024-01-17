@@ -45,7 +45,7 @@ end
 M.wrap = function(f, ...)
   local args = { ... }
   return function()
-    f(unpack(args))
+    return f(unpack(args))
   end
 end
 
