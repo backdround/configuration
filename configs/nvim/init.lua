@@ -21,7 +21,10 @@ local module_names = {
   "plugins/luasnip",
 }
 
-require("utilities.mappings").init()
+-- Set up mappings
+local mappings = require("utilities.mappings")
+mappings.init()
+mappings.allow_mapping_from(".config/nvim/lua/")
 
 ---Finds and performs the given module by name
 ---@param module_name string
