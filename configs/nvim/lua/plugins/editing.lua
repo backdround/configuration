@@ -182,19 +182,36 @@ local function textobj_indent(plugin_manager)
 end
 
 local function surround(plugin_manager)
-  vim.g.surround_no_mappings = 1
-
   plugin_manager.add({
-    url = "https://github.com/tpope/vim-surround",
+    -- TODO: move to kylechui/nvim-surround as soon as it is merged:
+    -- https://github.com/kylechui/nvim-surround/pull/297
+    url = "https://github.com/backdround/nvim-surround",
     keys = {
-      "tn", "hn", "hN", { "n", mode = "x" }, { "N", mode = "x" },
+      "tn",
+      "hn",
+      "hN",
+      { "n", mode = "x" },
+      { "N", mode = "x" },
+      "<M-n>",
+      "<C-M-n>",
     },
     config = function()
-      u.nmap("tn", "<Plug>Dsurround", "Remove brackets")
-      u.nmap("hn", "<Plug>Csurround", "Change brackets inline")
-      u.nmap("hN", "<Plug>CSurround", "Change brackets multilne")
-      u.xmap("n", "<Plug>VSurround", "Surround brackets inline")
-      u.xmap("N", "<Plug>VgSurround", "Surround brackets multiline")
+      require("nvim-surround").setup({
+        keymaps = {},
+        move_cursor = false,
+      })
+
+      local plug = function(name)
+        return "<Plug>(nvim-surround-" .. name .. ")"
+      end
+
+      u.nmap("tn", plug("delete"), "Delete a surrounding pair")
+      u.nmap("hn", plug("change"), "Change a surrounding pair inline")
+      u.nmap("hN", plug("change-line"), "Change a surrounding pair multiline")
+      u.xmap("n", plug("visual"), "Add a surrounding pair inline")
+      u.xmap("N", plug("visual-line"), "Add a surrounding pair multiline")
+      u.nmap("<M-n>", plug("normal"), "Add a surrounding pair inline")
+      u.nmap("<C-M-n>", plug("normal-line"), "Add a surrounding pair multiline")
     end,
   })
 end

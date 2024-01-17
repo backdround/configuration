@@ -17,7 +17,7 @@
   "lazy.nvim": { "branch": "main", "commit": "96584866b9c5e998cbae300594d0ccfd0c464627" },
   "lspkind.nvim": { "branch": "master", "commit": "7f26cf5e27e2bd910ce0ea00c514da2bf97423b8" },
   "lualine.nvim": { "branch": "master", "commit": "566b7036f717f3d676362742630518a47f132fff" },
-  "melting": { "branch": "master", "commit": "34559ac9fe10b09a9e522479e4ed2b07d81feb8f" },
+  "melting": { "branch": "master", "commit": "8ca4d66582c44a789fac3f08cee11ba6c757f4ba" },
   "messages.nvim": { "branch": "main", "commit": "24dbb56829d1ed2d8d878e9f5547478441838567" },
   "neoconf.nvim": { "branch": "main", "commit": "64437787dba70fce50dad7bfbb97d184c5bc340f" },
   "neodev.nvim": { "branch": "main", "commit": "be8d4d4cab6c13c6a572269c9d6a63774baba9a0" },
@@ -53,7 +53,7 @@
   "vim-niceblock": { "branch": "master", "commit": "9302f527eefc0fde8df983cbb9710ad52c4213b5" },
   "vim-repeat": { "branch": "master", "commit": "f2babd1fe1f1c9034e033a22787bcdaef6755d4a" },
   "vim-rooter": { "branch": "master", "commit": "1353fa47ee3a81083c284e28ff4f7d92655d7c9e" },
-  "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
+  "nvim-surround": { "branch": "master", "commit": "9cc3788cb773ff879588cd7cd6898748f0d6f22c" },
   "vim-textobj-indent": { "branch": "master", "commit": "deb76867c302f933c8f21753806cbf2d8461b548" },
   "vim-textobj-user": { "branch": "master", "commit": "41a675ddbeefd6a93664a4dc52f302fe3086a933" },
   "zen-mode.nvim": { "branch": "main", "commit": "50e2e2a36cc97847d9ab3b1a3555ba2ef6839b50" }
