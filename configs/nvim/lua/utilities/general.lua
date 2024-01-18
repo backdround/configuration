@@ -29,13 +29,27 @@ M.notify = function(data, time)
     time = tostring(time)
   end
 
-  vim.fn.system({
+  local result = vim.system({
     "notify-send",
     "-t",
     time,
     "--",
     data,
-  })
+  }, {
+    text = true,
+  }):wait()
+
+  if result.stderr ~= "" then
+    vim.system({
+      "notify-send",
+      "-t",
+      time,
+      "--",
+      result.stderr,
+    }):wait()
+
+    vim.notify(data .. "\n")
+  end
 end
 
 ---Binds a given function to parameters.
