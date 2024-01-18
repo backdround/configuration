@@ -13,15 +13,11 @@ local not_on_current_line = function()
 end
 
 ---Saves the current position into jumplist.
+---It resets v:count, be careful.
 local save_position_into_jumplist = function()
   local mode = u.mode()
   if mode == "normal" or mode == "visual" then
-    local count = vim.v.count
     vim.cmd.normal({ args = { "m'" }, bang = true })
-    if count ~= 0 then
-      u.feedkeys(count, "ni")
-      u.perform_empty_keymap({ "n", "x" })
-    end
   end
 end
 
@@ -29,20 +25,24 @@ local get_to_line_functions = function(hop)
   local to_line = {}
 
   to_line.upward_left = function()
+    local count = vim.v.count1
     save_position_into_jumplist()
     hop({
       pattern = not_on_current_line() .. "\\v^[[:blank:]]*[^[:blank:]]?",
       direction = "backward",
       match_position = "end",
+      count = count,
     })
   end
 
   to_line.upward_right = function()
+    local count = vim.v.count1
     save_position_into_jumplist()
     hop({
       pattern = not_on_current_line() .. "\\v$",
       direction = "backward",
       match_position = "end",
+      count = count,
     })
   end
 
@@ -71,22 +71,26 @@ local get_to_line_functions = function(hop)
   end
 
   to_line.downward_left = function()
+    local count = vim.v.count1
     save_position_into_jumplist()
     hop({
       pattern = not_on_current_line() .. "\\v^[[:blank:]]*[^[:blank:]]?",
       direction = "forward",
       match_position = "end",
       offset = is_operator_pending_mode() and -1 or 0,
+      count = count,
     })
   end
 
   to_line.downward_right = function()
+    local count = vim.v.count1
     save_position_into_jumplist()
     hop({
       pattern = not_on_current_line() .. "\\v$",
       direction = "forward",
       match_position = "end",
       offset = is_operator_pending_mode() and -1 or 0,
+      count = count,
     })
   end
 

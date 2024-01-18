@@ -109,16 +109,6 @@ M.mode = function()
   end
 end
 
----Performs an empty function on by a keymap.
----It's useful for setting v:count.
----@param mode string|table
-M.perform_empty_keymap = function(mode)
-  local label = "<Plug>(user-empty-stub)"
-  vim.keymap.set(mode, label, function() end)
-  M.feedkeys(label, "nx")
-  vim.keymap.del(mode, label)
-end
-
 ---@class Config_TypeAssert
 ---@field [1] any Real value
 ---@field [...] string Possible types
