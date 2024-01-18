@@ -55,8 +55,8 @@ local function textobjects_configure()
         enable = true,
         lookahead = true,
         keymaps = {
-          ["<Plug>(virtual-visual-a)f"] = "@function.outer",
-          ["<Plug>(virtual-visual-i)f"] = "@function.inner",
+          ["<Plug>(virtual-text-a)f"] = "@function.outer",
+          ["<Plug>(virtual-text-i)f"] = "@function.inner",
         },
       },
       swap = {

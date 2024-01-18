@@ -130,22 +130,19 @@ local function targets(plugin_manager)
     "",
   }
 
-  u.omap("g", "<Plug>(user-an-object)", "Use an object")
-  u.xmap("g", "<Plug>(user-an-object)", "Select an object")
-
-  u.omap("c", "<Plug>(user-in-object)", "Use in object")
-  u.xmap("c", "<Plug>(user-in-object)", "Select in object")
+  u.adapted_map("ox", "g", "<Plug>(user-an-object)", "An object")
+  u.adapted_map("ox", "c", "<Plug>(user-in-object)", "In object")
 
   vim.g.targets_mapped_aiAI = {
-    "<Plug>(virtual-visual-a)",
-    "<Plug>(virtual-visual-i)",
+    "<Plug>(virtual-text-a)",
+    "<Plug>(virtual-text-i)",
     "",
     "",
   }
   vim.g.targets_nl = { "t", "h" }
 
-  u.map("<Plug>(virtual-visual-a)", "a", "An object mapping for 'targets'")
-  u.map("<Plug>(virtual-visual-i)", "i", "In object mapping for 'targets'")
+  u.adapted_map("ox", "<Plug>(virtual-text-a)", "a", "An object mapping")
+  u.adapted_map("ox", "<Plug>(virtual-text-i)", "i", "In object mapping")
 end
 
 local function textobj_indent(plugin_manager)
@@ -159,25 +156,17 @@ local function textobj_indent(plugin_manager)
   })
 
   vim.g.textobj_indent_no_default_key_mappings = 1
-  u.xmap(
-    "<Plug>(virtual-visual-a)u",
+  u.adapted_map(
+    "xo",
+    "<Plug>(virtual-text-a)u",
     "<Plug>(textobj-indent-a)",
-    "Select current indent"
+    "Current indent"
   )
-  u.omap(
-    "<Plug>(virtual-visual-a)u",
-    "<Plug>(textobj-indent-a)",
-    "Use current indent"
-  )
-  u.xmap(
-    "<Plug>(virtual-visual-i)u",
+  u.adapted_map(
+    "xo",
+    "<Plug>(virtual-text-i)u",
     "<Plug>(textobj-indent-i)",
-    "Select current paragraph indent"
-  )
-  u.omap(
-    "<Plug>(virtual-visual-i)u",
-    "<Plug>(textobj-indent-i)",
-    "Use current paragraph indent"
+    "Current paragraph indent"
   )
 end
 
