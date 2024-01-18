@@ -2,17 +2,13 @@ local u = require("utilities")
 
 -- Enters into a visual mode and proxies v:count inside.
 local function enter(mode)
-  local saved_count = nil
+  local keys = vim.api.nvim_replace_termcodes(mode, true, true, true)
+
   if vim.v.count > 1 then
-    saved_count = vim.v.count
+    keys = keys .. tostring(vim.v.count)
   end
 
-  mode = vim.api.nvim_replace_termcodes(mode, true, true, true)
-  vim.cmd("normal! " .. mode)
-
-  if saved_count then
-    vim.api.nvim_feedkeys(tostring(saved_count), "n", false)
-  end
+  vim.api.nvim_feedkeys(keys, "ni", false)
 end
 
 return {
