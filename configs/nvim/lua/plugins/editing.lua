@@ -172,9 +172,7 @@ end
 
 local function surround(plugin_manager)
   plugin_manager.add({
-    -- TODO: move to kylechui/nvim-surround as soon as it is merged:
-    -- https://github.com/kylechui/nvim-surround/pull/297
-    url = "https://github.com/backdround/nvim-surround",
+    url = "https://github.com/kylechui/nvim-surround",
     keys = {
       "tn",
       "hn",
