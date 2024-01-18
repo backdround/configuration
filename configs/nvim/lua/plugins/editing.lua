@@ -66,23 +66,18 @@ local function commenting(plugin_manager)
   })
 end
 
+-- TODO: Create a separate plugin for a fastwrap like in
+-- https://github.com/altermo/ultimate-autopair.nvim (check demo)
 local function autopairs(plugin_manager)
-  -- TODO: to make a request for floating buffer insteard of virsual line
   plugin_manager.add({
     url = "https://github.com/windwp/nvim-autopairs",
     event = "InsertEnter",
     config = function()
       local nvim_autopairs = require("nvim-autopairs")
       nvim_autopairs.setup({
+        ignored_next_char = [=[[%%%[%.%`%$]]=],
         map_cr = false,
         map_bs = false,
-        fast_wrap = {
-          map = "<Plug>(user-fastwrap)",
-          pattern = [=[[ %'%"%>%]%)%}%,]]=],
-          keys = "htngcrmaoeu",
-          end_key = "i",
-          manual_position = false,
-        },
       })
 
       -- Add space inside curly braces.
@@ -99,17 +94,17 @@ local function autopairs(plugin_manager)
           end),
       })
 
-      -- Map keys
-      local map_autopair = function(autopair_function)
-        return function()
-          vim.api.nvim_feedkeys(autopair_function(), "n", false)
-        end
-      end
-      local cr = map_autopair(nvim_autopairs.autopairs_cr)
-      local bs = map_autopair(nvim_autopairs.autopairs_bs)
-      u.imap("<CR>", cr, "Autopairs new line")
-      u.imap("<BS>", bs, "Autopairs backspace")
-      u.imap("<M-i>", "<Plug>(user-fastwrap)", "Autopairs fastwrap")
+      vim.keymap.set("i", "<BS>", nvim_autopairs.autopairs_bs, {
+        desc = "Autopairs backspace",
+        expr = true,
+        replace_keycodes = false,
+      })
+
+      vim.keymap.set("i", "<CR>", nvim_autopairs.autopairs_cr, {
+        desc = "Autopairs new line",
+        expr = true,
+        replace_keycodes = false,
+      })
     end,
   })
 end
