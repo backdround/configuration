@@ -26,6 +26,25 @@ local function insert()
     end
   end
 
+  -- selene: allow(global_usage)
+  _G.Insert_lines_below = function()
+    local cursor_line = vim.api.nvim_win_get_cursor(0)[1]
+    local current_line =
+      vim.api.nvim_buf_get_lines(0, cursor_line - 1, cursor_line, true)[1]
+
+    local new_lines = { current_line }
+    for _ = 1, vim.v.count1 do
+      table.insert(new_lines, "")
+    end
+
+    vim.api.nvim_buf_set_lines(0, cursor_line - 1, cursor_line, true, new_lines)
+  end
+
+  local insert_lines_below = function()
+    vim.opt.operatorfunc = "v:lua.Insert_lines_below"
+    return "g@$"
+  end
+
   -- Enter mode
   u.nmap("g", "i", "Enter insert mode before the cursor")
   u.nmap("G", "I", "Enter insert mode at the start of the line")
@@ -37,6 +56,10 @@ local function insert()
   u.nmap("o>", "+$a", "Enter insert mode at the end of the line below")
   u.nmap("oR", "-$a", "Enter insert mode at the end of the line above")
 
+  u.nmap("<C-r>", insert_lines_below, {
+    desc = "Insert v:count lines below",
+    expr = true,
+  })
   u.nmap("r", "o", "Enter insert mode in new line below")
   u.nmap("R", "O", "Enter insert mode in new line above")
 
