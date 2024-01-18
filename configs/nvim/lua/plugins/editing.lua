@@ -251,13 +251,13 @@ end
 local function align(plugin_manager)
   plugin_manager.add({
     url = "https://github.com/Vonr/align.nvim",
-    keys = hacks.lazy.generate_keys("nxo", { "ba", "b<M-a>" }),
+    keys = hacks.lazy.generate_keys("nx", { "ba", "b<M-a>" }),
     config = function()
       local a = require("align")
       local align_to_char = u.wrap(a.operator, a.align_to_char)
       local align_to_string = u.wrap(a.operator, a.align_to_string)
-      u.map("ba", align_to_char, "Align to a character")
-      u.map("b<M-a>", align_to_string, "Align to a string")
+      u.adapted_map("nx", "ba", align_to_char, "Align to a character")
+      u.adapted_map("nx", "b<M-a>", align_to_string, "Align to a string")
     end,
   })
 end
