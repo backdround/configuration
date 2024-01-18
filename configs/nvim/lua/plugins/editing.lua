@@ -5,7 +5,7 @@ local function commenting(plugin_manager)
   plugin_manager.add({
     url = "https://github.com/numToStr/Comment.nvim",
     enabled = not LightWeight,
-    keys = hacks.lazy.generate_keys("nx", { "bb", "bd", "bh", "bm" }),
+    keys = hacks.lazy.generate_keys("nx", { "bb", "b<M-b>", "bm", "b<M-m>" }),
     config = function()
       require("Comment").setup({
         ignore = "^$",
@@ -30,38 +30,43 @@ local function commenting(plugin_manager)
         end,
       })
 
+      local map = function(mode, lhs, rhs, description)
+        u.adapted_map(mode, lhs, rhs, {
+          desc = description,
+          expr = true,
+        })
+      end
+
       local api = require("Comment.api")
 
       -- Comment operations
-      local function visual_comment()
-        u.reset_current_mode()
-        api.locked("comment.linewise")(vim.fn.visualmode())
+      local comment_current = api.call("comment.linewise.current", "g@$")
+      local comment_count_repeat =
+        api.call("comment.linewise.count_repeat", "g@$")
+      local instant_comment = function()
+        return vim.v.count == 0 and comment_current() or comment_count_repeat()
       end
-      local current_line_comment = api.call("comment.linewise.current", "g@$")
-      local operator_comment = api.call("comment.linewise", "g@")
 
-      -- Uncomment operations
-      local function visual_uncomment()
-        u.reset_current_mode()
-        api.locked("uncomment.linewise")(vim.fn.visualmode())
+      local uncomment_current = api.call("comment.linewise.current", "g@$")
+      local uncomment_count_repeat =
+        api.call("comment.linewise.count_repeat", "g@$")
+      local instant_uncomment = function()
+        return vim.v.count == 0 and uncomment_current()
+          or uncomment_count_repeat()
       end
-      local current_line_uncomment =
-        api.call("uncomment.linewise.current", "g@$")
+
+      local operator_comment = api.call("comment.linewise", "g@")
       local operator_uncomment = api.call("uncomment.linewise", "g@")
 
-      -- Comment mappings
-      local description = "Comment current line"
-      u.nmap("bb", current_line_comment, { expr = true, desc = description })
-      u.xmap("bb", visual_comment, "Comment selected area")
-      description = "Comment with motion"
-      u.nmap("bd", operator_comment, { expr = true, desc = description })
+      -- Mappings
+      map("n", "bb", instant_comment, "Comment current line (with v:count)")
+      map("n", "bm", instant_uncomment, "Uncomment current line (with v:count)")
 
-      -- Uncomment mappings
-      description = "Uncomment current line"
-      u.nmap("bm", current_line_uncomment, { expr = true, desc = description })
-      u.xmap("bm", visual_uncomment, "Uncomment selected area")
-      description = "Uncomment with motion"
-      u.nmap("bh", operator_uncomment, { expr = true, desc = description })
+      map("x", "bb", operator_comment, "Comment selected area")
+      map("x", "bm", operator_uncomment, "Uncomment selected area")
+
+      map("n", "b<M-b>", operator_comment, "Comment with motion")
+      map("n", "b<M-m>", operator_uncomment, "Uncomment with motion")
     end,
   })
 end
