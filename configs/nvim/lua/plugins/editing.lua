@@ -1,3 +1,4 @@
+--# selene: allow(global_usage)
 local u = require("utilities")
 local hacks = require("general.hacks")
 
@@ -30,6 +31,35 @@ local function commenting(plugin_manager)
         end,
       })
 
+      local api = require("Comment.api")
+
+      local get_instant_operator = function(operator)
+        return function()
+          local count = vim.v.count + 1
+          local command_template = "lockmarks lua require('Comment.api').%s(%s)"
+          vim.api.nvim_command(command_template:format(operator, count))
+        end
+      end
+
+      -- Operations
+      _G.Instant_comment_operator =
+        get_instant_operator("comment.linewise.count")
+      local instant_comment = function()
+        vim.opt.operatorfunc = "v:lua.Instant_comment_operator"
+        return "g@$"
+      end
+
+      _G.Instant_uncomment_operator =
+        get_instant_operator("uncomment.linewise.count")
+      local instant_uncomment = function()
+        vim.opt.operatorfunc = "v:lua.Instant_uncomment_operator"
+        return "g@$"
+      end
+
+      local operator_comment = api.call("comment.linewise", "g@")
+      local operator_uncomment = api.call("uncomment.linewise", "g@")
+
+      -- Mappings
       local map = function(mode, lhs, rhs, description)
         u.adapted_map(mode, lhs, rhs, {
           desc = description,
@@ -37,28 +67,6 @@ local function commenting(plugin_manager)
         })
       end
 
-      local api = require("Comment.api")
-
-      -- Comment operations
-      local comment_current = api.call("comment.linewise.current", "g@$")
-      local comment_count_repeat =
-        api.call("comment.linewise.count_repeat", "g@$")
-      local instant_comment = function()
-        return vim.v.count == 0 and comment_current() or comment_count_repeat()
-      end
-
-      local uncomment_current = api.call("comment.linewise.current", "g@$")
-      local uncomment_count_repeat =
-        api.call("comment.linewise.count_repeat", "g@$")
-      local instant_uncomment = function()
-        return vim.v.count == 0 and uncomment_current()
-          or uncomment_count_repeat()
-      end
-
-      local operator_comment = api.call("comment.linewise", "g@")
-      local operator_uncomment = api.call("uncomment.linewise", "g@")
-
-      -- Mappings
       map("n", "bb", instant_comment, "Comment current line (with v:count)")
       map("n", "bm", instant_uncomment, "Uncomment current line (with v:count)")
 
