@@ -3,10 +3,10 @@ local hacks = require("general.hacks")
 
 local function editing()
   u.map("h", "c", "Change")
-  u.nmap("H", "C", "Change to end of the line")
+  u.adapted_map("nx", "H", "C", "Change to end of the line")
 
   u.map("t", "d", "Delete")
-  u.nmap("T", "D", "Delete to end of the line")
+  u.adapted_map("nx", "T", "D", "Delete to end of the line")
 
   u.adapted_map("nx", ",", "r", "Replace current character")
   u.nmap("<Bs>", "X", "Delete previous character")
@@ -294,7 +294,8 @@ local function misc()
 
   -- Misc
   u.nmap("_", "<Cmd>write<CR>", "Write buffer")
-  u.nmap("'", '"', "Use a register")
+  u.adapted_map("nx", "<C-d>", '"', "Use a register")
+  u.adapted_map("ci", "<C-d>", '<C-r>', "Use a register")
 
   local maps_to_disable = {
     "<MiddleMouse>",
