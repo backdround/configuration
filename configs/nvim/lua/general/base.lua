@@ -96,38 +96,34 @@ end
 
 local function copy_paste()
   -- Copy
-  u.map("<C-f>", 'y', "Yank operator (unnamed)")
-  u.nmap("<C-M-f>", 'y$', "Yank (unnamed) to the end of the current line")
-  u.nmap("<C-f><C-f>", 'yy', "Yank the current line (unnamed)")
+  u.map("f", 'y', "Yank operator")
+  u.nmap("F", 'y$', "Yank operator")
+  u.nmap("ff", 'yy', "Yank the current line")
 
-  u.map("f", '"yy', "Yank operator")
-  u.nmap("F", '"yy$', "Yank operator")
-  u.nmap("ff", '"yyy', "Yank the current line")
-
-  -- Copy all "y yanked text to all buffers.
+  -- Copy all yanked text to all os buffers.
   u.autocmd("UserPutYankedTextInOsBuffers", "TextYankPost", {
     callback = function()
-      if vim.v.event.regname ~= "y" then
+      if vim.v.event.operator ~= "y" then
         return
       end
-      local yanked_text = vim.fn.getreg("y")
+      local yanked_text = vim.fn.getreg("0")
       vim.fn.setreg("+", yanked_text)
       vim.fn.setreg("*", yanked_text)
     end,
   })
 
   -- Paste
-  u.nmap("l", "p", "Paste unnamed register text after the cursor")
-  u.nmap("L", "P", "Paste unnamed register text before the cursor")
+  u.nmap("l", "p", "Paste unnamed text after the cursor")
+  u.nmap("L", "P", "Paste unnamed text before the cursor")
+  u.xmap("l", "p", "Replace by unnamed text")
+
   u.nmap("<M-l>", '"+p', "Paste yanked text after the cursor")
   u.nmap("<M-L>", '"+P', "Paste yanked text before the cursor")
-
-  u.xmap("l", '""p', "Replace by unnamed register text")
-  u.xmap("<M-l>", '"+p', "Replace by yanked text after the cursor")
+  u.xmap("<M-l>", '"+p', "Replace by yanked text")
 
   local get_smart_insert = function(regname)
     return function()
-      u.feedkeys("<C-r><C-p>" .. regname)
+      u.feedkeys("<C-r><C-p>" .. regname, "ni")
 
       if vim.fn.getreg(regname):sub(-1) ~= "\n" then
         return
