@@ -64,7 +64,10 @@ end
 local function messages(plugin_manager)
   plugin_manager.add({
     url = "https://github.com/AckslD/messages.nvim",
-    cmd = { "Messages", "Print" },
+    cmd = { "Messages", "Lua", "Echo" },
+    event = {
+      { event = "ModeChanged", pattern = "*:*c*" },
+    },
     config = function()
       local m = require("messages")
       m.setup({
@@ -85,7 +88,7 @@ local function messages(plugin_manager)
 
         post_open_float = function()
           vim.opt.colorcolumn = ""
-          u.nmap("<esc>", ":q!<cr>", {
+          u.adapted_map("nxo", "<M-s>", "<cmd>q!<cr>", {
             buffer = 0,
             silent = true,
             desc = "Close message window",
@@ -96,14 +99,11 @@ local function messages(plugin_manager)
       local function lua_print(opts)
         local api = require("messages.api")
 
+        ---@type any
         local result, error_message = loadstring("return " .. opts.args)
         if not result then
-          if not error_message then
-            return
-          end
-          error_message = error_message:gsub("^.*:%d+: ", "", 1)
-          api.open_float("unable to get data:\n" .. error_message)
-          return
+          error_message = (error_message or ""):gsub("^.*:%d+: ", "", 1)
+          result = "Unable to get data:\n" .. error_message
         end
 
         while type(result) == "function" do
@@ -111,17 +111,21 @@ local function messages(plugin_manager)
         end
 
         if type(result) == "table" then
-          api.open_float(vim.inspect(result))
-          return
+          result = vim.inspect(result)
         end
 
         api.open_float(tostring(result))
       end
 
-      vim.api.nvim_create_user_command("Print", lua_print, {
+      vim.api.nvim_create_user_command("Lua", lua_print, {
         nargs = 1,
         complete = "lua",
       })
+
+      vim.api.nvim_create_user_command("Echo", function(opts)
+        local api = require("messages.api")
+        api.open_float(opts.args)
+      end, { nargs = 1 })
     end,
   })
 end
