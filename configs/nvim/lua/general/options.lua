@@ -161,6 +161,11 @@ local function apply()
   options.mouse = "a"
   options.cpoptions:remove("_")
 
+  -- Attempt to ignore the bug:
+  -- https://github.com/rmagatti/auto-session/issues/109
+  -- https://github.com/nvim-telescope/telescope.nvim/issues/559
+  options.sessionoptions:remove("folds")
+
   vim.schedule(function()
     vim.cmd("clearjumps")
   end)
