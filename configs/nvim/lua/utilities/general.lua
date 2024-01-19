@@ -1,14 +1,24 @@
+local assert_types = require("utilities.assert_types")
 local M = {}
 
-local replace_termcodes = function(key)
+---@param key string
+---@return string
+M.replace_termcodes = function(key)
+  assert_types({ key = { key, "string" } })
   return vim.api.nvim_replace_termcodes(key, true, false, true)
 end
 
 ---Creates an autocmd with its own group.
 ---@param unique_group string
----@param event string
+---@param event string|table
 ---@param options table
 M.autocmd = function(unique_group, event, options)
+  assert_types({
+    unique_group = { unique_group, "string" },
+    event = { event, "string", "table" },
+    options = { options, "table" },
+  })
+
   options.group = unique_group
   vim.api.nvim_create_augroup(unique_group, { clear = true })
 
@@ -19,73 +29,77 @@ end
 ---@param data any
 ---@param time? number|string
 M.notify = function(data, time)
+  assert_types({
+    data = { data, "any" },
+    time = { time, "number", "string", "nil" },
+  })
+
   if type(data) ~= "string" then
     data = vim.inspect(data)
   end
 
-  if time == nil then
-    time = "9000"
-  else
-    time = tostring(time)
+  time = tostring(time or "30000")
+
+  local notify_send = function(message)
+    return vim
+      .system({
+        "notify-send",
+        "-t",
+        time,
+        "--",
+        message,
+      }, {
+        text = true,
+      })
+      :wait()
   end
 
-  local result = vim.system({
-    "notify-send",
-    "-t",
-    time,
-    "--",
-    data,
-  }, {
-    text = true,
-  }):wait()
+  local result = notify_send(data)
 
   if result.stderr ~= "" then
-    vim.system({
-      "notify-send",
-      "-t",
-      time,
-      "--",
-      result.stderr,
-    }):wait()
-
+    notify_send(result.stderr)
     vim.notify(data .. "\n")
   end
 end
 
 ---Binds a given function to parameters.
----@param f function
+---@param fn function
 ---@param ... any
 ---@return function
-M.wrap = function(f, ...)
+M.wrap = function(fn, ...)
+  assert_types({ fn = { fn, "function" } })
+
   local args = { ... }
   return function()
-    return f(unpack(args))
+    return fn(unpack(args))
   end
 end
 
 ---@param keys string|any
 ---@param flags? string
 M.feedkeys = function(keys, flags)
-  keys = tostring(keys)
-  keys = replace_termcodes(keys)
+  assert_types({
+    keys = { keys, "string" },
+    flags = { flags, "string", "nil" },
+  })
+
+  keys = M.replace_termcodes(keys)
   flags = flags or "n"
   vim.api.nvim_feedkeys(keys, flags, false)
-end
-
-M.reset_current_mode = function()
-  local exit = replace_termcodes("<C-\\><C-n>")
-  local escape = replace_termcodes("<Esc>")
-  vim.api.nvim_feedkeys(exit, "nx", false)
-  vim.api.nvim_feedkeys(escape, "n", false)
 end
 
 ---Unites all given arrays.
 ---@param ... table arrays to concatenate
 ---@return table
 M.array_extend = function(...)
-  local output_array = {}
+  local arrays = { ... }
+  for i, array in ipairs(arrays) do
+    local array_name = ("arrays[%s]"):format(i)
+    assert_types({ [array_name] = { array, "table" } })
+  end
 
-  for _, array in ipairs({ ... }) do
+  local output_array = {}
+  for _, array in ipairs(arrays) do
     for _, value in ipairs(array) do
       table.insert(output_array, value)
     end
@@ -106,59 +120,6 @@ M.mode = function()
     return "insert"
   else
     return "normal"
-  end
-end
-
----@class Config_TypeAssert
----@field [1] any Real value
----@field [...] string Possible types
-
----@param data table<string, Config_TypeAssert>
-M.assert_types = function(data)
-  -- Data asserts
-  if type(data) ~= "table" then
-    error("The given validation data must be a table", 2)
-  end
-
-  for name, parameter in pairs(data) do
-    if type(name) ~= "string" then
-      local message = "The validation name must be a string, but it's "
-        .. type(name)
-      error(message, 2)
-    end
-
-    if #parameter < 2 then
-      error(name .. " possible types aren't set", 2)
-    end
-
-    for i = 2,#parameter do
-      local potential_type = parameter[i]
-      if type(potential_type) ~= "string" then
-        error("The validation type must be a string", 2)
-      end
-    end
-  end
-
-  -- Type checks
-  for name, parameter in pairs(data) do
-    local parameter_type = type(parameter[1])
-    local ok = false
-    for i = 2,#parameter do
-      local potential_type = parameter[i]
-      if parameter_type == potential_type then
-        ok = true
-        break
-      end
-    end
-
-    if not ok then
-      local message = "The " .. name .. " must be " .. parameter[2]
-      for i = 3,#parameter do
-        message = message .. "|" .. parameter[i]
-      end
-      message = message .. " but it's " .. type(parameter[1])
-      error(message, 2)
-    end
   end
 end
 

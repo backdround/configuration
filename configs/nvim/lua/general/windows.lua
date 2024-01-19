@@ -1,7 +1,7 @@
 local u = require("utilities")
 
 local function get_multiplied_action(key, default_count)
-  key = vim.api.nvim_replace_termcodes(key, true, true, true)
+  key = u.replace_termcodes(key)
   return function()
     local count = default_count
     if vim.v.count1 ~= 1 then

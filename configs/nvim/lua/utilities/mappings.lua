@@ -1,4 +1,4 @@
-local u = require("utilities.general")
+local assert_types = require("utilities.assert_types")
 local M = {}
 
 ---Hijacks vim.set.keymap and allows only buffer-local, <plug> or own mappings.
@@ -85,7 +85,7 @@ end
 ---@param rhs string|function
 ---@param options_or_description table|string
 M.adapted_map = function(modes, lhs, rhs, options_or_description)
-  u.assert_types({
+  assert_types({
     mode = { modes, "string", "table" },
     lhs = { lhs, "string" },
     rhs = { rhs, "string", "function" },

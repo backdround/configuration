@@ -2,7 +2,7 @@ local u = require("utilities")
 
 -- Enters into a visual mode and proxies v:count inside.
 local function enter(mode)
-  local keys = vim.api.nvim_replace_termcodes(mode, true, true, true)
+  local keys = u.replace_termcodes(mode)
 
   if vim.v.count > 1 then
     keys = keys .. tostring(vim.v.count)

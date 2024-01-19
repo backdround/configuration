@@ -191,10 +191,10 @@ local function substitute()
   u.map("b", "<nop>", "Change key")
 
   local function get_feedkeys(keys, go_left_amount)
-    local lefts = vim.api.nvim_replace_termcodes("<Left>", true, false, true)
+    local lefts = u.replace_termcodes("<Left>")
     lefts = lefts:rep(go_left_amount or 0, "")
 
-    keys = vim.api.nvim_replace_termcodes(keys, true, false, true)
+    keys = u.replace_termcodes(keys)
     keys = keys .. lefts
     return function()
       vim.api.nvim_feedkeys(keys, "n", false)
@@ -252,8 +252,7 @@ local function commands()
 
   -- Normal command that expands key notation like "<esc>", "<left>" and so on.
   vim.api.nvim_create_user_command("Normal", function(opts)
-    local user_sequence =
-      vim.api.nvim_replace_termcodes(opts.args, true, true, true)
+    local user_sequence = u.replace_termcodes(opts.args)
     local bang_symbol = opts.bang and "!" or ""
     local command = string.format(
       "%s,%snormal%s %s",
