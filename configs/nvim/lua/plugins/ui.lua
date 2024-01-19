@@ -130,6 +130,10 @@ local function messages(plugin_manager)
 
     vim.cmd.Lazy({ args = { "load messages.nvim" } })
 
+    if message:len() > 0 and message:sub(-1) == "\n" then
+      message = message:sub(1, -2)
+    end
+
     local api = require("messages.api")
     api.open_float(message)
   end
