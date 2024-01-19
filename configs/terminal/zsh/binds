@@ -280,7 +280,6 @@ bindkey -a 'l' vi-put-after
 bindkey -a 'L' vi-put-before
 
 bindkey -a '"' vi-join
-bindkey -a "'" vi-delete-char
 bindkey -a ',' vi-replace-chars
 
 ########################################
