@@ -22,7 +22,7 @@ local function lsp_configure()
     desc = "Format code by lsp server"
     u.nmap("<leader>q", format.operator, { buffer = 0, desc = desc })
     desc = "Format selected code by lsp server"
-    u.xmap("<leader>q", format.visual, { buffer = 0, desc = desc })
+    u.xmap("<leader>q", format.operator, { buffer = 0, desc = desc })
     desc = "Format code in file by lsp server"
     u.nmap("<leader><M-q>", format.file, { buffer = 0, desc = desc })
 
@@ -96,7 +96,7 @@ local function null_configure()
     local desc = "Format code by null lsp server"
     u.nmap("<leader>o", format.operator, { buffer = 0, desc = desc })
     desc = "Format selected code by null lsp server"
-    u.xmap("<leader>o", format.visual, { buffer = 0, desc = desc })
+    u.xmap("<leader>o", format.operator, { buffer = 0, desc = desc })
     desc = "Format code in file by null lsp server"
     u.nmap("<leader><M-o>", format.file, { buffer = 0, desc = desc })
   end

@@ -1,13 +1,6 @@
-local u = require("utilities")
-
 local function create_format_functions(client_id)
   local file_format = function()
     vim.lsp.buf.format({ id = client_id })
-  end
-
-  local visual_format = function()
-    vim.lsp.buf.format({ id = client_id })
-    u.reset_current_mode()
   end
 
   local operator_format = function()
@@ -37,7 +30,6 @@ local function create_format_functions(client_id)
 
   return {
     file = file_format,
-    visual = visual_format,
     operator = operator_format,
   }
 end
