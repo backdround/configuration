@@ -192,7 +192,7 @@ local function surround(plugin_manager)
     },
     config = function()
       require("nvim-surround").setup({
-        keymaps = {},
+        keymaps = { false },
         move_cursor = false,
       })
 
