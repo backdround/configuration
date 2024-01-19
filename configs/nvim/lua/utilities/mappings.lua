@@ -1,4 +1,5 @@
 local assert_types = require("utilities.assert_types")
+local new_logger = require("utilities.logger").new
 local M = {}
 
 ---Hijacks vim.set.keymap and allows only buffer-local, <plug> or own mappings.
@@ -37,7 +38,7 @@ M._hijack_set_keymap = function()
       return
     end
 
-    M._log(vim.inspect({
+    M._logger:log(vim.inspect({
       caller = debug.getinfo(3, "S"),
       mode = mode,
       lhs = lhs,
@@ -45,16 +46,6 @@ M._hijack_set_keymap = function()
       opts = opts
     }))
   end
-end
-
----@param entry string
-M._log = function(entry)
-  local log_file = io.open(M._log_file, "a")
-  if log_file == nil then
-    return
-  end
-  log_file:write(entry .. "\n\n")
-  io.close(log_file)
 end
 
 M.init = function()
@@ -65,8 +56,12 @@ M.init = function()
 
   vim.keymap.del({ "n", "x" }, "gx")
 
-  M._log_file = vim.fn.stdpath("log") .. "/mappings.log"
-  os.remove(M._log_file)
+  M._logger = new_logger("mappings.log", true)
+  vim.api.nvim_create_user_command("MappingsLog", function()
+    local log = M._logger:get()
+    -- selene: allow(global_usage)
+    _G.ui_inspect(log)
+  end, {})
 
   M._hijack_set_keymap()
 end

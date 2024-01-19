@@ -121,13 +121,18 @@ local function messages(plugin_manager)
         nargs = 1,
         complete = "lua",
       })
-
-      vim.api.nvim_create_user_command("Echo", function(opts)
-        local api = require("messages.api")
-        api.open_float(opts.args)
-      end, { nargs = 1 })
     end,
   })
+
+  -- selene: allow(global_usage)
+  _G.ui_inspect = function(message)
+    u.assert_types({ message = { message, "string" } })
+
+    vim.cmd.Lazy({ args = { "load messages.nvim" } })
+
+    local api = require("messages.api")
+    api.open_float(message)
+  end
 end
 
 local function viminput(plugin_manager)
