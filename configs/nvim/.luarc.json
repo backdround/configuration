@@ -9,6 +9,8 @@
       ],
       "disable": [
         "missing-fields",
+        "duplicate-set-field",
+        "duplicate-doc-field",
       ]
     },
     "runtime": {
