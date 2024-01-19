@@ -1,6 +1,6 @@
 ---@class UserTypeAssert
 ---@field [1] any Real value
----@field [number] string Possible types
+---@field [number] string Possible types (or "any")
 
 ---@param data table<string, UserTypeAssert>
 ---@param error_level? number error level
@@ -41,7 +41,7 @@ local assert_types = function(data, error_level)
     local ok = false
     for i = 2,#parameter do
       local potential_type = parameter[i]
-      if parameter_type == potential_type then
+      if parameter_type == potential_type or potential_type == "any" then
         ok = true
         break
       end
