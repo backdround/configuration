@@ -21,7 +21,6 @@ local new = function(filename, rewrite)
 
   local logger = {
     _filepath = vim.fn.stdpath("log") .. "/" .. filename,
-    _first_message = true,
     _log = "",
   }
 
@@ -39,11 +38,14 @@ local new = function(filename, rewrite)
     })
 
     -- Get message
-    if self._first_message then
-      self._first_message = false
-      message = message .. "\n"
+    if self._something_was_logged == nil then
+      self._something_was_logged = true
     else
-      message = "\n" .. message .. "\n"
+      message = "\n" .. message
+    end
+
+    if message:len() > 0 and message:sub(-1) ~= "\n" then
+      message = message .. "\n"
     end
 
     -- Remember it internaly
