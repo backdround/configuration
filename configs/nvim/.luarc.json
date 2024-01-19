@@ -6,6 +6,9 @@
         "vim",
         "LightWeight",
         "nvimpager",
+      ],
+      "disable": [
+        "missing-fields",
       ]
     },
     "runtime": {
