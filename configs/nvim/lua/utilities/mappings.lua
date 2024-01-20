@@ -2,50 +2,55 @@ local assert_types = require("utilities.assert_types")
 local new_logger = require("utilities.logger").new
 local M = {}
 
----Hijacks vim.set.keymap and allows only buffer-local, <plug> or own mappings.
----Also logs all attempts to mappings.log
-M._hijack_set_keymap = function()
-  M._nvim_set_keymap = vim.api.nvim_set_keymap
-  M._vim_keymap_set = vim.keymap.set
-
-  vim.api.nvim_set_keymap = function() end
-  vim.keymap.set = function(mode, lhs, rhs, opts)
-
-    local is_allowed = function()
-      local caller = debug.getinfo(3, "S")
-      for _, allowed_source in ipairs(M._allowed_sources) do
-        if caller.source:find(allowed_source, 1, true) ~= nil then
-          return true
+---Hijacks vim.set.keymap and vim.api.nvim_set_keymap functions.
+---It allows to map only buffer-local, <plug> or mappings from allowed_sources.
+---Also logs all prohibited attempts.
+M._hijack_keymap_setting_api_functions = function()
+  local create_keymap_setting_wrapper = function(keymap_setting_function)
+    return function(mode, lhs, rhs, options)
+      local is_allowed = function()
+        local caller = debug.getinfo(3, "S")
+        for _, allowed_source in ipairs(M._allowed_sources) do
+          if caller.source:find(allowed_source, 1, true) ~= nil then
+            return true
+          end
         end
+        return false
       end
-      return false
+
+      local pass_through = false
+        or (options and options.buffer ~= nil)
+        or (lhs:find("<plug>") ~= nil or lhs:find("<Plug>") ~= nil)
+        or is_allowed()
+
+      if pass_through then
+        keymap_setting_function(mode, lhs, rhs, options)
+        return
+      end
+
+      M._logger:log(vim.inspect({
+        caller = debug.getinfo(2, "S"),
+        mode = mode,
+        lhs = lhs,
+        rhs = rhs,
+        opts = options,
+      }))
     end
-
-    local pass_through = false
-      or (opts and opts.buffer ~= nil)
-      or (opts and opts.own)
-      or (lhs:find("<plug>") ~= nil or lhs:find("<Plug>") ~= nil)
-      or is_allowed()
-
-    if opts and opts.own then
-      opts.own = nil
-    end
-
-    if pass_through then
-      vim.api.nvim_set_keymap = M._nvim_set_keymap
-      M._vim_keymap_set(mode, lhs, rhs, opts)
-      vim.api.nvim_set_keymap = function() end
-      return
-    end
-
-    M._logger:log(vim.inspect({
-      caller = debug.getinfo(3, "S"),
-      mode = mode,
-      lhs = lhs,
-      rhs = rhs,
-      opts = opts
-    }))
   end
+
+  M._real_nvim_set_keymap = vim.api.nvim_set_keymap
+  M._real_vim_keymap_set = vim.keymap.set
+
+  vim.api.nvim_set_keymap = create_keymap_setting_wrapper(function(...)
+    M._real_nvim_set_keymap(...)
+  end)
+
+  vim.keymap.set = create_keymap_setting_wrapper(function(...)
+    local saved_nvim_set_keymap = vim.api.nvim_set_keymap
+    vim.api.nvim_set_keymap = M._real_nvim_set_keymap
+    M._real_vim_keymap_set(...)
+    vim.api.nvim_set_keymap = saved_nvim_set_keymap
+  end)
 end
 
 M.init = function()
@@ -63,7 +68,7 @@ M.init = function()
     _G.ui_inspect(log)
   end, {})
 
-  M._hijack_set_keymap()
+  M._hijack_keymap_setting_api_functions()
 end
 
 M._allowed_sources = {}
@@ -112,11 +117,14 @@ M.adapted_map = function(modes, lhs, rhs, options_or_description)
   local default = {
     silent = true,
     noremap = true,
-    own = true,
   }
   options = vim.tbl_extend("force", default, options)
 
-  vim.keymap.set(mode, lhs, rhs, options)
+  -- Perform vim.keymap.set.
+  local saved_nvim_set_keymap = vim.api.nvim_set_keymap
+  vim.api.nvim_set_keymap = M._real_nvim_set_keymap
+  M._real_vim_keymap_set(mode, lhs, rhs, options)
+  vim.api.nvim_set_keymap = saved_nvim_set_keymap
 end
 
 M.map = function(lhs, rhs, options)
