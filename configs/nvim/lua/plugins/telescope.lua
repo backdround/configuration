@@ -56,10 +56,6 @@ local function setup()
 
     ["<M-c>"] = actions.results_scrolling_right,
     ["<M-g>"] = actions.results_scrolling_left,
-
-    ["<C-/>"] = actions.which_key,
-     -- It fixes <C-/>. It's been copied from telescope/mappings.lua.
-    ["<C-_>"] = actions.which_key,
   }
 
   local telescope_file_browser_mappings = {
@@ -172,13 +168,7 @@ local function set_mappings()
   -- Maps
   u.nmap("<leader><M-m>", function()
     builtin.keymaps({ modes = { "", "n", "i", "x", "o", "c", "s", "t" } })
-  end, "Show all mappings")
-  u.nmap("<leader><C-M-m>", function()
-    builtin.keymaps({
-      modes = { "", "n", "i", "x", "o", "c", "s", "t" },
-      only_buf = true,
-    })
-  end, "Show buffer only mappings")
+  end, "Show mappings for all possible modes")
 
   local modes_to_map = { "n", "i", "x", "o", "c", "s" }
   for _, mode in ipairs(modes_to_map) do
@@ -196,16 +186,28 @@ local function set_mappings()
       })
     end
 
+    local telescope_show_local_maps = function()
+      builtin.keymaps({
+        modes = { "", "n", "i", "x", "o", "c", "s", "t" },
+        only_buf = true,
+      })
+    end
+
     -- Fix: https://github.com/nvim-telescope/telescope.nvim/issues/2404
     if mode == "o" then
       telescope_show_maps = u.wrap(vim.schedule, telescope_show_maps)
       telescope_show_all_maps = u.wrap(vim.schedule, telescope_show_all_maps)
+      telescope_show_local_maps =
+        u.wrap(vim.schedule, telescope_show_local_maps)
     end
 
-    local maps_description = "Show mappings for mode " .. mode
-    local all_maps_description = "Show all mappings for mode " .. mode
-    u[mode .. "map"]("<M-m>", telescope_show_maps, maps_description)
-    u[mode .. "map"]("<C-M-m>", telescope_show_all_maps, all_maps_description)
+    local description = "Show mappings for mode " .. mode
+    u[mode .. "map"]("<M-m>", telescope_show_maps, description)
+    description = "Show all mappings for mode " .. mode
+    u[mode .. "map"]("<C-M-m>", telescope_show_all_maps, description)
+    description = "Show buffer only mappings"
+    -- Map to <C-/> (<C-_> is a workaround).
+    u[mode .. "map"]("<C-_>", telescope_show_local_maps, description)
   end
 
   -- Files
