@@ -47,8 +47,8 @@ local function setup()
     ["<C-s>"] =  actions.move_selection_next,
     ["<C-p>"] = actions.move_selection_previous,
 
-    ["<M-a>"] = actions.select_default,
-    ["<M-o>"] = open_buffer_with_previous_buffer_deletion,
+    ["<M-a>"] = open_buffer_with_previous_buffer_deletion,
+    ["<M-o>"] = actions.select_default,
     ["<M-e>"] = actions.select_horizontal,
     ["<M-u>"] = select_vertical_right,
     ["<M-S-u>"] = select_vertical_left,

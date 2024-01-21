@@ -42,7 +42,7 @@ local function splits()
   u.nmap("s<", get_multiplied_action("<C-w><", 14), "Decrease split width")
 
   -- Closing
-  u.nmap("s<M-q>", "<Cmd>quit<CR>", "Close split")
+  u.nmap("sq", "<Cmd>quit<CR>", "Close split and delete buffer")
   u.nmap("<M-x>", "<Cmd>x<CR>", "Save and close split")
   u.imap("<M-x>", "<Cmd>x<CR>", "Save and close split")
 end
@@ -70,21 +70,7 @@ local function tabs()
   u.nmap("vs", "<Cmd>execute 'tabmove -' . v:count1<CR>", description)
 
   -- Closing
-  local function get_close_tab_or_quit(force)
-    return function()
-      if #vim.api.nvim_list_tabpages() == 1 then
-        vim.cmd(force and "quitall!" or "quitall")
-      else
-        vim.cmd(force and "tabclose!" or "tabclose")
-      end
-    end
-  end
-
-  description = "Close the current tab or exit if the tab is last"
-  u.nmap("vq", get_close_tab_or_quit(false), description)
-  description = "Close the current tab or exit if the tab is last with force"
-  u.nmap("vQ", get_close_tab_or_quit(true), description)
-
+  u.nmap("vq", "<Cmd>tabclose<CR>", "Close the current tab")
   u.nmap("vx", "<Cmd>quitall<CR>", "Close neovim")
   u.nmap("vX", "<Cmd>quitall!<CR>", "Close neovim with force")
 end
@@ -107,7 +93,7 @@ local function tabscope(plugin_manager)
           scope.remove_tab_buffer(current_buffer)
         end
       end
-      u.nmap("sq", close_window_with_buffer, "Close split and delete buffer")
+      u.nmap("s<M-q>", close_window_with_buffer, "Close split")
     end
   })
 end
