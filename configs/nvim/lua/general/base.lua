@@ -112,6 +112,21 @@ local function copy_paste()
     end,
   })
 
+  u.autocmd("UserHoldYankedTextAfterExit", "VimLeave", {
+    callback = function()
+      local vim_own_clipboard = vim.fn.getreg("0") == vim.fn.getreg("+")
+
+      if vim_own_clipboard and vim.fn.executable("xclip") then
+        local yanked_text = vim.fn.getreg("+")
+        vim.system({
+          "xclip",
+          "-selection",
+          "clipboard"
+        }, { stdin = yanked_text })
+      end
+    end,
+  })
+
   -- Paste
   u.nmap("l", "p", "Paste unnamed text after the cursor")
   u.nmap("L", "P", "Paste unnamed text before the cursor")
