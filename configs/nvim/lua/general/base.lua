@@ -199,16 +199,12 @@ local function search(plugin_manager)
 end
 
 local function substitute()
-  u.map("b", "<nop>", "Change key")
+  u.map("b", "<nop>", "Changing key")
 
   local function get_feedkeys(keys, go_left_amount)
-    local lefts = u.replace_termcodes("<Left>")
-    lefts = lefts:rep(go_left_amount or 0, "")
-
-    keys = u.replace_termcodes(keys)
-    keys = keys .. lefts
+    local lefts = ("<Left>"):rep(go_left_amount or 0)
     return function()
-      vim.api.nvim_feedkeys(keys, "n", false)
+      u.feedkeys(keys .. lefts)
     end
   end
 
@@ -220,16 +216,11 @@ local function substitute()
   u.xmap("bU", get_feedkeys(":s///gc", 4), description)
 
   description = "Replace yanked text to another text"
-  u.nmap("be", get_feedkeys(":%s/<C-r>y//g", 2), description)
-  u.xmap("be", get_feedkeys(":s/<C-r>y//g", 2), description)
+  u.nmap("be", get_feedkeys(":%s/<C-r>0//g", 2), description)
+  u.xmap("be", get_feedkeys(":s/<C-r>0//g", 2), description)
   description = description .. " with confirmation"
-  u.nmap("bE", get_feedkeys(":%s/<C-r>y//gc", 3), description)
-  u.xmap("bE", get_feedkeys(":s/<C-r>y//gc", 3), description)
-
-  description = "Replace text under the cursor to another text"
-  u.nmap("bo", get_feedkeys(":%s/<C-r><C-w>//g", 2), description)
-  description = description .. " with confirmation"
-  u.nmap("bO", get_feedkeys(":%s/<C-r><C-w>//gc", 3), description)
+  u.nmap("bE", get_feedkeys(":%s/<C-r>0//gc", 3), description)
+  u.xmap("bE", get_feedkeys(":s/<C-r>0//gc", 3), description)
 end
 
 local function foldings()
