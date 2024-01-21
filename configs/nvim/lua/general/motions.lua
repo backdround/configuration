@@ -325,6 +325,7 @@ end
 local function misc()
   u.nmap("xh", "<C-]>", "Goto definition (non lsp)")
   u.nmap("xm", "<Cmd>tab Man<CR>", "Search man page with name under the cursor")
+  -- TODO: create motions between foldings
 end
 
 ---@param plugin_manager UserPluginManager
