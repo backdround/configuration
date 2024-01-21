@@ -136,20 +136,16 @@ local function copy_paste()
   u.nmap("<M-L>", '"+P', "Paste yanked text before the cursor")
   u.xmap("<M-l>", '"+p', "Replace by yanked text")
 
+  local to_end_of_line_plug = "<Plug>(move-to-end-of-line)"
+  u.imap(to_end_of_line_plug, function()
+    local current_line_index = vim.api.nvim_win_get_cursor(0)[1]
+    local current_line_len = vim.api.nvim_get_current_line():len()
+    vim.api.nvim_win_set_cursor(0, { current_line_index, current_line_len })
+  end, "Move to the end of the current line without <C-o>")
+
   local get_smart_insert = function(regname)
     return function()
-      u.feedkeys("<C-r><C-p>" .. regname, "ni")
-
-      if vim.fn.getreg(regname):sub(-1) ~= "\n" then
-        return
-      end
-
-      vim.schedule(function()
-        local line = vim.api.nvim_get_current_line()
-        local cursor_position = vim.api.nvim_win_get_cursor(0)
-        cursor_position[2] = line:len()
-        vim.api.nvim_win_set_cursor(0, cursor_position)
-      end)
+      u.feedkeys("<C-r><C-p>" .. regname .. to_end_of_line_plug, "ni")
     end
   end
 

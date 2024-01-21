@@ -103,6 +103,11 @@ local function annotations(plugin_manager)
 end
 
 local function registers(plugin_manager)
+  -- TODO: rewrite the plugin which:
+  -- - shows non-interactive window that displays registers with:
+  --   - open function
+  --   - close function
+  -- - opens an "editor" window for registers editing and clearing.
   plugin_manager.add({
     url = "https://github.com/tversteeg/registers.nvim",
     cmd = { "Registers" },
@@ -147,24 +152,10 @@ local function registers(plugin_manager)
       local show_window_motion = r.show_window({ mode = "motion" })
       local show_window_insert = r.show_window({ mode = "insert" })
 
-      local use_register_insert = function()
-        if vim.fn.reg_executing() ~= "" or vim.fn.reg_recording() ~= "" then
-          return "<C-r><C-p>"
-        end
-        return show_window_insert()
-      end
-
-      local use_register_motion = function()
-        if vim.fn.reg_executing() ~= "" or vim.fn.reg_recording() ~= "" then
-          return '"'
-        end
-        return show_window_motion()
-      end
-
       local description = "Show registers for selection"
-      u.nmap("<C-d>", use_register_motion, { desc = description, expr = true })
-      u.xmap("<C-d>", use_register_motion, { desc = description, expr = true })
-      u.imap("<C-d>", use_register_insert, { desc = description, expr = true })
+      u.nmap("<C-d>", show_window_motion, { desc = description, expr = true })
+      u.xmap("<C-d>", show_window_motion, { desc = description, expr = true })
+      u.imap("<C-d>", show_window_insert, { desc = description, expr = true })
 
       -- Filetype settings
       u.autocmd("UserMapRegistersMappings", "FileType", {
@@ -175,34 +166,63 @@ local function registers(plugin_manager)
             vim.opt.cursorline = false
           end)
 
-          local local_map = function(lhs, rhs, desc)
+          local local_map = function(lhs, rhs, desc, expr)
             u.adapted_map("nxi", lhs, rhs, {
               desc = desc,
               buffer = true,
               nowait = true,
+              expr = expr,
             })
           end
 
-          local clear = function()
+          local clear_current_register = function()
             r.clear_highlighted_register()()
             vim.cmd.wshada({ bang = true })
           end
 
+          local close_window_plug = "<Plug>(user-close-registers-window)"
+          u.adapted_map(
+            "nxi",
+            close_window_plug,
+            r._close_window,
+            "Close registers.nvim window"
+          )
+
+          ---@param register? string
+          local use_register = function(register)
+            register = r._register_symbol(register)
+
+            if not register then
+              return
+            end
+
+            if r._mode == "insert" then
+              return close_window_plug
+                .. "<C-r><C-p>"
+                .. register
+                .. "<Plug>(move-to-end-of-line)"
+            end
+
+            local restore_state = ""
+            if r._previous_mode_is_visual() then
+              restore_state = "gv"
+            end
+
+            return close_window_plug .. restore_state .. '"' .. register
+          end
+
           local_map("<M-s>", r.close_window(), "Close the window")
-          local_map("<M-o>", r.apply_register(), "Accept the current register")
           local_map("<C-s>", r.move_cursor_down(), "Move the cursor down")
           local_map("<C-p>", r.move_cursor_up(), "Move the cursor up")
-          local_map("<Bs>", clear, "Clear the register")
-          local_map("<Del>", clear, "Clear the register")
+          local_map("<Bs>", clear_current_register, "Clear the register")
+          local_map("<Del>", clear_current_register, "Clear the register")
 
-          local apply_register = r.apply_register()
-          for _, register_name in ipairs(r._all_registers) do
-            local apply_current_register = function()
-              apply_register(register_name, r._mode)
-            end
-            local_map(register_name, apply_current_register, "Apply register")
+          local_map("<M-o>", use_register, "Accept the current register", true)
+          for _, register in ipairs(r._all_registers) do
+            local use_selected_register = u.wrap(use_register, register)
+            local_map(register, use_selected_register, "Use register", true)
           end
-        end
+        end,
       })
     end,
   })
