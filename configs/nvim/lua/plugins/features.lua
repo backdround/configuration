@@ -102,6 +102,112 @@ local function annotations(plugin_manager)
   })
 end
 
+local function registers(plugin_manager)
+  plugin_manager.add({
+    url = "https://github.com/tversteeg/registers.nvim",
+    cmd = { "Registers" },
+    keys = { { "<C-d>", mode = { "n", "x", "i" } } },
+
+    config = function()
+      local r = require("registers")
+      r.setup({
+        show = '"0-12345abcdefghijklmnopqrstuvwxyz%#.:/*+',
+        show_empty = false,
+        system_clipboard = false,
+        show_register_types = false,
+        hide_only_whitespace = true,
+        bind_keys = false,
+
+        events = {
+          on_register_highlighted = false,
+        },
+
+        window = {
+          border = "single",
+          transparency = 0,
+        },
+
+        sign_highlights = {
+          selection = "ErrorMsg",
+          default = "ErrorMsg",
+          unnamed = "ErrorMsg",
+          read_only = "Type",
+          expression = "Exception",
+          black_hole = "ErrorMsg",
+          alternate_buffer = "Type",
+          last_search = "Type",
+          delete = "Special",
+          yank = "Keyword",
+          history = "Number",
+          named = "Keyword",
+        },
+      })
+
+      -- Global mappings
+      local show_window_motion = r.show_window({ mode = "motion" })
+      local show_window_insert = r.show_window({ mode = "insert" })
+
+      local use_register_insert = function()
+        if vim.fn.reg_executing() ~= "" or vim.fn.reg_recording() ~= "" then
+          return "<C-r><C-p>"
+        end
+        return show_window_insert()
+      end
+
+      local use_register_motion = function()
+        if vim.fn.reg_executing() ~= "" or vim.fn.reg_recording() ~= "" then
+          return '"'
+        end
+        return show_window_motion()
+      end
+
+      local description = "Show registers for selection"
+      u.nmap("<C-d>", use_register_motion, { desc = description, expr = true })
+      u.xmap("<C-d>", use_register_motion, { desc = description, expr = true })
+      u.imap("<C-d>", use_register_insert, { desc = description, expr = true })
+
+      -- Filetype settings
+      u.autocmd("UserMapRegistersMappings", "FileType", {
+        desc = "Sets settings for registers.nvim window",
+        pattern = "registers",
+        callback = function()
+          vim.schedule(function()
+            vim.opt.cursorline = false
+          end)
+
+          local local_map = function(lhs, rhs, desc)
+            u.adapted_map("nxi", lhs, rhs, {
+              desc = desc,
+              buffer = true,
+              nowait = true,
+            })
+          end
+
+          local clear = function()
+            r.clear_highlighted_register()()
+            vim.cmd.wshada({ bang = true })
+          end
+
+          local_map("<M-s>", r.close_window(), "Close the window")
+          local_map("<M-o>", r.apply_register(), "Accept the current register")
+          local_map("<C-s>", r.move_cursor_down(), "Move the cursor down")
+          local_map("<C-p>", r.move_cursor_up(), "Move the cursor up")
+          local_map("<Bs>", clear, "Clear the register")
+          local_map("<Del>", clear, "Clear the register")
+
+          local apply_register = r.apply_register()
+          for _, register_name in ipairs(r._all_registers) do
+            local apply_current_register = function()
+              apply_register(register_name, r._mode)
+            end
+            local_map(register_name, apply_current_register, "Apply register")
+          end
+        end
+      })
+    end,
+  })
+end
+
 local function quickfix(plugin_manager)
   _ = plugin_manager
   -- TODO: check nvim-bqf
@@ -114,6 +220,7 @@ local function apply(plugin_manager)
   search_in_browser(plugin_manager)
   gutentags(plugin_manager)
   annotations(plugin_manager)
+  registers(plugin_manager)
   quickfix(plugin_manager)
 end
 

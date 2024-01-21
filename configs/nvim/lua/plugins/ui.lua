@@ -173,6 +173,9 @@ local function illuminate(plugin_manager)
     config = function()
       require("illuminate").configure({
         delay = 150,
+        filetypes_denylist = {
+          'registers',
+        }
       })
     end,
   })

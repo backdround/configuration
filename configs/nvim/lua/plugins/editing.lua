@@ -88,6 +88,7 @@ local function autopairs(plugin_manager)
     config = function()
       local nvim_autopairs = require("nvim-autopairs")
       nvim_autopairs.setup({
+        disable_filetype = { "TelescopePrompt", "registers" },
         ignored_next_char = [=[[%%%[%.%`%$]]=],
         map_cr = false,
         map_bs = false,
