@@ -14,9 +14,9 @@ local function lsp_configure()
     map("<leader>v", vim.lsp.buf.code_action, "Code action")
 
     local desc = "Toggle signature window"
-    u.nmap("<M-v>", vim.lsp.buf.signature_help, { buffer = 0, desc = desc })
-    u.imap("<M-v>", vim.lsp.buf.signature_help, { buffer = 0, desc = desc })
-    u.smap("<M-v>", vim.lsp.buf.signature_help, { buffer = 0, desc = desc })
+    u.nmap("<M-,>", vim.lsp.buf.signature_help, { buffer = 0, desc = desc })
+    u.imap("<M-,>", vim.lsp.buf.signature_help, { buffer = 0, desc = desc })
+    u.smap("<M-,>", vim.lsp.buf.signature_help, { buffer = 0, desc = desc })
 
     local format = hacks.create_format_functions(client.id)
     desc = "Format code by lsp server"
