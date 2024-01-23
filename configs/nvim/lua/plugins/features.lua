@@ -1,4 +1,5 @@
 local u = require("utilities")
+local smart_paste = require("general.hacks.smart-paste")
 
 local function rooter(plugin_manager)
   plugin_manager.add({
@@ -193,14 +194,11 @@ local function registers(plugin_manager)
             register = r._register_symbol(register)
 
             if not register then
-              return
+              return close_window_plug
             end
 
             if r._mode == "insert" then
-              return close_window_plug
-                .. "<C-r><C-p>"
-                .. register
-                .. "<Plug>(move-to-end-of-line)"
+              return close_window_plug ..  smart_paste(register)
             end
 
             local restore_state = ""

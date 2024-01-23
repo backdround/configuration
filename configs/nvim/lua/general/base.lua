@@ -143,14 +143,11 @@ local function copy_paste()
     vim.api.nvim_win_set_cursor(0, { current_line_index, current_line_len })
   end, "Move to the end of the current line without <C-o>")
 
-  local get_smart_insert = function(regname)
-    return function()
-      u.feedkeys("<C-r><C-p>" .. regname .. to_end_of_line_plug, "ni")
-    end
+  local paste = function(register)
+    return u.wrap(hacks.smart_paste, register)
   end
-
-  u.imap("<C-l>", get_smart_insert('"'), "Paste unnamed register")
-  u.imap("<M-l>", get_smart_insert("+"), "Paste yanked text")
+  u.imap("<C-l>", paste('"'), { desc = "Paste unnamed register", expr = true })
+  u.imap("<M-l>", paste("+"), { desc = "Paste yanked text", expr = true })
 
   -- Highlight yanked area
   u.autocmd("UserHightlightYankedText", "TextYankPost", {
