@@ -173,6 +173,7 @@ local function registers(plugin_manager)
               buffer = true,
               nowait = true,
               expr = expr,
+              replace_keycodes = false,
             })
           end
 
@@ -193,12 +194,14 @@ local function registers(plugin_manager)
           local use_register = function(register)
             register = r._register_symbol(register)
 
+            local close_window_key = u.replace_termcodes(close_window_plug)
+
             if not register then
-              return close_window_plug
+              return close_window_key
             end
 
             if r._mode == "insert" then
-              return close_window_plug ..  smart_paste(register)
+              return close_window_key ..  smart_paste(register)
             end
 
             local restore_state = ""
@@ -206,7 +209,7 @@ local function registers(plugin_manager)
               restore_state = "gv"
             end
 
-            return close_window_plug .. restore_state .. '"' .. register
+            return close_window_key .. restore_state .. '"' .. register
           end
 
           local_map("<M-s>", r.close_window(), "Close the window")
