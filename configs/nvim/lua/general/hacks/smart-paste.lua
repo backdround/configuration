@@ -123,16 +123,17 @@ local convert_indention_to_buffer_type = function(lines)
   return converted_lines
 end
 
----TODO: Fix dot repetition.
 ---Pastes given register in insert mode
 ---The function should be mapped with: {
 ---  expr = true,
 ---  replace_keycodes = false,
 ---}
 ---@param register string
+---@param auxiliary_register? string Register that is used for the work. It's "p" by default.
 ---@return string
-local paste_register = function(register)
+local paste_register = function(register, auxiliary_register)
   local reginfo = vim.fn.getreginfo(register)
+  auxiliary_register = auxiliary_register or "p"
 
   -- Check register validity
   if not reginfo or not reginfo.regcontents or #reginfo.regcontents == 0 then
@@ -150,61 +151,42 @@ local paste_register = function(register)
     return line
   end
 
-  local map_plug = function(plug, description, fn)
-    u.imap(plug, fn, {
-      desc = "Smart paste internal action: " .. description,
-      expr = true,
-      replace_keycodes = false,
-    })
-  end
-
   local shrinked_lines = convert_indention_to_buffer_type(lines)
   shrinked_lines = remove_common_indention(lines)
 
-  local paste_from_second_line_plug = "<Plug>(smart-paste-from-second-line)"
-  map_plug(paste_from_second_line_plug, "Paste all lines barring first", function()
-    -- TODO: calculate indention_shift on the first line, if the line is empty.
-    -- Calculate indention shift
-    local indention_shift = 0
-    local initial_vim_indention = ""
-    do
-      local current_line = vim.api.nvim_get_current_line()
-      initial_vim_indention = separate_line(current_line)[1]
+  local indention_shift = 0
+  local first_line_indention = nil
+  do
+    local current_line = vim.api.nvim_get_current_line()
+    first_line_indention = separate_line(current_line)[1]
 
-      local second_line_indention = separate_line(shrinked_lines[2])[1]
-      indention_shift = #initial_vim_indention - #second_line_indention
+    local second_line_indention = separate_line(shrinked_lines[1])[1]
+    indention_shift = #first_line_indention - #second_line_indention
+  end
+
+  local indention_char = vim.opt.expandtab:get() == true and " " or "\t"
+
+  local result = separate_line(shrinked_lines[1])[2] .. "\n"
+  for i = 2, #shrinked_lines do
+    local indention, line = unpack(separate_line(shrinked_lines[i]))
+    local new_indention = indention_char:rep(#indention + indention_shift)
+    if line == "" then
+      result = result .. "\n"
+    else
+      result = result .. new_indention .. line .. "\n"
     end
+  end
 
-    -- Should be checked before setting vim.opt.paste
-    local indention_char = vim.opt.expandtab:get() == true and " " or "\t"
+  vim.fn.setreg(auxiliary_register, result, "c")
 
-    -- TODO: rewrite without paste. We can do it by sending <bs> on redundant
-    -- indentions. If we can do this, then we won't lose ability to control flow.
-    vim.opt.paste = true
-    vim.schedule(function()
-      vim.opt.paste = false
-    end)
+  local last_indention = first_line_indention
+  if indention_char == " " then
+    local shiftwidth = vim.fn.shiftwidth()
+    last_indention = ("\t"):rep(math.ceil(#last_indention / shiftwidth))
+  end
 
-    local result = separate_line(shrinked_lines[2])[2] .. "\n"
-    for i = 3, #shrinked_lines do
-      local indention, line = unpack(separate_line(shrinked_lines[i]))
-      local new_indention = indention_char:rep(#indention + indention_shift)
-      if line == "" then
-        result = result .. "\n"
-      else
-        result = result .. new_indention .. line .. "\n"
-      end
-    end
-
-    -- TODO: add indention for the last line
-    return result
-  end)
-
-  local output = separate_line(shrinked_lines[1])[2]
-    .. u.replace_termcodes("<Cr>")
-    .. u.replace_termcodes(paste_from_second_line_plug)
-
-  return output
+  return u.replace_termcodes("<C-r><C-o>" .. auxiliary_register)
+    .. last_indention
 end
 
 return paste_register
