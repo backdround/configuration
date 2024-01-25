@@ -14,6 +14,31 @@ local only_whitespaces = function(line)
   return line:find("^%s*$") ~= nil
 end
 
+---Deduces how many spaces is one shiftwidth.
+---@param lines string[]
+---@return number
+local deduce_lines_shiftwidth = function(lines)
+  local indentions = {}
+  for _, line in ipairs(lines) do
+    local indention = separate_line(line)[1]
+    table.insert(indentions, #indention)
+  end
+
+  table.sort(indentions)
+
+  local shiftwidth = nil
+  for i = 2, #indentions do
+    local indention_difference = math.abs(indentions[i - 1] - indentions[i])
+    if indention_difference ~= 0 then
+      if shiftwidth == nil or indention_difference < shiftwidth then
+        shiftwidth = indention_difference
+      end
+    end
+  end
+
+  return shiftwidth or 1
+end
+
 ---@param lines string[]
 ---@return string[]
 local remove_common_indention = function(lines)
@@ -55,10 +80,10 @@ local convert_indention_to_buffer_type = function(lines)
   for i = 1, #lines do
     local indention = separate_line(lines[i])[1]
     if indention ~= "" then
-      if indention[1] == "\t" then
+      if indention:sub(1, 1) == "\t" then
         lines_type = "tabs"
         break
-      elseif indention[1] == " " then
+      elseif indention:sub(1, 1) == " " then
         lines_type = "spaces"
         break
       else
@@ -80,6 +105,7 @@ local convert_indention_to_buffer_type = function(lines)
   -- Convert
   local converted_lines = {}
   local shiftwidth = vim.fn.shiftwidth()
+  local lines_shiftwidth = deduce_lines_shiftwidth(lines)
 
   for i = 1, #lines do
     local indention, line = unpack(separate_line(lines[i]))
@@ -88,8 +114,7 @@ local convert_indention_to_buffer_type = function(lines)
     if lines_type == "tab" then
       new_indention = (" "):rep(shiftwidth * #indention)
     else
-      -- TODO: count of spaces that means one shiftwidth should be deducted.
-      new_indention = ("\t"):rep(math.ceil(#indention / shiftwidth))
+      new_indention = ("\t"):rep(math.ceil(#indention / lines_shiftwidth))
     end
 
     converted_lines[i] = new_indention .. line
