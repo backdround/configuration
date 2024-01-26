@@ -1,12 +1,27 @@
 local u = require("utilities")
 local hacks = require("general.hacks")
 
+
 local function editing()
   u.map("h", "c", "Change")
   u.adapted_map("nx", "H", "C", "Change to end of the line")
 
+  u.nmap("hh", function()
+    return vim.v.count == 0 and "cc" or "cj"
+  end, {
+    desc = "Change v:count lines",
+    expr = true,
+  })
+
   u.map("t", "d", "Delete")
   u.adapted_map("nx", "T", "D", "Delete to end of the line")
+
+  u.nmap("tt", function()
+    return vim.v.count == 0 and "dd" or "dj"
+  end, {
+    desc = "Delete v:count lines",
+    expr = true,
+  })
 
   u.adapted_map("nx", ",", "r", "Replace current character")
   u.nmap("<Bs>", "X", "Delete previous character")
