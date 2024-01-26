@@ -197,15 +197,9 @@ local paste_register = function(register, auxiliary_register)
 
   vim.fn.setreg(auxiliary_register, result_text, "c")
 
-  -- Calculate last indention
-  local last_indention = initial_indention
-  if vim.opt.expandtab:get() then
-    local shiftwidth = vim.fn.shiftwidth()
-    last_indention = ("\t"):rep(math.ceil(#last_indention / shiftwidth))
-  end
-
+  -- Paste register
   return u.replace_termcodes("<C-r><C-o>" .. auxiliary_register)
-    .. last_indention
+    .. u.replace_termcodes("<C-f>")
 end
 
 return paste_register
