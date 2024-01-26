@@ -1,6 +1,8 @@
 local saved_v_count1 = 0
 
 ---Operator to join lines without any whitespace.
+---Limitations:
+---Cursor isn't placed after visual mode as expected.
 local join_lines = function()
   local uniq_join_function_name = "User_join_lines"
 
@@ -34,12 +36,15 @@ local join_lines = function()
 
       local lines = vim.api.nvim_buf_get_lines(0, from - 1, to, true)
 
+      local column_for_cursor_to_place = 0
       local joined_line = lines[1]
       for i = 2, #lines do
+        column_for_cursor_to_place = #joined_line
         joined_line = joined_line .. lines[i]:match("^%s*(.*)$")
       end
 
       vim.api.nvim_buf_set_lines(0, from - 1, to, true, { joined_line })
+      vim.api.nvim_win_set_cursor(0, { from, column_for_cursor_to_place })
     end
   end
 
