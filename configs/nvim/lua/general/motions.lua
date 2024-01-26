@@ -174,9 +174,10 @@ local function jump_between_characters(plugin_manager)
     end,
   })
 
-  loading_nkeys =
-    { "<F13>", "<F14>", "<F15>", "<F16>", "of", "or", "od", "on", "ob", "o." }
-  loading_ikeys = { "<F13>", "<F14>", "<F15>", "<F16>" }
+  local fkeys =
+    { "<F13>", "<F14>", "<F15>", "<F16>", "<F25>", "<F26>", "<F27>", "<F28>" }
+  loading_nkeys = u.array_extend({ "of", "or", "od", "on", "ob", "o." }, fkeys)
+  loading_ikeys = fkeys
 
   plugin_manager.add({
     url = "git@github.com:backdround/rabbit-hop.nvim.git",
@@ -229,13 +230,27 @@ local function jump_between_characters(plugin_manager)
       u.map("<F14>", hop_forward_through(p), "Jump forward post quotes")
       u.imap("<F14>", hop_forward_through(p), "Jump forward post quotes")
 
-      -- Jump through brackets
+      -- Jump through () / [] brackets
       p = "\\v[\\][()]"
       u.map("<F15>", hop_backward_through(p), "Jump backward post brackets")
       u.imap("<F15>", hop_backward_through(p), "Jump backward post brackets")
       p = "\\v([\\][(]|\\)$@!)"
       u.map("<F16>", hop_forward_through(p), "Jump forward post brackets")
       u.imap("<F16>", hop_forward_through(p), "Jump forward post brackets")
+
+      -- Jump through {} curly brackets
+      p = "\\v[{}]"
+      u.map("<F25>", hop_backward_through(p), "Jump backward post {} brackets")
+      u.imap("<F25>", hop_backward_through(p), "Jump backward post {} brackets")
+      u.map("<F26>", hop_forward_through(p), "Jump forward post {} brackets")
+      u.imap("<F26>", hop_forward_through(p), "Jump forward post {} brackets")
+
+      -- Jump through commas
+      p = "\\M,"
+      u.map("<F27>", hop_backward_through(p), "Jump backward post commas")
+      u.imap("<F27>", hop_backward_through(p), "Jump backward post commas")
+      u.map("<F28>", hop_forward_through(p), "Jump forward post commas")
+      u.imap("<F28>", hop_forward_through(p), "Jump forward post commas")
 
       -- TODO: use the mapping as soon as switch from targets.vim.
       -- targets.vim maps `@(targets)`
