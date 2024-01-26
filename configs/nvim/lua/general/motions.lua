@@ -132,7 +132,7 @@ local function scroll(plugin_manager)
   })
 end
 
-local function jump_between_characters(plugin_manager)
+local function improved_ft(plugin_manager)
   local loading_nkeys =
     { "p", "<M-p>", "<S-p>", "w", "<M-w>", "<S-w>", "(", ")" }
   local loading_ikeys = { "<M-p>", "<M-w>", "<M-u>", "<M-e>" }
@@ -173,11 +173,14 @@ local function jump_between_characters(plugin_manager)
       imap("<M-e>", ft.repeat_backward, "Repeat hop backward to a character")
     end,
   })
+end
 
+local function rabbit_hop(plugin_manager)
   local fkeys =
     { "<F13>", "<F14>", "<F15>", "<F16>", "<F25>", "<F26>", "<F27>", "<F28>" }
-  loading_nkeys = u.array_extend({ "of", "or", "od", "on", "ob", "o." }, fkeys)
-  loading_ikeys = fkeys
+  local loading_nkeys =
+    u.array_extend({ "of", "or", "od", "on", "ob", "o." }, fkeys)
+  local loading_ikeys = fkeys
 
   plugin_manager.add({
     url = "git@github.com:backdround/rabbit-hop.nvim.git",
@@ -348,7 +351,8 @@ local function apply(plugin_manager)
   word_motion(plugin_manager)
   scroll(plugin_manager)
   jump_motions(plugin_manager)
-  jump_between_characters(plugin_manager)
+  improved_ft(plugin_manager)
+  rabbit_hop(plugin_manager)
   marks()
   page_movements()
   misc()
