@@ -13,8 +13,11 @@ local function editing()
   u.nmap("<Del>", "x", "Delete current character")
 
   local join_several = ":<C-u>execute 'normal! ' . (v:count1 + 1) . 'J'<CR>"
-  u.nmap('"', join_several, "Join the next lines (v:count)")
+  u.nmap('"', join_several, "Join the next v:count lines")
   u.xmap('"', "J", "Join the next line")
+
+  local description = "Join the lines without space"
+  u.adapted_map("nx", "'", hacks.join_lines, description)
 end
 
 local function insert()
