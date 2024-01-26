@@ -112,7 +112,7 @@ local function registers(plugin_manager)
   plugin_manager.add({
     url = "https://github.com/tversteeg/registers.nvim",
     cmd = { "Registers" },
-    keys = { { "<C-d>", mode = { "n", "x", "i" } } },
+    keys = { { "<C-d>", mode = { "n", "x", "i", "s" } } },
 
     config = function()
       local r = require("registers")
@@ -156,6 +156,7 @@ local function registers(plugin_manager)
       local description = "Show registers for selection"
       u.nmap("<C-d>", show_window_motion, { desc = description, expr = true })
       u.xmap("<C-d>", show_window_motion, { desc = description, expr = true })
+      u.smap("<C-d>", show_window_motion, { desc = description, expr = true })
       u.imap("<C-d>", show_window_insert, { desc = description, expr = true })
 
       -- Filetype settings
