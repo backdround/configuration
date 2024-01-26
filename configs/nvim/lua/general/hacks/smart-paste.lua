@@ -14,7 +14,30 @@ local only_whitespaces = function(line)
   return line:find("^%s*$") ~= nil
 end
 
----Deduces how many spaces is one shiftwidth.
+---@param lines string[]
+---@return "spaces"|"tabs"|nil
+local get_lines_indention_type = function(lines)
+  local lines_type = nil
+
+  for i = 1, #lines do
+    local indention = separate_line(lines[i])[1]
+    if indention ~= "" then
+      if indention:sub(1, 1) == "\t" then
+        lines_type = "tabs"
+        break
+      elseif indention:sub(1, 1) == " " then
+        lines_type = "spaces"
+        break
+      else
+        return nil
+      end
+    end
+  end
+
+  return lines_type
+end
+
+---Deduces how many spaces or tabs is one shiftwidth.
 ---@param lines string[]
 ---@return number
 local deduce_lines_shiftwidth = function(lines)
@@ -45,24 +68,23 @@ local remove_common_indention = function(lines)
   local minimal_indention = nil
 
   for _, line in ipairs(lines) do
-    if line:len() ~= 0 then
+    if line ~= "" then
       local line_indention = separate_line(line)[1]
       if minimal_indention == nil then
-        minimal_indention = line_indention
+        minimal_indention = #line_indention
       end
 
-      if line_indention:len() < minimal_indention:len() then
-        minimal_indention = line_indention
+      if #line_indention < minimal_indention then
+        minimal_indention = #line_indention
       end
     end
   end
 
-  local common_indention = minimal_indention or ""
+  local common_indention = minimal_indention or 0
 
   local result_lines = {}
-
   for _, line in ipairs(lines) do
-    local shrinked_line = line:gsub("^" .. common_indention, "")
+    local shrinked_line = line:sub(common_indention + 1, -1)
     table.insert(result_lines, shrinked_line)
   end
 
@@ -72,49 +94,31 @@ end
 ---Converts lines' indention whitespaces to buffer local type of indention.
 ---@class string[]
 ---@return string[]
-local convert_indention_to_buffer_type = function(lines)
-  local buffer_type = vim.opt.expandtab == true and "spaces" or "tabs"
-
-  -- Get lines' type
-  local lines_type = nil
-  for i = 1, #lines do
-    local indention = separate_line(lines[i])[1]
-    if indention ~= "" then
-      if indention:sub(1, 1) == "\t" then
-        lines_type = "tabs"
-        break
-      elseif indention:sub(1, 1) == " " then
-        lines_type = "spaces"
-        break
-      else
-        -- Unknown type of indention
-        return vim.deepcopy(lines)
-      end
-    end
-  end
-
-  if lines_type == nil then
+local convert_indention_to_buffer_indention_type = function(lines)
+  local lines_indention_type = get_lines_indention_type
+  if lines_indention_type == nil then
     return vim.deepcopy(lines)
   end
 
-  -- Convertion isn't required
-  if lines_type == buffer_type then
+  local buffer_indention_type = vim.opt.expandtab:get() and "spaces" or "tabs"
+  if lines_indention_type == buffer_indention_type then
     return vim.deepcopy(lines)
   end
 
   -- Convert
   local converted_lines = {}
-  local shiftwidth = vim.fn.shiftwidth()
+  local buffer_shiftwidth = vim.fn.shiftwidth()
   local lines_shiftwidth = deduce_lines_shiftwidth(lines)
 
   for i = 1, #lines do
     local indention, line = unpack(separate_line(lines[i]))
+    local count_of_indent_levels = math.ceil(#indention / lines_shiftwidth)
 
     local new_indention = nil
-    if lines_type == "tab" then
-      new_indention = (" "):rep(shiftwidth * #indention)
+    if buffer_indention_type == "spaces" then
+      new_indention = (" "):rep(buffer_shiftwidth * count_of_indent_levels)
     else
-      new_indention = ("\t"):rep(math.ceil(#indention / lines_shiftwidth))
+      new_indention = ("\t"):rep(count_of_indent_levels)
     end
 
     converted_lines[i] = new_indention .. line
@@ -175,8 +179,8 @@ local paste_register = function(register, auxiliary_register)
   end
 
   -- Transform lines
-  local transformed_lines = convert_indention_to_buffer_type(lines)
-  transformed_lines = remove_common_indention(lines)
+  local transformed_lines = convert_indention_to_buffer_indention_type(lines)
+  transformed_lines = remove_common_indention(transformed_lines)
 
   local current_line = vim.api.nvim_get_current_line()
   local initial_indention = separate_line(current_line)[1]
