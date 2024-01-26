@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 --# selene: allow(undefined_variable)
 
 local vim = {
@@ -5,7 +6,7 @@ local vim = {
     trig = "vimnotify",
     name = "vim notify",
     dscr = "print variable with desktop notification",
-  }, fmt('require("utilities").notify(vim.inspect({}))', { i(1) })),
+  }, fmt('require("utilities").notify({})', { i(1) })),
 
   s({
     trig = "vimout",

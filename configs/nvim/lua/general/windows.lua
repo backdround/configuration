@@ -4,7 +4,7 @@ local function get_multiplied_action(key, default_count)
   key = u.replace_termcodes(key)
   return function()
     local count = default_count
-    if vim.v.count1 ~= 1 then
+    if vim.v.count ~= 0 then
       count = vim.v.count1
     end
     vim.cmd("normal!" .. count .. key)
