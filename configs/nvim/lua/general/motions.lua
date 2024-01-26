@@ -176,8 +176,20 @@ local function improved_ft(plugin_manager)
 end
 
 local function rabbit_hop(plugin_manager)
-  local fkeys =
-    { "<F13>", "<F14>", "<F15>", "<F16>", "<F25>", "<F26>", "<F27>", "<F28>" }
+  local fkeys = {
+    "<F13>",
+    "<F14>",
+    "<F15>",
+    "<F16>",
+    "<F25>",
+    "<F26>",
+    "<F27>",
+    "<F28>",
+    "<F29>",
+    "<F30>",
+    "<F31>",
+    "<F32>",
+  }
   local loading_nkeys =
     u.array_extend({ "of", "or", "od", "on", "ob", "o." }, fkeys)
   local loading_ikeys = fkeys
@@ -262,6 +274,42 @@ local function rabbit_hop(plugin_manager)
       --   pattern = "\\v[\\][(){}]",
       --   direction = "forward",
       -- }), "Jump to a next bracket")
+
+      local hop_forward_to = function(pattern)
+        return function()
+          rh.hop({
+            pattern = pattern,
+            direction = "forward",
+            match_position = "end",
+            insert_mode_target_side = "left",
+          })
+        end
+      end
+
+      local hop_backward_to = function(pattern)
+        return function()
+          rh.hop({
+            pattern = pattern,
+            direction = "backward",
+            match_position = "start",
+            insert_mode_target_side = "right",
+          })
+        end
+      end
+
+      -- Jump to () / [] brackets
+      p = "\\v[\\][()]"
+      u.map("<F29>", hop_backward_to(p), "Jump backward to brackets")
+      u.imap("<F29>", hop_backward_to(p), "Jump backward to brackets")
+      u.map("<F30>", hop_forward_to(p), "Jump forward to brackets")
+      u.imap("<F30>", hop_forward_to(p), "Jump forward to brackets")
+
+      -- Jump to quotes
+      p = "\\v[\"'`]"
+      u.map("<F31>", hop_backward_to(p), "Jump backward to quotes")
+      u.imap("<F31>", hop_backward_to(p), "Jump backward to quotes")
+      u.map("<F32>", hop_forward_to(p), "Jump forward to quotes")
+      u.imap("<F32>", hop_forward_to(p), "Jump forward to quotes")
 
       -- Jumps between lines
       local to_line = hacks.jump_to_line(rh.hop)
