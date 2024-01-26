@@ -237,9 +237,9 @@ local function rabbit_hop(plugin_manager)
       p = "\\v[\\][()]"
       u.map("<F15>", hop_backward_through(p), "Jump backward post brackets")
       u.imap("<F15>", hop_backward_through(p), "Jump backward post brackets")
+      u.imap("<F16>", hop_forward_through(p), "Jump forward post brackets")
       p = "\\v([\\][(]|\\)$@!)"
       u.map("<F16>", hop_forward_through(p), "Jump forward post brackets")
-      u.imap("<F16>", hop_forward_through(p), "Jump forward post brackets")
 
       -- Jump through {} curly brackets
       p = "\\v[{}]"
