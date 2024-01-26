@@ -123,6 +123,29 @@ local convert_indention_to_buffer_type = function(lines)
   return converted_lines
 end
 
+---@param lines string[]
+---@param target_indention string The indention is considered as the first line indention
+---@return string[]
+local adjust_lines_indention_to_given_indention = function(lines, target_indention)
+  local first_line_indention = separate_line(lines[1])[1]
+  local indention_shift = #target_indention - #first_line_indention
+
+  local indention_char = vim.opt.expandtab:get() == true and " " or "\t"
+
+  local reindented_lines = {}
+  for i = 1, #lines do
+    local indention, line = unpack(separate_line(lines[i]))
+    local new_indention = indention_char:rep(#indention + indention_shift)
+    if line == "" then
+      table.insert(reindented_lines, "")
+    else
+      table.insert(reindented_lines, new_indention .. line)
+    end
+  end
+
+  return reindented_lines
+end
+
 ---Pastes given register in insert mode
 ---The function should be mapped with: {
 ---  expr = true,
@@ -151,36 +174,28 @@ local paste_register = function(register, auxiliary_register)
     return line
   end
 
-  local shrinked_lines = convert_indention_to_buffer_type(lines)
-  shrinked_lines = remove_common_indention(lines)
+  -- Transform lines
+  local transformed_lines = convert_indention_to_buffer_type(lines)
+  transformed_lines = remove_common_indention(lines)
 
-  local indention_shift = 0
-  local first_line_indention = nil
-  do
-    local current_line = vim.api.nvim_get_current_line()
-    first_line_indention = separate_line(current_line)[1]
+  local current_line = vim.api.nvim_get_current_line()
+  local initial_indention = separate_line(current_line)[1]
+  transformed_lines = adjust_lines_indention_to_given_indention(
+    transformed_lines,
+    initial_indention
+  )
 
-    local second_line_indention = separate_line(shrinked_lines[1])[1]
-    indention_shift = #first_line_indention - #second_line_indention
+  -- Set lines as an auxiliary register to paste
+  local result_text = separate_line(transformed_lines[1])[2] .. "\n"
+  for i = 2, #transformed_lines do
+    result_text = result_text .. transformed_lines[i] .. "\n"
   end
 
-  local indention_char = vim.opt.expandtab:get() == true and " " or "\t"
+  vim.fn.setreg(auxiliary_register, result_text, "c")
 
-  local result = separate_line(shrinked_lines[1])[2] .. "\n"
-  for i = 2, #shrinked_lines do
-    local indention, line = unpack(separate_line(shrinked_lines[i]))
-    local new_indention = indention_char:rep(#indention + indention_shift)
-    if line == "" then
-      result = result .. "\n"
-    else
-      result = result .. new_indention .. line .. "\n"
-    end
-  end
-
-  vim.fn.setreg(auxiliary_register, result, "c")
-
-  local last_indention = first_line_indention
-  if indention_char == " " then
+  -- Calculate last indention
+  local last_indention = initial_indention
+  if vim.opt.expandtab:get() then
     local shiftwidth = vim.fn.shiftwidth()
     last_indention = ("\t"):rep(math.ceil(#last_indention / shiftwidth))
   end
