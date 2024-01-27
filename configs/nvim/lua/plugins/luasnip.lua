@@ -1,17 +1,7 @@
 local u = require("utilities")
 
-local function concatenate_lists(...)
-  local united_list = {}
-  for _, list in ipairs({ ... }) do
-    united_list = vim.list_extend(united_list, list)
-  end
-  return united_list
-end
-
-local function inspect(args)
-  u.notify(vim.inspect(args))
-end
-
+-- TODO: track the annoying bug:
+-- https://github.com/hrsh7th/nvim-cmp/issues/1743
 local function configure()
   local ls = require("luasnip")
   ls.setup({
@@ -19,14 +9,15 @@ local function configure()
     region_check_events = { "CursorHold" },
     delete_check_events = { "CursorHold" },
     update_events = { "TextChanged", "TextChangedI" },
+    enable_autosnippets = true,
     snip_env = {
-      concatenate_lists = concatenate_lists,
-      inspect = inspect,
+      array_extend = u.array_extend,
+      notify = u.notify,
     },
   })
 
   local lua_snip_loader = require("luasnip.loaders.from_lua")
-  lua_snip_loader.load({ paths = "./snippets" })
+  lua_snip_loader.load({ paths = { "./snippets" } })
 
   u.adapted_map("is", "<M-t>", function()
     if ls.expand_or_jumpable() then
@@ -46,17 +37,8 @@ local function configure()
     end
   end, "Change node choice")
 
-  u.smap(
-    "<BS>",
-    u.wrap(u.feedkeys, " <BS>"),
-    "Remove selection and enter insert mode"
-  )
-
-  u.smap(
-    "<C-t>",
-    "<Esc>cc",
-    "Remove all text on the current line"
-  )
+  u.smap("<BS>", " <BS>", "Remove selection and enter insert mode")
+  u.smap("<C-t>", "<Esc>cc", "Remove all text on the current line")
 
   vim.api.nvim_create_user_command(
     "LuaSnipEdit",
