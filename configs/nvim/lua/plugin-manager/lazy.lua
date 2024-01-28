@@ -88,7 +88,7 @@ M.load = function(plugins)
         disabled_plugins = {
           "gzip",
           "matchit",
-          "matchparen",
+          -- "matchparen", -- highlights match parenthesis
           "netrwPlugin",
           "tarPlugin",
           "tohtml",
