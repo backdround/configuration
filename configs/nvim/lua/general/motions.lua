@@ -67,7 +67,7 @@ local function word_motion(plugin_manager)
         { pp.any_word, pp.number, pp.hex_color },
         "full word",
         { "z", "q", "j", "k" },
-        { "<M-Z>", "<M-Q>", "<M-J>", "<M-K>" }
+        { "<M-z>", "<M-q>", "<M-j>", "<M-k>" }
       )
 
       -- Sub words
@@ -82,16 +82,8 @@ local function word_motion(plugin_manager)
       map_hops(
         { pp.number, pp.hex_color },
         "number",
-        { "<F17>", "", "<F18>", "" },
-        { "<F17>", "", "<F18>", "" }
-      )
-
-      -- Non word symbols
-      map_hops(
-        { "\\v[^[:alnum:][:blank:]_]" },
-        "non a word symbol",
-        { "<F19>", "", "<F20>", "" },
-        { "<F19>", "", "<F20>", "" }
+        { "<F17>", "<F18>", "<F19>", "<F20>" },
+        { "<F17>", "<F18>", "<F19>", "<F20>" }
       )
     end,
   })
@@ -176,140 +168,126 @@ local function improved_ft(plugin_manager)
 end
 
 local function rabbit_hop(plugin_manager)
-  local fkeys = {
-    "<F13>",
-    "<F14>",
-    "<F15>",
-    "<F16>",
-    "<F25>",
-    "<F26>",
-    "<F27>",
-    "<F28>",
-    "<F29>",
-    "<F30>",
-    "<F31>",
-    "<F32>",
-  }
-  local loading_nkeys =
-    u.array_extend({ "of", "or", "od", "on", "ob", "o." }, fkeys)
-  local loading_ikeys = fkeys
-
   plugin_manager.add({
     url = "git@github.com:backdround/rabbit-hop.nvim.git",
-    keys = u.array_extend(
-      hacks.lazy.generate_keys("nxo", loading_nkeys),
-      hacks.lazy.generate_keys("i", loading_ikeys)
-    ),
     config = function()
       local rh = require("rabbit-hop")
 
-      local get_through_offset = function(direction)
-        if u.mode() == "operator-pending" then
-          return 0
+      local map_hop = function(key, direction, offset, pattern, pattern_class)
+        -- Get key
+        local key_pattern = "<C-S-M-%s>"
+        if key:sub(1, 1) == "F" then
+          key_pattern = "<%s>"
+        end
+        key = key_pattern:format(key)
+
+        -- Get description
+        local description = "Hop " .. direction .. "to "
+        if offset == -1 then
+          description = description .. "the left of"
+        elseif offset == 1 then
+          description = description .. "the right of"
+        end
+        description = description .. pattern_class
+
+        -- Insert map
+        local target_side = direction == "forward" and "left" or "right"
+        if offset ~= 0 then
+          target_side = offset >= 1 and "right" or "left"
         end
 
-        if direction == "forward" then
-          return 1
+        local hop = u.wrap(rh.hop, {
+          pattern = pattern,
+          direction = direction,
+          offset = 0,
+          insert_mode_target_side = target_side
+        })
+
+        u.imap(key, hop, description)
+
+        -- Ordinary map
+        if offset == 1 then
+          -- Ignore patterns that are the last symbols on a line.
+          pattern = pattern .. "\\v$@!"
+        elseif offset == -1 then
+          -- Ignore patterns that are the first symbols on a line.
+          pattern = "\\v^@!" .. pattern
         end
-        return -1
+
+        hop = u.wrap(rh.hop, {
+          pattern = pattern,
+          direction = direction,
+          offset = offset,
+        })
+
+        u.map(key, hop, description)
       end
 
-      local hop_forward_through = function(pattern)
-        return function()
-          rh.hop({
-            pattern = pattern,
-            direction = "forward",
-            match_position = "end",
-            offset = get_through_offset("forward"),
-            insert_mode_target_side = "left",
-          })
-        end
-      end
+      -- Jump between commas
+      local p = "\\M,"
+      map_hop("F25", "backward", 0, p, "commas")
+      map_hop("F26", "forward", 0, p, "commas")
 
-      local hop_backward_through = function(pattern)
-        return function()
-          rh.hop({
-            pattern = pattern,
-            direction = "backward",
-            match_position = "start",
-            offset = get_through_offset("backward"),
-            insert_mode_target_side = "right",
-          })
-        end
-      end
+      map_hop("w", "backward", -1, p, "commas")
+      map_hop("v", "forward", -1, p, "commas")
 
-      -- Jump through quotes
-      local p = "\\v[\"'`]"
-      u.map("<F13>", hop_backward_through(p), "Jump backward post quotes")
-      u.imap("<F13>", hop_backward_through(p), "Jump backward post quotes")
-      u.map("<F14>", hop_forward_through(p), "Jump forward post quotes")
-      u.imap("<F14>", hop_forward_through(p), "Jump forward post quotes")
+      map_hop("f", "backward", 1, p, "commas")
+      map_hop("g", "forward", 1, p, "commas")
 
-      -- Jump through () / [] brackets
-      p = "\\v[\\][()]"
-      u.map("<F15>", hop_backward_through(p), "Jump backward post brackets")
-      u.imap("<F15>", hop_backward_through(p), "Jump backward post brackets")
-      u.imap("<F16>", hop_forward_through(p), "Jump forward post brackets")
-      p = "\\v([\\][(]|\\)$@!)"
-      u.map("<F16>", hop_forward_through(p), "Jump forward post brackets")
-
-      -- Jump through {} curly brackets
-      p = "\\v[{}]"
-      u.map("<F25>", hop_backward_through(p), "Jump backward post {} brackets")
-      u.imap("<F25>", hop_backward_through(p), "Jump backward post {} brackets")
-      u.map("<F26>", hop_forward_through(p), "Jump forward post {} brackets")
-      u.imap("<F26>", hop_forward_through(p), "Jump forward post {} brackets")
-
-      -- Jump through commas
-      p = "\\M,"
-      u.map("<F27>", hop_backward_through(p), "Jump backward post commas")
-      u.imap("<F27>", hop_backward_through(p), "Jump backward post commas")
-      u.map("<F28>", hop_forward_through(p), "Jump forward post commas")
-      u.imap("<F28>", hop_forward_through(p), "Jump forward post commas")
-
-      -- TODO: use the mapping as soon as switch from targets.vim.
-      -- targets.vim maps `@(targets)`
-      -- -- Jump to a next bracket
-      -- u.map("@", u.wrap(rh.hop, {
-      --   pattern = "\\v[\\][(){}]",
-      --   direction = "forward",
-      -- }), "Jump to a next bracket")
-
-      local hop_forward_to = function(pattern)
-        return function()
-          rh.hop({
-            pattern = pattern,
-            direction = "forward",
-            match_position = "end",
-            insert_mode_target_side = "left",
-          })
-        end
-      end
-
-      local hop_backward_to = function(pattern)
-        return function()
-          rh.hop({
-            pattern = pattern,
-            direction = "backward",
-            match_position = "start",
-            insert_mode_target_side = "right",
-          })
-        end
-      end
-
-      -- Jump to () / [] brackets
-      p = "\\v[\\][()]"
-      u.map("<F29>", hop_backward_to(p), "Jump backward to brackets")
-      u.imap("<F29>", hop_backward_to(p), "Jump backward to brackets")
-      u.map("<F30>", hop_forward_to(p), "Jump forward to brackets")
-      u.imap("<F30>", hop_forward_to(p), "Jump forward to brackets")
-
-      -- Jump to quotes
+      -- Jump between quotes
       p = "\\v[\"'`]"
-      u.map("<F31>", hop_backward_to(p), "Jump backward to quotes")
-      u.imap("<F31>", hop_backward_to(p), "Jump backward to quotes")
-      u.map("<F32>", hop_forward_to(p), "Jump forward to quotes")
-      u.imap("<F32>", hop_forward_to(p), "Jump forward to quotes")
+      map_hop("F27", "backward", 0, p, "quotes")
+      map_hop("F28", "forward", 0, p, "quotes")
+
+      map_hop("s", "backward", -1, p, "quotes")
+      map_hop("p", "forward", -1, p, "quotes")
+
+      map_hop("c", "backward", 1, p, "quotes")
+      map_hop("r", "forward", 1, p, "quotes")
+
+      -- Jump between equals
+      p = "\\M="
+      map_hop("F29", "backward", 0, p, "equals")
+      map_hop("F30", "forward", 0, p, "equals")
+
+      map_hop("a", "backward", -1, p, "equals")
+      map_hop("o", "forward", -1, p, "equals")
+
+      map_hop("d", "backward", 1, p, "equals")
+      map_hop("h", "forward", 1, p, "equals")
+
+      -- Jump between () / [] brackets
+      p = "\\v[\\][()]"
+      map_hop("F31", "backward", 0, p, "() / [] brackets")
+      map_hop("F32", "forward", 0, p, "() / [] brackets")
+
+      map_hop("e", "backward", -1, p, "() / [] brackets")
+      map_hop("u", "forward", -1, p, "() / [] brackets")
+
+      map_hop("t", "backward", 1, p, "() / [] brackets")
+      map_hop("n", "forward", 1, p, "() / [] brackets")
+
+      -- Jump between different symbols
+      p = "\\v[-+&*#|\\~!?;:%@^<>./]"
+      map_hop("F33", "backward", 0, p, "different symbols")
+      map_hop("F34", "forward", 0, p, "different symbols")
+
+      map_hop("x", "backward", -1, p, "different symbols")
+      map_hop("q", "forward", -1, p, "different symbols")
+
+      map_hop("l", "backward", 1, p, "different symbols")
+      map_hop("b", "forward", 1, p, "different symbols")
+
+      -- Jump between {} curly brackets
+      p = "\\v[{}]"
+      map_hop("F35", "backward", 0, p, "{} curly brackets")
+      map_hop("F36", "forward", 0, p, "{} curly brackets")
+
+      map_hop("j", "backward", -1, p, "{} curly brackets")
+      map_hop("k", "forward", -1, p, "{} curly brackets")
+
+      map_hop("y", "backward", 1, p, "{} curly brackets")
+      map_hop("m", "forward", 1, p, "{} curly brackets")
 
       -- Jumps between lines
       local to_line = hacks.jump_to_line(rh.hop)
