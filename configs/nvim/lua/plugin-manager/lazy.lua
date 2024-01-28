@@ -7,10 +7,10 @@ local M = {}
 M.ensure_presence = function()
   -- Set lazy path
   local lazy_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-  vim.opt.runtimepath:prepend(lazy_path)
 
   -- Check lazy presence
   if vim.loop.fs_stat(lazy_path) then
+    vim.opt.runtimepath:prepend(lazy_path)
     return
   end
 
@@ -29,6 +29,9 @@ M.ensure_presence = function()
     local error_message = "Unable to clone lazy:\n" .. clone_output
     error(error_message)
   end
+
+  -- Should be prepended only after lazy has been cloned.
+  vim.opt.runtimepath:prepend(lazy_path)
 
   -- Notify success
   u.notify("Lazy's been installed successfully!")
