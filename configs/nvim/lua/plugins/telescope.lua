@@ -47,6 +47,7 @@ local function setup()
   local telescope_mappings = {
     ["<M-s>"] = actions.close,
     ["<M-v>"] = select_and_move_down,
+    ["<M-x>"] = actions.smart_send_to_qflist,
 
     ["<C-s>"] =  actions.move_selection_next,
     ["<C-p>"] = actions.move_selection_previous,
@@ -258,6 +259,7 @@ local function set_mappings()
   u.nmap("<M-d>", builtin.buffers, "Show buffers")
   u.nmap("<leader>s", telescope.extensions.luasnip.luasnip, "Show snippets")
   u.nmap("<leader>p", builtin.builtin, "Show telescope builtin pickers")
+  u.nmap("<leader>x", builtin.quickfix, "Show telescope by quickfix entries")
 end
 
 local function apply(plugin_manager)

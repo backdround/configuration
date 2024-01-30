@@ -175,6 +175,7 @@ local function illuminate(plugin_manager)
         delay = 150,
         filetypes_denylist = {
           'registers',
+          'qf',
         }
       })
     end,

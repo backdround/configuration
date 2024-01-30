@@ -231,8 +231,123 @@ local function registers(plugin_manager)
 end
 
 local function quickfix(plugin_manager)
-  _ = plugin_manager
-  -- TODO: check nvim-bqf
+  local quickfix_inited = false
+  u.autocmd("UserEnableQuickfixFilter", "BufWinEnter", {
+    pattern = "quickfix",
+    desc = "Enable quickfix filter when quickfix window is open",
+    callback = function()
+      if quickfix_inited then
+        return
+      end
+      quickfix_inited = true
+      vim.cmd.packadd({ args = { "cfilter" } })
+
+      -- TODO: fix :chistory or find better way to edit entries by hands
+      local remove_current_entry = function()
+        local saved_view = vim.fn.winsaveview()
+
+        local current_line = vim.api.nvim_win_get_cursor(0)[1]
+        local quickfix_list = vim.fn.getqflist()
+        local count = vim.v.count + 1
+        for _ = 1, count do
+          table.remove(quickfix_list, current_line)
+        end
+        vim.fn.setqflist(quickfix_list, "r")
+
+        vim.fn.winrestview(saved_view)
+      end
+
+      u.nmap("<Del>", remove_current_entry, {
+        desc = "Remove current quickfix entry",
+        buffer = true,
+      })
+    end,
+  })
+
+  plugin_manager.add({
+    url = "https://github.com/ashfinal/qfview.nvim",
+    enabled = not LightWeight,
+    event = "UIEnter",
+    opts = {},
+  })
+
+  plugin_manager.add({
+    url = "https://github.com/ten3roberts/qf.nvim",
+    enabled = not LightWeight,
+    event = "UIEnter",
+    config = function()
+      local qf = require("qf")
+      local windows_behaviour = {
+        auto_close = false,
+        auto_resize = true,
+        max_height = 16,
+        min_height = 13,
+        wide = true,
+        number = true,
+        relativenumber = true,
+      }
+      qf.setup({
+        l = windows_behaviour,
+        c = windows_behaviour,
+        close_other = false,
+        pretty = false,
+        silent = false,
+      })
+
+      u.nmap("xx", u.wrap(qf.toggle, "c", false), "Toggle quickfix window")
+      u.nmap("xk", u.wrap(qf.below, "c"), "Go to next quickfix entry")
+      u.nmap("xj", u.wrap(qf.above, "c"), "Go to previous quickfix entry")
+    end,
+  })
+
+  -- TODO: rewrite the plugin with only preview concept.
+  plugin_manager.add({
+    url = "https://github.com/kevinhwang91/nvim-bqf",
+    enabled = not LightWeight,
+    ft = "qf",
+    config = function()
+      local height = vim.o.lines / 4
+      local qf = require("bqf")
+      qf.setup({
+        magic_window = false,
+        preview = {
+          border = "single",
+          winblend = 0,
+          winheight = height,
+        },
+        func_map = {
+          open = "<M-o>",
+          openc = "",
+          drop = "",
+          split = "<M-e>",
+          vsplit = "<M-u>",
+          tab = "<M-i>",
+          tabb = "<C-i>",
+          tabc = "",
+          tabdrop = "",
+          ptogglemode = "ox",
+          ptoggleitem = "",
+          ptoggleauto = "",
+          pscrollup = "<F16>",
+          pscrolldown = "<F15>",
+          pscrollorig = "<F14>",
+          prevfile = "",
+          nextfile = "",
+          prevhist = "<",
+          nexthist = ">",
+          lastleave = "",
+          stoggleup = "",
+          stoggledown = "",
+          stogglevm = "",
+          stogglebuf = "",
+          sclear = "",
+          filter = "",
+          filterr = "",
+          fzffilter = ""
+        },
+      })
+    end,
+  })
 end
 
 local function apply(plugin_manager)
