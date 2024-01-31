@@ -25,7 +25,7 @@ local function create_format_functions(client_id)
 
     -- Perform formatting.
     vim.go.operatorfunc = "v:lua." .. uniq_format_function_name
-    vim.api.nvim_feedkeys("g@", "n", false)
+    vim.api.nvim_feedkeys("g@", "ni", false)
   end
 
   return {

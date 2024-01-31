@@ -2,44 +2,39 @@ local u = require("utilities")
 local hacks = require("general.hacks")
 
 local function lsp_configure()
-  local function set_buffer_mappings(client, _)
-    -- Makes mappings
-    local function map(lhs, rhs, desc)
-      u.nmap(lhs, rhs, { buffer = 0, desc = desc })
+  local set_buffer_mappings = function(client, _)
+
+    local map = function(modes, lhs, rhs, desc)
+      u.adapted_map(modes, lhs, rhs, { buffer = 0, desc = desc })
     end
 
     -- Actions
-    map("<leader>r", vim.lsp.buf.rename, "Rename symbol")
-    map("<leader>u", vim.lsp.buf.hover, "Show hover")
-    map("<leader>v", vim.lsp.buf.code_action, "Code action")
-
-    local desc = "Toggle signature window"
-    u.nmap("<M-,>", vim.lsp.buf.signature_help, { buffer = 0, desc = desc })
-    u.imap("<M-,>", vim.lsp.buf.signature_help, { buffer = 0, desc = desc })
-    u.smap("<M-,>", vim.lsp.buf.signature_help, { buffer = 0, desc = desc })
-
-    local format = hacks.create_format_functions(client.id)
-    desc = "Format code by lsp server"
-    u.nmap("<leader>q", format.operator, { buffer = 0, desc = desc })
-    desc = "Format selected code by lsp server"
-    u.xmap("<leader>q", format.operator, { buffer = 0, desc = desc })
-    desc = "Format code in file by lsp server"
-    u.nmap("<leader><M-q>", format.file, { buffer = 0, desc = desc })
-
-    local telescope = require("telescope.builtin")
-
-    -- Goto symbols
-    map("xh", telescope.lsp_definitions, "Go to definition")
-    map("xt", telescope.lsp_type_definitions, "Go to type definition")
-    map("xn", telescope.lsp_implementations, "Go to implementation")
-    map("xr", telescope.lsp_references, "Go to reference")
-    map("<leader><M-n>", telescope.lsp_document_symbols, "Go to buffer symbol")
+    map("n", "<leader>r", vim.lsp.buf.rename, "Rename symbol")
+    map("n", "<leader>u", vim.lsp.buf.hover, "Show hover")
+    map("n", "<leader>v", vim.lsp.buf.code_action, "Code action")
+    map("nis", "<M-,>", vim.lsp.buf.signature_help, "Toggle signature window")
 
     -- Diagnostics
-    map("<leader>g", vim.diagnostic.open_float, "Open diagnostic float")
-    map("<leader>e", telescope.diagnostics, "Go to diagnostic")
-    map("xc", vim.diagnostic.goto_next, "Go to next diagnostic")
-    map("xg", vim.diagnostic.goto_prev, "Go to previous diagnostic")
+    map("n", "<leader>g", vim.diagnostic.open_float, "Open diagnostic float")
+    map("n", "xc", vim.diagnostic.goto_next, "Go to next diagnostic")
+    map("n", "xg", vim.diagnostic.goto_prev, "Go to previous diagnostic")
+
+    -- Format
+    local format = hacks.create_format_functions(client.id)
+    map("nx", "<leader>q", format.operator, "Format code by lsp server")
+    map("n", "<leader><M-q>", format.file, "Format the file by lsp server")
+
+    -- Go to symbols
+    local status, telescope = pcall(require, "telescope.builtin")
+    if status then
+      local local_symbols = telescope.lsp_document_symbols
+      map("n", "xh", telescope.lsp_definitions, "Go to definition")
+      map("n", "xt", telescope.lsp_type_definitions, "Go to type definition")
+      map("n", "xn", telescope.lsp_implementations, "Go to implementation")
+      map("n", "xr", telescope.lsp_references, "Go to reference")
+      map("n", "<leader><M-n>", local_symbols, "Go to buffer symbol")
+      map("n", "<leader>e", telescope.diagnostics, "Go to diagnostic")
+    end
   end
 
   -- Adds LspInfo border
@@ -53,7 +48,7 @@ local function lsp_configure()
     },
   })
 
-  -- Sets up lsep servers
+  -- Sets up lsp servers
   local lspconfig = require("lspconfig")
   local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
@@ -92,13 +87,13 @@ end
 
 local function null_configure()
   local function make_buffer_mappings(client, _)
+    local map = function(modes, lhs, rhs, desc)
+      u.adapted_map(modes, lhs, rhs, { buffer = 0, desc = desc })
+    end
+
     local format = hacks.create_format_functions(client.id)
-    local desc = "Format code by null lsp server"
-    u.nmap("<leader>o", format.operator, { buffer = 0, desc = desc })
-    desc = "Format selected code by null lsp server"
-    u.xmap("<leader>o", format.operator, { buffer = 0, desc = desc })
-    desc = "Format code in file by null lsp server"
-    u.nmap("<leader><M-o>", format.file, { buffer = 0, desc = desc })
+    map("nx", "<leader>o", format.operator, "Format code by null lsp server")
+    map("n", "<leader><M-o>", format.file, "Format the file by null lsp server")
   end
 
   local null = require("null-ls")
@@ -110,7 +105,6 @@ local function null_configure()
       -- lua
       null.builtins.formatting.stylua,
       null.builtins.diagnostics.selene,
-      -- TODO: check ThePrimeagen/refactoring.nvim
     },
   })
 end
@@ -124,7 +118,7 @@ local function setup_hover_appearance()
   end
 end
 
-local function apply(plugin_manager)
+local base = function(plugin_manager)
   plugin_manager.add({
     url = "https://github.com/neovim/nvim-lspconfig",
     enabled = not LightWeight,
@@ -149,6 +143,10 @@ local function apply(plugin_manager)
     dependencies = "nvim-lua/plenary.nvim",
     config = null_configure,
   })
+end
+
+local function apply(plugin_manager)
+  base(plugin_manager)
 
   if not LightWeight then
     setup_hover_appearance()
