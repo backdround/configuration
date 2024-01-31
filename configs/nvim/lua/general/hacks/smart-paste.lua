@@ -168,6 +168,10 @@ local paste_register = function(register, auxiliary_register)
   end
   local lines = reginfo.regcontents
 
+  if reginfo.regtype == "v" and #lines == 1 then
+    return u.replace_termcodes("<C-r>" .. register)
+  end
+
   -- Paste one line
   if #lines == 1 then
     local line = separate_line(lines[1])[2]
