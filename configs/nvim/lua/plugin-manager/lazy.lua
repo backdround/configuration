@@ -76,6 +76,7 @@ M.load = function(plugins)
   local lazy_options = {
     install = {
       colorscheme = { "melting" },
+      missing = false,
     },
     ui = {
       border = "single",
