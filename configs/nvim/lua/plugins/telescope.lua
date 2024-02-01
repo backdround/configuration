@@ -256,7 +256,7 @@ local function set_mappings()
   u.nmap("<leader><M-c>", open_local_manager, description)
 
   -- Other
-  u.nmap("<M-d>", builtin.buffers, "Show buffers")
+  u.nmap("<leader>b", builtin.buffers, "Show buffers")
   u.nmap("<leader>s", telescope.extensions.luasnip.luasnip, "Show snippets")
   u.nmap("<leader>p", builtin.builtin, "Show telescope builtin pickers")
   u.nmap("<leader>x", builtin.quickfix, "Show telescope by quickfix entries")

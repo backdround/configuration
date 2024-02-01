@@ -70,8 +70,9 @@ M.wrap = function(fn, ...)
   assert_types({ fn = { fn, "function" } })
 
   local args = { ... }
-  return function()
-    return fn(unpack(args))
+  return function(...)
+    local united_args = M.array_extend(args, { ... })
+    return fn(unpack(united_args))
   end
 end
 

@@ -350,6 +350,106 @@ local function quickfix(plugin_manager)
   })
 end
 
+local icon_picker = function(plugin_manager)
+  plugin_manager.add({
+    url = "https://github.com/ziontee113/icon-picker.nvim",
+    enabled = not LightWeight,
+    keys = { { "<M-d>i", mode = { "n", "i" } } },
+    config = function()
+      local get_icons_from = function(source, spaces)
+        local icons = require(source)
+
+        local list = {}
+        for description, icon in pairs(icons) do
+          table.insert(list, {
+            choice = icon .. (" "):rep(spaces) .. description,
+            icon = icon,
+          })
+        end
+
+        return list
+      end
+
+      local icon_lists = {
+        {
+          icons = get_icons_from("icon-picker.icons.alt-fonts", 1),
+          desc = "Pick an Alt Font Character",
+          choice = "Alt font character",
+        },
+        {
+          icons = get_icons_from("icon-picker.icons.emoji-list", 1),
+          desc = "Pick an emoji",
+          choice = "Emoji",
+        },
+        {
+          icons = get_icons_from("icon-picker.icons.nf-icon-list", 2),
+          desc = "Pick a Nerd Font character",
+          choice = "Nerd font character",
+        },
+        {
+          icons = get_icons_from("icon-picker.icons.nf-v3-icon-list", 2),
+          desc = "Pick a Nerd Font V3 character",
+          choice = "Nerd Font V3 character",
+        },
+        {
+          icons = get_icons_from("icon-picker.icons.symbol-list", 2),
+          desc = "Pick a Symbol",
+          choice = "Symbol",
+        },
+        {
+          icons = get_icons_from("icon-picker.icons.html-colors", 2),
+          desc = "Pick an hexa HTML Color",
+          choice = "hexa HTML Color",
+        },
+      }
+
+      local get_state = function()
+        local state = {
+          _cursor = vim.api.nvim_win_get_cursor(0),
+          _mode = u.mode(),
+        }
+
+        state.restore = function()
+          if u.mode() == "normal" and state._mode == "insert" then
+            vim.cmd.startinsert()
+          end
+          vim.api.nvim_win_set_cursor(0, state._cursor)
+        end
+
+        return state
+      end
+
+      local select_icon = function(state, list)
+        vim.ui.select(list.icons, {
+          prompt = list.desc,
+          format_item = function(item)
+            return item.choice
+          end,
+        }, function(item)
+          state.restore()
+
+          if not item then
+            return
+          end
+
+          vim.api.nvim_put({ item.icon }, "c", true, true)
+        end)
+      end
+
+      local select_list = function()
+        vim.ui.select(icon_lists, {
+          prompt = "Select icon type",
+          format_item = function(item)
+            return item.choice
+          end,
+        }, u.wrap(select_icon, get_state()))
+      end
+
+      u.adapted_map("ni", "<M-d>i", select_list, "Pick icon")
+    end,
+  })
+end
+
 local function apply(plugin_manager)
   rooter(plugin_manager)
   markdown(plugin_manager)
@@ -359,6 +459,7 @@ local function apply(plugin_manager)
   annotations(plugin_manager)
   registers(plugin_manager)
   quickfix(plugin_manager)
+  icon_picker(plugin_manager)
 end
 
 return {
