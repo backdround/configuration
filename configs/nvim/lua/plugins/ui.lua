@@ -212,6 +212,31 @@ local function colorizer(plugin_manager)
   })
 end
 
+local deadcolumn = function(plugin_manager)
+  plugin_manager.add({
+    url = "https://github.com/Bekaboo/deadcolumn.nvim",
+    enabled = not LightWeight,
+    opts = {
+      -- scope = "buffer",
+      scope = "visible",
+      modes = function()
+        local ignore_filetypes = { "help", "markdown" }
+        local current_filetype = vim.opt.ft:get()
+        return not vim.tbl_contains(ignore_filetypes, current_filetype)
+      end,
+      blending = {
+        threshold = 0.93,
+        hlgroup = { "Normal", "bg" }
+      },
+      warning = {
+        alpha = 0.09,
+        offset = 11,
+        hlgroup = { "PreProc", "fg" },
+      }
+    },
+  })
+end
+
 local function apply(plugin_manager)
   focus(plugin_manager)
   floaterm(plugin_manager)
@@ -220,6 +245,7 @@ local function apply(plugin_manager)
   illuminate(plugin_manager)
   theme(plugin_manager)
   colorizer(plugin_manager)
+  deadcolumn(plugin_manager)
 end
 
 return {
