@@ -420,6 +420,10 @@ local icon_picker = function(plugin_manager)
       end
 
       local select_icon = function(state, list)
+        if not list then
+          return
+        end
+
         vim.ui.select(list.icons, {
           prompt = list.desc,
           format_item = function(item)
