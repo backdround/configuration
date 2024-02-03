@@ -197,16 +197,18 @@ local function theme(plugin_manager)
   vim.opt.termguicolors = true
 end
 
-local function colorizer(plugin_manager)
+local function colors(plugin_manager)
+  -- TODO: wait for fix https://github.com/uga-rosa/ccc.nvim/issues/99
+  -- and finish setup
   plugin_manager.add({
-    url = "https://github.com/NvChad/nvim-colorizer.lua",
+    url = "https://github.com/uga-rosa/ccc.nvim",
     enabled = not LightWeight,
     opts = {
-      filetypes = {
-        "lua",
-      },
-      user_default_options = {
-        names = false,
+      disable_default_mappings = true,
+      highlight_mode = "bg",
+      highlighter = {
+        auto_enable = true,
+        lsp = true,
       },
     },
   })
@@ -244,7 +246,7 @@ local function apply(plugin_manager)
   viminput(plugin_manager)
   illuminate(plugin_manager)
   theme(plugin_manager)
-  colorizer(plugin_manager)
+  colors(plugin_manager)
   deadcolumn(plugin_manager)
 end
 
