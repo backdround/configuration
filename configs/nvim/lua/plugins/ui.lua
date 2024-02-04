@@ -64,7 +64,7 @@ end
 local function messages(plugin_manager)
   plugin_manager.add({
     url = "https://github.com/AckslD/messages.nvim",
-    cmd = { "Messages", "Lua", "Echo" },
+    cmd = { "Messages", "Lua" },
     event = {
       { event = "ModeChanged", pattern = "*:*c*" },
     },
@@ -198,7 +198,7 @@ local function theme(plugin_manager)
 end
 
 local function colors(plugin_manager)
-  -- TODO: wait for fix https://github.com/uga-rosa/ccc.nvim/issues/99
+  -- TODO: wait for fix https://github.com/Bekaboo/deadcolumn.nvim/issues/18
   -- and finish setup
   plugin_manager.add({
     url = "https://github.com/uga-rosa/ccc.nvim",
@@ -219,7 +219,6 @@ local deadcolumn = function(plugin_manager)
     url = "https://github.com/Bekaboo/deadcolumn.nvim",
     enabled = not LightWeight,
     opts = {
-      -- scope = "buffer",
       scope = "visible",
       modes = function()
         local ignore_filetypes = { "help", "markdown" }
@@ -228,13 +227,13 @@ local deadcolumn = function(plugin_manager)
       end,
       blending = {
         threshold = 0.93,
-        hlgroup = { "Normal", "bg" }
+        hlgroup = { "Normal", "bg" },
       },
       warning = {
         alpha = 0.09,
         offset = 11,
         hlgroup = { "PreProc", "fg" },
-      }
+      },
     },
   })
 end
