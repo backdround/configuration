@@ -454,6 +454,45 @@ local icon_picker = function(plugin_manager)
   })
 end
 
+local playground = function()
+  local ensure_file_exists = function(filepath)
+    local stat = vim.loop.fs_stat(filepath)
+    if stat and stat.type == "file" then
+      return
+    end
+
+    if stat and stat.type ~= "file" then
+      local template = "Path %s already exists and it's not a file!"
+      error(template:format(filepath))
+    end
+
+    local file, err = io.open(filepath, "w")
+    if not file then
+      error(err)
+    end
+
+    file:close()
+  end
+
+  ---@type string
+  ---@diagnostic disable-next-line: assign-type-mismatch
+  local cache = vim.fn.stdpath("cache")
+  local filepath = vim.fs.joinpath(cache, "playground.lua")
+
+  u.autocmd("UserSourcePlayground", "BufWritePost", {
+    desc = "Source playground on save",
+    pattern = filepath,
+    callback = u.wrap(dofile, filepath),
+  })
+
+  local open_playground = function()
+    ensure_file_exists(filepath)
+    vim.cmd.edit({ args = { filepath } })
+  end
+
+  u.nmap("<leader>y", open_playground, "Open playground")
+end
+
 local function apply(plugin_manager)
   rooter(plugin_manager)
   markdown(plugin_manager)
@@ -464,6 +503,7 @@ local function apply(plugin_manager)
   registers(plugin_manager)
   quickfix(plugin_manager)
   icon_picker(plugin_manager)
+  playground()
 end
 
 return {
