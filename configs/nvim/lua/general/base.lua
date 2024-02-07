@@ -308,7 +308,7 @@ local function misc()
 
   -- Language key
   u.imap("<M-c>", "<C-^>", "Toggle language")
-  u.cmap("<M-c>", "<C-^>", "Toggle language")
+  u.adapted_map("c", "<M-c>", "<C-^>", "Toggle language")
 
   -- Misc
   u.nmap("_", "<Cmd>write<CR>", "Write buffer")
@@ -331,8 +331,8 @@ local function misc()
 end
 
 local function commandline()
-  u.cmap("<M-s>", "<C-c>", "Close command-line")
-  u.cmap("<M-o>", "<CR>", "Accept command")
+  u.adapted_map("c", "<M-s>", "<C-c>", "Close command-line")
+  u.adapted_map("c", "<M-o>", "<CR>", "Accept command")
 end
 
 ---@param plugin_manager UserPluginManager

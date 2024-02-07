@@ -156,7 +156,10 @@ local function registers(plugin_manager)
       local description = "Show registers for selection"
       u.nmap("<C-d>", show_window_motion, { desc = description, expr = true })
       u.xmap("<C-d>", show_window_motion, { desc = description, expr = true })
-      u.smap("<C-d>", show_window_motion, { desc = description, expr = true })
+      u.adapted_map("s", "<C-d>", show_window_motion, {
+        desc = description,
+        expr = true
+      })
       u.imap("<C-d>", show_window_insert, { desc = description, expr = true })
 
       -- Filetype settings

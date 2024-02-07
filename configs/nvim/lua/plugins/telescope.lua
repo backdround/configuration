@@ -210,12 +210,12 @@ local function set_mappings()
     end
 
     local description = "Show mappings for mode " .. mode
-    u[mode .. "map"]("<M-m>", telescope_show_maps, description)
+    u.adapted_map(mode, "<M-m>", telescope_show_maps, description)
     description = "Show all mappings for mode " .. mode
-    u[mode .. "map"]("<C-M-m>", telescope_show_all_maps, description)
+    u.adapted_map(mode, "<C-M-m>", telescope_show_all_maps, description)
     description = "Show buffer only mappings"
     -- Map to <C-/> (<C-_> is a workaround).
-    u[mode .. "map"]("<C-_>", telescope_show_local_maps, description)
+    u.adapted_map(mode, "<C-_>", telescope_show_local_maps, description)
   end
 
   -- Files

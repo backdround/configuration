@@ -37,8 +37,8 @@ local function configure()
     end
   end, "Change node choice")
 
-  u.smap("<BS>", " <BS>", "Remove selection and enter insert mode")
-  u.smap("<C-t>", "<Esc>cc", "Remove all text on the current line")
+  u.adapted_map("s", "<BS>", " <BS>", "Remove selection and enter insert mode")
+  u.adapted_map("s", "<C-t>", "<Esc>cc", "Remove all text on the current line")
 
   vim.api.nvim_create_user_command(
     "LuaSnipEdit",

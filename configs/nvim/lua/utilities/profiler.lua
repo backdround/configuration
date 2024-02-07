@@ -24,11 +24,11 @@ end
 ---@field result any last function result
 ---@field time number elapsed milliseconds
 
---- Performs the given function count of times and measure elapsed times
+---Performs the given function count of times and measure elapsed times
 ---@param fn fun(): any function to perform
 ---@param count? number count of times
 ---@return User_ProfilerResult
-local perform = function(fn, count)
+local profile = function(fn, count)
   assert_types({
     fn = { fn, "function" },
     count = { count, "number", "nil" }
@@ -47,4 +47,6 @@ local perform = function(fn, count)
   return { result = result, time = result_time }
 end
 
-return perform
+return {
+  profile = profile,
+}

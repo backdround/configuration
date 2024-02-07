@@ -2,27 +2,23 @@ local assert_types = require("utilities.assert-types")
 local mappings_keeper = require("utilities.mappings-keeper")
 local M = {}
 
----More convinient wrapper for vim.keymap.set
----@param modes string|table
+---Wraper over vim.keymap.set
+---@param modes string could be a single or several modes.
 ---@param lhs string
 ---@param rhs string|function
 ---@param options_or_description table|string
 M.adapted_map = function(modes, lhs, rhs, options_or_description)
   assert_types({
-    mode = { modes, "string", "table" },
+    mode = { modes, "string" },
     lhs = { lhs, "string" },
     rhs = { rhs, "string", "function" },
     options_or_description = { options_or_description, "string", "table" },
   })
 
   local mode = {}
-  if type(modes) == "string" then
-    for i = 1, #modes do
-      local m = modes:sub(i, i)
-      table.insert(mode, m)
-    end
-  else
-    mode = modes
+  for i = 1, #modes do
+    local m = modes:sub(i, i)
+    table.insert(mode, m)
   end
 
   local options = {}
@@ -46,15 +42,40 @@ M.adapted_map = function(modes, lhs, rhs, options_or_description)
   mappings_keeper.perform_real_vim_keymap_set(mode, lhs, rhs, options)
 end
 
-M.map = function(lhs, rhs, options)
-  M.adapted_map({ "n", "x", "o" }, lhs, rhs, options)
+---Maps in normal, visual and operator pending mode
+---@param lhs string
+---@param rhs string|function
+---@param options_or_description table|string
+M.map = function(lhs, rhs, options_or_description)
+  M.adapted_map("nxo", lhs, rhs, options_or_description)
 end
 
-local modes = { "n", "i", "v", "c", "t", "o", "x", "s", "l" }
-for _, mode in ipairs(modes) do
-  M[mode .. "map"] = function(lhs, rhs, options_or_description)
-    M.adapted_map(mode, lhs, rhs, options_or_description)
-  end
+---@param lhs string
+---@param rhs string|function
+---@param options_or_description table|string
+M.nmap = function(lhs, rhs, options_or_description)
+  M.adapted_map("n", lhs, rhs, options_or_description)
+end
+
+---@param lhs string
+---@param rhs string|function
+---@param options_or_description table|string
+M.imap = function(lhs, rhs, options_or_description)
+  M.adapted_map("i", lhs, rhs, options_or_description)
+end
+
+---@param lhs string
+---@param rhs string|function
+---@param options_or_description table|string
+M.omap = function(lhs, rhs, options_or_description)
+  M.adapted_map("o", lhs, rhs, options_or_description)
+end
+
+---@param lhs string
+---@param rhs string|function
+---@param options_or_description table|string
+M.xmap = function(lhs, rhs, options_or_description)
+  M.adapted_map("x", lhs, rhs, options_or_description)
 end
 
 return M

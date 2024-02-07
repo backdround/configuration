@@ -52,11 +52,11 @@ local function floaterm(plugin_manager)
         },
       })
       u.nmap("<F1>", fterm.toggle, "Toggle terminal")
-      u.tmap("<F1>", fterm.toggle, "Close terminal")
+      u.adapted_map("t", "<F1>", fterm.toggle, "Close terminal")
       local desc = "Browse termial"
-      u.tmap("<F2>", "<C-\\><C-n>", desc)
+      u.adapted_map("t", "<F2>", "<C-\\><C-n>", desc)
       u.nmap("<F2>", "<Cmd>lua require('FTerm').toggle()<Cr><C-\\><C-n>", desc)
-      u.tmap("<F3>", fterm.exit, "Exit terminal")
+      u.adapted_map("t", "<F3>", fterm.exit, "Exit terminal")
     end,
   })
 end
