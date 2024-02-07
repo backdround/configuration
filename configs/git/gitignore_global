@@ -4,3 +4,4 @@
 .ccls.cache
 compile_commands.json
 doxygen_conf
+doc/tags
