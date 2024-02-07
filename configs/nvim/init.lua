@@ -21,10 +21,10 @@ local module_names = {
   "plugins/luasnip",
 }
 
--- Set up mappings
-local mappings = require("utilities.mappings")
-mappings.init()
-mappings.allow_mapping_from(".config/nvim/")
+-- Set up mappings keeper
+local mappings_keeper = require("utilities.mappings-keeper")
+mappings_keeper.prohibit_external_mappings()
+mappings_keeper.allow_mappings_from(".config/nvim/")
 
 ---Finds and performs the given module by name
 ---@param module_name string
