@@ -60,6 +60,7 @@ local function apply()
   }
 
   -- Folds
+  local fold_width = 81
   -- selene: allow(global_usage)
   _G.fold_text = function()
     local count_of_lines = vim.v.foldend - vim.v.foldstart + 1
@@ -75,7 +76,7 @@ local function apply()
     local new_indent = "> " .. (" "):rep(new_virtual_indent_width)
 
     local title = new_indent .. rest .. ": " .. count_of_lines .. " lines"
-    local free_space = tonumber(options.colorcolumn:get()[1]) - #title
+    local free_space = fold_width - #title
     if free_space > 2 then
       title = title .. (" "):rep(free_space - 1) .. "<"
     end
