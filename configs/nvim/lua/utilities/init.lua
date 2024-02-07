@@ -1,5 +1,5 @@
 local assert_types = {
-  assert_types = require("utilities.assert_types"),
+  assert_types = require("utilities.assert-types"),
 }
 
 local logger = {

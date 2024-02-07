@@ -1,4 +1,4 @@
-local assert_types = require("utilities.assert_types")
+local assert_types = require("utilities.assert-types")
 
 ---@class User_ProfilerTime
 ---@field sec number count of seconds

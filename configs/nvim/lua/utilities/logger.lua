@@ -1,4 +1,4 @@
-local assert_types = require("utilities.assert_types")
+local assert_types = require("utilities.assert-types")
 
 ---@class UserLogger
 ---@field log fun(self: UserLogger, message: string) Write a message in log

@@ -1,4 +1,4 @@
-local assert_types = require("utilities.assert_types")
+local assert_types = require("utilities.assert-types")
 local new_logger = require("utilities.logger").new
 local M = {}
 
