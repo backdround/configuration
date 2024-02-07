@@ -271,6 +271,23 @@ local function align(plugin_manager)
   })
 end
 
+local function treesj(plugin_manager)
+  plugin_manager.add({
+    url = "https://github.com/Wansmer/treesj",
+    keys = { "bs", "bp", "b<M-s>", "b<M-p>" },
+    config = function()
+      local sj = require("treesj")
+      sj.setup({
+        use_default_keymaps = false,
+        max_join_length = 130,
+      })
+
+      u.nmap("bs", sj.split, "Split node")
+      u.nmap("bp", sj.join, "Join node")
+    end,
+  })
+end
+
 ---@param plugin_manager UserPluginManager
 local function apply(plugin_manager)
   commenting(plugin_manager)
@@ -282,6 +299,7 @@ local function apply(plugin_manager)
   niceblock(plugin_manager)
   move(plugin_manager)
   align(plugin_manager)
+  treesj(plugin_manager)
 end
 
 return {
