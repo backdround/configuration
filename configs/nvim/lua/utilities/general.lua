@@ -38,6 +38,10 @@ M.notify = function(data, time)
     data = vim.inspect(data)
   end
 
+  if data == "" then
+    data = "{empty string}"
+  end
+
   time = tostring(time or "30000")
 
   local notify_send = function(message)
