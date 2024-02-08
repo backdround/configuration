@@ -1,5 +1,5 @@
 ---Creates a new debouncer
----@param on_start function to perform on run
+---@param on_start? function to perform on run
 ---@param on_finish function to perform after timeout
 ---@param timeout number ms time to wait before performing on_finish
 ---@return table
@@ -15,7 +15,7 @@ local function new(on_start, on_finish, timeout)
   }
 
    d.run = function()
-    if not d._running then
+    if not d._running and d.on_start ~= nil then
       d.on_start()
     end
 

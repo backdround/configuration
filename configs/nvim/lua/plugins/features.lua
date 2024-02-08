@@ -1,5 +1,17 @@
+local hacks = require("general.hacks")
 local u = require("utilities")
 local smart_paste = require("general.hacks.smart-paste")
+
+local buffer_reloader = function()
+  local checker = hacks.debouncer.new(nil, vim.cmd.checktime, 10)
+  u.autocmd("UserLoadChangedBuffers", { "FocusGained", "BufEnter" }, {
+    callback = checker.run,
+  })
+
+  u.autocmd("UserNotifyAfterBuffersLoading", "FileChangedShellPost", {
+    command = 'echo "Some buffers changed!"',
+  })
+end
 
 local function rooter(plugin_manager)
   plugin_manager.add({
@@ -497,6 +509,7 @@ local playground = function()
 end
 
 local function apply(plugin_manager)
+  buffer_reloader()
   rooter(plugin_manager)
   markdown(plugin_manager)
   session(plugin_manager)

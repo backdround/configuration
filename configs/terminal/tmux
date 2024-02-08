@@ -8,6 +8,7 @@ set -g display-time 5000
 set -g mouse on
 set -g renumber-windows on
 set -g monitor-activity off
+set -g focus-events on
 
 
 ######################################################################
