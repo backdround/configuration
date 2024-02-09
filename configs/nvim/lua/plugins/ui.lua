@@ -143,6 +143,7 @@ local function viminput(plugin_manager)
   plugin_manager.add({
     url = "https://github.com/stevearc/dressing.nvim",
     enabled = not LightWeight,
+    event = "VeryLazy",
     opts = {
       input = {
         enabled = true,
@@ -150,19 +151,81 @@ local function viminput(plugin_manager)
         start_in_insert = false,
         border = "single",
         win_options = { winblend = 0 },
-        mappings = {
-          n = {
-            ["<M-s>"] = "Close",
-            ["<M-o>"] = "Confirm",
-          },
-          i = {
-            ["<M-s>"] = "Close",
-            ["<M-o>"] = "Confirm",
-          },
-        },
       },
       select = { enabled = false },
     },
+    config = function(_, opts)
+      local dressing = require("dressing")
+      dressing.setup(opts)
+
+      -- hack: disable all mappings
+      local config = require("dressing.config")
+      config.input.mappings = {}
+
+      local input = require("dressing.input")
+
+      local completion_visible = function()
+        local has_cmp, cmp = pcall(require, "cmp")
+        if has_cmp then
+          return cmp.visible()
+        end
+        return vim.fn.pumvisible() == 1
+      end
+
+      local confirm = function()
+        if completion_visible() then
+          local selected = vim.fn.complete_info({ "selected" }).selected ~= -1
+          if selected then
+            u.feedkeys("<C-y>", "ni")
+          else
+            u.feedkeys("<C-n><C-y>", "ni")
+          end
+        else
+          input.confirm()
+        end
+      end
+
+      local close = function()
+        if completion_visible() then
+          u.feedkeys("<C-e>", "ni")
+        else
+          input.close()
+        end
+      end
+
+      local select_next = function()
+        if completion_visible() then
+          u.feedkeys("<C-n>", "ni")
+        else
+          u.feedkeys("<C-x><C-u>", "ni")
+        end
+      end
+
+      local select_previous = function()
+        if completion_visible() then
+          u.feedkeys("<C-p>", "ni")
+        else
+          u.feedkeys("<C-x><C-u>", "ni")
+        end
+      end
+
+      local map = function(lhs, rhs, description)
+        u.adapted_map("ni", lhs, rhs, {
+          desc = description,
+          buffer = true,
+        })
+      end
+
+      u.autocmd("UserDressingMappings", "FileType", {
+        pattern = "DressingInput",
+        callback = function()
+          map("<M-o>", confirm, "Confirm vim.ui.input")
+          map("<M-s>", close, "Close vim.ui.input")
+          map("<C-s>", select_next, "Select next")
+          map("<C-p>", select_previous, "Select previous")
+        end
+      })
+    end
   })
 end
 
