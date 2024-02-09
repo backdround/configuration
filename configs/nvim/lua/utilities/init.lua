@@ -6,6 +6,7 @@ return {
   assert_types = require("utilities.assert-types"),
   new_logger = require("utilities.logger").new,
   profile = require("utilities.profiler").profile,
+  new_debouncer = require("utilities.debouncer").new,
 
   allow_mappings_from = mappings_keeper.allow_mappings_from,
   prohibit_external_mappings = mappings_keeper.prohibit_external_mappings,

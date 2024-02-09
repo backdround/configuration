@@ -1,9 +1,8 @@
-local hacks = require("general.hacks")
 local u = require("utilities")
 local smart_paste = require("general.hacks.smart-paste")
 
 local buffer_reloader = function()
-  local checker = hacks.debouncer.new(nil, vim.cmd.checktime, 10)
+  local checker = u.new_debouncer(nil, vim.cmd.checktime, 10)
   u.autocmd("UserLoadChangedBuffers", { "FocusGained", "BufEnter" }, {
     callback = checker.run,
   })

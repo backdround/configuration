@@ -102,7 +102,7 @@ local function scroll(plugin_manager)
         end
       end
 
-      local illuminate_pauser = hacks.debouncer.new(
+      local illuminate_pauser = u.new_debouncer(
         u.wrap(illuminate_do, "pause_buf"),
         u.wrap(illuminate_do, "resume_buf"),
         350
