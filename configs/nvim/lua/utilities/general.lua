@@ -113,6 +113,14 @@ M.array_extend = function(...)
   return output_array
 end
 
+---Requires the given module even if the module has been required once.
+---@param path string
+---@return any
+M.load = function(path)
+  package.loaded[path] = nil
+  return require(path)
+end
+
 ---@return "operator-pending"|"visual"|"normal"|"insert"
 M.mode = function()
   local m = vim.api.nvim_get_mode().mode

@@ -25,5 +25,6 @@ return {
   wrap = general.wrap,
   feedkeys = general.feedkeys,
   array_extend = general.array_extend,
+  load = general.load,
   mode = general.mode,
 }
