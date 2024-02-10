@@ -1,40 +1,30 @@
 ---Focuses a floating window. If the current window is floating
 ---then focuses the next floating window.
 local focus_floating_window = function()
-  local windows = vim.api.nvim_tabpage_list_wins(0)
+  local current_tab_window_ids_plain = vim.api.nvim_tabpage_list_wins(0)
+  vim.fn.sort(current_tab_window_ids_plain)
+  local current_tab_window_ids = vim.iter(current_tab_window_ids_plain)
 
-  local floating_windows = {}
-  for _, window_id in ipairs(windows) do
+  -- Filter out non floating windows.
+  current_tab_window_ids:filter(function(window_id)
     local config = vim.api.nvim_win_get_config(window_id)
-    if config.relative ~= "" then
-      table.insert(floating_windows, window_id)
-    end
-  end
+    return config.relative ~= ""
+  end)
 
-  if #floating_windows == 0 then
-    return
-  end
+  -- Get first floating window
+  local first_floating_window = current_tab_window_ids:peek()
 
-  vim.fn.sort(floating_windows)
-
+  -- Get after the current floating window
   local current_window = vim.api.nvim_get_current_win()
-  local current_floating_window_id = vim.fn.index(
-    floating_windows,
-    current_window
-  ) + 1
+  current_tab_window_ids:find(current_window)
+  local next_floating_window_id = current_tab_window_ids:next()
 
-  if current_floating_window_id == 0 then
-    vim.api.nvim_set_current_win(floating_windows[1])
-    return
+  -- Set focus
+  if next_floating_window_id ~= nil then
+    vim.api.nvim_set_current_win(next_floating_window_id)
+  elseif first_floating_window ~= nil then
+    vim.api.nvim_set_current_win(first_floating_window)
   end
-
-  if current_floating_window_id + 1 > #floating_windows then
-    vim.api.nvim_set_current_win(floating_windows[1])
-    return
-  end
-
-  local next_window_id = floating_windows[current_floating_window_id + 1]
-  vim.api.nvim_set_current_win(next_window_id)
 end
 
 return focus_floating_window
