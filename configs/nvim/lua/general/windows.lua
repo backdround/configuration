@@ -1,4 +1,5 @@
 local u = require("utilities")
+local hacks = require("general.hacks")
 
 local function get_multiplied_action(key, default_count)
   key = u.replace_termcodes(key)
@@ -24,6 +25,7 @@ local function splits()
   u.nmap("se", "<C-w>j", "Move focus to the down split")
   u.nmap("su", "<C-w>k", "Move focus to the up split")
   u.nmap("si", "<C-w>l", "Move focus to the right split")
+  u.nmap("sa", hacks.focus_floating_window, "Move focus to a floating window")
 
   -- Movement
   u.nmap("sO", "<C-w>H", "Move current split to the right side")
