@@ -2,11 +2,11 @@ local u = require("utilities")
 
 local buffer_name_counter = 0
 
----Shows the given text in a new thowaway window
+---Shows the given text in a float window
 ---@param text? string text to show in the window.
----@param window_config table
+---@param window_config table nvim_open_win config
 ---@return number, number buffer and window ids
-local show_in_throwaway_window = function(text, window_config)
+local show_in_float_window = function(text, window_config)
   u.assert_types({
     text = { text, "string", "nil" },
     window_config = { window_config, "table" },
@@ -29,4 +29,4 @@ local show_in_throwaway_window = function(text, window_config)
   return buffer_id, window_id
 end
 
-return show_in_throwaway_window
+return show_in_float_window

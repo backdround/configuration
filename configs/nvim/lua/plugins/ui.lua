@@ -76,7 +76,7 @@ local float_viewer = function()
       col = math.floor(0.15 * window_width),
     }
 
-    hacks.show_in_throwaway_window(text, window_config)
+    hacks.show_in_float_window(text, window_config)
 
     u.adapted_map("nxo", "<M-s>", "<cmd>q!<cr>", {
       buffer = 0,
