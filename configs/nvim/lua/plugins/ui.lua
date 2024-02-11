@@ -61,81 +61,90 @@ local function floaterm(plugin_manager)
   })
 end
 
-local function messages(plugin_manager)
-  plugin_manager.add({
-    url = "https://github.com/AckslD/messages.nvim",
-    cmd = { "Messages", "Lua" },
-    event = {
-      { event = "ModeChanged", pattern = "*:*c*" },
-    },
-    config = function()
-      local m = require("messages")
-      m.setup({
-        command_name = "Messages",
+local float_viewer = function()
+  local show_float_view = function(text, title)
+    local window_height = vim.api.nvim_list_uis()[1].height
+    local window_width = vim.api.nvim_list_uis()[1].width
+    local window_config = {
+      relative = "editor",
+      title = title or "Viewer",
+      border = "single",
+      title_pos = "center",
+      width = math.floor(0.7 * window_width),
+      height = math.floor(0.85 * window_height),
+      row = math.floor(0.05 * window_height),
+      col = math.floor(0.15 * window_width),
+    }
 
-        buffer_opts = function(_)
-          local height = vim.api.nvim_list_uis()[1].height
-          local width = vim.api.nvim_list_uis()[1].width
-          return {
-            relative = "editor",
-            border = "single",
-            width = math.floor(0.7 * width),
-            height = math.floor(0.85 * height),
-            row = math.floor(0.05 * height),
-            col = math.floor(0.15 * width),
-          }
-        end,
+    hacks.show_in_throwaway_window(text, window_config)
 
-        post_open_float = function()
-          vim.opt.colorcolumn = ""
-          u.adapted_map("nxo", "<M-s>", "<cmd>q!<cr>", {
-            buffer = 0,
-            silent = true,
-            desc = "Close message window",
-          })
-        end,
-      })
+    u.adapted_map("nxo", "<M-s>", "<cmd>q!<cr>", {
+      buffer = 0,
+      silent = true,
+      desc = "Close message window",
+    })
+  end
 
-      local function lua_print(opts)
-        local api = require("messages.api")
+  local messages = function(opts)
+    local command = opts.args ~= "" and opts.args or "messages"
+    local result = vim.fn.execute(command)
+    show_float_view(result, command)
+  end
 
-        ---@type any
-        local result, error_message = loadstring("return " .. opts.args)
-        if not result then
-          error_message = (error_message or ""):gsub("^.*:%d+: ", "", 1)
-          result = "Unable to get data:\n" .. error_message
-        end
+  vim.api.nvim_create_user_command("Messages", messages, {
+    nargs = "*",
+    desc = "Show messages or a command in a floating window",
+    complete = "command",
+  })
 
-        while type(result) == "function" do
-          result = result()
-        end
+  local lua_print = function(opts)
+    ---@type any
+    local result, error_message = loadstring("return " .. opts.args)
+    if not result then
+      result = "Unable to get data:\n" .. error_message
+    end
 
-        if type(result) == "table" then
-          result = vim.inspect(result)
-        end
+    while type(result) == "function" do
+      local pcall_results = { pcall(result) }
 
-        api.open_float(tostring(result))
+      if not pcall_results[1] then
+        result = pcall_results[2]
+        break
       end
 
-      vim.api.nvim_create_user_command("Lua", lua_print, {
-        nargs = 1,
-        complete = "lua",
-      })
-    end,
+      if #pcall_results > 2 then
+        table.remove(pcall_results, 1)
+        result = pcall_results
+        break
+      end
+
+      result = pcall_results[2]
+    end
+
+    if type(result) ~= "string" then
+      result = vim.inspect(result)
+    end
+    show_float_view(result, "Lua")
+  end
+
+  vim.api.nvim_create_user_command("Lua", lua_print, {
+    nargs = 1,
+    desc = "Show evaluation of lua in a floating window",
+    complete = "lua",
   })
 
   -- selene: allow(global_usage)
+  ---@param message any to show.
   _G.ui_inspect = function(message)
-    u.assert_types({ message = { message, "string" } })
-
-    vim.cmd.Lazy({ args = { "load messages.nvim" } })
+    if type(message) ~= "string" then
+      message = vim.inspect(message)
+    end
 
     if message:len() > 0 and message:sub(-1) == "\n" then
       message = message:sub(1, -2)
     end
 
-    local api = require("messages.api")
-    api.open_float(message)
+    show_float_view(message, "Inspect")
   end
 end
 

@@ -7,6 +7,7 @@ local lazy = require("general.hacks.lazy")
 local smart_paste = require("general.hacks.smart-paste")
 local join_lines = require("general.hacks.join-lines")
 local focus_floating_window = require("general.hacks.focus-floating-window")
+local show_in_throwaway_window = require("general.hacks.show-in-throwaway-window")
 
 return {
   delete_word = delete_word,
@@ -18,4 +19,5 @@ return {
   smart_paste = smart_paste,
   join_lines = join_lines,
   focus_floating_window = focus_floating_window,
+  show_in_throwaway_window = show_in_throwaway_window,
 }
