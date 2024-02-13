@@ -19,6 +19,7 @@ local function focus(plugin_manager)
     dependencies = "folke/twilight.nvim",
     keys = { { "<M-.>", "<cmd>ZenMode<cr>", desc = "Toggle zen mode" } },
     opts = {
+      zindex = 100,
       window = {
         width = 0.70,
         height = 0.92,

@@ -507,6 +507,57 @@ local playground = function()
   u.nmap("<leader>y", open_playground, "Open playground")
 end
 
+local global_note = function(plugin_manager)
+  plugin_manager.add({
+    url = "git@github.com:backdround/global-note.nvim.git",
+    config = function()
+      local get_project_name = function()
+        local work_directory, err = vim.loop.cwd()
+        if work_directory == nil then
+          error(err)
+        end
+
+        local project_name = vim.fs.basename(work_directory)
+        if project_name == nil then
+          error("Unable to get the project name!")
+        end
+
+        return project_name
+      end
+
+      local upper_first_character = function(s)
+        return s:sub(1, 1):upper() .. s:sub(2, -1)
+      end
+
+      local gn = require("global-note")
+      gn.setup({
+        post_open = function()
+          u.adapted_map("nxo", "<M-s>", "<cmd>quit<cr>", {
+            buffer = true,
+            silent = true,
+            desc = "Close the note window",
+          })
+        end,
+        additional_presets = {
+          project_local = {
+            command_name = "ProjectNote",
+            filename = function()
+              return get_project_name() .. ".md"
+            end,
+            title = function()
+              return upper_first_character(get_project_name())
+            end,
+          },
+        },
+      })
+
+      local toggle_project_note = u.wrap(gn.toggle_note, "project_local")
+      u.nmap("<leader>a", toggle_project_note, "Toggle project local note")
+      u.nmap("<leader><S-a>", gn.toggle_note, "Toggle global note")
+    end
+  })
+end
+
 local function apply(plugin_manager)
   buffer_reloader()
   rooter(plugin_manager)
@@ -519,6 +570,7 @@ local function apply(plugin_manager)
   quickfix(plugin_manager)
   icon_picker(plugin_manager)
   playground()
+  global_note(plugin_manager)
 end
 
 return {
