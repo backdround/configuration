@@ -166,6 +166,7 @@ local function apply()
   -- https://github.com/rmagatti/auto-session/issues/109
   -- https://github.com/nvim-telescope/telescope.nvim/issues/559
   options.sessionoptions:remove("folds")
+  options.sessionoptions:remove("blank")
 
   vim.schedule(function()
     vim.cmd("clearjumps")

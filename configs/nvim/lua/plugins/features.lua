@@ -278,40 +278,21 @@ local function quickfix(plugin_manager)
     end,
   })
 
+  local qf_toggle = function()
+    local quickfix_window_id = vim.fn.getqflist({ winid = 0 }).winid
+    local action = quickfix_window_id > 0 and 'cclose' or 'copen'
+    vim.cmd("botright 12" .. action)
+  end
+
+  u.nmap("xx", qf_toggle, "Toggle quickfix window")
+  u.nmap("<M-j>", "<Cmd>cnext<Cr>", "Go to next quickfix entry")
+  u.nmap("<M-k>", "<Cmd>cprev<Cr>", "Go to previous quickfix entry")
+
   plugin_manager.add({
     url = "https://github.com/ashfinal/qfview.nvim",
     enabled = not LightWeight,
     event = "UIEnter",
     opts = {},
-  })
-
-  plugin_manager.add({
-    url = "https://github.com/ten3roberts/qf.nvim",
-    enabled = not LightWeight,
-    event = "UIEnter",
-    config = function()
-      local qf = require("qf")
-      local windows_behaviour = {
-        auto_close = false,
-        auto_resize = true,
-        max_height = 16,
-        min_height = 13,
-        wide = true,
-        number = true,
-        relativenumber = true,
-      }
-      qf.setup({
-        l = windows_behaviour,
-        c = windows_behaviour,
-        close_other = false,
-        pretty = false,
-        silent = false,
-      })
-
-      u.nmap("xx", u.wrap(qf.toggle, "c", false), "Toggle quickfix window")
-      u.nmap("xk", u.wrap(qf.below, "c"), "Go to next quickfix entry")
-      u.nmap("xj", u.wrap(qf.above, "c"), "Go to previous quickfix entry")
-    end,
   })
 
   -- TODO: rewrite the plugin with only preview concept.
@@ -320,14 +301,13 @@ local function quickfix(plugin_manager)
     enabled = not LightWeight,
     ft = "qf",
     config = function()
-      local height = vim.o.lines / 4
       local qf = require("bqf")
       qf.setup({
         magic_window = false,
         preview = {
           border = "single",
           winblend = 0,
-          winheight = height,
+          win_height = 30,
         },
         func_map = {
           open = "<M-o>",
