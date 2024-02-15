@@ -6,7 +6,7 @@ local assert_types = require("utilities.assert-types")
 
 ---@return User_ProfilerTime
 local get_time = function()
-  ---@diagnostic disable-next-line: undefined-field
+  ---@diagnostic disable-next-line: undefined-field, return-type-mismatch
   return vim.loop.clock_gettime("monotonic")
 end
 
@@ -39,7 +39,7 @@ local profile = function(fn, count)
 
   local start_time = get_time()
   for _ = 1, count do
-    result = fn()
+    result = { fn() }
   end
   local end_time = get_time()
 
