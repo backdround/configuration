@@ -56,11 +56,11 @@ end
 local function search_in_browser(plugin_manager)
   plugin_manager.add({
     url = "https://github.com/tyru/open-browser.vim",
-    keys = { "<leader>/", { "<leader>/", mode = "x" } },
+    keys = { "x/", { "x/", mode = "x" } },
     config = function()
-      local description = "Search in browser"
-      u.nmap("<leader>/", "<Plug>(openbrowser-smart-search)", description)
-      u.xmap("<leader>/", "<Plug>(openbrowser-smart-search)", description)
+      local description = "Search in a browser"
+      u.nmap("x/", "<Plug>(openbrowser-smart-search)", description)
+      u.xmap("x/", "<Plug>(openbrowser-smart-search)", description)
     end
   })
 end

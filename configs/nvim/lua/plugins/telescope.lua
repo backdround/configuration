@@ -173,8 +173,7 @@ local function set_mappings()
   local telescope = require("telescope")
   local builtin = require("telescope.builtin")
 
-  -- Maps
-  u.nmap("<leader><M-m>", function()
+  u.nmap("<leader>/", function()
     builtin.keymaps({ modes = { "", "n", "i", "x", "o", "c", "s", "t" } })
   end, "Show mappings for all possible modes")
 
@@ -209,13 +208,13 @@ local function set_mappings()
         u.wrap(vim.schedule, telescope_show_local_maps)
     end
 
+    -- <C-_> map means <C-/> map.
     local description = "Show mappings for mode " .. mode
-    u.adapted_map(mode, "<M-m>", telescope_show_maps, description)
+    u.adapted_map(mode, "<C-_>", telescope_show_maps, description)
     description = "Show all mappings for mode " .. mode
-    u.adapted_map(mode, "<C-M-m>", telescope_show_all_maps, description)
+    u.adapted_map(mode, "<C-M-_>", telescope_show_all_maps, description)
     description = "Show buffer only mappings"
-    -- Map to <C-/> (<C-_> is a workaround).
-    u.adapted_map(mode, "<C-_>", telescope_show_local_maps, description)
+    u.adapted_map(mode, "<M-/>", telescope_show_local_maps, description)
   end
 
   -- Files

@@ -6,7 +6,7 @@ local function commenting(plugin_manager)
   plugin_manager.add({
     url = "https://github.com/numToStr/Comment.nvim",
     enabled = not LightWeight,
-    keys = hacks.lazy.generate_keys("nx", { "bb", "b<M-b>", "bm", "b<M-m>" }),
+    keys = hacks.lazy.generate_keys("nx", { "bb", "<M-b>", "bm", "<M-m>" }),
     config = function()
       require("Comment").setup({
         ignore = "^$",
@@ -73,8 +73,8 @@ local function commenting(plugin_manager)
       map("x", "bb", operator_comment, "Comment selected area")
       map("x", "bm", operator_uncomment, "Uncomment selected area")
 
-      map("n", "b<M-b>", operator_comment, "Comment with motion")
-      map("n", "b<M-m>", operator_uncomment, "Uncomment with motion")
+      map("n", "<M-b>", operator_comment, "Comment with motion")
+      map("n", "<M-m>", operator_uncomment, "Uncomment with motion")
     end,
   })
 end
