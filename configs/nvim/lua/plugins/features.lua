@@ -532,8 +532,8 @@ local global_note = function(plugin_manager)
       })
 
       local toggle_project_note = u.wrap(gn.toggle_note, "project_local")
-      u.nmap("<leader>a", toggle_project_note, "Toggle project local note")
-      u.nmap("<leader><S-a>", gn.toggle_note, "Toggle global note")
+      u.nmap("<leader><M-i>", toggle_project_note, "Toggle project local note")
+      u.nmap("<leader>i", gn.toggle_note, "Toggle global note")
     end
   })
 end
