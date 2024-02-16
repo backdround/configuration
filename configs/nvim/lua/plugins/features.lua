@@ -471,7 +471,7 @@ local playground = function()
   ---@type string
   ---@diagnostic disable-next-line: assign-type-mismatch
   local config_directory = vim.fn.stdpath("config")
-  local filepath = vim.fs.joinpath(config_directory, "playground.lua")
+  local filepath = u.joinpath(config_directory, "playground.lua")
 
   u.autocmd("UserSourcePlayground", "BufWritePost", {
     desc = "Source playground on save",

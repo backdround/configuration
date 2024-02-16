@@ -113,6 +113,14 @@ M.array_extend = function(...)
   return output_array
 end
 
+M.joinpath = function(...)
+  if vim.fs.joinpath ~= nil then
+    return vim.fs.joinpath(...)
+  end
+  -- for older neovim versions:
+  return table.concat({ ... }, "/"):gsub("//+", "/")
+end
+
 ---Requires the given module even if the module has been required once.
 ---@param path string
 ---@return any

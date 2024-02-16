@@ -70,7 +70,7 @@ M.prohibit_external_mappings = function()
   end
   M._inited = true
 
-  vim.keymap.del({ "n", "x" }, "gx")
+  pcall(vim.keymap.del, { "n", "x" }, "gx")
 
   M._logger = new_logger("mappings.log", true)
   vim.api.nvim_create_user_command("MappingsLog", function()
