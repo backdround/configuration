@@ -135,6 +135,7 @@ configure-packages() {
   # neovim
   echo "Installation python neovim"
   pip install --user neovim
+  bob use latest
 
   # langtool
   echo "Installation pyLanguagetool"

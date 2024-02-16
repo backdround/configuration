@@ -62,6 +62,7 @@ apllications=(
 
 utils=(
   bat
+  bob
   bottom
   diff-so-fancy
   fd
@@ -69,7 +70,6 @@ utils=(
   htop
   jq
   lsd
-  neovim
   openbsd-netcat
   openssh
   ranger

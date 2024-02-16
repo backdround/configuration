@@ -49,6 +49,7 @@ setopt extended_glob
 
 export PATH="$HOME/.local/bin/:$PATH"
 export PATH="$HOME/go/bin/:$PATH"
+export PATH="$HOME/.local/share/bob/nvim-bin/:$PATH"
 
 export EDITOR="editor.sh"
 export PAGER="nvimpager.sh"
