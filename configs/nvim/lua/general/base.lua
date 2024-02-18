@@ -116,7 +116,12 @@ local function copy_paste()
   -- Copy
   u.map("f", 'y', "Yank operator")
   u.nmap("F", 'y$', "Yank operator")
-  u.nmap("ff", 'yy', "Yank the current line")
+  u.nmap("ff", function()
+    return vim.v.count == 0 and "yy" or "yj"
+  end, {
+    desc = "Yank v:count lines",
+    expr = true,
+  })
 
   -- Copy all yanked text to all os buffers.
   u.autocmd("UserPutYankedTextInOsBuffers", "TextYankPost", {
