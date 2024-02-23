@@ -333,6 +333,16 @@ local function misc()
   for _, map in ipairs(maps_to_disable) do
     u.map(map, "<nop>", "Don't do anything")
   end
+
+  u.autocmd("DisableFuckingLeftMouseGotoInHelp", "FileType", {
+    pattern = "help",
+    callback = function()
+      u.map("<2-LeftMouse>", "<nop>", {
+        desc = "Don't do anything",
+        buffer = true,
+      })
+    end,
+  })
 end
 
 local function commandline()
