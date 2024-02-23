@@ -224,15 +224,15 @@ local function rabbit_hop(plugin_manager)
       end
 
       -- Jump between commas
-      local p = "\\M,"
-      map_hop("F25", "backward", 0, p, "commas")
-      map_hop("F26", "forward", 0, p, "commas")
+      local p = "\\M="
+      map_hop("F25", "backward", 0, p, "equals")
+      map_hop("F26", "forward", 0, p, "equals")
 
-      map_hop("w", "backward", -1, p, "commas")
-      map_hop("v", "forward", -1, p, "commas")
+      map_hop("w", "backward", -1, p, "equals")
+      map_hop("v", "forward", -1, p, "equals")
 
-      map_hop("f", "backward", 1, p, "commas")
-      map_hop("g", "forward", 1, p, "commas")
+      map_hop("f", "backward", 1, p, "equals")
+      map_hop("g", "forward", 1, p, "equals")
 
       -- Jump between quotes
       p = "\\v[\"'`]"
@@ -246,15 +246,15 @@ local function rabbit_hop(plugin_manager)
       map_hop("r", "forward", 1, p, "quotes")
 
       -- Jump between equals
-      p = "\\M="
-      map_hop("F29", "backward", 0, p, "equals")
-      map_hop("F30", "forward", 0, p, "equals")
+      p = "\\M,"
+      map_hop("F29", "backward", 0, p, "commas")
+      map_hop("F30", "forward", 0, p, "commas")
 
-      map_hop("a", "backward", -1, p, "equals")
-      map_hop("o", "forward", -1, p, "equals")
+      map_hop("a", "backward", -1, p, "commas")
+      map_hop("o", "forward", -1, p, "commas")
 
-      map_hop("d", "backward", 1, p, "equals")
-      map_hop("h", "forward", 1, p, "equals")
+      map_hop("d", "backward", 1, p, "commas")
+      map_hop("h", "forward", 1, p, "commas")
 
       -- Jump between () / [] brackets
       p = "\\v[\\][()]"
@@ -267,16 +267,16 @@ local function rabbit_hop(plugin_manager)
       map_hop("t", "backward", 1, p, "() / [] brackets")
       map_hop("n", "forward", 1, p, "() / [] brackets")
 
-      -- Jump between different symbols
-      p = "\\v[-+&*#|\\~!?;:%@^<>./]"
-      map_hop("F33", "backward", 0, p, "different symbols")
-      map_hop("F34", "forward", 0, p, "different symbols")
+      -- Jump between dots
+      p = "\\M."
+      map_hop("F33", "backward", 0, p, "dots")
+      map_hop("F34", "forward", 0, p, "dots")
 
-      map_hop("x", "backward", -1, p, "different symbols")
-      map_hop("q", "forward", -1, p, "different symbols")
+      map_hop("x", "backward", -1, p, "dots")
+      map_hop("q", "forward", -1, p, "dots")
 
-      map_hop("l", "backward", 1, p, "different symbols")
-      map_hop("b", "forward", 1, p, "different symbols")
+      map_hop("l", "backward", 1, p, "dots")
+      map_hop("b", "forward", 1, p, "dots")
 
       -- Jump between {} curly brackets
       p = "\\v[{}]"
