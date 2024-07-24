@@ -2,89 +2,91 @@ local u = require("utilities")
 local hacks = require("general.hacks")
 
 local function word_motion(plugin_manager)
-  local loading_fkeys =
-    { "<F17>", "<F18>", "<F19>", "<F20>", "<F21>", "<F22>", "<F23>", "<F24>" }
+  local word_hop_kinds = {
+    ["big word"] = {
+      patterns = { "\\v[^[:blank:]]+" },
+      normal_keys = { "Z", "Q", "J", "K" },
+      insert_keys = { "<C-Z>", "<C-Q>", "<C-J>", "<C-K>" },
+    },
 
-  local loading_nkeys = { "z", "q", "j", "k", "Z", "Q", "J", "K", }
-  local loading_ikeys =
-    { "<C-Z>", "<C-Q>", "<C-J>", "<C-K>", "<M-Z>", "<M-Q>", "<M-J>", "<M-K>" }
+    ["full word"] = {
+      preset_patterns = { "any_word", "number", "hex_color" },
+      normal_keys = { "z", "q", "j", "k" },
+      insert_keys = { "<M-z>", "<M-q>", "<M-j>", "<M-k>" },
+    },
 
-  loading_ikeys = u.array_extend(loading_ikeys, loading_fkeys)
-  loading_nkeys = u.array_extend(loading_nkeys, loading_fkeys)
+    ["sub word"] = {
+      preset_patterns = {
+        "snake_case",
+        "camel_case",
+        "upper_case",
+        "number",
+        "hex_color",
+      },
+      normal_keys = { "<F21>", "<F22>", "<F23>", "<F24>" },
+      insert_keys = { "<F21>", "<F22>", "<F23>", "<F24>" },
+    },
+
+    ["number"] = {
+      preset_patterns = { "number", "hex_color" },
+      normal_keys = { "<F17>", "<F18>", "<F19>", "<F20>" },
+      insert_keys = { "<F17>", "<F18>", "<F19>", "<F20>" },
+    },
+  }
+
+  local loading_normal_keys = {}
+  local loading_insert_keys = {}
+
+  for _, kind in pairs(word_hop_kinds) do
+    loading_normal_keys = u.array_extend(loading_normal_keys, kind.normal_keys)
+    loading_insert_keys = u.array_extend(loading_insert_keys, kind.insert_keys)
+  end
 
   plugin_manager.add({
     url = "git@github.com:backdround/neowords.nvim.git",
     keys = u.array_extend(
-      hacks.lazy.generate_keys("nxo", loading_nkeys),
-      hacks.lazy.generate_keys("i", loading_ikeys)
+      hacks.lazy.generate_keys("nxo", loading_normal_keys),
+      hacks.lazy.generate_keys("i", loading_insert_keys)
     ),
     config = function()
       local neowords = require("neowords")
-      local pp = neowords.pattern_presets
 
-      local map = function(lhs, rhs, description)
-        if lhs ~= nil and lhs ~= "" then
-          u.map(lhs, rhs, description)
+      -- Convert preset_patterns into patterns
+      for _, kind in pairs(word_hop_kinds) do
+        if kind.preset_patterns ~= nil then
+          kind.patterns = {}
+
+          for _, name in ipairs(kind.preset_patterns) do
+            table.insert(kind.patterns, neowords.pattern_presets[name])
+          end
+
+          kind.preset_patterns = nil
         end
       end
 
-      local imap = function(lhs, rhs, description)
-        if lhs ~= nil and lhs ~= "" then
-          u.imap(lhs, rhs, description)
-        end
-      end
+      local map_word_hop_kind = function(name, kind)
+        local hops = neowords.get_word_hops(unpack(kind.patterns))
 
-      local map_hops = function(patterns, name, keys, insert_keys)
-        local hops = neowords.get_word_hops(unpack(patterns))
-
-        local description = "Hop to the start of th previous " .. name
-        map(keys[1], hops.backward_start, description)
-        imap(insert_keys[1], hops.backward_start, description)
+        local description = "Hop to the start of the previous " .. name
+        u.map(kind.normal_keys[1], hops.backward_start, description)
+        u.imap(kind.insert_keys[1], hops.backward_start, description)
 
         description = "Hop to the end of the previous " .. name
-        map(keys[2], hops.backward_end, description)
-        imap(insert_keys[2], hops.backward_end, description)
+        u.map(kind.normal_keys[2], hops.backward_end, description)
+        u.imap(kind.insert_keys[2], hops.backward_end, description)
 
         description = "Hop to the start of the next " .. name
-        map(keys[3], hops.forward_start, description)
-        imap(insert_keys[3], hops.forward_start, description)
+        u.map(kind.normal_keys[3], hops.forward_start, description)
+        u.imap(kind.insert_keys[3], hops.forward_start, description)
 
         description = "Hop to the end of the next " .. name
-        map(keys[4], hops.forward_end, description)
-        imap(insert_keys[4], hops.forward_end, description)
+        u.map(kind.normal_keys[4], hops.forward_end, description)
+        u.imap(kind.insert_keys[4], hops.forward_end, description)
       end
 
-      -- Big words
-      map_hops(
-        { "\\v[^[:blank:]]+" },
-        "big word",
-        { "Z", "Q", "J", "K" },
-        { "<C-Z>", "<C-Q>", "<C-J>", "<C-K>" }
-      )
-
-      -- Full words
-      map_hops(
-        { pp.any_word, pp.number, pp.hex_color },
-        "full word",
-        { "z", "q", "j", "k" },
-        { "<M-z>", "<M-q>", "<M-j>", "<M-k>" }
-      )
-
-      -- Sub words
-      map_hops(
-        { pp.snake_case, pp.camel_case, pp.upper_case, pp.number, pp.hex_color },
-        "sub word",
-        { "<F21>", "<F22>", "<F23>", "<F24>" },
-        { "<F21>", "<F22>", "<F23>", "<F24>" }
-      )
-
-      -- Number words
-      map_hops(
-        { pp.number, pp.hex_color },
-        "number",
-        { "<F17>", "<F18>", "<F19>", "<F20>" },
-        { "<F17>", "<F18>", "<F19>", "<F20>" }
-      )
+      for name, kind in pairs(word_hop_kinds) do
+        map_word_hop_kind(name, kind)
+      end
     end,
   })
 end
@@ -125,15 +127,15 @@ local function scroll(plugin_manager)
 end
 
 local function improved_ft(plugin_manager)
-  local loading_nkeys =
+  local loading_normal_keys =
     { "p", "<M-p>", "<S-p>", "w", "<M-w>", "<S-w>", "(", ")" }
-  local loading_ikeys = { "<M-p>", "<M-w>", "<M-u>", "<M-e>" }
+  local loading_insert_keys = { "<M-p>", "<M-w>", "<M-u>", "<M-e>" }
 
   plugin_manager.add({
     url = "git@github.com:backdround/improved-ft.nvim.git",
     keys = u.array_extend(
-      hacks.lazy.generate_keys("nxo", loading_nkeys),
-      hacks.lazy.generate_keys("i", loading_ikeys)
+      hacks.lazy.generate_keys("nxo", loading_normal_keys),
+      hacks.lazy.generate_keys("i", loading_insert_keys)
     ),
     config = function()
       local ft = require("improved-ft")
