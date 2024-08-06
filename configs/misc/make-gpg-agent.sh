@@ -17,7 +17,7 @@ cat > "$CONFIG" <<EOF
 default-cache-ttl 30
 max-cache-ttl 60
 
-pinentry-program /usr/bin/pinentry-gtk-2
+pinentry-program /usr/bin/pinentry-gtk
 EOF
 
 # Sets config permition
