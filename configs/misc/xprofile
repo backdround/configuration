@@ -2,7 +2,6 @@
 
 export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 export GCC_COLORS=true
-export LC_ALL=en_US.UTF-8
 export TERMINAL=kitty
 
 if grep -q home ~/.instance; then
