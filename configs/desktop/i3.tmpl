@@ -15,7 +15,7 @@ exec_always --no-startup-id systemctl --user start i3.target
 #  Polybar
 exec_always --no-startup-id $HOME/.config/polybar/startup
 #  Mouse hider
-exec_always --no-startup-id pkill unclutter ; unclutter --timeout 1 --jitter 30 --ignore-scrolling &
+exec_always --no-startup-id "pkill unclutter; unclutter --timeout 1 --jitter 10 --ignore-scrolling"
 
 
 # Main binds
