@@ -87,6 +87,14 @@
         target: "{{.GitRoot}}/configs/polybar/startup"
         link: "{{.Home}}/.config/polybar/startup"
 
+    # gromit-mpx
+    gromit-mpx.cfg:
+        target: "{{.GitRoot}}/configs/gromit-mpx/gromit-mpx.cfg"
+        link: "{{.Home}}/.config/gromit-mpx.cfg"
+    gromit-mpx.ini:
+        target: "{{.GitRoot}}/configs/gromit-mpx/gromit-mpx.ini"
+        link: "{{.Home}}/.config/gromit-mpx.ini"
+
     # Keyboard
     keyboard:
         target: "{{.GitRoot}}/configs/keyboard/keymap/config"

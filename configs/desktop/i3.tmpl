@@ -41,6 +41,10 @@ bindsym $mod+q restart
 ############################################################
 # CUSTOM BINDS
 
+# TODO: fix "--release" delay:
+# - or by switching to sway
+# - or by switching to xbindkeys
+
 #  Translate
 bindsym $mod+a exec --no-startup-id .local/bin/translate_notify
 #  D&D screens
@@ -56,6 +60,12 @@ bindsym Mod1+Shift+space exec --no-startup-id dunstctl close-all
 bindsym --release Print exec --no-startup-id ~/.local/bin/flameshot-wrapper.sh
 bindsym --release $mod+Print exec --no-startup-id ~/.local/bin/screenshot_window
 
+# Gromit-mpx
+bindsym --release $mod+1 exec --no-startup-id "pgrep gromit-mpx && gromit-mpx --toggle || gromit-mpx --active"
+bindsym --release $mod+2 exec --no-startup-id gromit-mpx --undo
+bindsym --release $mod+shift+2 exec --no-startup-id gromit-mpx --redo
+bindsym --release $mod+3 exec --no-startup-id "pkill gromit-mpx"
+
 # Volume
 bindsym XF86AudioMute exec --no-startup-id pulseaudio-ctl mute
 bindsym XF86AudioRaiseVolume exec --no-startup-id "~/.local/bin/pulseaudio-ctl.sh up"
@@ -64,8 +74,6 @@ bindsym XF86AudioLowerVolume exec --no-startup-id "~/.local/bin/pulseaudio-ctl.s
 # Brightness
 bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 2
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 2
-
-
 
 ############################################################
 # Workspaces

@@ -6,4 +6,5 @@ AUR_PACKAGES=(
   dragon-drop
   google-chrome
   nvimpager
+  gromit-mpx-git
 )
