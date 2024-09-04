@@ -10,7 +10,7 @@ local function word_motion(plugin_manager)
     },
 
     ["full word"] = {
-      preset_patterns = { "any_word", "number", "hex_color" },
+      preset_patterns = { "any_word" },
       normal_keys = { "z", "q", "j", "k" },
       insert_keys = { "<M-z>", "<M-q>", "<M-j>", "<M-k>" },
     },
@@ -20,14 +20,12 @@ local function word_motion(plugin_manager)
         "snake_case",
         "camel_case",
         "upper_case",
-        "number",
-        "hex_color",
       },
       normal_keys = { "<F21>", "<F22>", "<F23>", "<F24>" },
       insert_keys = { "<F21>", "<F22>", "<F23>", "<F24>" },
     },
 
-    ["number"] = {
+    ["number / hex color"] = {
       preset_patterns = { "number", "hex_color" },
       normal_keys = { "<F17>", "<F18>", "<F19>", "<F20>" },
       insert_keys = { "<F17>", "<F18>", "<F19>", "<F20>" },
@@ -54,10 +52,11 @@ local function word_motion(plugin_manager)
       -- Convert preset_patterns into patterns
       for _, kind in pairs(word_hop_kinds) do
         if kind.preset_patterns ~= nil then
-          kind.patterns = {}
+          kind.patterns = kind.patterns or {}
 
           for _, name in ipairs(kind.preset_patterns) do
-            table.insert(kind.patterns, neowords.pattern_presets[name])
+            local pattern = neowords.pattern_presets[name]
+            table.insert(kind.patterns, pattern)
           end
 
           kind.preset_patterns = nil
