@@ -14,8 +14,9 @@ TEMPLATE_MESSAGE='{"args": ["%s"], "target_arg": null, "version": "1.0.4", "prot
 MESSAGE=$(printf "$TEMPLATE_MESSAGE" "$QUTE_COMMAND" "`pwd`")
 
 # FIXME:
-# scroll is really sucks in PyQt6.
-# the following workaround downgrades to PyQt5.
+# The PyQt6's scroll really sucks.
+# Make own scroll. Use this to fix it:
+# https://gist.github.com/dezinezync/5487119?permalink_comment_id=1819170#gistcomment-1819170
 export QUTE_QT_WRAPPER=PyQt5
 
 # Бинарник для запуска
