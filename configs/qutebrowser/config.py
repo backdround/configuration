@@ -30,6 +30,7 @@ c.content.geolocation = False
 # c.content.headers.referer = 'same-domain'
 c.content.headers.referer = 'never'
 
+c.content.javascript.clipboard = "access"
 # c.content.javascript.can_access_clipboard = False
 # c.content.javascript.can_close_tabs = False
 # c.content.javascript.can_open_tabs_automatically = False
