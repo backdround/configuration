@@ -114,16 +114,16 @@ c.bindings.default['passthrough'] = {}
 clear_script = "jseval -q -f ~/.config/qutebrowser/my_scripts/clear.js"
 
 # Navigation
-config.bind('e', 'run-with-count 7 scroll down')
-config.bind('u', 'run-with-count 7 scroll up')
+config.bind('e', 'cmd-run-with-count 7 scroll down')
+config.bind('u', 'cmd-run-with-count 7 scroll up')
 
-config.bind('s', 'run-with-count 12 scroll down')
-config.bind('p', 'run-with-count 12 scroll up')
+config.bind('s', 'cmd-run-with-count 12 scroll down')
+config.bind('p', 'cmd-run-with-count 12 scroll up')
 
 config.bind('oh', 'scroll-to-perc')
 config.bind('ot', 'scroll-to-perc 0')
-config.bind('od', 'run-with-count 7 scroll left')
-config.bind('on', 'run-with-count 7 scroll right')
+config.bind('od', 'cmd-run-with-count 7 scroll left')
+config.bind('on', 'cmd-run-with-count 7 scroll right')
 
 # Main
 config.bind('E', 'back')
@@ -153,24 +153,24 @@ config.bind('vp', 'tab-move +')
 config.bind('vy', 'reload')
 config.bind('vY', 'reload -f')
 
-config.bind('vw', 'set-cmd-text -s :tab-take')
-config.bind('vW', 'set-cmd-text -s :tab-take --keep')
+config.bind('vw', 'cmd-set-text -s :tab-take')
+config.bind('vW', 'cmd-set-text -s :tab-take --keep')
 
 
 # Other
 config.bind('+',              'zoom-in')
 config.bind('-',              'zoom-out')
 config.bind('=',              'zoom')
-config.bind('/',              'set-cmd-text /')
-config.bind('?',              'set-cmd-text ?')
-config.bind(':',              'set-cmd-text :')
+config.bind('/',              'cmd-set-text /')
+config.bind('?',              'cmd-set-text ?')
+config.bind(':',              'cmd-set-text :')
 config.bind('<Ctrl-Return>',  'selection-follow -t')
 config.bind('<Return>',       'selection-follow')
 config.bind('<Ctrl-/>',       'search {primary}')
 config.bind('<Ctrl-Shift-?>', 'search --reverse {primary}')
 config.bind(']',              'search-next')
 config.bind('[',              'search-prev')
-config.bind('<Ctrl-Shift-b>', 'set-cmd-text -s :open -p')
+config.bind('<Ctrl-Shift-b>', 'cmd-set-text -s :open -p')
 config.bind('<Alt-s>',        'config-cycle --temp hints.chars {} {}'.format(both_hands_chars, left_hand_chars))
 
 config.bind('g', 'mode-enter insert')
@@ -189,15 +189,15 @@ commands_with_prefix = [
     ('u', 'forward {}'),
 
     # quickmarks/bockmarks
-    ('z', 'set-cmd-text -s :bookmark-load {}'),
-    ('q', 'set-cmd-text -s :quickmark-load {}'),
+    ('z', 'cmd-set-text -s :bookmark-load {}'),
+    ('q', 'cmd-set-text -s :quickmark-load {}'),
     ('j', 'open {} qute://bookmarks'),
     ('k', 'open {} qute://history'),
 
     # open
     ('x', 'open {} {{primary}}'),
     ('X', 'open {} {{clipboard}}'),
-    ('o', 'set-cmd-text -s :open {}'),
+    ('o', 'cmd-set-text -s :open {}'),
     ('O', 'open {}'),
 
     # other
@@ -265,16 +265,16 @@ config.bind('hw', 'hint all window')
 config.bind('hd', 'hint links download')
 
 # Session
-config.bind('Ss', 'set-cmd-text -s :session-save --only-active-window')
-config.bind('Sl', 'set-cmd-text -s :session-load')
-config.bind('Sn', 'set-cmd-text -s :session-load --clear')
-config.bind('Sd', 'set-cmd-text -s :session-delete')
+config.bind('Ss', 'cmd-set-text -s :session-save --only-active-window')
+config.bind('Sl', 'cmd-set-text -s :session-load')
+config.bind('Sn', 'cmd-set-text -s :session-load --clear')
+config.bind('Sd', 'cmd-set-text -s :session-delete')
 
 # other
-config.bind('tb', 'set-cmd-text -s :bookmark-add {url}')
-config.bind('td', 'set-cmd-text -s :bookmark-del')
-config.bind('tq', 'set-cmd-text -s :quickmark-add {url}')
-config.bind('tD', 'set-cmd-text -s :quickmark-del')
+config.bind('tb', 'cmd-set-text -s :bookmark-add {url}')
+config.bind('td', 'cmd-set-text -s :bookmark-del')
+config.bind('tq', 'cmd-set-text -s :quickmark-add {url}')
+config.bind('tD', 'cmd-set-text -s :quickmark-del')
 config.bind('tm', 'tab-mute')
 config.bind('tc', 'clear-messages')
 config.bind('tr', 'config-source')
