@@ -224,7 +224,7 @@ local function rabbit_hop(plugin_manager)
         u.map(key, hop, description)
       end
 
-      -- Jump between commas
+      -- Jump between equals
       local p = "\\M="
       map_hop("F25", "backward", 0, p, "equals")
       map_hop("F26", "forward", 0, p, "equals")
@@ -246,7 +246,7 @@ local function rabbit_hop(plugin_manager)
       map_hop("c", "backward", 1, p, "quotes")
       map_hop("r", "forward", 1, p, "quotes")
 
-      -- Jump between equals
+      -- Jump between commas
       p = "\\M,"
       map_hop("F29", "backward", 0, p, "commas")
       map_hop("F30", "forward", 0, p, "commas")
@@ -320,7 +320,7 @@ local function page_movements()
 end
 
 local function jump_motions(plugin_manager)
-  -- TODO: Use original plugin when all things will be exist:
+  -- TODO: Use original plugin when all things will exist:
   -- - You can jump from empty line (without error, lol).
   -- - camelCase will be available.
   -- - multiply position will be available (begin and end at the same time).
