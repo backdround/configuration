@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+project_root="$(dirname "$(realpath "$0")")"
+cd "$project_root"
+
+# '--shell none' enforces the program to pass "$@" as different arguments.
+watchexec --clear --ignore program --shell none -- ./run "$@"
