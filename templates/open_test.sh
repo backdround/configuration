@@ -99,6 +99,9 @@ case $TEST_TYPE in
   "lua")
     CODE_FILE="main.lua"
     ;;
+  "strace")
+    CODE_FILE="script.sh"
+    ;;
   *)
     error "Template settings not setted!"
 esac
