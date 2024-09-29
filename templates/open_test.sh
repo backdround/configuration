@@ -57,6 +57,9 @@ case $TEST_TYPE in
     SHELL_PANE_DIRECTORY="$TEST_PATH"
     CODE_FILE="main.cpp"
     ;;
+  "asm")
+    CODE_FILE="main.s"
+    ;;
   "c")
     CODE_FILE="main.c"
     ;;
