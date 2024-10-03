@@ -1,15 +1,25 @@
 .section .text
 .global main
 
+print_number:
+  push %rbp
+  mov %rsp, %rbp
+
+  mov %rdi, %rsi
+  lea number_fmt(%rip), %rdi
+  xor %rax, %rax
+  call printf@plt
+
+  mov %rbp, %rsp
+  pop %rbp
+  ret
+
 main:
   push %rbp
   mov %rsp, %rbp
 
-  mov $1, %rax
-  mov $1, %rdi
-  lea message(%rip), %rsi
-  mov message_length(%rip), %edx
-  syscall
+  mov $0xff, %rdi
+  call print_number
 
   xor %rax, %rax
 
@@ -18,7 +28,5 @@ main:
   ret
 
 .section .rodata
-message:
-  .ascii "Hello world!\n\0"
-message_length:
-  .int . - message
+number_fmt:
+  .string "%lu\n"
