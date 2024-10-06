@@ -180,8 +180,8 @@ alias chg='chg '
 alias wch='watch --color --interval 0.3 '
 
 # languages
-t() { trans en:ru "$*"}
-r() { trans ru:en "$*"}
+t() { trans en:ru "$*" | $PAGER }
+r() { trans ru:en "$*" | $PAGER }
 se() { echo "$@" | pylanguagetool -l en-US }
 sr() { echo "$@" | pylanguagetool -l ru-RU }
 say() { trans en:ru -speak "$*" }
