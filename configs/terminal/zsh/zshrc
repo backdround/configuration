@@ -152,6 +152,14 @@ alias h='tldr'
 
 pg() { eval "pgrep -i -l \"$*\" | grep -i \"$*\"" }
 
+hd() {
+  hexdump \
+    --format '"%07_ax  "' \
+    --format ' 2/1 "%02x" " " 2/1 "%02x" " " 2/1 "%02x" " " 2/1 "%02x" "  " 2/1 "%02x" " " 2/1 "%02x" " " 2/1 "%02x" " " 2/1 "%02x"' \
+    --format '"  " 8/1 "%_p" " " 8/1 "%_p" "\n"'\
+    "$@"
+}
+
 # pacman
 sp() { eval "sudo pacman -$*" }
 alias S='sudo pacman -S'
