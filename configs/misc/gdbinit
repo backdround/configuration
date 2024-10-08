@@ -1,0 +1,6 @@
+set debuginfod enabled on
+set listsize 15
+
+source /usr/share/gdb-dashboard/.gdbinit
+dashboard -layout assembly breakpoints expressions memory registers source stack threads variables
+dashboard source -style height 15

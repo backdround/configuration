@@ -55,6 +55,9 @@
     trizen:
         target: "{{.GitRoot}}/configs/misc/trizen.conf"
         link: "{{.Home}}/.config/trizen/trizen.conf"
+    gdbinit:
+        target: "{{.GitRoot}}/configs/misc/gdbinit"
+        link: "{{.Home}}/.gdbinit"
 
 # --------------------------------------------------
 # desktop
