@@ -14,7 +14,7 @@ stty -ixon
 # history
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=50000
-SAVEHIST=30000
+SAVEHIST=50000
 
 setopt hist_expire_dups_first
 setopt hist_ignore_dups
@@ -177,7 +177,7 @@ alias scpi='scp -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsF
 # fresh
 chg() { watchexec -c -- "$@" }
 alias chg='chg '
-alias wch='watch --color --interval 0.3 '
+alias wch='watch --color --interval 0.3 --no-title '
 
 # languages
 t() { trans en:ru "$*" | $PAGER }
