@@ -101,6 +101,7 @@ devs=(
   yarn
   deno
   gdb-dashboard
+  pwndbg
 )
 
 other=(

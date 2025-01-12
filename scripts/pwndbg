@@ -1,0 +1,4 @@
+#!/usr/bin/sh
+
+export GDB_DASHBOARD_TYPE=pwndbg
+exec gdb "$@"

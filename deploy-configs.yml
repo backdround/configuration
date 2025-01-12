@@ -28,6 +28,9 @@
     tealdeer:
         target: "{{.GitRoot}}/configs/terminal/tealdeer.toml"
         link: "{{.Home}}/.config/tealdeer/config.toml"
+    inputrc:
+        target: "{{.GitRoot}}/configs/terminal/inputrc"
+        link: "{{.Home}}/.inputrc"
 
     # Git
     git-config:

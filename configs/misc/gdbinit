@@ -1,19 +1,78 @@
 set debuginfod enabled on
 set listsize 15
 
-source /usr/share/gdb-dashboard/.gdbinit
-dashboard -layout assembly breakpoints expressions memory registers source stack threads variables
-dashboard source -style height 15
-dashboard registers -style column-major True
+python
+import os
+
+dashboard_type = "dashboard"
+if "GDB_DASHBOARD_TYPE" in os.environ:
+  dashboard_type = os.environ["GDB_DASHBOARD_TYPE"]
+
+command = ("set var $dashboard_type = \"{0}\"").format(dashboard_type)
+gdb.execute(command)
+end
+
+if $_streq($dashboard_type, "pwndbg")
+  source /usr/share/pwndbg/gdbinit.py
+  set context-clear-screen on
+end
+
+if $_streq($dashboard_type, "dashboard")
+  source /usr/share/gdb-dashboard/.gdbinit
+  dashboard -layout assembly breakpoints expressions memory registers source stack threads variables
+  dashboard source -style height 15
+  dashboard registers -style column-major True
+end
 
 define hookpost-up
-  dashboard
+  tui-refresh
 end
 
 define hookpost-down
-  dashboard
+  tui-refresh
 end
 
 define hookpost-frame
-  dashboard
+  tui-refresh
+end
+
+# Custom commands
+define tui-refresh
+  print "not defined!"
+end
+
+define tui-source-up
+  print "not defined"
+end
+
+define tui-source-down
+  print "not defined"
+end
+
+define tui-source-reset
+  print "not defined"
+end
+
+if $_streq($dashboard_type, "dashboard")
+  define tui-refresh
+    dashboard
+  end
+
+  define tui-source-up
+    dashboard source scroll -5
+  end
+
+  define tui-source-down
+    dashboard source scroll +5
+  end
+
+  define tui-source-reset
+    dashboard source scroll
+  end
+end
+
+if $_streq($dashboard_type, "pwndbg")
+  define tui-refresh
+    context
+  end
 end

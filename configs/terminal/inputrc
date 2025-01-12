@@ -1,0 +1,6 @@
+$if gdb
+"\C-r": "tui-refresh\n"
+"\C-v": "tui-source-reset\n"
+"\C-p": "tui-source-up\n"
+"\C-s": "tui-source-down\n"
+$endif
