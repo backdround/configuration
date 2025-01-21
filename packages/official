@@ -91,6 +91,7 @@ utils=(
   starship
   # flameshot script
   xdotool
+  nushell
 )
 
 devs=(

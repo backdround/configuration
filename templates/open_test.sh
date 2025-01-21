@@ -105,6 +105,9 @@ case $TEST_TYPE in
   "strace")
     CODE_FILE="script.sh"
     ;;
+  "nu")
+    CODE_FILE="script.nu"
+    ;;
   *)
     error "Template settings not setted!"
 esac

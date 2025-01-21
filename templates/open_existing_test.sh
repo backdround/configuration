@@ -6,7 +6,7 @@ set -e
 TESTS_ROOT="$(realpath ~/.tests)"
 
 preview() {
-  CODE_FILES="fd -tf --max-depth=2 '(main.cpp|main.c|main.s|main.qml|main.py|index.js|main.yml|main.go|Earthfile|Dockerfile|justfile|schema.cue|main.lua)'"
+  CODE_FILES="fd -tf --max-depth=2 '(main.cpp|main.c|main.s|main.qml|main.py|index.js|main.yml|main.go|Earthfile|Dockerfile|justfile|schema.cue|main.lua|script.nu)'"
   BAT_FUNCTION="bat --color=always \$($CODE_FILES $TESTS_ROOT/{})"
   LS_FUNCTION="ls --color=always -l $TESTS_ROOT/{}"
   echo "{ $LS_FUNCTION ; $BAT_FUNCTION }"
